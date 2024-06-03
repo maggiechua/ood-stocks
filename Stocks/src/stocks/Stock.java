@@ -1,3 +1,5 @@
+package stocks;
+
 public interface Stock {
 
   public StockImpl stockSelect(Stock stock);
@@ -10,7 +12,7 @@ public interface Stock {
 
   public StockImpl createPortfolio(String name);
 
-  public StockImpl buy(Stock stock, Integer shares, String portfolioName);
+  public StockImpl buy(Integer shares, String portfolioName);
 
   public StockImpl sell(Stock stock, Integer shares, String portfolioName);
 
