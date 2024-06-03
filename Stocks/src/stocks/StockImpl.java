@@ -1,11 +1,8 @@
-<<<<<<< HEAD:Stocks/src/stocks/StockImpl.java
 package stocks;
 
-=======
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
->>>>>>> refs/remotes/origin/master:Stocks/src/StockImpl.java
 import java.util.HashMap;
 import java.util.Scanner;
 
