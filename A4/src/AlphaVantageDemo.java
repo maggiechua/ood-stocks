@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -8,8 +10,8 @@ public class AlphaVantageDemo {
     //the API key needed to use this web service.
     //Please get your own free API key here: https://www.alphavantage.co/
     //Please look at documentation here: https://www.alphavantage.co/documentation/
-    String apiKey = "W0M1JOKC82EZEQA8";
-    String stockSymbol = "GOOG"; //ticker symbol for Google
+    String apiKey = "5APRD6N4EPK0WCIS";
+    String stockSymbol = "MSFT"; //ticker symbol for Google
     URL url = null;
 
     try {
@@ -53,6 +55,15 @@ public class AlphaVantageDemo {
     }
     catch (IOException e) {
       throw new IllegalArgumentException("No price data found for "+stockSymbol);
+    }
+    String directoryPath = "Stocks/data/";
+    try {
+      String fileName = stockSymbol + ".csv";
+      File file = new File(directoryPath + fileName);
+      FileWriter writer = new FileWriter(file);
+      writer.write(output.toString());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
     System.out.println("Return value: ");
     System.out.println(output.toString());
