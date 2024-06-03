@@ -1,3 +1,5 @@
+package stocks;
+
 import java.util.HashMap;
 
 public class StockImpl implements Stock {
@@ -46,18 +48,18 @@ public class StockImpl implements Stock {
   }
 
   @Override
-  public StockImpl buy(Stock stock, Integer shares, String portfolioName) {
+  public StockImpl buy(Integer shares, String portfolioName) {
     HashMap<String, HashMap<Stock, Integer>> pfs = this.portfolios;
     HashMap<Stock, Integer> currentportfolio = pfs.get(portfolioName);
     pfs.remove(portfolioName);
-    if (currentportfolio.containsKey(stock)) {
-      currentportfolio.put(stock, currentportfolio.get(stock) + shares);
+    if (currentportfolio.containsKey(this.stock)) {
+      currentportfolio.put(this.stock, currentportfolio.get(this.stock) + shares);
     }
     else {
-      currentportfolio.put(stock, shares);
+      currentportfolio.put(this.stock, shares);
     }
     pfs.put(portfolioName, currentportfolio);
-    return new StockImpl(stock, pfs);
+    return new StockImpl(this.stock, pfs);
   }
 
   @Override
