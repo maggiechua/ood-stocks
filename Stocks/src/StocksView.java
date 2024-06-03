@@ -1,2 +1,2 @@
-public interface StocksView {
+public class StocksView {
 }

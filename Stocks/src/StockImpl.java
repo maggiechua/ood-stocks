@@ -1,8 +1,16 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class StockImpl implements Stock {
   Stock stock;
   HashMap<String,HashMap<Stock, Integer>> portfolios;
+
+  public StockImpl() {
+    this.portfolios = new HashMap<String, HashMap<Stock, Integer>>();
+  }
 
   public StockImpl(Stock stock) {
     this.stock = stock;
@@ -15,6 +23,38 @@ public class StockImpl implements Stock {
 
   public static void API() {
     String apiKey = "5APRD6N4EPK0WCIS";
+  }
+
+  public void getFileInfo(String stockSymbol) {
+    int year = 2020;
+    int month = 1;
+    int day = 1;
+    String directoryPath = "Stocks/data/";
+    String fileName = stockSymbol + ".csv";
+    Path path = Path.of(directoryPath + fileName);
+    File file = path.toFile();
+
+    if (!path.toFile().exists()) {
+      // call API to generate file
+    }
+    StringBuilder output = new StringBuilder();
+    try {
+      String today = String.format("%04d-%02d-%02d", year, month, day);
+      Scanner sc = new Scanner(file);
+      while (sc.hasNextLine()) {
+        String line = sc.nextLine();
+        String[] lineInfo = line.split(",");
+        for (int i = 0; i < lineInfo.length; i++) {
+          System.out.println("Line Info: " + lineInfo[i]);
+        }
+        if (lineInfo[0].equals(today)) {
+          System.out.println(today + " Opening Price: " + lineInfo[1]);
+        }
+      }
+    }
+    catch (IOException e) {
+      System.out.println("catch");
+    }
   }
 
   @Override
