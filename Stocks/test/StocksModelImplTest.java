@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import stocks.StocksModelImpl;
 
-public class StockImplTest {
+public class StocksModelImplTest {
   @Test
   public void test() {
     StocksModelImpl s = new StocksModelImpl();
