@@ -47,6 +47,7 @@ public class StocksView {
             + System.lineSeparator());
     writeMessage("menu (Print supported instruction list)" + System.lineSeparator());
     writeMessage("q or quit (quit the program) " + System.lineSeparator());
+    writeMessage("[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator());
   }
 
   protected void printStockMenu() throws IllegalStateException {
@@ -65,5 +66,6 @@ public class StocksView {
     writeMessage("stock-menu (Print supported stocks instruction list)" + System.lineSeparator());
     writeMessage("return-to-menu (return to previous menu)" + System.lineSeparator());
     writeMessage("q or quit (quit the program) " + System.lineSeparator());
+    writeMessage("[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator());
   }
 }
