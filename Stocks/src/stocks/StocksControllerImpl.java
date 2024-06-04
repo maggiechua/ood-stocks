@@ -19,6 +19,11 @@ public class StocksControllerImpl implements StocksController {
   public void execute() {
     Scanner sc = new Scanner(rd);
     boolean quit = false;
+    String stockName;
+    String portfolioName;
+    String date;
+    Integer numOfDays;
+    Integer numOfShares;
 
     // print welcome message
     output.welcomeMessage();
@@ -28,17 +33,31 @@ public class StocksControllerImpl implements StocksController {
       String input = sc.next();
       switch (input) {
         case "select-stock" :
+          stockName = sc.next();
+          stock.stockSelect(stockName);
           while (!quit) {
             output.printStockMenu();
-            String nextinput = sc.next();
-            switch (nextinput) {
+            String nextInput = sc.next();
+            switch (nextInput) {
               case "check-gain-loss" :
+                numOfDays = sc.nextInt();
+                date = sc.next();
+                stock.gainLoss(numOfDays, date);
                 break;
               case "moving-average" :
+                numOfDays = sc.nextInt();
+                date = sc.next();
+                stock.movingAvg(numOfDays, date);
                 break;
               case "check-crossovers" :
+                numOfDays = sc.nextInt();
+                date = sc.next();
+                stock.crossovers(numOfDays, date);
                 break;
               case "buy-stock" :
+                numOfShares = sc.nextInt();
+                portfolioName = sc.next();
+                stock.buy(numOfShares, portfolioName);
                 break;
               case "stock-menu" :
                 output.printStockMenu();
@@ -56,10 +75,19 @@ public class StocksControllerImpl implements StocksController {
           }
           break;
         case "create-portfolio" :
+          portfolioName = sc.next();
+          stock.createPortfolio(portfolioName);
           break;
         case "check-portfolio" :
+          portfolioName = sc.next();
+          date = sc.next();
+          stock.portfolioValue(portfolioName, date);
           break;
         case "sell-stock" :
+          stockName = sc.next();
+          numOfShares = sc.nextInt();
+          portfolioName = sc.next();
+          stock.sell(stockName, numOfShares, portfolioName);
           break;
         case "menu" :
           output.welcomeMessage();
