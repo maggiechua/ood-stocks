@@ -52,13 +52,13 @@ public class StocksViewImpl implements StocksView {
 
   public void printStockMenu() throws IllegalStateException {
     writeMessage("Supported user instructions for selected stock are: " + System.lineSeparator());
-    writeMessage("check-gain-loss start-date end-date (checks gains or losses for stock in " +
+    writeMessage("check-gain-loss number-of-days start-date (checks gains or losses for stock in " +
             "specific date range)"
             + System.lineSeparator());
     writeMessage("moving-average number-of-days date (checks x-day moving average for specified x day " +
             "count and date)"
             + System.lineSeparator());
-    writeMessage("check-crossovers number-of-days start-date end-date (checks x-day crossovers for" +
+    writeMessage("check-crossovers number-of-days start-date (checks x-day crossovers for" +
             " specified x day count in specific date range)"
             + System.lineSeparator());
     writeMessage("buy-stock number-of-shares portfolio-name (buy stock shares)"
