@@ -1,10 +1,13 @@
+package stocks;
+
 import java.io.InputStreamReader;
 
 public class StockProgram {
   public static void main(String[] args) {
-    StockImpl model = new StockImpl();
+    StocksModel model = new StocksModelImpl();
     Readable rd = new InputStreamReader(System.in);
-    StocksController controller = new StocksController(model, rd);
+    Appendable ap = System.out;
+    StocksController controller = new StocksControllerImpl(model, rd);
     controller.execute();
   }
 }
