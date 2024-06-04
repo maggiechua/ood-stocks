@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class StocksControllerImpl implements StocksController {
   private Readable rd;
   private StocksModel stock;
-  private StocksViewImpl output;
+  private StocksView output;
 
   public StocksControllerImpl(StocksModel stock, Readable rd) throws IllegalArgumentException {
     if ((stock == null) || (rd == null)) {
