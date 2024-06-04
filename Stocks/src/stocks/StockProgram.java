@@ -4,10 +4,10 @@ import java.io.InputStreamReader;
 
 public class StockProgram {
   public static void main(String[] args) {
-    Stock model = new StockImpl();
+    StocksModel model = new StocksModelImpl();
     Readable rd = new InputStreamReader(System.in);
     Appendable ap = System.out;
-    StocksController controller = new StocksController(model, rd);
+    StocksController controller = new StocksControllerImpl(model, rd);
     controller.execute();
   }
 }
