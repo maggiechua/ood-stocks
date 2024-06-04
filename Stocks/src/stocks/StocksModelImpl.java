@@ -6,19 +6,19 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class StockImpl implements Stock {
-  Stock stock;
-  HashMap<String,HashMap<Stock, Integer>> portfolios;
+public class StocksModelImpl implements StocksModel {
+  StocksModel stock;
+  HashMap<String,HashMap<StocksModel, Integer>> portfolios;
 
-  public StockImpl() {
-    this.portfolios = new HashMap<String, HashMap<Stock, Integer>>();
+  public StocksModelImpl() {
+    this.portfolios = new HashMap<String, HashMap<StocksModel, Integer>>();
   }
 
-  public StockImpl(Stock stock) {
+  public StocksModelImpl(StocksModel stock) {
     this.stock = stock;
   }
 
-  protected StockImpl(Stock stock, HashMap<String, HashMap<Stock, Integer>> portfolios) {
+  protected StocksModelImpl(StocksModel stock, HashMap<String, HashMap<StocksModel, Integer>> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
   }
@@ -60,8 +60,8 @@ public class StockImpl implements Stock {
   }
 
   @Override
-  public StockImpl stockSelect(Stock stock) {
-    return new StockImpl(stock);
+  public StocksModelImpl stockSelect(StocksModel stock) {
+    return new StocksModelImpl(stock);
   }
 
   @Override
@@ -80,17 +80,17 @@ public class StockImpl implements Stock {
   }
 
   @Override
-  public StockImpl createPortfolio(String name) {
-    HashMap<String, HashMap<Stock, Integer>> pfs = this.portfolios;
-    HashMap<Stock, Integer> newp = new HashMap<>();
+  public StocksModelImpl createPortfolio(String name) {
+    HashMap<String, HashMap<StocksModel, Integer>> pfs = this.portfolios;
+    HashMap<StocksModel, Integer> newp = new HashMap<>();
     pfs.put(name, newp);
-    return new StockImpl(this, pfs);
+    return new StocksModelImpl(this, pfs);
   }
 
   @Override
-  public StockImpl buy(Integer shares, String portfolioName) {
-    HashMap<String, HashMap<Stock, Integer>> pfs = this.portfolios;
-    HashMap<Stock, Integer> currentportfolio = pfs.get(portfolioName);
+  public StocksModelImpl buy(Integer shares, String portfolioName) {
+    HashMap<String, HashMap<StocksModel, Integer>> pfs = this.portfolios;
+    HashMap<StocksModel, Integer> currentportfolio = pfs.get(portfolioName);
     pfs.remove(portfolioName);
     if (currentportfolio.containsKey(this.stock)) {
       currentportfolio.put(this.stock, currentportfolio.get(this.stock) + shares);
@@ -99,13 +99,13 @@ public class StockImpl implements Stock {
       currentportfolio.put(this.stock, shares);
     }
     pfs.put(portfolioName, currentportfolio);
-    return new StockImpl(this.stock, pfs);
+    return new StocksModelImpl(this.stock, pfs);
   }
 
   @Override
-  public StockImpl sell(Stock stock, Integer shares, String portfolioName) {
-    HashMap<String, HashMap<Stock, Integer>> pfs = this.portfolios;
-    HashMap<Stock, Integer> currentportfolio = pfs.get(portfolioName);
+  public StocksModelImpl sell(StocksModel stock, Integer shares, String portfolioName) {
+    HashMap<String, HashMap<StocksModel, Integer>> pfs = this.portfolios;
+    HashMap<StocksModel, Integer> currentportfolio = pfs.get(portfolioName);
     pfs.remove(portfolioName);
     try {
       if (currentportfolio.containsKey(stock)) {
@@ -122,7 +122,7 @@ public class StockImpl implements Stock {
       System.err.println("Not enough shares of this stock in this portfolio to sell.");
     }
     pfs.put(portfolioName, currentportfolio);
-    return new StockImpl(stock, pfs);
+    return new StocksModelImpl(stock, pfs);
   }
 
   @Override
