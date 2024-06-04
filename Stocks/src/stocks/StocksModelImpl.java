@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class StocksModelImpl implements StocksModel {
@@ -31,7 +32,7 @@ public class StocksModelImpl implements StocksModel {
     String apiKey = "5APRD6N4EPK0WCIS";
   }
 
-  public List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date, int operation) {
+  public List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
     String userDirectory = System.getProperty("user.dir");
     String directoryPath = userDirectory + "/Stocks/data/";
     String fileName = stockSymbol + ".csv";
@@ -65,7 +66,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public Double gainLoss(Integer numOfDays, String date) {
-    List<Double> priceData = this.getStockInfo("NVDA", numOfDays, date, 1);
+    List<Double> priceData = this.getStockInfo("NVDA", numOfDays, date);
     Double lastDate = priceData.get(priceData.size() - 1);
     Double startDate = priceData.get(0);
     return lastDate - startDate;
@@ -73,7 +74,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public Double movingAvg(Integer numOfDays, String date) {
-    List<Double> priceData = this.getStockInfo("NVDA", numOfDays, date, 2);
+    List<Double> priceData = this.getStockInfo("NVDA", numOfDays, date);
     Double sum = 0.0;
     for (Double price : priceData) {
       sum += price;
@@ -84,7 +85,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public String crossovers(Integer numOfDays, String date) {
     Double movingAvg =  this.movingAvg(numOfDays, date);
-    List<Double> priceData = this.getStockInfo("NVDA", 1, date, 3);
+    List<Double> priceData = this.getStockInfo("NVDA", 1, date);
     if (priceData.get(0) > movingAvg) {
       return "yes";
     }
@@ -102,27 +103,27 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public StocksModelImpl buy(Integer shares, String portfolioName) {
     HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
-    HashMap<String, Integer> currentportfolio = pfs.get(portfolioName);
+    HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
     pfs.remove(portfolioName);
-    if (currentportfolio.containsKey(this.stock)) {
-      currentportfolio.put(this.stock, currentportfolio.get(this.stock) + shares);
+    if (currentPortfolio.containsKey(this.stock)) {
+      currentPortfolio.put(this.stock, currentPortfolio.get(this.stock) + shares);
     }
     else {
-      currentportfolio.put(this.stock, shares);
+      currentPortfolio.put(this.stock, shares);
     }
-    pfs.put(portfolioName, currentportfolio);
+    pfs.put(portfolioName, currentPortfolio);
     return new StocksModelImpl(this.stock, pfs);
   }
 
   @Override
   public StocksModelImpl sell(String stock, Integer shares, String portfolioName) {
     HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
-    HashMap<String, Integer> currentportfolio = pfs.get(portfolioName);
+    HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
     pfs.remove(portfolioName);
     try {
-      if (currentportfolio.containsKey(stock)) {
-        if (currentportfolio.get(stock) >= shares) {
-          currentportfolio.put(stock, currentportfolio.get(stock) - shares);
+      if (currentPortfolio.containsKey(stock)) {
+        if (currentPortfolio.get(stock) >= shares) {
+          currentPortfolio.put(stock, currentPortfolio.get(stock) - shares);
         } else {
           throw new IllegalArgumentException("not enough shares to sell");
         }
@@ -133,12 +134,18 @@ public class StocksModelImpl implements StocksModel {
     catch (Exception e) {
       System.err.println("Not enough shares of this stock in this portfolio to sell.");
     }
-    pfs.put(portfolioName, currentportfolio);
+    pfs.put(portfolioName, currentPortfolio);
     return new StocksModelImpl(stock, pfs);
   }
 
   @Override
   public Double portfolioValue(String portfolioName, String date) {
-    return null;
+    HashMap<String, Integer> portfolio = portfolios.get(portfolioName);
+    double portfolioValue = 0.0;
+    for (Map.Entry<String, Integer> stock: portfolio.entrySet()) {
+      List<Double> stockValue = this.getStockInfo(stock.getKey(), 1, date);
+      portfolioValue += stockValue.get(0) * stock.getValue().doubleValue();
+    }
+    return portfolioValue;
   }
 }
