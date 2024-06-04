@@ -4,11 +4,11 @@ public interface StocksModel {
 
   public StocksModelImpl stockSelect(String stock);
 
-  public Double gainLoss(String date1, String date2);
+  public Double gainLoss(Integer numOfDays, String date);
 
   public Double movingAvg(Integer numOfDays, String date);
 
-  public String crossovers(Integer numOfDays, String date1, String date2);
+  public String crossovers(Integer numOfDays, String date);
 
   public StocksModelImpl createPortfolio(String name);
 
