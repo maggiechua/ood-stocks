@@ -5,7 +5,11 @@ import java.io.IOException;
 public class StocksView {
   private Appendable appendable;
 
-  public void writeMessage(String message) throws IllegalStateException {
+  StocksView(Appendable appendable) {
+    this.appendable = appendable;
+  }
+
+  protected void writeMessage(String message) throws IllegalStateException {
     try {
       appendable.append(message);
 
@@ -17,6 +21,14 @@ public class StocksView {
   protected void welcomeMessage() throws IllegalStateException {
     writeMessage("Welcome to the stocks application!" + System.lineSeparator());
     printMenu();
+  }
+
+  protected void typeInstruct() throws IllegalStateException {
+    writeMessage("Type instruction: ");
+  }
+
+  protected void undefined(String input) throws IllegalStateException {
+    writeMessage("Undefined instruction: " + input + System.lineSeparator());
   }
 
   protected void farewellMessage() throws IllegalStateException {
