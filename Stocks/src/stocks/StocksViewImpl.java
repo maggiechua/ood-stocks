@@ -68,4 +68,9 @@ public class StocksViewImpl implements StocksView {
     writeMessage("q or quit (quit the program) " + System.lineSeparator());
     writeMessage("[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator());
   }
+
+  @Override
+  public void returnResult(String input) {
+    writeMessage(input + System.lineSeparator());
+  }
 }
