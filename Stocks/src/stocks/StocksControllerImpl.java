@@ -7,12 +7,13 @@ public class StocksControllerImpl implements StocksController {
   private StocksModel stock;
   private StocksView output;
 
-  public StocksControllerImpl(StocksModel stock, Readable rd) throws IllegalArgumentException {
+  public StocksControllerImpl(StocksModel stock, Readable rd, StocksView output) throws IllegalArgumentException {
     if ((stock == null) || (rd == null)) {
       throw new IllegalArgumentException("Stock or Readable is null");
     }
     this.stock = stock;
     this.rd = rd;
+    this.output = output;
   }
 
   public void execute() {
