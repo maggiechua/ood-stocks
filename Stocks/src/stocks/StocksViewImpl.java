@@ -9,7 +9,7 @@ public class StocksViewImpl implements StocksView {
     this.appendable = appendable;
   }
 
-  protected void writeMessage(String message) throws IllegalStateException {
+  private void writeMessage(String message) throws IllegalStateException {
     try {
       appendable.append(message);
 
@@ -18,24 +18,24 @@ public class StocksViewImpl implements StocksView {
     }
   }
 
-  protected void welcomeMessage() throws IllegalStateException {
+  public void welcomeMessage() throws IllegalStateException {
     writeMessage("Welcome to the stocks application!" + System.lineSeparator());
     printMenu();
   }
 
-  protected void typeInstruct() throws IllegalStateException {
+  public void typeInstruct() throws IllegalStateException {
     writeMessage("Type instruction: ");
   }
 
-  protected void undefined(String input) throws IllegalStateException {
+  public void undefined(String input) throws IllegalStateException {
     writeMessage("Undefined instruction: " + input + System.lineSeparator());
   }
 
-  protected void farewellMessage() throws IllegalStateException {
+  public void farewellMessage() throws IllegalStateException {
     writeMessage("Thank you for using this program!");
   }
 
-  protected void printMenu() throws IllegalStateException {
+  public void printMenu() throws IllegalStateException {
     writeMessage("Supported user instructions are: " + System.lineSeparator());
     writeMessage("select-stock stock-symbol (select a stock to see functions)"
             + System.lineSeparator());
@@ -50,7 +50,7 @@ public class StocksViewImpl implements StocksView {
     writeMessage("[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator());
   }
 
-  protected void printStockMenu() throws IllegalStateException {
+  public void printStockMenu() throws IllegalStateException {
     writeMessage("Supported user instructions for selected stock are: " + System.lineSeparator());
     writeMessage("check-gain-loss start-date end-date (checks gains or losses for stock in " +
             "specific date range)"
