@@ -3,7 +3,10 @@ package stocks;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class StocksModelImpl implements StocksModel {
@@ -27,36 +30,31 @@ public class StocksModelImpl implements StocksModel {
     String apiKey = "5APRD6N4EPK0WCIS";
   }
 
-  public void getFileInfo(String stockSymbol) {
-    int year = 2020;
-    int month = 1;
-    int day = 1;
-    String directoryPath = "Stocks/data/";
+  public List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date, int operation) {
+    String userDirectory = System.getProperty("user.dir");
+    String directoryPath = userDirectory + "/Stocks/data/";
     String fileName = stockSymbol + ".csv";
-    Path path = Path.of(directoryPath + fileName);
+    Path path = Paths.get(directoryPath + fileName);
     File file = path.toFile();
 
-    if (!path.toFile().exists()) {
-      // call API to generate file
-    }
-    StringBuilder output = new StringBuilder();
+    List<Double> output = new ArrayList<>();
     try {
-      String today = String.format("%04d-%02d-%02d", year, month, day);
       Scanner sc = new Scanner(file);
       while (sc.hasNextLine()) {
         String line = sc.nextLine();
         String[] lineInfo = line.split(",");
-        for (int i = 0; i < lineInfo.length; i++) {
-          System.out.println("Line Info: " + lineInfo[i]);
-        }
-        if (lineInfo[0].equals(today)) {
-          System.out.println(today + " Opening Price: " + lineInfo[1]);
+        if (lineInfo[0].equals(date)) {
+          output.add(Double.parseDouble(lineInfo[4]));
+          for (int i = 0; i < numOfDays - 1; i++) {
+            output.add(Double.parseDouble(lineInfo[4]));
+          }
         }
       }
     }
     catch (IOException e) {
       System.out.println("catch");
     }
+    return output;
   }
 
   @Override
@@ -65,18 +63,31 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public Double gainLoss(String date1, String date2) {
-    return null;
+  public Double gainLoss(Integer numOfDays, String date) {
+    List<Double> priceData = this.getStockInfo("NVDA", numOfDays, date, 1);
+    Double lastDate = priceData.get(priceData.size() - 1);
+    Double startDate = priceData.get(0);
+    return lastDate - startDate;
   }
 
   @Override
   public Double movingAvg(Integer numOfDays, String date) {
-    return null;
+    List<Double> priceData = this.getStockInfo("NVDA", numOfDays, date, 2);
+    Double sum = 0.0;
+    for (Double price : priceData) {
+      sum += price;
+    }
+    return sum / priceData.size();
   }
 
   @Override
-  public String crossovers(Integer numOfDays, String date1, String date2) {
-    return null;
+  public String crossovers(Integer numOfDays, String date) {
+    Double movingAvg =  this.movingAvg(numOfDays, date);
+    List<Double> priceData = this.getStockInfo("NVDA", 1, date, 3);
+    if (priceData.get(0) > movingAvg) {
+      return "yes";
+    }
+    return "no";
   }
 
   @Override
