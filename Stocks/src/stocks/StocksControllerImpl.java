@@ -35,7 +35,7 @@ public class StocksControllerImpl implements StocksController {
       switch (input) {
         case "select-stock" :
           stockName = sc.next();
-          stock.stockSelect(stockName);
+          stock = stock.stockSelect(stockName);
           while (!quit) {
             output.printStockMenu();
             output.typeInstruct();
@@ -44,20 +44,35 @@ public class StocksControllerImpl implements StocksController {
               case "check-gain-loss" :
                 numOfDays = sc.nextInt();
                 date = sc.next();
-                res = stock.gainLoss(numOfDays, date).toString();
-                output.returnResult(res);
+                try {
+                  res = stock.gainLoss(numOfDays, date).toString();
+                  output.returnResult(res);
+                }
+               catch (Exception e) {
+                  output.undefined(numOfDays + " " + date);
+                }
                 break;
               case "moving-average" :
                 numOfDays = sc.nextInt();
                 date = sc.next();
-                res = stock.movingAvg(numOfDays, date).toString();
-                output.returnResult(res);
+                try {
+                  res = stock.movingAvg(numOfDays, date).toString();
+                  output.returnResult(res);
+                }
+                catch (Exception e) {
+                  output.undefined(numOfDays + " " + date);
+                }
                 break;
               case "check-crossovers" :
                 numOfDays = sc.nextInt();
                 date = sc.next();
-                res = stock.crossovers(numOfDays, date);
-                output.returnResult(res);
+                try {
+                  res = stock.crossovers(numOfDays, date);
+                  output.returnResult(res);
+                }
+                catch (Exception e) {
+                  output.undefined(numOfDays + " " + date);
+                }
                 break;
               case "buy-stock" :
                 numOfShares = sc.nextInt();
@@ -74,6 +89,7 @@ public class StocksControllerImpl implements StocksController {
                 break;
               case "q" :
               case "quit" :
+                output.farewellMessage();
                 quit = true;
                 break;
               default :
@@ -106,6 +122,7 @@ public class StocksControllerImpl implements StocksController {
           break;
         case "q" :
         case "quit" :
+          output.farewellMessage();
           quit = true;
           break;
         default :

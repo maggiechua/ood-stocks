@@ -28,7 +28,7 @@ public class StocksViewImpl implements StocksView {
   }
 
   public void undefined(String input) throws IllegalStateException {
-    writeMessage("Undefined instruction: " + input + System.lineSeparator());
+    writeMessage("Invalid input: " + input + System.lineSeparator());
   }
 
   public void farewellMessage() throws IllegalStateException {
