@@ -42,14 +42,20 @@ public class StocksModelImpl implements StocksModel {
     List<Double> output = new ArrayList<>();
     try {
       Scanner sc = new Scanner(file);
+      int counter = 0;
       while (sc.hasNextLine()) {
         String line = sc.nextLine();
         String[] lineInfo = line.split(",");
         if (lineInfo[0].equals(date)) {
           output.add(Double.parseDouble(lineInfo[4]));
-          for (int i = 0; i < numOfDays - 1; i++) {
-            output.add(Double.parseDouble(lineInfo[4]));
-          }
+          counter++;
+        }
+        else if (counter == numOfDays) {
+          break;
+        }
+        else if (counter > 0) {
+          output.add(Double.parseDouble(lineInfo[4]));
+          counter++;
         }
       }
     }
@@ -69,7 +75,7 @@ public class StocksModelImpl implements StocksModel {
     List<Double> priceData = this.getStockInfo("NVDA", numOfDays, date);
     Double lastDate = priceData.get(priceData.size() - 1);
     Double startDate = priceData.get(0);
-    return lastDate - startDate;
+    return startDate - lastDate;
   }
 
   @Override
