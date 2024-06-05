@@ -1,5 +1,8 @@
 import org.junit.Test;
 
+import java.util.HashMap;
+
+import stocks.StocksModel;
 import stocks.StocksModelImpl;
 
 import static org.junit.Assert.assertEquals;
@@ -7,7 +10,9 @@ import static org.junit.Assert.assertEquals;
 public class StocksModelImplTest {
   @Test
   public void test() {
-    StocksModelImpl s = new StocksModelImpl();
+    String init = "";
+    HashMap<String, HashMap<String, Integer>> p = new HashMap<String,HashMap<String, Integer>>();
+    StocksModel s = new StocksModelImpl(init, p);
     double output = s.gainLoss(5, "2024-05-31");
     assertEquals(31.64, output, 0.01);
   }
