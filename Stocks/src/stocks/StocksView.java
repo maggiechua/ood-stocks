@@ -13,4 +13,6 @@ public interface StocksView {
   public void printMenu();
 
   public void printStockMenu();
+
+  public void returnResult(String input);
   }

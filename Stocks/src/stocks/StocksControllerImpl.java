@@ -24,6 +24,7 @@ public class StocksControllerImpl implements StocksController {
     String date;
     Integer numOfDays;
     Integer numOfShares;
+    String res;
 
     // print welcome message
     output.welcomeMessage();
@@ -33,6 +34,7 @@ public class StocksControllerImpl implements StocksController {
       String input = sc.next();
       switch (input) {
         case "select-stock" :
+          output.typeInstruct();
           stockName = sc.next();
           stock.stockSelect(stockName);
           while (!quit) {
@@ -42,22 +44,27 @@ public class StocksControllerImpl implements StocksController {
               case "check-gain-loss" :
                 numOfDays = sc.nextInt();
                 date = sc.next();
-                stock.gainLoss(numOfDays, date);
+                res = stock.gainLoss(numOfDays, date).toString();
+                output.returnResult(res);
                 break;
               case "moving-average" :
                 numOfDays = sc.nextInt();
                 date = sc.next();
-                stock.movingAvg(numOfDays, date);
+                res = stock.movingAvg(numOfDays, date).toString();
+                output.returnResult(res);
                 break;
               case "check-crossovers" :
                 numOfDays = sc.nextInt();
                 date = sc.next();
-                stock.crossovers(numOfDays, date);
+                res = stock.crossovers(numOfDays, date);
+                output.returnResult(res);
                 break;
               case "buy-stock" :
                 numOfShares = sc.nextInt();
                 portfolioName = sc.next();
                 stock.buy(numOfShares, portfolioName);
+                res = numOfShares.toString() + " of " + stockName + " bought to " + portfolioName;
+                output.returnResult(res);
                 break;
               case "stock-menu" :
                 output.printStockMenu();
@@ -77,17 +84,22 @@ public class StocksControllerImpl implements StocksController {
         case "create-portfolio" :
           portfolioName = sc.next();
           stock.createPortfolio(portfolioName);
+          res = "Portfolio " + portfolioName + " created.";
+          output.returnResult(res);
           break;
         case "check-portfolio" :
           portfolioName = sc.next();
           date = sc.next();
-          stock.portfolioValue(portfolioName, date);
+          res = stock.portfolioValue(portfolioName, date).toString();
+          output.returnResult(res);
           break;
         case "sell-stock" :
           stockName = sc.next();
           numOfShares = sc.nextInt();
           portfolioName = sc.next();
           stock.sell(stockName, numOfShares, portfolioName);
+          res = numOfShares.toString() + " of " + stockName + " sold from " + portfolioName;
+          output.returnResult(res);
           break;
         case "menu" :
           output.welcomeMessage();
