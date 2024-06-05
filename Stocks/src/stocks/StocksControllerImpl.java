@@ -34,11 +34,11 @@ public class StocksControllerImpl implements StocksController {
       String input = sc.next();
       switch (input) {
         case "select-stock" :
-          output.typeInstruct();
           stockName = sc.next();
           stock.stockSelect(stockName);
           while (!quit) {
             output.printStockMenu();
+            output.typeInstruct();
             String nextInput = sc.next();
             switch (nextInput) {
               case "check-gain-loss" :
