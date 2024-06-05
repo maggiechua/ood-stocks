@@ -15,7 +15,6 @@ public class StocksModelImpl implements StocksModel {
   HashMap<String,HashMap<String, Integer>> portfolios;
 
   public StocksModelImpl() {
-    this.stock = "";
     this.portfolios = new HashMap<String, HashMap<String, Integer>>();
   }
 
@@ -72,7 +71,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public Double gainLoss(Integer numOfDays, String date) {
-    List<Double> priceData = this.getStockInfo("NVDA", numOfDays, date);
+    List<Double> priceData = this.getStockInfo(stock, numOfDays, date);
     Double lastDate = priceData.get(priceData.size() - 1);
     Double startDate = priceData.get(0);
     return startDate - lastDate;
@@ -80,7 +79,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public Double movingAvg(Integer numOfDays, String date) {
-    List<Double> priceData = this.getStockInfo("NVDA", numOfDays, date);
+    List<Double> priceData = this.getStockInfo(stock, numOfDays, date);
     Double sum = 0.0;
     for (Double price : priceData) {
       sum += price;
@@ -91,7 +90,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public String crossovers(Integer numOfDays, String date) {
     Double movingAvg =  this.movingAvg(numOfDays, date);
-    List<Double> priceData = this.getStockInfo("NVDA", 1, date);
+    List<Double> priceData = this.getStockInfo(stock, 1, date);
     if (priceData.get(0) > movingAvg) {
       return "yes";
     }
