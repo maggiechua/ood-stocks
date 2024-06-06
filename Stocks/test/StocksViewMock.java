@@ -30,4 +30,9 @@ public class StocksViewMock implements StocksView {
   public void printStockMenu() {
 
   }
+
+  @Override
+  public void returnResult(String input) {
+
+  }
 }

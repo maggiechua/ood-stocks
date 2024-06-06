@@ -14,10 +14,6 @@ public class StocksModelImpl implements StocksModel {
   String stock;
   HashMap<String,HashMap<String, Integer>> portfolios;
 
-  private StocksModelImpl(String stock) {
-    this.stock = stock;
-  }
-
   public StocksModelImpl(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
@@ -29,7 +25,7 @@ public class StocksModelImpl implements StocksModel {
 
   protected List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
     String userDirectory = System.getProperty("user.dir");
-    String directoryPath = userDirectory + "/Stocks/data/";
+    String directoryPath = userDirectory + "/data/";
     String fileName = stockSymbol + ".csv";
     Path path = Paths.get(directoryPath + fileName);
     File file = path.toFile();
@@ -62,7 +58,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public StocksModelImpl stockSelect(String s) {
-    return new StocksModelImpl(s);
+    return new StocksModelImpl(s, this.portfolios);
   }
 
   @Override
@@ -95,7 +91,13 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public StocksModelImpl createPortfolio(String name) {
-    HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
+    HashMap<String, HashMap<String, Integer>> pfs;
+    if (this.portfolios == null) {
+      pfs = new HashMap<String, HashMap<String, Integer>>();
+    }
+    else {
+      pfs = this.portfolios;
+    }
     HashMap<String, Integer> newp = new HashMap<>();
     pfs.put(name, newp);
     return new StocksModelImpl(this.stock, pfs);
