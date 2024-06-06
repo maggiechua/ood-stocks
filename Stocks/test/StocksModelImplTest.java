@@ -8,6 +8,11 @@ import stocks.StocksModelImpl;
 import static org.junit.Assert.assertEquals;
 
 public class StocksModelImplTest {
+
+  // mock controller
+  // mock view
+  // check whether i'm getting the correct value and it's being displayed properly
+
   @Test
   public void test() {
     String init = "";
