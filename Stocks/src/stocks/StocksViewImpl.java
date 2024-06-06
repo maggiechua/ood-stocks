@@ -5,7 +5,7 @@ import java.io.IOException;
 public class StocksViewImpl implements StocksView {
   private Appendable appendable;
 
-  StocksViewImpl(Appendable appendable) {
+  public StocksViewImpl(Appendable appendable) {
     this.appendable = appendable;
   }
 

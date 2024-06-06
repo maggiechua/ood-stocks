@@ -20,6 +20,13 @@ public class StocksControllerMock implements StocksController {
       case "quit":
         this.callFarewellMessage();
         break;
+      case "menu":
+        this.callMenu();
+      case "stock-menu":
+        this.callStockMenu();
+      case "select-stock":
+        this.callStockMenu();
+        this.callTypeInstruct();
       default:
         break;
     }
@@ -31,5 +38,17 @@ public class StocksControllerMock implements StocksController {
 
   public void callFarewellMessage() {
     viewMock.farewellMessage();
+  }
+
+  public void callMenu() {
+    viewMock.printMenu();
+  }
+
+  public void callStockMenu() {
+    viewMock.printStockMenu();
+  }
+
+  public void callTypeInstruct() {
+    viewMock.typeInstruct();
   }
 }
