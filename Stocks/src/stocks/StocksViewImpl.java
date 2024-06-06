@@ -64,7 +64,7 @@ public class StocksViewImpl implements StocksView {
     writeMessage("buy-stock number-of-shares portfolio-name (buy stock shares)"
             + System.lineSeparator());
     writeMessage("stock-menu (Print supported stocks instruction list)" + System.lineSeparator());
-    writeMessage("return-to-menu (return to previous menu)" + System.lineSeparator());
+    writeMessage("menu (return to previous menu)" + System.lineSeparator());
     writeMessage("q or quit (quit the program) " + System.lineSeparator());
     writeMessage("[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator());
   }

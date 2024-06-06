@@ -47,7 +47,7 @@ public class StocksControllerImpl implements StocksController {
                 numOfDays = sc.nextInt();
                 date = sc.next();
                 try {
-                  res = stock.gainLoss(numOfDays, date).toString();
+                  res = String.format("%,.2f",stock.gainLoss(numOfDays, date));
                   output.returnResult(res);
                 }
                catch (Exception e) {
@@ -58,7 +58,7 @@ public class StocksControllerImpl implements StocksController {
                 numOfDays = sc.nextInt();
                 date = sc.next();
                 try {
-                  res = stock.movingAvg(numOfDays, date).toString();
+                  res = String.format("%,.2f",stock.movingAvg(numOfDays, date));
                   output.returnResult(res);
                 }
                 catch (Exception e) {
@@ -91,7 +91,7 @@ public class StocksControllerImpl implements StocksController {
               case "stock-menu" :
                 output.printStockMenu();
                 break;
-              case "return-to-menu" :
+              case "menu" :
                 miniquit = true;
                 output.printMenu();
                 break;
@@ -115,7 +115,7 @@ public class StocksControllerImpl implements StocksController {
           portfolioName = sc.next();
           date = sc.next();
           try {
-            res = stock.portfolioValue(portfolioName, date).toString();
+            res = String.format("%,.2f",stock.portfolioValue(portfolioName, date));
           }
           catch (Exception e) {
             res = "You may not have created this portfolio yet.";

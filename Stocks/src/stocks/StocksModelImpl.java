@@ -84,9 +84,9 @@ public class StocksModelImpl implements StocksModel {
     Double movingAvg =  this.movingAvg(numOfDays, date);
     List<Double> priceData = this.getStockInfo(this.stock, 1, date);
     if (priceData.get(0) > movingAvg) {
-      return "yes";
+      return "Yes, this date is a " + numOfDays + "-day crossover.";
     }
-    return "no";
+    return "No, this date is not a " + numOfDays + "-day crossover.";
   }
 
   @Override
