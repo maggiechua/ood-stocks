@@ -62,4 +62,24 @@ public class StocksViewMock implements StocksView {
   public void returnResult(String input) {
 
   }
+
+  @Override
+  public void portfolioException() {
+
+  }
+
+  @Override
+  public void formattedReturn(Double inp) {
+
+  }
+
+  @Override
+  public void portfolioCreationMessage(String name) {
+
+  }
+
+  @Override
+  public void buySellMessage(Integer quantity, String stock, String name, boolean sell) {
+
+  }
 }
