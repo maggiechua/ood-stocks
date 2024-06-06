@@ -25,7 +25,6 @@ public class StocksControllerImpl implements StocksController {
     String date;
     Integer numOfDays;
     Integer numOfShares;
-    String res;
 
     // print welcome message
     output.welcomeMessage();
@@ -47,33 +46,30 @@ public class StocksControllerImpl implements StocksController {
                 numOfDays = sc.nextInt();
                 date = sc.next();
                 try {
-                  res = stock.gainLoss(numOfDays, date).toString();
-                  output.returnResult(res);
+                  output.formattedReturn(stock.gainLoss(numOfDays, date));
                 }
                catch (Exception e) {
-                  output.undefined(numOfDays + " " + date);
+                  output.undefined(date);
                 }
                 break;
               case "moving-average" :
                 numOfDays = sc.nextInt();
                 date = sc.next();
                 try {
-                  res = stock.movingAvg(numOfDays, date).toString();
-                  output.returnResult(res);
+                  output.formattedReturn(stock.movingAvg(numOfDays, date));
                 }
                 catch (Exception e) {
-                  output.undefined(numOfDays + " " + date);
+                  output.undefined(date);
                 }
                 break;
               case "check-crossovers" :
                 numOfDays = sc.nextInt();
                 date = sc.next();
                 try {
-                  res = stock.crossovers(numOfDays, date);
-                  output.returnResult(res);
+                  output.returnResult(stock.crossovers(numOfDays, date));
                 }
                 catch (Exception e) {
-                  output.undefined(numOfDays + " " + date);
+                  output.undefined(date);
                 }
                 break;
               case "buy-stock" :
@@ -81,17 +77,16 @@ public class StocksControllerImpl implements StocksController {
                 portfolioName = sc.next();
                 try {
                   stock.buy(numOfShares, portfolioName);
-                  res = numOfShares.toString() + " of " + stockName + " bought to " + portfolioName;
+                  output.buySellMessage(numOfShares, stockName, portfolioName, false);
                 }
                 catch (Exception e) {
-                  res = "You may not have created this portfolio yet.";
+                  output.portfolioException();
                 }
-                output.returnResult(res);
                 break;
               case "stock-menu" :
                 output.printStockMenu();
                 break;
-              case "return-to-menu" :
+              case "menu" :
                 miniquit = true;
                 output.printMenu();
                 break;
@@ -108,19 +103,17 @@ public class StocksControllerImpl implements StocksController {
         case "create-portfolio" :
           portfolioName = sc.next();
           stock.createPortfolio(portfolioName);
-          res = "Portfolio " + portfolioName + " created.";
-          output.returnResult(res);
+          output.portfolioCreationMessage(portfolioName);
           break;
         case "check-portfolio" :
           portfolioName = sc.next();
           date = sc.next();
           try {
-            res = stock.portfolioValue(portfolioName, date).toString();
+            output.formattedReturn(stock.portfolioValue(portfolioName, date));
           }
           catch (Exception e) {
-            res = "You may not have created this portfolio yet.";
+            output.portfolioException();
           }
-          output.returnResult(res);
           break;
         case "sell-stock" :
           stockName = sc.next();
@@ -128,12 +121,11 @@ public class StocksControllerImpl implements StocksController {
           portfolioName = sc.next();
           try {
             stock.sell(stockName, numOfShares, portfolioName);
-            res = numOfShares.toString() + " of " + stockName + " sold from " + portfolioName;
+            output.buySellMessage(numOfShares, stockName, portfolioName, true);
           }
           catch (Exception e) {
-            res = "You may not have created this portfolio yet.";
+            output.portfolioException();
           }
-          output.returnResult(res);
           break;
         case "menu" :
           output.welcomeMessage();

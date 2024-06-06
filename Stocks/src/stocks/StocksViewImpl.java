@@ -64,7 +64,7 @@ public class StocksViewImpl implements StocksView {
     writeMessage("buy-stock number-of-shares portfolio-name (buy stock shares)"
             + System.lineSeparator());
     writeMessage("stock-menu (Print supported stocks instruction list)" + System.lineSeparator());
-    writeMessage("return-to-menu (return to previous menu)" + System.lineSeparator());
+    writeMessage("menu (return to previous menu)" + System.lineSeparator());
     writeMessage("q or quit (quit the program) " + System.lineSeparator());
     writeMessage("[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator());
   }
@@ -72,5 +72,30 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void returnResult(String input) {
     writeMessage(input + System.lineSeparator());
+  }
+
+  @Override
+  public void portfolioException() {
+    writeMessage("You may not have created this portfolio yet." + System.lineSeparator());
+  }
+
+  @Override
+  public void formattedReturn(Double inp) {
+    writeMessage(String.format("%,.2f", inp) + System.lineSeparator());
+  }
+
+  @Override
+  public void portfolioCreationMessage(String name) {
+    writeMessage("Portfolio " + name + " created." + System.lineSeparator());
+  }
+
+  @Override
+  public void buySellMessage(Integer quantity, String stock, String name, boolean sell) {
+    if (sell) {
+      writeMessage(quantity + " of " + stock + " sold from " + name + System.lineSeparator());
+    }
+    else {
+      writeMessage(quantity + " of " + stock + " bought to " + name + System.lineSeparator());
+    }
   }
 }
