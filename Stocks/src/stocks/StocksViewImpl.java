@@ -73,4 +73,29 @@ public class StocksViewImpl implements StocksView {
   public void returnResult(String input) {
     writeMessage(input + System.lineSeparator());
   }
+
+  @Override
+  public void portfolioException() {
+    writeMessage("You may not have created this portfolio yet." + System.lineSeparator());
+  }
+
+  @Override
+  public void formattedReturn(Double inp) {
+    writeMessage(String.format("%,.2f", inp) + System.lineSeparator());
+  }
+
+  @Override
+  public void portfolioCreationMessage(String name) {
+    writeMessage("Portfolio " + name + " created." + System.lineSeparator());
+  }
+
+  @Override
+  public void buySellMessage(Integer quantity, String stock, String name, boolean sell) {
+    if (sell) {
+      writeMessage(quantity + " of " + stock + " sold from " + name + System.lineSeparator());
+    }
+    else {
+      writeMessage(quantity + " of " + stock + " bought to " + name + System.lineSeparator());
+    }
+  }
 }
