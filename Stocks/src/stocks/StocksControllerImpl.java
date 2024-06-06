@@ -19,6 +19,7 @@ public class StocksControllerImpl implements StocksController {
   public void execute() {
     Scanner sc = new Scanner(rd);
     boolean quit = false;
+    boolean miniquit = false;
     String stockName;
     String portfolioName;
     String date;
@@ -34,9 +35,10 @@ public class StocksControllerImpl implements StocksController {
       String input = sc.next();
       switch (input) {
         case "select-stock" :
+          miniquit = false;
           stockName = sc.next();
           stock = stock.stockSelect(stockName);
-          while (!quit) {
+          while (!miniquit) {
             output.printStockMenu();
             output.typeInstruct();
             String nextInput = sc.next();
@@ -77,14 +79,20 @@ public class StocksControllerImpl implements StocksController {
               case "buy-stock" :
                 numOfShares = sc.nextInt();
                 portfolioName = sc.next();
-                stock.buy(numOfShares, portfolioName);
-                res = numOfShares.toString() + " of " + stockName + " bought to " + portfolioName;
+                try {
+                  stock.buy(numOfShares, portfolioName);
+                  res = numOfShares.toString() + " of " + stockName + " bought to " + portfolioName;
+                }
+                catch (Exception e) {
+                  res = "You may not have created this portfolio yet.";
+                }
                 output.returnResult(res);
                 break;
               case "stock-menu" :
                 output.printStockMenu();
                 break;
               case "return-to-menu" :
+                miniquit = true;
                 output.printMenu();
                 break;
               case "q" :
@@ -106,15 +114,25 @@ public class StocksControllerImpl implements StocksController {
         case "check-portfolio" :
           portfolioName = sc.next();
           date = sc.next();
-          res = stock.portfolioValue(portfolioName, date).toString();
+          try {
+            res = stock.portfolioValue(portfolioName, date).toString();
+          }
+          catch (Exception e) {
+            res = "You may not have created this portfolio yet.";
+          }
           output.returnResult(res);
           break;
         case "sell-stock" :
           stockName = sc.next();
           numOfShares = sc.nextInt();
           portfolioName = sc.next();
-          stock.sell(stockName, numOfShares, portfolioName);
-          res = numOfShares.toString() + " of " + stockName + " sold from " + portfolioName;
+          try {
+            stock.sell(stockName, numOfShares, portfolioName);
+            res = numOfShares.toString() + " of " + stockName + " sold from " + portfolioName;
+          }
+          catch (Exception e) {
+            res = "You may not have created this portfolio yet.";
+          }
           output.returnResult(res);
           break;
         case "menu" :
