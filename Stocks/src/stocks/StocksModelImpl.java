@@ -14,15 +14,11 @@ public class StocksModelImpl implements StocksModel {
   String stock;
   HashMap<String,HashMap<String, Integer>> portfolios;
 
-  public StocksModelImpl() {
-    this.portfolios = new HashMap<String, HashMap<String, Integer>>();
-  }
-
-  public StocksModelImpl(String stock) {
+  private StocksModelImpl(String stock) {
     this.stock = stock;
   }
 
-  protected StocksModelImpl(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
+  public StocksModelImpl(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
   }
@@ -31,7 +27,7 @@ public class StocksModelImpl implements StocksModel {
     String apiKey = "5APRD6N4EPK0WCIS";
   }
 
-  public List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
+  protected List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
     String userDirectory = System.getProperty("user.dir");
     String directoryPath = userDirectory + "/Stocks/data/";
     String fileName = stockSymbol + ".csv";
@@ -65,13 +61,13 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl stockSelect(String stock) {
-    return new StocksModelImpl(stock);
+  public StocksModelImpl stockSelect(String s) {
+    return new StocksModelImpl(s);
   }
 
   @Override
   public Double gainLoss(Integer numOfDays, String date) {
-    List<Double> priceData = this.getStockInfo(stock, numOfDays, date);
+    List<Double> priceData = this.getStockInfo(this.stock, numOfDays, date);
     Double lastDate = priceData.get(priceData.size() - 1);
     Double startDate = priceData.get(0);
     return startDate - lastDate;
@@ -79,7 +75,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public Double movingAvg(Integer numOfDays, String date) {
-    List<Double> priceData = this.getStockInfo(stock, numOfDays, date);
+    List<Double> priceData = this.getStockInfo(this.stock, numOfDays, date);
     Double sum = 0.0;
     for (Double price : priceData) {
       sum += price;
@@ -90,7 +86,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public String crossovers(Integer numOfDays, String date) {
     Double movingAvg =  this.movingAvg(numOfDays, date);
-    List<Double> priceData = this.getStockInfo(stock, 1, date);
+    List<Double> priceData = this.getStockInfo(this.stock, 1, date);
     if (priceData.get(0) > movingAvg) {
       return "yes";
     }
