@@ -93,6 +93,7 @@ public class StocksControllerImpl implements StocksController {
               case "q" :
               case "quit" :
                 output.farewellMessage();
+                miniquit = true;
                 quit = true;
                 break;
               default :
