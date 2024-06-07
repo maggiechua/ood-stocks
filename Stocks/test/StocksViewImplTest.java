@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import stocks.StocksController;
@@ -15,13 +16,22 @@ public class StocksViewImplTest {
   // the data is correct, just show that the view is printing out the correct output
   // according to the respective cases.
 
+  private Appendable ap;
+  private StocksModel model;
+  private StocksView view;
+  private StocksController controller;
+
+  @Before
+  public void setUp() {
+    ap = new StringBuilder();
+    model = new StocksModelMock();
+    view = new StocksViewImpl(ap);
+  }
+
   @Test
   public void testWelcome() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String[] split = ap.toString().split("Thank");
     String s = split[0];
@@ -39,11 +49,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testFarewell() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "quit";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String expectedOutput = "Welcome to the stocks application! \n"
             + "Supported user instructions are: \n"
@@ -60,25 +67,19 @@ public class StocksViewImplTest {
 
   @Test
   public void testUndefinedInstruction() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "@";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String[] split = ap.toString().split("format.] \n");
     String s = split[1];
-    String expectedOutput = "Invalid input: @ \n";
+    String expectedOutput = "Invalid input: @ \n" + "Type instruction: ";
     assertEquals(expectedOutput, s);
   }
 
   @Test
   public void testTypeInstruction() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "@";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String[] split = ap.toString().split("@ \n");
     String s = split[1];
@@ -88,11 +89,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testMenu() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "quit";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String[] split = ap.toString().split("\n");
     String s = "";
@@ -116,11 +114,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testPrintStockMenuFollowingSelectStock() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "select-stock";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String[] s1 = ap.toString().split("! \n");
     String[] split = s1[1].split("format.] \n");
@@ -144,11 +139,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testCreatePortfolio() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "create-portfolio kiki";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String expectedOutput = "Portfolio kiki" + " created. \n";
     String[] s1 = ap.toString().split("format.] \n");
@@ -158,11 +150,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testCheckPortfolio() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "check-portfolio kiki 2024-05-31";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String expectedOutput = String.format("%,.2f", 250.50) + " \n";
     String[] s1 = ap.toString().split("format.] \n");
@@ -172,11 +161,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testPortfolioException() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "check-portfolio retirement 2024-05-31";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String expectedOutput = "You may not have created this portfolio yet. \n";
     String[] s1 = ap.toString().split("format.] \n");
@@ -186,11 +172,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testReturnCrossOverResultYes() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "check-crossovers 30 2020-03-09";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String expectedOutput = "No, this date is not a 30-day crossover. \n";
     String[] s1 = ap.toString().split("format.] \n");
@@ -200,11 +183,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testReturnCrossOverResultNo() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "check-crossovers 30 2024-05-31";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String expectedOutput = "Yes, this date is a 30-day crossover. \n";
     String[] s1 = ap.toString().split("format.] \n");
@@ -214,11 +194,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testBuyMessage() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "buy-stock 9 kiki";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String expectedOutput = "9 of GOOG bought to kiki \n";
     String[] s1 = ap.toString().split("format.] \n");
@@ -228,11 +205,8 @@ public class StocksViewImplTest {
 
   @Test
   public void testSellMessage() {
-    Appendable ap = new StringBuilder();
-    StocksModel model = new StocksModelMock();
-    StocksView view = new StocksViewImpl(ap);
     String input = "sell-stock NVDA 9 college";
-    StocksController controller = new StocksControllerMock(model, view, input);
+    controller = new StocksControllerMock(model, view, input, false);
     controller.execute();
     String expectedOutput = "9 of NVDA sold from college \n";
     String[] s1 = ap.toString().split("format.] \n");

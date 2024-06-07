@@ -1,10 +1,14 @@
 import stocks.StocksView;
 
+/**
+ * The StocksViewMock is a class that represents an imitation of our view for
+ * testing purposes.
+ */
 public class StocksViewMock implements StocksView {
   public StringBuilder outputMessage = new StringBuilder();
 
   // create appendable log
-  StocksViewMock() {
+  StocksViewMock(Appendable ap) {
     this.outputMessage = new StringBuilder();
   }
 

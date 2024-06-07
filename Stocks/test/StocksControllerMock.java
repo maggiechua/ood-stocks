@@ -5,20 +5,35 @@ import stocks.StocksController;
 import stocks.StocksModel;
 import stocks.StocksView;
 
+/**
+ * The StocksControllerMock is a class that represents an imitation of our controller for
+ * testing purposes.
+ */
 public class StocksControllerMock implements StocksController {
+  // Note: although fields are called viewMock and modelMock, when testing for the view,
+  // we actually pass in the real View/Model
   StocksModel modelMock;
   StocksView viewMock;
   String input;
+  boolean testingModel;
 
-  public StocksControllerMock(StocksModel m, StocksView s, String input) {
+  /**
+   * A StocksControllerMock takes in a model, view, input, and testingModel to aid in testing
+   * model and view components in isolation.
+   * @param m represents the given model
+   * @param s represents the given view
+   * @param input represents the given input case that's being tested
+   * @param testingModel represents which component that is being tested
+   */
+  public StocksControllerMock(StocksModel m, StocksView s, String input, boolean testingModel) {
     this.modelMock = m;
     this.viewMock = s;
     this.input = input;
+    this.testingModel = testingModel;
   }
 
   @Override
   public void execute() {
-    this.callWelcomeMessage();
     String in = "";
     String[] commands = new String[]{};
     try {
@@ -28,7 +43,27 @@ public class StocksControllerMock implements StocksController {
     catch (Exception e) {
       in = input;
     }
+    if (testingModel) {
+      this.modelTesting(in, commands);
+    }
+    else {
+      this.viewTesting(in, commands);
+    }
+  }
 
+  // MODEL METHOD CALLS
+  public void modelTesting(String in, String[] commands) {
+    switch (in) {
+      case "":
+        break;
+      default:
+        break;
+    }
+  }
+
+  // VIEW METHOD CALLS
+  public void viewTesting(String in, String[] commands) {
+    this.callWelcomeMessage();
     switch (in) {
       case "":
         // do nothing

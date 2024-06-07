@@ -1,6 +1,10 @@
 import stocks.StocksModel;
 import stocks.StocksModelImpl;
 
+/**
+ * The StocksModelMock is a class that represents an imitation of our model for
+ * testing purposes.
+ */
 public class StocksModelMock implements StocksModel {
   @Override
   public StocksModelImpl stockSelect(String stock) {
