@@ -6,7 +6,7 @@ public interface StocksView {
 
   public void typeInstruct();
 
-  public void undefined(String input);
+  public void undefined();
 
   public void farewellMessage();
 
