@@ -13,14 +13,16 @@ import java.util.Scanner;
 public class StocksModelImpl implements StocksModel {
   String stock;
   HashMap<String,HashMap<String, Integer>> portfolios;
+  AlphaVantageDemo api;
 
   public StocksModelImpl(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
+    this.api = new AlphaVantageDemo();
   }
 
-  public static void API() {
-    String apiKey = "5APRD6N4EPK0WCIS";
+  public String getAPIKey() {
+    return "5APRD6N4EPK0WCIS";
   }
 
   protected List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
@@ -31,6 +33,9 @@ public class StocksModelImpl implements StocksModel {
     File file = path.toFile();
 
     List<Double> output = new ArrayList<>();
+    if (!file.exists()) {
+      api.createStockCSVFile(stock, this.getAPIKey());
+    }
     try {
       Scanner sc = new Scanner(file);
       int counter = 0;
@@ -51,7 +56,7 @@ public class StocksModelImpl implements StocksModel {
       }
     }
     catch (IOException e) {
-      System.out.println("catch");
+      System.out.println("Stock not found.");
     }
     return output;
   }
