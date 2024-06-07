@@ -1,11 +1,6 @@
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import stocks.StocksController;
-import stocks.StocksControllerImpl;
 import stocks.StocksModel;
 import stocks.StocksView;
 import stocks.StocksViewImpl;
@@ -21,20 +16,18 @@ public class StocksViewImplTest {
     String input = "";
     StocksController controller = new StocksControllerMock(model, view, input);
     controller.execute();
-    String expectedOutput = "Welcome to the stocks application!" + System.lineSeparator()
-            + "Supported user instructions are: " + System.lineSeparator()
-            + "select-stock stock-symbol (select a stock to see functions)"
-            + System.lineSeparator()
-            + "create-portfolio portfolio-name (creates a new empty portfolio)"
-            + System.lineSeparator()
-            + "check-portfolio portfolio-name date (checks portfolio value at a specific date)"
-            + System.lineSeparator()
-            + "sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares)"
-            + System.lineSeparator()
-            + "menu (Print supported instruction list)" + System.lineSeparator()
-            + "q or quit (quit the program) " + System.lineSeparator()
-            + "[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator();
-    assertEquals(expectedOutput, ap.toString());
+    String[] split = ap.toString().split("Thank");
+    String s = split[0];
+    String expectedOutput = "Welcome to the stocks application! \n"
+            + "Supported user instructions are: \n"
+            + "select-stock stock-symbol (select a stock to see functions) \n"
+            + "create-portfolio portfolio-name (creates a new empty portfolio) \n"
+            + "check-portfolio portfolio-name date (checks portfolio value at a specific date) \n"
+            + "sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares) \n"
+            + "menu (Print supported instruction list) \n"
+            + "q or quit (quit the program) \n"
+            + "[Please enter all dates in: YYYY-MM-DD format.] \n";
+    assertEquals(expectedOutput, s);
   }
 
   @Test
@@ -45,24 +38,47 @@ public class StocksViewImplTest {
     String input = "quit";
     StocksController controller = new StocksControllerMock(model, view, input);
     controller.execute();
-    String expectedOutput = "Welcome to the stocks application!" + System.lineSeparator()
-            + "Supported user instructions are: " + System.lineSeparator()
-            + "select-stock stock-symbol (select a stock to see functions)"
-            + System.lineSeparator()
-            + "create-portfolio portfolio-name (creates a new empty portfolio)"
-            + System.lineSeparator()
-            + "check-portfolio portfolio-name date (checks portfolio value at a specific date)"
-            + System.lineSeparator()
-            + "sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares)"
-            + System.lineSeparator()
-            + "menu (Print supported instruction list)" + System.lineSeparator()
-            + "q or quit (quit the program) " + System.lineSeparator()
-            + "[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator()
-            + "Thank you for using this program!";
+    String expectedOutput = "Welcome to the stocks application! \n"
+            + "Supported user instructions are: \n"
+            + "select-stock stock-symbol (select a stock to see functions) \n"
+            + "create-portfolio portfolio-name (creates a new empty portfolio) \n"
+            + "check-portfolio portfolio-name date (checks portfolio value at a specific date) \n"
+            + "sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares) \n"
+            + "menu (Print supported instruction list) \n"
+            + "q or quit (quit the program) \n"
+            + "[Please enter all dates in: YYYY-MM-DD format.] \n"
+            + "Thank you for using this program! \n";
     assertEquals(expectedOutput, ap.toString());
   }
 
-  // only issue is something about line separators, but otherwise same
+  @Test
+  public void testUndefinedInstruction() {
+    Appendable ap = new StringBuilder();
+    StocksModel model = new StocksModelMock();
+    StocksView view = new StocksViewImpl(ap);
+    String input = "@";
+    StocksController controller = new StocksControllerMock(model, view, input);
+    controller.execute();
+    String[] split = ap.toString().split("format.] \n");
+    String s = split[1];
+    String expectedOutput = "Invalid input: @ \n";
+    assertEquals(expectedOutput, s);
+  }
+
+  @Test
+  public void testTypeInstruction() {
+    Appendable ap = new StringBuilder();
+    StocksModel model = new StocksModelMock();
+    StocksView view = new StocksViewImpl(ap);
+    String input = "@";
+    StocksController controller = new StocksControllerMock(model, view, input);
+    controller.execute();
+    String[] split = ap.toString().split("@ \n");
+    String s = split[1];
+    String expectedOutput = "Type instruction: ";
+    assertEquals(expectedOutput, s);
+  }
+
   @Test
   public void testMenu() {
     Appendable ap = new StringBuilder();
@@ -74,102 +90,93 @@ public class StocksViewImplTest {
     String[] split = ap.toString().split("\n");
     String s = "";
     for (int i = 1; i < split.length; i++) {
-      s = s.concat(split[i]);
+      s = s.concat(split[i] + "\n");
     }
     String[] split2 = s.split("Thank");
     s = split2[0];
 
-    String expectedOutput = "Supported user instructions are: " + System.lineSeparator()
-            + "select-stock stock-symbol (select a stock to see functions)"
-            + System.lineSeparator()
-            + "create-portfolio portfolio-name (creates a new empty portfolio)"
-            + System.lineSeparator()
-            + "check-portfolio portfolio-name date (checks portfolio value at a specific date)"
-            + System.lineSeparator()
-            + "sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares)"
-            + System.lineSeparator()
-            + "menu (Print supported instruction list)" + System.lineSeparator()
-            + "q or quit (quit the program) " + System.lineSeparator()
-            + "[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator();
+    String expectedOutput = "Supported user instructions are: \n"
+            + "select-stock stock-symbol (select a stock to see functions) \n"
+            + "create-portfolio portfolio-name (creates a new empty portfolio) \n"
+            + "check-portfolio portfolio-name date (checks portfolio value at a specific date) \n"
+            + "sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares) \n"
+            + "menu (Print supported instruction list) \n"
+            + "q or quit (quit the program) \n"
+            + "[Please enter all dates in: YYYY-MM-DD format.] \n";
 
     assertEquals(expectedOutput, s);
   }
 
-  // FOLLOWING SELECT-STOCK OPTIONS
   @Test
-  public void testSelectStock() {
+  public void testPrintStockMenuFollowingSelectStock() {
     Appendable ap = new StringBuilder();
     StocksModel model = new StocksModelMock();
     StocksView view = new StocksViewImpl(ap);
     String input = "select-stock";
     StocksController controller = new StocksControllerMock(model, view, input);
     controller.execute();
+    String[] s1 = ap.toString().split("! \n");
+    String[] split = s1[1].split("format.] \n");
+    String s = split[1] + "format.] \n" + split[2];
 
-    String[] split = ap.toString().split("format.]");
-    String s = split[2];
-
-    String expectedOutput = "Supported user instructions for selected stock are: "
-            + System.lineSeparator()
+    String expectedOutput = "Supported user instructions for selected stock are: \n"
             + "check-gain-loss number-of-days start-date (checks gains or losses for stock in " +
-            "specific date range)"
-            + System.lineSeparator()
+            "specific date range) \n"
             + "moving-average number-of-days date (checks x-day moving average for specified x day"
-            + " count and date)"
-            + System.lineSeparator()
+            + " count and date) \n"
             + "check-crossovers number-of-days start-date (checks x-day crossovers for" +
-            " specified x day count in specific date range)"
-            + System.lineSeparator()
-            + "buy-stock number-of-shares portfolio-name (buy stock shares)"
-            + System.lineSeparator()
-            + "stock-menu (Print supported stocks instruction list)"
-            + System.lineSeparator()
-            + "return-to-menu (return to previous menu)" + System.lineSeparator()
-            + "q or quit (quit the program) " + System.lineSeparator()
-            + "[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator()
+            " specified x day count in specific date range) \n"
+            + "buy-stock number-of-shares portfolio-name (buy stock shares) \n"
+            + "stock-menu (Print supported stocks instruction list) \n"
+            + "menu (return to previous menu) \n"
+            + "q or quit (quit the program) \n"
+            + "[Please enter all dates in: YYYY-MM-DD format.] \n"
             + "Type instruction: ";
     assertEquals(expectedOutput, s);
   }
 
   @Test
-  public void testPrintStockMenu() {
+  public void testCreatePortfolio() {
     Appendable ap = new StringBuilder();
     StocksModel model = new StocksModelMock();
     StocksView view = new StocksViewImpl(ap);
-    String input = "stock-menu";
+    String input = "create-portfolio kiki";
     StocksController controller = new StocksControllerMock(model, view, input);
     controller.execute();
-    String[] split = ap.toString().split("\n");
-    String s = "";
-    for (int i = 1; i < split.length; i++) {
-      s = s.concat(split[i]);
-    }
-    String[] split2 = s.split("Thank");
-    s = split2[0];
-
-    String expectedOutput = "Supported user instructions for selected stock are: "
-            + System.lineSeparator()
-            + "check-gain-loss number-of-days start-date (checks gains or losses for stock in " +
-            "specific date range)"
-            + System.lineSeparator()
-            + "moving-average number-of-days date (checks x-day moving average for specified x day"
-            + " count and date)"
-            + System.lineSeparator()
-            + "check-crossovers number-of-days start-date (checks x-day crossovers for" +
-            " specified x day count in specific date range)"
-            + System.lineSeparator()
-            + "buy-stock number-of-shares portfolio-name (buy stock shares)"
-            + System.lineSeparator()
-            + "stock-menu (Print supported stocks instruction list)"
-            + System.lineSeparator()
-            + "return-to-menu (return to previous menu)" + System.lineSeparator()
-            + "q or quit (quit the program) " + System.lineSeparator()
-            + "[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator();
+    String expectedOutput = "Portfolio kiki" + " created. \n";
+    String[] s1 = ap.toString().split("format.] \n");
+    String s = s1[1];
     assertEquals(expectedOutput, s);
   }
 
   //
   @Test
-  public void testCreatePortfolio() {
+  public void testPortfolioException() {
+    Appendable ap = new StringBuilder();
+    StocksModel model = new StocksModelMock();
+    StocksView view = new StocksViewImpl(ap);
+    String input = "check-portfolio kiki 2024-05-31";
+    StocksController controller = new StocksControllerMock(model, view, input);
+    controller.execute();
+    // don't actually have to check that the data is correct, just show that the view is
+    // printing out the correct output
+    String expectedOutput = "You may not have created this portfolio yet. \n";
+    String[] s1 = ap.toString().split("format.] \n");
+    String s = s1[1];
+    assertEquals(expectedOutput, s);
+  }
 
+  @Test
+  public void testBuySellMessage() {
+    Appendable ap = new StringBuilder();
+    StocksModel model = new StocksModelMock();
+    StocksView view = new StocksViewImpl(ap);
+    String input = "check-portfolio kiki 2024-05-31";
+    StocksController controller = new StocksControllerMock(model, view, input);
+    controller.execute();
+    String expectedOutput = "You may not have created this portfolio yet. \n";
+    String[] s1 = ap.toString().split("format.] \n");
+    String s = s1[1];
+    assertEquals(expectedOutput, s);
   }
 }

@@ -3,6 +3,7 @@ import stocks.StocksView;
 public class StocksViewMock implements StocksView {
   public StringBuilder outputMessage = new StringBuilder();
 
+  // create appendable log
   StocksViewMock() {
     this.outputMessage = new StringBuilder();
   }
@@ -13,6 +14,8 @@ public class StocksViewMock implements StocksView {
 
   @Override
   public void welcomeMessage() {
+    // instead of actually printing the message, just write something like "command welcomeMessage()
+    // executed"
     outputMessage.append("Welcome to Stocks View!\n");
     this.printMenu();
   }
@@ -60,6 +63,26 @@ public class StocksViewMock implements StocksView {
 
   @Override
   public void returnResult(String input) {
+
+  }
+
+  @Override
+  public void portfolioException() {
+
+  }
+
+  @Override
+  public void formattedReturn(Double inp) {
+
+  }
+
+  @Override
+  public void portfolioCreationMessage(String name) {
+
+  }
+
+  @Override
+  public void buySellMessage(Integer quantity, String stock, String name, boolean sell) {
 
   }
 }
