@@ -4,6 +4,10 @@ SETUP Instructions:
 2. Ensure your data folder is accessible and is within the res folder.
 3. Run the JAR program ($ java -jar Stocks.jar)
 
+Additional Note: During the testing phase, we noticed that accessing the stock data according to the file path had discrepancies between Mac vs. Windows OS. Please doublecheck that the file path located in the StocksModelImpl.java file on Line 30 matches the following according to your device.
+    - Mac: "/res/data/"
+    - Windows: "/Stocks/res/data/"
+
 Example run instructions:
 1. Enter: 'create-portfolio a' to create an initial portfolio.
 2. Enter: 'create-portfolio b' to create a second portfolio.
