@@ -68,8 +68,15 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void portfolioException() {
-    writeMessage("You may not have created this portfolio yet. \n");
+  public void portfolioException(boolean buy) {
+    if (buy) {
+      writeMessage("There may be an input error, or you may not have created this portfolio yet. " +
+              "Please try again. \n");
+    }
+    else {
+      writeMessage("There may be an input error, you may not have created this portfolio yet, or " +
+              "you may not own enough shares to sell. Please try again. \n");
+    }
   }
 
   @Override

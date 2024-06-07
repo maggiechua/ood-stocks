@@ -16,7 +16,7 @@ public interface StocksView {
 
   public void returnResult(String input);
 
-  public void portfolioException();
+  public void portfolioException(boolean buy);
 
   public void formattedReturn(Double inp);
 

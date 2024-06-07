@@ -128,19 +128,14 @@ public class StocksModelImpl implements StocksModel {
     HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
     HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
     pfs.remove(portfolioName);
-    try {
-      if (currentPortfolio.containsKey(stock)) {
-        if (currentPortfolio.get(stock) >= shares) {
-          currentPortfolio.put(stock, currentPortfolio.get(stock) - shares);
-        } else {
-          throw new IllegalArgumentException("not enough shares to sell");
-        }
+    if (currentPortfolio.containsKey(stock)) {
+      if (currentPortfolio.get(stock) >= shares) {
+        currentPortfolio.put(stock, currentPortfolio.get(stock) - shares);
       } else {
-        throw new IllegalArgumentException("you don't own this stock");
+        throw new IllegalArgumentException("not enough shares to sell");
       }
-    }
-    catch (Exception e) {
-      System.err.println("Not enough shares of this stock in this portfolio to sell.");
+    } else {
+      throw new IllegalArgumentException("you don't own this stock");
     }
     pfs.put(portfolioName, currentPortfolio);
     return new StocksModelImpl(stock, pfs);
