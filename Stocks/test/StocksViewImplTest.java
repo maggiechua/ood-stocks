@@ -7,7 +7,14 @@ import stocks.StocksViewImpl;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * A JUnit Test Class for the Stocks View Implementation.
+ */
 public class StocksViewImplTest {
+  // Note for Future Reference: when testing the view, don't actually have to check that
+  // the data is correct, just show that the view is printing out the correct output
+  // according to the respective cases.
+
   @Test
   public void testWelcome() {
     Appendable ap = new StringBuilder();
@@ -149,17 +156,28 @@ public class StocksViewImplTest {
     assertEquals(expectedOutput, s);
   }
 
-  //
   @Test
-  public void testPortfolioException() {
+  public void testCheckPortfolio() {
     Appendable ap = new StringBuilder();
     StocksModel model = new StocksModelMock();
     StocksView view = new StocksViewImpl(ap);
     String input = "check-portfolio kiki 2024-05-31";
     StocksController controller = new StocksControllerMock(model, view, input);
     controller.execute();
-    // don't actually have to check that the data is correct, just show that the view is
-    // printing out the correct output
+    String expectedOutput = String.format("%,.2f", 250.50) + " \n";
+    String[] s1 = ap.toString().split("format.] \n");
+    String s = s1[1];
+    assertEquals(expectedOutput, s);
+  }
+
+  @Test
+  public void testPortfolioException() {
+    Appendable ap = new StringBuilder();
+    StocksModel model = new StocksModelMock();
+    StocksView view = new StocksViewImpl(ap);
+    String input = "check-portfolio retirement 2024-05-31";
+    StocksController controller = new StocksControllerMock(model, view, input);
+    controller.execute();
     String expectedOutput = "You may not have created this portfolio yet. \n";
     String[] s1 = ap.toString().split("format.] \n");
     String s = s1[1];
@@ -167,14 +185,56 @@ public class StocksViewImplTest {
   }
 
   @Test
-  public void testBuySellMessage() {
+  public void testReturnCrossOverResultYes() {
     Appendable ap = new StringBuilder();
     StocksModel model = new StocksModelMock();
     StocksView view = new StocksViewImpl(ap);
-    String input = "check-portfolio kiki 2024-05-31";
+    String input = "check-crossovers 30 2020-03-09";
     StocksController controller = new StocksControllerMock(model, view, input);
     controller.execute();
-    String expectedOutput = "You may not have created this portfolio yet. \n";
+    String expectedOutput = "No, this date is not a 30-day crossover. \n";
+    String[] s1 = ap.toString().split("format.] \n");
+    String s = s1[1];
+    assertEquals(expectedOutput, s);
+  }
+
+  @Test
+  public void testReturnCrossOverResultNo() {
+    Appendable ap = new StringBuilder();
+    StocksModel model = new StocksModelMock();
+    StocksView view = new StocksViewImpl(ap);
+    String input = "check-crossovers 30 2024-05-31";
+    StocksController controller = new StocksControllerMock(model, view, input);
+    controller.execute();
+    String expectedOutput = "Yes, this date is a 30-day crossover. \n";
+    String[] s1 = ap.toString().split("format.] \n");
+    String s = s1[1];
+    assertEquals(expectedOutput, s);
+  }
+
+  @Test
+  public void testBuyMessage() {
+    Appendable ap = new StringBuilder();
+    StocksModel model = new StocksModelMock();
+    StocksView view = new StocksViewImpl(ap);
+    String input = "buy-stock 9 kiki";
+    StocksController controller = new StocksControllerMock(model, view, input);
+    controller.execute();
+    String expectedOutput = "9 of GOOG bought to kiki \n";
+    String[] s1 = ap.toString().split("format.] \n");
+    String s = s1[1];
+    assertEquals(expectedOutput, s);
+  }
+
+  @Test
+  public void testSellMessage() {
+    Appendable ap = new StringBuilder();
+    StocksModel model = new StocksModelMock();
+    StocksView view = new StocksViewImpl(ap);
+    String input = "sell-stock NVDA 9 college";
+    StocksController controller = new StocksControllerMock(model, view, input);
+    controller.execute();
+    String expectedOutput = "9 of NVDA sold from college \n";
     String[] s1 = ap.toString().split("format.] \n");
     String s = s1[1];
     assertEquals(expectedOutput, s);

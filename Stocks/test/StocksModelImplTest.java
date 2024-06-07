@@ -7,6 +7,9 @@ import stocks.StocksModelImpl;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * A JUnit Test Class for the Stocks Model Implementation.
+ */
 public class StocksModelImplTest {
 
   // mock controller
