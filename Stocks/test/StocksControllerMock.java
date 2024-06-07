@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class StocksControllerMock implements StocksController {
   StocksView viewMock;
   String input;
   boolean testingModel;
+  Appendable ap;
 
   /**
    * A StocksControllerMock takes in a model, view, input, and testingModel to aid in testing
@@ -25,11 +27,17 @@ public class StocksControllerMock implements StocksController {
    * @param input represents the given input case that's being tested
    * @param testingModel represents which component that is being tested
    */
-  public StocksControllerMock(StocksModel m, StocksView s, String input, boolean testingModel) {
+  public StocksControllerMock(StocksModel m, StocksView s, String input, boolean testingModel,
+                              Appendable ap) {
     this.modelMock = m;
     this.viewMock = s;
     this.input = input;
     this.testingModel = testingModel;
+    this.ap = ap;
+  }
+
+  public String returnComputation() {
+    return ap.toString();
   }
 
   @Override
@@ -54,11 +62,74 @@ public class StocksControllerMock implements StocksController {
   // MODEL METHOD CALLS
   public void modelTesting(String in, String[] commands) {
     switch (in) {
-      case "":
+      // stock stats methods
+      case "check-gain-loss":
+        this.callGainLoss(Integer.parseInt(commands[1]), commands[2]);
+        break;
+      case "moving-average":
+        this.callMovingAvg(Integer.parseInt(commands[1]), commands[2]);
+        break;
+      case "check-crossovers":
+        this.callCrossovers(Integer.parseInt(commands[1]), commands[2]);
+        break;
+      case "buy-stock":
+        this.callBuyStock(Integer.parseInt(commands[1]), commands[2]);
+        break;
+      // portfolio methods
+      case "create-portfolio":
+        this.callCreatePortfolio(commands[1]);
+        break;
+      case "check-portfolio":
+        this.callCheckPortfolio(commands[1], commands[2]);
+        break;
+      case "sell-stock":
+        this.callSellStock(commands[1], Integer.parseInt(commands[2]), commands[3]);
         break;
       default:
         break;
     }
+  }
+
+  public void appendResult(String result) {
+    try {
+      ap.append(result);
+
+    } catch (IOException e) {
+      throw new IllegalStateException(e.getMessage());
+    }
+  }
+
+  public void callGainLoss(int numDays, String date) {
+    String result = Double.toString(modelMock.gainLoss(numDays, date));
+    this.appendResult(result);
+  }
+
+  public void callMovingAvg(int numDays, String date) {
+    String result = Double.toString(modelMock.movingAvg(numDays, date));
+    this.appendResult(result);
+  }
+
+  public void callCrossovers(int numDays, String date) {
+    String result = modelMock.crossovers(numDays, date);
+    this.appendResult(result);
+  }
+
+  public void callBuyStock(int numShares, String portfolioName) {
+    modelMock.buy(numShares, portfolioName);
+  }
+
+  public void callCreatePortfolio(String portfolioName) {
+    StocksModel result = modelMock.createPortfolio(portfolioName);
+
+  }
+
+  public void callCheckPortfolio(String portfolioName, String date) {
+    String result = Double.toString(modelMock.portfolioValue(portfolioName, date));
+    this.appendResult(result);
+  }
+
+  public void callSellStock(String stock, int numShares, String portfolioName) {
+    modelMock.sell(stock, numShares, portfolioName);
   }
 
   // VIEW METHOD CALLS
