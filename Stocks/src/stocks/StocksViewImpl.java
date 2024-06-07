@@ -64,7 +64,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void returnResult(String input) {
-    writeMessage(input + System.lineSeparator());
+    writeMessage(input + " \n");
   }
 
   @Override
@@ -74,7 +74,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void formattedReturn(Double inp) {
-    writeMessage(String.format("%,.2f", inp) + System.lineSeparator());
+    writeMessage(String.format("%,.2f", inp) + " \n");
   }
 
   @Override
@@ -85,10 +85,10 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void buySellMessage(Integer quantity, String stock, String name, boolean sell) {
     if (sell) {
-      writeMessage(quantity + " of " + stock + " sold from " + name + System.lineSeparator());
+      writeMessage(quantity + " of " + stock + " sold from " + name + " \n");
     }
     else {
-      writeMessage(quantity + " of " + stock + " bought to " + name + System.lineSeparator());
+      writeMessage(quantity + " of " + stock + " bought to " + name + " \n");
     }
   }
 }

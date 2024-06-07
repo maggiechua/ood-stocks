@@ -12,6 +12,9 @@ import stocks.StocksViewImpl;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * A JUnit Test Class for the Stocks Controller Implementation.
+ */
 public class StocksControllerImplTest {
   // initialize a controller and pass it the mock model and mock view
   // check that the input that it is passing the same thing that the model/view is expecting

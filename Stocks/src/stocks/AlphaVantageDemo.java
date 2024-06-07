@@ -8,9 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class AlphaVantageDemo {
-  // don't have to use main method
-  // can break up into custom methods that we need to call the api
-
   public void createStockCSVFile(String stockSymbol, String apiKey) {
     URL url = null;
 
