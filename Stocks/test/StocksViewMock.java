@@ -30,7 +30,7 @@ public class StocksViewMock implements StocksView {
   }
 
   @Override
-  public void undefined(String input) {
+  public void undefined() {
 
   }
 
@@ -71,7 +71,7 @@ public class StocksViewMock implements StocksView {
   }
 
   @Override
-  public void portfolioException() {
+  public void portfolioException(boolean buy) {
 
   }
 

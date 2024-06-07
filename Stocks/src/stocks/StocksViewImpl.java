@@ -27,8 +27,8 @@ public class StocksViewImpl implements StocksView {
     writeMessage("Type instruction: ");
   }
 
-  public void undefined(String input) throws IllegalStateException {
-    writeMessage("Invalid input: " + input + " \n");
+  public void undefined() throws IllegalStateException {
+    writeMessage("Invalid input: Please try again." + System.lineSeparator());
   }
 
   public void farewellMessage() throws IllegalStateException {
@@ -68,8 +68,15 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void portfolioException() {
-    writeMessage("You may not have created this portfolio yet. \n");
+  public void portfolioException(boolean buy) {
+    if (buy) {
+      writeMessage("There may be an input error, or you may not have created this portfolio yet. " +
+              "Please try again. \n");
+    }
+    else {
+      writeMessage("There may be an input error, you may not have created this portfolio yet, or " +
+              "you may not own enough shares to sell. Please try again. \n");
+    }
   }
 
   @Override
@@ -85,10 +92,10 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void buySellMessage(Integer quantity, String stock, String name, boolean sell) {
     if (sell) {
-      writeMessage(quantity + " of " + stock + " sold from " + name + " \n");
+      writeMessage(quantity + " of " + stock + " sold from " + name + "." + System.lineSeparator());
     }
     else {
-      writeMessage(quantity + " of " + stock + " bought to " + name + " \n");
+      writeMessage(quantity + " of " + stock + " bought to " + name + "." + System.lineSeparator());
     }
   }
 }

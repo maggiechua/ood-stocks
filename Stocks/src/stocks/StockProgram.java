@@ -3,7 +3,14 @@ package stocks;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
+/**
+ * This class represents the Stock Program.
+ */
 public class StockProgram {
+
+  /**
+   * This is the main method to run the program.
+   */
   public static void main(String[] args) {
     String init = "";
     HashMap<String, HashMap<String, Integer>> p = new HashMap<String,HashMap<String, Integer>>();
