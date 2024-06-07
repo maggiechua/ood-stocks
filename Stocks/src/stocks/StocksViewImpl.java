@@ -19,7 +19,7 @@ public class StocksViewImpl implements StocksView {
   }
 
   public void welcomeMessage() throws IllegalStateException {
-    writeMessage("Welcome to the stocks application!" + System.lineSeparator());
+    writeMessage("Welcome to the stocks application! \n");
     printMenu();
   }
 
@@ -28,45 +28,38 @@ public class StocksViewImpl implements StocksView {
   }
 
   public void undefined(String input) throws IllegalStateException {
-    writeMessage("Invalid input: " + input + System.lineSeparator());
+    writeMessage("Invalid input: " + input + " \n");
   }
 
   public void farewellMessage() throws IllegalStateException {
-    writeMessage("Thank you for using this program!");
+    writeMessage("Thank you for using this program! \n");
   }
 
   public void printMenu() throws IllegalStateException {
-    writeMessage("Supported user instructions are: " + System.lineSeparator());
-    writeMessage("select-stock stock-symbol (select a stock to see functions)"
-            + System.lineSeparator());
-    writeMessage("create-portfolio portfolio-name (creates a new empty portfolio)"
-            + System.lineSeparator());
-    writeMessage("check-portfolio portfolio-name date (checks portfolio value at a specific date)"
-            + System.lineSeparator());
-    writeMessage("sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares)"
-            + System.lineSeparator());
-    writeMessage("menu (Print supported instruction list)" + System.lineSeparator());
-    writeMessage("q or quit (quit the program) " + System.lineSeparator());
-    writeMessage("[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator());
+    writeMessage("Supported user instructions are: \n");
+    writeMessage("select-stock stock-symbol (select a stock to see functions) \n");
+    writeMessage("create-portfolio portfolio-name (creates a new empty portfolio) \n");
+    writeMessage("check-portfolio portfolio-name date " +
+            "(checks portfolio value at a specific date) \n");
+    writeMessage("sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares) \n");
+    writeMessage("menu (Print supported instruction list) \n");
+    writeMessage("q or quit (quit the program) \n");
+    writeMessage("[Please enter all dates in: YYYY-MM-DD format.] \n");
   }
 
   public void printStockMenu() throws IllegalStateException {
-    writeMessage("Supported user instructions for selected stock are: " + System.lineSeparator());
-    writeMessage("check-gain-loss number-of-days start-date (checks gains or losses for stock in " +
-            "specific date range)"
-            + System.lineSeparator());
-    writeMessage("moving-average number-of-days date (checks x-day moving average for specified x day " +
-            "count and date)"
-            + System.lineSeparator());
+    writeMessage("Supported user instructions for selected stock are: \n");
+    writeMessage("check-gain-loss number-of-days start-date (checks gains or losses for stock in "
+            + "specific date range) \n");
+    writeMessage("moving-average number-of-days date (checks x-day moving average " +
+            "for specified x day count and date) \n");
     writeMessage("check-crossovers number-of-days start-date (checks x-day crossovers for" +
-            " specified x day count in specific date range)"
-            + System.lineSeparator());
-    writeMessage("buy-stock number-of-shares portfolio-name (buy stock shares)"
-            + System.lineSeparator());
-    writeMessage("stock-menu (Print supported stocks instruction list)" + System.lineSeparator());
-    writeMessage("menu (return to previous menu)" + System.lineSeparator());
-    writeMessage("q or quit (quit the program) " + System.lineSeparator());
-    writeMessage("[Please enter all dates in: YYYY-MM-DD format.]" + System.lineSeparator());
+            " specified x day count in specific date range) \n");
+    writeMessage("buy-stock number-of-shares portfolio-name (buy stock shares) \n");
+    writeMessage("stock-menu (Print supported stocks instruction list) \n");
+    writeMessage("menu (return to previous menu) \n");
+    writeMessage("q or quit (quit the program) \n");
+    writeMessage("[Please enter all dates in: YYYY-MM-DD format.] \n");
   }
 
   @Override
@@ -76,7 +69,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void portfolioException() {
-    writeMessage("You may not have created this portfolio yet." + System.lineSeparator());
+    writeMessage("You may not have created this portfolio yet. \n");
   }
 
   @Override
@@ -86,7 +79,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void portfolioCreationMessage(String name) {
-    writeMessage("Portfolio " + name + " created." + System.lineSeparator());
+    writeMessage("Portfolio " + name + " created. \n");
   }
 
   @Override
