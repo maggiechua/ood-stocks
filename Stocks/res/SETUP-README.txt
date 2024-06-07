@@ -11,7 +11,7 @@ Example run instructions:
 4. Enter 'buy-stock 5 a' to buy 5 shares of the Microsoft stock, and store it in portfolio a.
 5. Enter 'buy-stock 10 b' to buy 10 shares of the Microsoft stock, and store it in portfolio b.
 6. Enter 'menu' to return to initial menu.
-7. Enter 'select-stock GOOG' to query the Goog;e stock information.
+7. Enter 'select-stock GOOG' to query the Google stock information.
 8. Enter 'buy-stock 10 a' to buy 5 shares of the Google stock, and store it in portfolio a.
 9. Enter 'buy-stock 2 b' to buy 2 shares of the Google stock, and store it in portfolio b.
 10. Enter 'select-stock NVDA' to query the Invidia stock information.
@@ -26,4 +26,4 @@ to portfolio b.
 This program currently supports the following stocks:
     - MSFT (Microsoft) through dates (2000-04-25 - 2024-06-03)
     - GOOG (Google) through dates (2014-04-15 - 2024-06-03)
-    - NVDA (Invidia) through dates (2000-02-18 - 2024-06-03)
+    - NVDA (Nvidia) through dates (2000-02-18 - 2024-06-03)
