@@ -2,11 +2,24 @@ package stocks;
 
 import java.util.Scanner;
 
+/**
+ * This class represents the controller of the stocks program.
+ * This controller offers a simple text interface in which the user can enter given instructions to.
+ * run the program as intended.
+ * This controller works with any Readable to read its inputs.
+ * Dates are taken in YYYY-MM-DD format.
+ */
 public class StocksControllerImpl implements StocksController {
   private Readable rd;
   private StocksModel stock;
   private StocksView output;
 
+  /**
+   * This makes a new StockControllerImpl.
+   * @param stock the StocksModel connection (connects to methods to enact based on user inputs)
+   * @param rd something to read
+   * @param output the StocksView connection (connects to methods to append words)
+   */
   public StocksControllerImpl(StocksModel stock, Readable rd, StocksView output) throws IllegalArgumentException {
     if ((stock == null) || (rd == null)) {
       throw new IllegalArgumentException("Stock or Readable is null");
@@ -76,7 +89,8 @@ public class StocksControllerImpl implements StocksController {
                   stock.buy(numOfShares, portfolioName);
                   output.buySellMessage(numOfShares, stockName, portfolioName, false);
                 }
-                catch (Exception ignored) {
+                catch (Exception e) {
+                  output.portfolioException(true);
                 }
                 break;
               case "stock-menu" :
@@ -109,7 +123,7 @@ public class StocksControllerImpl implements StocksController {
             output.formattedReturn(stock.portfolioValue(portfolioName, date));
           }
           catch (Exception e) {
-            output.portfolioException();
+            output.portfolioException(true);
           }
           break;
         case "sell-stock" :
@@ -121,7 +135,7 @@ public class StocksControllerImpl implements StocksController {
             output.buySellMessage(numOfShares, stockName, portfolioName, true);
           }
           catch (Exception e) {
-            output.portfolioException();
+            output.portfolioException(false);
           }
           break;
         case "menu" :

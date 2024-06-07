@@ -127,7 +127,7 @@ public class StocksControllerMock implements StocksController {
   }
 
   public void callUndefined() {
-    viewMock.undefined(input);
+    viewMock.undefined();
   }
 
   public void createPortfolio(String name) {
@@ -148,7 +148,7 @@ public class StocksControllerMock implements StocksController {
       }
     }
     if (!exists) {
-      viewMock.portfolioException();
+      viewMock.portfolioException(true);
     }
   }
 
