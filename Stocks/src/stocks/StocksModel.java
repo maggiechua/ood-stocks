@@ -3,7 +3,7 @@ package stocks;
 /**
  * This interface represents the methods for the model section of the program.
  */
-public interface StocksModel {
+public interface StocksModel extends ReadOnlyModel {
   /**
    * the stockSelect method saves a stock to the class.
    * @param stock a string representing the stock symbol

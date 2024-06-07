@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 import stocks.StocksModel;
 import stocks.StocksModelImpl;
 
@@ -44,5 +46,15 @@ public class StocksModelMock implements StocksModel {
   @Override
   public Double portfolioValue(String portfolioName, String date) {
     return 0.0;
+  }
+
+  @Override
+  public String getStock() {
+    return "";
+  }
+
+  @Override
+  public HashMap<String, HashMap<String, Integer>> getPortfolios() {
+    return null;
   }
 }

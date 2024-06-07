@@ -36,6 +36,9 @@ public class StocksControllerImplTest {
   }
 
   // CONTROLLER SENDING INPUTS TO MODEL
+
+
+  // CONTROLLER SENDING INPUTS TO VIEW
   @Test
   public void testViewDisplaysWelcomeMessage() {
     String input = "q";
@@ -48,7 +51,6 @@ public class StocksControllerImplTest {
     assertEquals(expectedOutput, split[0]);
   }
 
-  // CONTROLLER SENDING INPUTS TO VIEW
   @Test
   public void test1() {
     String input = "";
