@@ -46,7 +46,7 @@ public class StocksModelImpl implements StocksModel {
           output.add(Double.parseDouble(lineInfo[4]));
           counter++;
         }
-        else if (counter == numOfDays) {
+        else if (counter - 1 == numOfDays) {
           break;
         }
         else if (counter > 0) {
@@ -56,7 +56,7 @@ public class StocksModelImpl implements StocksModel {
       }
     }
     catch (IOException e) {
-      System.out.println("Stock not found.");
+      System.out.println("The stock did not exist on the date given.");
     }
     return output;
   }
@@ -68,30 +68,64 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public Double gainLoss(Integer numOfDays, String date) {
+    Double lastDate = 0.0;
+    Double startDate = 0.0;
     List<Double> priceData = this.getStockInfo(this.stock, numOfDays, date);
-    Double lastDate = priceData.get(priceData.size() - 1);
-    Double startDate = priceData.get(0);
+    try {
+      if (priceData.isEmpty()) {
+        throw new IllegalArgumentException("The gain-loss cannot be calculated as " +
+                "the given date does not exist or does not contain a valid range.");
+      }
+      lastDate = priceData.get(priceData.size() - 1);
+      startDate = priceData.get(0);
+    }
+    catch (Exception e) {
+      //
+    }
     return startDate - lastDate;
   }
 
   @Override
   public Double movingAvg(Integer numOfDays, String date) {
-    List<Double> priceData = this.getStockInfo(this.stock, numOfDays, date);
     Double sum = 0.0;
-    for (Double price : priceData) {
-      sum += price;
+    List<Double> priceData = this.getStockInfo(this.stock, numOfDays, date);
+    try {
+      if (priceData.isEmpty()) {
+        throw new IllegalArgumentException("The moving average cannot be calculated as " +
+                "the given date does not exist or does not contain a valid range.");
+      }
+      priceData.remove(priceData.size() - 1);
+      for (Double price : priceData) {
+        sum += price;
+      }
     }
-    return sum / priceData.size();
+    catch (Exception e) {
+      //
+    }
+    return sum / numOfDays;
   }
 
   @Override
   public String crossovers(Integer numOfDays, String date) {
+    String message = "";
     Double movingAvg =  this.movingAvg(numOfDays, date);
     List<Double> priceData = this.getStockInfo(this.stock, 1, date);
-    if (priceData.get(0) > movingAvg) {
-      return "Yes, this date is a " + numOfDays + "-day crossover.";
+    try {
+      if (priceData.isEmpty()) {
+        throw new IllegalArgumentException("The moving average cannot be calculated as " +
+                "the given date does not exist or does not contain a valid range.");
+      }
+      if (priceData.get(0) > movingAvg) {
+        message = "Yes, this date is a " + numOfDays + "-day crossover.";
+      }
+      else {
+        message = "No, this date is not a " + numOfDays + "-day crossover.";
+      }
     }
-    return "No, this date is not a " + numOfDays + "-day crossover.";
+    catch (Exception e) {
+      //
+    }
+    return message;
   }
 
   @Override
