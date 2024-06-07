@@ -2,13 +2,26 @@ package stocks;
 
 import java.io.IOException;
 
+/**
+ * This class represents the view of the stock program. It updates the appendable for what the user
+ * should be able to see in the program.
+ */
 public class StocksViewImpl implements StocksView {
   private Appendable appendable;
 
+  /**
+   * This makes a new StockViewImpl.
+   * @param appendable the appendable all the text is appended to
+   */
   public StocksViewImpl(Appendable appendable) {
     this.appendable = appendable;
   }
 
+  /**
+   * the writeMessage method adds inputted text to the appendable.
+   * @param message the message to append
+   * @throws IllegalStateException if there are input errors
+   */
   private void writeMessage(String message) throws IllegalStateException {
     try {
       appendable.append(message);
@@ -18,23 +31,28 @@ public class StocksViewImpl implements StocksView {
     }
   }
 
+  @Override
   public void welcomeMessage() throws IllegalStateException {
     writeMessage("Welcome to the stocks application! \n");
     printMenu();
   }
 
+  @Override
   public void typeInstruct() throws IllegalStateException {
     writeMessage("Type instruction: ");
   }
 
+  @Override
   public void undefined() throws IllegalStateException {
     writeMessage("Invalid input: Please try again." + System.lineSeparator());
   }
 
+  @Override
   public void farewellMessage() throws IllegalStateException {
     writeMessage("Thank you for using this program! \n");
   }
 
+  @Override
   public void printMenu() throws IllegalStateException {
     writeMessage("Supported user instructions are: \n");
     writeMessage("select-stock stock-symbol (select a stock to see functions) \n");
@@ -47,6 +65,7 @@ public class StocksViewImpl implements StocksView {
     writeMessage("[Please enter all dates in: YYYY-MM-DD format.] \n");
   }
 
+  @Override
   public void printStockMenu() throws IllegalStateException {
     writeMessage("Supported user instructions for selected stock are: \n");
     writeMessage("check-gain-loss number-of-days start-date (checks gains or losses for stock in "

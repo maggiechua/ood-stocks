@@ -43,6 +43,9 @@ Model: StocksModel
             - buy (adds a stock to the portfolio)
             - sell (removes a stock from the portfolio)
             - portfolioValue (caculates the value of a portfolio on a given date)
+            Methods (not in interface):
+            - getAPIKey (stores the API key used to access the API)
+            getStockInfo (pulls stock information from data, or calls createStockCSVFile)
         - AlphaVantageDemo
             Methods (not pulled from Interface):
             - createStockCSVFile (creates a CSV file in data to store stock data)
