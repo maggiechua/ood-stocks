@@ -10,21 +10,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * This class represents the model of the stock program. It stores stock dara and portfolios for
+ * the user as well as accesses the API and saved files for stock data.
+ */
 public class StocksModelImpl implements StocksModel {
-  String stock;
-  HashMap<String,HashMap<String, Integer>> portfolios;
-  AlphaVantageDemo api;
+  private String stock;
+  private HashMap<String,HashMap<String, Integer>> portfolios;
+  private AlphaVantageDemo api;
 
+  /**
+   * This makes a new StockModelImpl.
+   * @param stock the String representing the stock symbol
+   * @param portfolios the hashmap holding the portfolios of the user
+   */
   public StocksModelImpl(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
     this.api = new AlphaVantageDemo();
   }
 
+  /**
+   * the getAPIKey method stores and returns the API key used for the program.
+   */
   public String getAPIKey() {
     return "5APRD6N4EPK0WCIS";
   }
 
+  /**
+   * the createPortfolio method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param stockSymbol the stock symbol
+   * @param numOfDays the number of days in the range to search for
+   * @param date the date to find the data of
+   * @return a List of data in Double format
+   */
   protected List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
     String userDirectory = System.getProperty("user.dir");
     String directoryPath = userDirectory + "/res/data/";

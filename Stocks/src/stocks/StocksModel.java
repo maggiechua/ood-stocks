@@ -36,11 +36,40 @@ public interface StocksModel {
    */
   public String crossovers(Integer numOfDays, String date);
 
+  /**
+   * the createPortfolio method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param name the name for the portfolio
+   * @return a StocksModelImpl with the new portfolio saved
+   */
   public StocksModelImpl createPortfolio(String name);
 
+  /**
+   * the buy method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param shares the number of shares the user intends ot buy
+   * @param portfolioName the name of the portfolio which is storing this data
+   * @return a StocksModelImpl with the changed portfolio data
+   */
   public StocksModelImpl buy(Integer shares, String portfolioName);
 
+  /**
+   * the buy method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param stock the symbol of the stock
+   * @param shares the number of shares the user intends ot buy
+   * @param portfolioName the name of the portfolio which is storing this data
+   * @return a StocksModelImpl with the changed portfolio data
+   */
   public StocksModelImpl sell(String stock, Integer shares, String portfolioName);
 
+
+  /**
+   * the buy method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param portfolioName the name of the portfolio
+   * @param date the date the user is checking the portfolio value of
+   * @return a Double of the portfolio value
+   */
   public Double portfolioValue(String portfolioName, String date);
 }
