@@ -37,50 +37,46 @@ public class StocksControllerImpl implements StocksController {
           miniquit = false;
           stockName = sc.next();
           stock = stock.stockSelect(stockName);
+          output.printStockMenu();
           while (!miniquit) {
-            output.printStockMenu();
             output.typeInstruct();
             String nextInput = sc.next();
             switch (nextInput) {
               case "check-gain-loss" :
+                try {
                 numOfDays = sc.nextInt();
                 date = sc.next();
-                try {
-                  output.formattedReturn(stock.gainLoss(numOfDays, date));
+                output.formattedReturn(stock.gainLoss(numOfDays, date));
                 }
-               catch (Exception e) {
-                  output.undefined(date);
+               catch (Exception ignored) {
                 }
                 break;
               case "moving-average" :
-                numOfDays = sc.nextInt();
-                date = sc.next();
                 try {
+                  numOfDays = sc.nextInt();
+                  date = sc.next();
                   output.formattedReturn(stock.movingAvg(numOfDays, date));
                 }
-                catch (Exception e) {
-                  output.undefined(date);
+                catch (Exception ignored) {
                 }
                 break;
               case "check-crossovers" :
-                numOfDays = sc.nextInt();
-                date = sc.next();
                 try {
+                  numOfDays = sc.nextInt();
+                  date = sc.next();
                   output.returnResult(stock.crossovers(numOfDays, date));
                 }
-                catch (Exception e) {
-                  output.undefined(date);
+                catch (Exception ignored) {
                 }
                 break;
               case "buy-stock" :
-                numOfShares = sc.nextInt();
-                portfolioName = sc.next();
                 try {
+                  numOfShares = sc.nextInt();
+                  portfolioName = sc.next();
                   stock.buy(numOfShares, portfolioName);
                   output.buySellMessage(numOfShares, stockName, portfolioName, false);
                 }
-                catch (Exception e) {
-                  output.portfolioException();
+                catch (Exception ignored) {
                 }
                 break;
               case "stock-menu" :
@@ -97,7 +93,7 @@ public class StocksControllerImpl implements StocksController {
                 quit = true;
                 break;
               default :
-                output.undefined(input);
+                output.undefined();
             }
           }
           break;
@@ -107,9 +103,9 @@ public class StocksControllerImpl implements StocksController {
           output.portfolioCreationMessage(portfolioName);
           break;
         case "check-portfolio" :
-          portfolioName = sc.next();
-          date = sc.next();
           try {
+            portfolioName = sc.next();
+            date = sc.next();
             output.formattedReturn(stock.portfolioValue(portfolioName, date));
           }
           catch (Exception e) {
@@ -117,10 +113,10 @@ public class StocksControllerImpl implements StocksController {
           }
           break;
         case "sell-stock" :
-          stockName = sc.next();
-          numOfShares = sc.nextInt();
-          portfolioName = sc.next();
           try {
+            stockName = sc.next();
+            numOfShares = sc.nextInt();
+            portfolioName = sc.next();
             stock.sell(stockName, numOfShares, portfolioName);
             output.buySellMessage(numOfShares, stockName, portfolioName, true);
           }
@@ -137,7 +133,7 @@ public class StocksControllerImpl implements StocksController {
           quit = true;
           break;
         default :
-          output.undefined(input);
+          output.undefined();
       }
     }
   }
