@@ -2,11 +2,24 @@ package stocks;
 
 import java.util.Scanner;
 
+/**
+ * This class represents the controller of the stocks program.
+ * This controller offers a simple text interface in which the user can enter given instructions to.
+ * run the program as intended.
+ * This controller works with any Readable to read its inputs.
+ * Dates are taken in YYYY-MM-DD format.
+ */
 public class StocksControllerImpl implements StocksController {
   private Readable rd;
   private StocksModel stock;
   private StocksView output;
 
+  /**
+   * This makes a new StockControllerImpl.
+   * @param stock the StocksModel connection (connects to methods to enact based on user inputs)
+   * @param rd something to read
+   * @param output the StocksView connection (connects to methods to append words)
+   */
   public StocksControllerImpl(StocksModel stock, Readable rd, StocksView output) throws IllegalArgumentException {
     if ((stock == null) || (rd == null)) {
       throw new IllegalArgumentException("Stock or Readable is null");
@@ -37,50 +50,47 @@ public class StocksControllerImpl implements StocksController {
           miniquit = false;
           stockName = sc.next();
           stock = stock.stockSelect(stockName);
+          output.printStockMenu();
           while (!miniquit) {
-            output.printStockMenu();
             output.typeInstruct();
             String nextInput = sc.next();
             switch (nextInput) {
               case "check-gain-loss" :
+                try {
                 numOfDays = sc.nextInt();
                 date = sc.next();
-                try {
-                  output.formattedReturn(stock.gainLoss(numOfDays, date));
+                output.formattedReturn(stock.gainLoss(numOfDays, date));
                 }
-               catch (Exception e) {
-                  output.undefined(date);
+               catch (Exception ignored) {
                 }
                 break;
               case "moving-average" :
-                numOfDays = sc.nextInt();
-                date = sc.next();
                 try {
+                  numOfDays = sc.nextInt();
+                  date = sc.next();
                   output.formattedReturn(stock.movingAvg(numOfDays, date));
                 }
-                catch (Exception e) {
-                  output.undefined(date);
+                catch (Exception ignored) {
                 }
                 break;
               case "check-crossovers" :
-                numOfDays = sc.nextInt();
-                date = sc.next();
                 try {
+                  numOfDays = sc.nextInt();
+                  date = sc.next();
                   output.returnResult(stock.crossovers(numOfDays, date));
                 }
-                catch (Exception e) {
-                  output.undefined(date);
+                catch (Exception ignored) {
                 }
                 break;
               case "buy-stock" :
-                numOfShares = sc.nextInt();
-                portfolioName = sc.next();
                 try {
+                  numOfShares = sc.nextInt();
+                  portfolioName = sc.next();
                   stock.buy(numOfShares, portfolioName);
                   output.buySellMessage(numOfShares, stockName, portfolioName, false);
                 }
                 catch (Exception e) {
-                  output.portfolioException();
+                  output.portfolioException(true);
                 }
                 break;
               case "stock-menu" :
@@ -97,7 +107,7 @@ public class StocksControllerImpl implements StocksController {
                 quit = true;
                 break;
               default :
-                output.undefined(input);
+                output.undefined();
             }
           }
           break;
@@ -107,25 +117,25 @@ public class StocksControllerImpl implements StocksController {
           output.portfolioCreationMessage(portfolioName);
           break;
         case "check-portfolio" :
-          portfolioName = sc.next();
-          date = sc.next();
           try {
+            portfolioName = sc.next();
+            date = sc.next();
             output.formattedReturn(stock.portfolioValue(portfolioName, date));
           }
           catch (Exception e) {
-            output.portfolioException();
+            output.portfolioException(true);
           }
           break;
         case "sell-stock" :
-          stockName = sc.next();
-          numOfShares = sc.nextInt();
-          portfolioName = sc.next();
           try {
+            stockName = sc.next();
+            numOfShares = sc.nextInt();
+            portfolioName = sc.next();
             stock.sell(stockName, numOfShares, portfolioName);
             output.buySellMessage(numOfShares, stockName, portfolioName, true);
           }
           catch (Exception e) {
-            output.portfolioException();
+            output.portfolioException(false);
           }
           break;
         case "menu" :
@@ -137,7 +147,7 @@ public class StocksControllerImpl implements StocksController {
           quit = true;
           break;
         default :
-          output.undefined(input);
+          output.undefined();
       }
     }
   }

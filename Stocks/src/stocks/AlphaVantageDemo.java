@@ -7,7 +7,15 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * This class represents the API data. Its purpose is to connect to the AlphaVantage API.
+ */
 public class AlphaVantageDemo {
+  /**
+   * Get the number at the specified cell.
+   * @param stockSymbol the inputted stockSymbol
+   * @param apiKey the API key to access the API data
+   */
   public void createStockCSVFile(String stockSymbol, String apiKey) {
     URL url = null;
 
