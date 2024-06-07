@@ -14,8 +14,6 @@ import static org.junit.Assert.assertEquals;
  * A JUnit Test Class for the Stocks Model Implementation.
  */
 public class StocksModelImplTest {
-  // check whether i'm getting the correct value and it's being displayed properly
-
   private Appendable ap;
   private StocksView view;
   private StocksModel model;
@@ -30,63 +28,246 @@ public class StocksModelImplTest {
     model = new StocksModelImpl("GOOG", portfolios);
   }
 
-  // EXCEPTIONS
+  // GAIN-LOSS
+  @Test
+  public void testGainLoss5Day() {
+    String input = "check-gain-loss 5 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    double expectedResult = -2.14;
+    assertEquals(expectedResult, Double.parseDouble(ap.toString()), 0.01);
+  }
+
+  @Test
+  public void testGainLoss30Day() {
+    String input = "check-gain-loss 30 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    double expectedResult = 21.4;
+    assertEquals(expectedResult, Double.parseDouble(ap.toString()), 0.01);
+  }
+
+  @Test
+  public void testGainLoss90Day() {
+    String input = "check-gain-loss 90 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    double expectedResult = 29.43;
+    assertEquals(expectedResult, Double.parseDouble(ap.toString()), 0.01);
+  }
+
+  @Test
+  public void testGainLoss365Day() {
+    String input = "check-gain-loss 365 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    double expectedResult = 81.55;
+    assertEquals(expectedResult, Double.parseDouble(ap.toString()), 0.01);
+  }
+
+  // GAIN-LOSS EXCEPTIONS
   @Test
   public void testGainLossFutureDate() throws IllegalArgumentException {
     String input = "check-gain-loss 5 2024-07-09";
-    controller = new StocksControllerMock(model, view, input, true);
+    controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
 
   }
 
   @Test
   public void testGainLossDateStockDidNotExistYet() throws IllegalArgumentException {
-    String input = "check-gain-loss 5";
-    controller = new StocksControllerMock(model, view, input, true);
+    String input = "check-gain-loss 5 2000-05-09";
+    controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
+  }
 
+  @Test
+  public void testGainLossNonMarketDay() throws IllegalArgumentException {
+    String input = "check-gain-loss 5 2024-05-25";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
   }
 
   @Test
   public void testGainLossBeyondScope() {
     // basically that the time period to calculate has a final day that does not exist
     // in the stock data
-    String input = "check-gain-loss 5";
-    controller = new StocksControllerMock(model, view, input, true);
+    String input = "check-gain-loss 5 2014-03-27";
+    controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-
   }
 
-  // GAIN-LOSS
+  // MOVING-AVG
   @Test
-  public void testGainLoss5Day() {
-    String input = "check-gain-loss 5 2024-05-31";
-    controller = new StocksControllerMock(model, view, input, true);
+  public void testMovingAvg5Day() {
+    String input = "moving-average 5 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-
-  }
-
-  @Test
-  public void testGainLoss30Day() {
-    String input = "check-gain-loss 30 2024-05-31";
-    controller = new StocksControllerMock(model, view, input, true);
-    controller.execute();
-
+    double expectedResult = 176.96;
+    assertEquals(expectedResult, Double.parseDouble(ap.toString()), 0.01);
   }
 
   @Test
-  public void testGainLoss90Day() {
-    String input = "check-gain-loss 90 2024-05-31";
-    controller = new StocksControllerMock(model, view, input, true);
+  public void testMovingAvg30Day() {
+    String input = "moving-average 30 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-
+    double expectedResult = 169.47;
+    assertEquals(expectedResult, Double.parseDouble(ap.toString()), 0.01);
   }
 
   @Test
-  public void testGainLoss365Day() {
-    String input = "check-gain-loss 365 2024-05-31";
-    controller = new StocksControllerMock(model, view, input, true);
+  public void testMovingAvg90Day() {
+    String input = "moving-average 90 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
+    double expectedResult = 154.64;
+    assertEquals(expectedResult, Double.parseDouble(ap.toString()), 0.01);
+  }
 
+  @Test
+  public void testMovingAvg365Day() {
+    String input = "moving-average 365 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    double expectedResult = 128.07;
+    assertEquals(expectedResult, Double.parseDouble(ap.toString()), 0.01);
+  }
+
+  // MOVING-AVG EXCEPTIONS
+  @Test
+  public void testMovingAvgFutureDate() throws IllegalArgumentException {
+    String input = "moving-average 5 2024-07-09";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  @Test
+  public void testMovingAvgDidNotExistYet() throws IllegalArgumentException {
+    String input = "moving-average 5 2000-05-09";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  @Test
+  public void testMovingAvgNonMarketDay() throws IllegalArgumentException {
+    String input = "moving-average 5 2024-05-25";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  @Test
+  public void testMovingAvgBeyondScope() {
+    // basically that the time period to calculate has a final day that does not exist
+    // in the stock data
+    String input = "moving-average 5 2014-03-27";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  // CROSSOVERS
+  @Test
+  public void testCrossOver5DayTrue() {
+    String input = "check-crossovers 5 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    String expectedResult = "Yes, this date is a 5-day crossover.";
+    assertEquals(expectedResult, ap.toString());
+  }
+
+  @Test
+  public void testCrossOver30DayTrue() {
+    String input = "check-crossovers 30 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    String expectedResult = "Yes, this date is a 30-day crossover.";
+    assertEquals(expectedResult, ap.toString());
+  }
+
+  @Test
+  public void testCrossOver5DayFalse() {
+    String input = "check-crossovers 5 2024-03-06";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    String expectedResult = "No, this date is not a 5-day crossover.";
+    assertEquals(expectedResult, ap.toString());
+  }
+
+  @Test
+  public void testCrossOver30DayFalse() {
+    String input = "check-crossovers 30 2024-03-13";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    String expectedResult = "No, this date is not a 30-day crossover.";
+    assertEquals(expectedResult, ap.toString());
+  }
+
+  @Test
+  public void testCrossOver90Day() {
+    String input = "check-crossovers 90 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    String expectedResult = "Yes, this date is a 90-day crossover.";
+    assertEquals(expectedResult, ap.toString());
+  }
+
+  @Test
+  public void testCrossOver365Day() {
+    String input = "check-crossovers 365 2024-05-29";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    String expectedResult = "Yes, this date is a 365-day crossover.";
+    assertEquals(expectedResult, ap.toString());
+  }
+
+  // CROSSOVER EXCEPTIONS
+  @Test
+  public void testCrossOversFutureDate() throws IllegalArgumentException {
+    String input = "check-crossovers 5 2024-07-09";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  @Test
+  public void testCrossOversDateStockDidNotExistYet() throws IllegalArgumentException {
+    String input = "check-crossover 5 2000-05-09";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  @Test
+  public void testCrossOversNonMarketDay() throws IllegalArgumentException {
+    String input = "check-crossover 5 2024-05-25";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  @Test
+  public void testCrossOversBeyondScope() {
+    // basically that the time period to calculate has a final day that does not exist
+    // in the stock data
+    String input = "check-crossover 5 2014-03-27";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  // PORTFOLIO METHODS
+  @Test
+  public void testCreatePortfolio() {
+    String input = "create-portfolio a";
+    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
+//    assertEquals(expectedPortfolio, );
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+    expectedPortfolio.put("a", new HashMap<String, Integer>());
+//    assertEquals(expectedPortfolio, );
+  }
+
+  @Test
+  public void testPortfolioValue() {
+    String input = "check-portfolio a";
+    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
   }
 }

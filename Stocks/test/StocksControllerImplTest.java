@@ -8,9 +8,7 @@ import java.io.InputStreamReader;
 import stocks.StocksController;
 import stocks.StocksControllerImpl;
 import stocks.StocksModel;
-import stocks.StocksModelImpl;
 import stocks.StocksView;
-import stocks.StocksViewImpl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,14 +35,26 @@ public class StocksControllerImplTest {
     model = new StocksModelMock();
   }
 
+  // CONTROLLER SENDING INPUTS TO MODEL
   @Test
-  public void test() {
+  public void testViewDisplaysWelcomeMessage() {
+    String input = "q";
+    InputStream in = new ByteArrayInputStream(input.getBytes());
+    rd = new InputStreamReader(in);
+    controller = new StocksControllerImpl(model, rd, view);
+    controller.execute();
+    String expectedOutput = "Welcome Message printed in view.";
+    String[] split = expectedOutput.split("\n");
+    assertEquals(expectedOutput, split[0]);
+  }
+
+  // CONTROLLER SENDING INPUTS TO VIEW
+  @Test
+  public void test1() {
     String input = "";
     InputStream in = new ByteArrayInputStream(input.getBytes());
     rd = new InputStreamReader(in);
     controller = new StocksControllerImpl(model, rd, view);
     controller.execute();
-
   }
-
 }
