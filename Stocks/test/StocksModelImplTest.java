@@ -69,7 +69,6 @@ public class StocksModelImplTest {
     String input = "check-gain-loss 5 2024-07-09";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-
   }
 
   @Test (expected = IllegalArgumentException.class)
@@ -228,14 +227,14 @@ public class StocksModelImplTest {
 
   @Test (expected = IllegalArgumentException.class)
   public void testCrossOversDateStockDidNotExistYet() {
-    String input = "check-crossover 5 2000-05-09";
+    String input = "check-crossovers 5 2000-05-09";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testCrossOversNonMarketDay() {
-    String input = "check-crossover 5 2024-05-25";
+    String input = "check-crossovers 5 2024-05-25";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
@@ -244,7 +243,7 @@ public class StocksModelImplTest {
   public void testCrossOversBeyondScope() {
     // basically that the time period to calculate has a final day that does not exist
     // in the stock data
-    String input = "check-crossover 5 2014-03-27";
+    String input = "check-crossovers 5 2014-03-27";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
@@ -376,15 +375,29 @@ public class StocksModelImplTest {
             model.getPortfolios().get("a").get("GOOG"));
   }
 
+  @Test
+  public void testEmptyPortfolioValue() {
+    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
+    expectedPortfolio.put("a", new HashMap<String, Integer>());
+    double expectedPortfolioValue = 0.0;
+
+    String setup1 = "create-portfolio a";
+    controller = new StocksControllerMock(model, view, setup1, true, ap);
+    controller.execute();
+
+    double portfolioValue = model.getPortfolioValue("a", "2024-05-29");
+    assertEquals(expectedPortfolioValue, portfolioValue, 0.01);
+  }
+
   // still incomplete
   @Test
-  public void testPortfolioValue() {
+  public void testPortfolioValueWithStocks() {
     HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
     expectedPortfolio.put("a", new HashMap<String, Integer>());
     expectedPortfolio.get("a").put("GOOG", 5);
     expectedPortfolio.get("a").put("NVDA", 25);
     expectedPortfolio.get("a").put("MSFT", 20);
-    double expectedPortfolioValue = 0.0;
+    double expectedPortfolioValue = 38176.65;
 
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
@@ -422,9 +435,22 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup9, true, ap);
     controller.execute();
 
-    String input = "check-portfolio a";
+    // check that the portfolio contains the expected number of shares for each stock
+    assertEquals(expectedPortfolio.get("a").get("GOOG"),
+            model.getPortfolios().get("a").get("GOOG"));
+    assertEquals(expectedPortfolio.get("a").get("NVDA"),
+            model.getPortfolios().get("a").get("NVDA"));
+    assertEquals(expectedPortfolio.get("a").get("MSFT"),
+            model.getPortfolios().get("a").get("MSFT"));
+
+    String setup10 = "menu";
+    controller = new StocksControllerMock(model, view, setup10, true, ap);
+    controller.execute();
+
+    String input = "check-portfolio a 2024-05-29";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-    assertEquals(expectedPortfolioValue, model.getPortfolios());
+    double portfolioValue = model.getPortfolioValue("a", "2024-05-29");
+    assertEquals(expectedPortfolioValue, portfolioValue, 0.01);
   }
 }

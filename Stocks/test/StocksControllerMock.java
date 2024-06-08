@@ -72,6 +72,12 @@ public class StocksControllerMock implements StocksController {
    */
   public void modelTesting(String in, String[] commands) {
     switch (in) {
+      case "quit":
+        this.callMenu();
+        break;
+      case "select-stock":
+        this.callSelectStock(commands[1]);
+        break;
       // stock stats methods
       case "check-gain-loss":
         this.callGainLoss(Integer.parseInt(commands[1]), commands[2]);
@@ -111,6 +117,14 @@ public class StocksControllerMock implements StocksController {
     } catch (IOException e) {
       throw new IllegalStateException(e.getMessage());
     }
+  }
+
+  /**
+   * the callSelectStock changes the selected stock to the given one.
+   * @param stock the given stock to query
+   */
+  public void callSelectStock(String stock) {
+    modelMock = modelMock.stockSelect(stock);
   }
 
   /**

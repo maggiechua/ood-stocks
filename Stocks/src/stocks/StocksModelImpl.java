@@ -92,15 +92,12 @@ public class StocksModelImpl implements StocksModel {
     Double startDate = 0.0;
     List<Double> priceData = this.getStockInfo(this.stock, numOfDays, date);
     try {
-      if (priceData.isEmpty()) {
-        throw new IllegalArgumentException("The gain-loss cannot be calculated as " +
-                "the given date does not exist or does not contain a valid range.");
-      }
       lastDate = priceData.get(priceData.size() - 1);
       startDate = priceData.get(0);
     }
     catch (Exception e) {
-      //
+      throw new IllegalArgumentException("The gain-loss cannot be calculated as " +
+              "the given date does not exist or does not contain a valid range.");
     }
     return startDate - lastDate;
   }
@@ -110,17 +107,14 @@ public class StocksModelImpl implements StocksModel {
     Double sum = 0.0;
     List<Double> priceData = this.getStockInfo(this.stock, numOfDays, date);
     try {
-      if (priceData.isEmpty()) {
-        throw new IllegalArgumentException("The moving average cannot be calculated as " +
-                "the given date does not exist or does not contain a valid range.");
-      }
       priceData.remove(priceData.size() - 1);
       for (Double price : priceData) {
         sum += price;
       }
     }
     catch (Exception e) {
-      //
+      throw new IllegalArgumentException("The moving average cannot be calculated as " +
+              "the given date does not exist or does not contain a valid range.");
     }
     return sum / numOfDays;
   }
@@ -131,10 +125,6 @@ public class StocksModelImpl implements StocksModel {
     Double movingAvg =  this.movingAvg(numOfDays, date);
     List<Double> priceData = this.getStockInfo(this.stock, 1, date);
     try {
-      if (priceData.isEmpty()) {
-        throw new IllegalArgumentException("The moving average cannot be calculated as "
-                + "the given date does not exist or does not contain a valid range.");
-      }
       if (priceData.get(0) > movingAvg) {
         message = "Yes, this date is a " + numOfDays + "-day crossover.";
       }
@@ -143,7 +133,8 @@ public class StocksModelImpl implements StocksModel {
       }
     }
     catch (Exception e) {
-      //
+      throw new IllegalArgumentException("The moving average cannot be calculated as "
+              + "the given date does not exist or does not contain a valid range.");
     }
     return message;
   }
@@ -181,7 +172,7 @@ public class StocksModelImpl implements StocksModel {
   public StocksModelImpl sell(String stock, Integer shares, String portfolioName) {
     HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
     HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
-    pfs.remove(portfolioName);
+//    pfs.remove(portfolioName);
     if (currentPortfolio.containsKey(stock)) {
       if (currentPortfolio.get(stock) >= shares) {
         currentPortfolio.put(stock, currentPortfolio.get(stock) - shares);
@@ -214,5 +205,11 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public HashMap<String, HashMap<String, Integer>> getPortfolios() {
     return portfolios;
+  }
+
+  @Override
+  public Double getPortfolioValue(String name, String date) {
+    Double value = this.portfolioValue(name, date);
+    return value;
   }
 }
