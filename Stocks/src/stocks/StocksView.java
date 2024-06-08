@@ -66,4 +66,4 @@ public interface StocksView {
    * @param sell a boolean for if the shares are being bought or sold (true is sold)
    */
   public void buySellMessage(Integer quantity, String stock, String name, boolean sell);
-  }
+}
