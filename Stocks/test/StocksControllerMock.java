@@ -119,8 +119,7 @@ public class StocksControllerMock implements StocksController {
   }
 
   public void callCreatePortfolio(String portfolioName) {
-    StocksModel result = modelMock.createPortfolio(portfolioName);
-
+    modelMock.createPortfolio(portfolioName);
   }
 
   public void callCheckPortfolio(String portfolioName, String date) {
