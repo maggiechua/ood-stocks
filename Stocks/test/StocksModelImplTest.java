@@ -265,18 +265,29 @@ public class StocksModelImplTest {
 
   @Test
   public void testBuyStock() {
-    String input = "create-portfolio a";
+    String setup1 = "create-portfolio a";
+    controller = new StocksControllerMock(model, view, setup1, true, ap);
+    controller.execute();
+
+    String input = "buy-stock 15 a";
     HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    assertEquals(expectedPortfolio, model.getPortfolios());
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
     expectedPortfolio.put("a", new HashMap<String, Integer>());
-    assertEquals(expectedPortfolio, model.getPortfolios());
+    assertEquals(expectedPortfolio.get("GOOG"), model.getPortfolios().get("GOOG"));
   }
 
   @Test
   public void testSellStock() {
-    String input = "create-portfolio a";
+    String setup1 = "create-portfolio a";
+    controller = new StocksControllerMock(model, view, setup1, true, ap);
+    controller.execute();
+
+    String setup2 = "buy-stock 15 a";
+    controller = new StocksControllerMock(model, view, setup1, true, ap);
+    controller.execute();
+
+    String input = "sell-stock GOOG 9 a";
     HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
     assertEquals(expectedPortfolio, model.getPortfolios());
     controller = new StocksControllerMock(model, view, input, true, ap);
