@@ -44,7 +44,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void undefined() throws IllegalStateException {
-    writeMessage("Invalid input: Please try again." + System.lineSeparator());
+    writeMessage("Invalid input: Please try again. \n");
   }
 
   @Override
@@ -111,10 +111,10 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void buySellMessage(Integer quantity, String stock, String name, boolean sell) {
     if (sell) {
-      writeMessage(quantity + " of " + stock + " sold from " + name + "." + System.lineSeparator());
+      writeMessage(quantity + " of " + stock + " sold from " + name + ". \n");
     }
     else {
-      writeMessage(quantity + " of " + stock + " bought to " + name + "." + System.lineSeparator());
+      writeMessage(quantity + " of " + stock + " bought to " + name + ". \n");
     }
   }
 }

@@ -47,7 +47,7 @@ public class StocksModelImpl implements StocksModel {
    */
   protected List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
     String userDirectory = System.getProperty("user.dir");
-    String directoryPath = userDirectory + "/res/data/";
+    String directoryPath = userDirectory + "/Stocks/res/data/";
     String fileName = stockSymbol + ".csv";
     Path path = Paths.get(directoryPath + fileName);
     File file = path.toFile();
