@@ -57,8 +57,8 @@ public class StocksViewImpl implements StocksView {
     writeMessage("Supported user instructions are: \n");
     writeMessage("select-stock stock-symbol (select a stock to see functions) \n");
     writeMessage("create-portfolio portfolio-name (creates a new empty portfolio) \n");
-    writeMessage("check-portfolio portfolio-name date " +
-            "(checks portfolio value at a specific date) \n");
+    writeMessage("check-portfolio portfolio-name date "
+            + "(checks portfolio value at a specific date) \n");
     writeMessage("sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares) \n");
     writeMessage("menu (Print supported instruction list) \n");
     writeMessage("q or quit (quit the program) \n");
@@ -70,10 +70,10 @@ public class StocksViewImpl implements StocksView {
     writeMessage("Supported user instructions for selected stock are: \n");
     writeMessage("check-gain-loss number-of-days start-date (checks gains or losses for stock in "
             + "specific date range) \n");
-    writeMessage("moving-average number-of-days date (checks x-day moving average " +
-            "for specified x day count and date) \n");
-    writeMessage("check-crossovers number-of-days start-date (checks x-day crossovers for" +
-            " specified x day count in specific date range) \n");
+    writeMessage("moving-average number-of-days date (checks x-day moving average "
+            + "for specified x day count and date) \n");
+    writeMessage("check-crossovers number-of-days start-date (checks x-day crossovers for"
+            + " specified x day count in specific date range) \n");
     writeMessage("buy-stock number-of-shares portfolio-name (buy stock shares) \n");
     writeMessage("stock-menu (Print supported stocks instruction list) \n");
     writeMessage("menu (return to previous menu) \n");

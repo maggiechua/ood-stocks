@@ -59,11 +59,11 @@ public class StocksControllerImpl implements StocksController {
             switch (nextInput) {
               case "check-gain-loss" :
                 try {
-                numOfDays = sc.nextInt();
-                date = sc.next();
-                output.formattedReturn(stock.gainLoss(numOfDays, date));
+                  numOfDays = sc.nextInt();
+                  date = sc.next();
+                  output.formattedReturn(stock.gainLoss(numOfDays, date));
                 }
-               catch (Exception ignored) {
+                catch (Exception ignored) {
                 }
                 break;
               case "moving-average" :
