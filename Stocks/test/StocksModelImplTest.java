@@ -265,35 +265,117 @@ public class StocksModelImplTest {
 
   @Test
   public void testBuyStock() {
+    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
+    expectedPortfolio.put("a", new HashMap<String, Integer>());
+    expectedPortfolio.get("a").put("GOOG", 15);
+
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
+    controller.execute();
+
+    String setup2 = "select-stock GOOG";
+    controller = new StocksControllerMock(model, view, setup2, true, ap);
     controller.execute();
 
     String input = "buy-stock 15 a";
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-    expectedPortfolio.put("a", new HashMap<String, Integer>());
-    assertEquals(expectedPortfolio.get("GOOG"), model.getPortfolios().get("GOOG"));
+    assertEquals(expectedPortfolio.get("a").get("GOOG"),
+            model.getPortfolios().get("a").get("GOOG"));
   }
 
   @Test
-  public void testSellStock() {
+  public void testSellStockHaveEnoughShares() {
+    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
+    expectedPortfolio.put("a", new HashMap<String, Integer>());
+    expectedPortfolio.get("a").put("GOOG", 6);
+
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
     controller.execute();
 
-    String setup2 = "buy-stock 15 a";
-    controller = new StocksControllerMock(model, view, setup1, true, ap);
+    String setup2 = "select-stock GOOG";
+    controller = new StocksControllerMock(model, view, setup2, true, ap);
+    controller.execute();
+
+    String setup3 = "buy-stock 15 a";
+    controller = new StocksControllerMock(model, view, setup3, true, ap);
     controller.execute();
 
     String input = "sell-stock GOOG 9 a";
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    assertEquals(expectedPortfolio, model.getPortfolios());
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
+    assertEquals(expectedPortfolio.get("a").get("GOOG"),
+            model.getPortfolios().get("a").get("GOOG"));
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testSellStockDontOwnStock() {
+    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
     expectedPortfolio.put("a", new HashMap<String, Integer>());
-    assertEquals(expectedPortfolio, model.getPortfolios());
+
+    String setup1 = "create-portfolio a";
+    controller = new StocksControllerMock(model, view, setup1, true, ap);
+    controller.execute();
+
+    String setup2 = "select-stock GOOG";
+    controller = new StocksControllerMock(model, view, setup2, true, ap);
+    controller.execute();
+
+    String input = "sell-stock GOOG 9 a";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testSellStockNotEnoughShares() {
+    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
+    expectedPortfolio.put("a", new HashMap<String, Integer>());
+    expectedPortfolio.get("a").put("GOOG", 6);
+
+    String setup1 = "create-portfolio a";
+    controller = new StocksControllerMock(model, view, setup1, true, ap);
+    controller.execute();
+
+    String setup2 = "select-stock GOOG";
+    controller = new StocksControllerMock(model, view, setup2, true, ap);
+    controller.execute();
+
+    String input = "sell-stock GOOG 9 a";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    controller.execute();
+  }
+
+  @Test
+  public void testSellStockNotEnoughSharesDoesNotSubtractFromPortfolio() {
+    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
+    expectedPortfolio.put("a", new HashMap<String, Integer>());
+    expectedPortfolio.get("a").put("GOOG", 6);
+
+    String setup1 = "create-portfolio a";
+    controller = new StocksControllerMock(model, view, setup1, true, ap);
+    controller.execute();
+
+    String setup2 = "select-stock GOOG";
+    controller = new StocksControllerMock(model, view, setup2, true, ap);
+    controller.execute();
+
+    String setup3 = "buy-stock 6 a";
+    controller = new StocksControllerMock(model, view, setup3, true, ap);
+    controller.execute();
+    assertEquals(expectedPortfolio.get("a").get("GOOG"),
+            model.getPortfolios().get("a").get("GOOG"));
+
+    String input = "sell-stock GOOG 9 a";
+    controller = new StocksControllerMock(model, view, input, true, ap);
+    try {
+      controller.execute();
+    }
+    catch (Exception e) {
+      //
+    }
+    assertEquals(expectedPortfolio.get("a").get("GOOG"),
+            model.getPortfolios().get("a").get("GOOG"));
   }
 
   @Test
