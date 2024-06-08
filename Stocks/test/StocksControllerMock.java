@@ -36,6 +36,10 @@ public class StocksControllerMock implements StocksController {
     this.ap = ap;
   }
 
+  /**
+   *
+   * @return
+   */
   public String returnComputation() {
     return ap.toString();
   }
@@ -60,6 +64,12 @@ public class StocksControllerMock implements StocksController {
   }
 
   // MODEL METHOD CALLS
+  /**
+   * The modelTesting represents the the different method calls to test the model
+   * when valid inputs from the controller.
+   * @param in the given stock operation
+   * @param commands the remaining information inputted
+   */
   public void modelTesting(String in, String[] commands) {
     switch (in) {
       // stock stats methods
@@ -90,6 +100,10 @@ public class StocksControllerMock implements StocksController {
     }
   }
 
+  /**
+   * The following method appends the command called by the controller to the log.
+   * @param result given string to add to the log of called commands.
+   */
   public void appendResult(String result) {
     try {
       ap.append(result);
@@ -99,40 +113,85 @@ public class StocksControllerMock implements StocksController {
     }
   }
 
+  /**
+   * the callGainLoss method calculates the gain or loss of the stock saved in the class.
+   * @param numDays the number of days in the range the user is searching the gain or loss of
+   * @param date the starting date for the range
+   */
   public void callGainLoss(int numDays, String date) {
     String result = Double.toString(modelMock.gainLoss(numDays, date));
     this.appendResult(result);
   }
 
+  /**
+   * the callMovingAvg method calculates the x-day moving average of the stock saved in the class.
+   * @param numDays the specific x value in the x-day moving average
+   * @param date the specified date the user is checking
+   */
   public void callMovingAvg(int numDays, String date) {
     String result = Double.toString(modelMock.movingAvg(numDays, date));
     this.appendResult(result);
   }
 
+  /**
+   * the callCrossovers method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param numDays the specific x value in the x-day crossover
+   * @param date the specified date the user is checking
+   */
   public void callCrossovers(int numDays, String date) {
     String result = modelMock.crossovers(numDays, date);
     this.appendResult(result);
   }
 
+  /**
+   * the callBuy method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param numShares the number of shares the user intends ot buy
+   * @param portfolioName the name of the portfolio which is storing this data
+   */
   public void callBuyStock(int numShares, String portfolioName) {
     modelMock.buy(numShares, portfolioName);
   }
 
+  /**
+   * the callCreatePortfolio method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param portfolioName the name for the portfolio
+   */
   public void callCreatePortfolio(String portfolioName) {
-    StocksModel result = modelMock.createPortfolio(portfolioName);
-
+    modelMock.createPortfolio(portfolioName);
   }
 
+  /**
+   * the callCheckPortfolio method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param portfolioName the name of the portfolio
+   * @param date the date the user is checking the portfolio value of
+   */
   public void callCheckPortfolio(String portfolioName, String date) {
     String result = Double.toString(modelMock.portfolioValue(portfolioName, date));
     this.appendResult(result);
   }
 
+  /**
+   * the callSellStock method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param stock the symbol of the stock
+   * @param numShares the number of shares the user intends ot buy
+   * @param portfolioName the name of the portfolio which is storing this data
+   */
   public void callSellStock(String stock, int numShares, String portfolioName) {
     modelMock.sell(stock, numShares, portfolioName);
   }
 
   // VIEW METHOD CALLS
+  /**
+   * The viewTesting represents the different method calls to test the view
+   * when valid inputs from the controller.
+   * @param in the given stock operation
+   * @param commands the remaining information inputted
+   */
   public void viewTesting(String in, String[] commands) {
     this.callWelcomeMessage();
     switch (in) {
@@ -177,34 +236,62 @@ public class StocksControllerMock implements StocksController {
     }
   }
 
+  /**
+   * the callWelcomeMessage method adds the welcome message to the appendable in the class.
+   */
   public void callWelcomeMessage() {
     viewMock.welcomeMessage();
   }
 
+  /**
+   * the callFarewellMessage method adds a farewell message to the appendable in the class.
+   */
   public void callFarewellMessage() {
     viewMock.farewellMessage();
   }
 
+  /**
+   * the callMenu method adds the initial menu text to the appendable in the class.
+   */
   public void callMenu() {
     viewMock.printMenu();
   }
 
+  /**
+   * the callStockMenu method adds the stock menu text to the appendable in the class.
+   */
   public void callStockMenu() {
     viewMock.printStockMenu();
   }
 
+  /**
+   * the callTypeInstruct method adds a user instruction frame message to the appendable in the class.
+   */
   public void callTypeInstruct() {
     viewMock.typeInstruct();
   }
 
+  /**
+   * the callUndefined method returns an undefined instruction message to the appendable in the class.
+   */
   public void callUndefined() {
     viewMock.undefined();
   }
 
+  /**
+   * the createPortfolio adds the portfolio creation text to the appendable in the class.
+   * @param name the name of the portfolio
+   */
   public void createPortfolio(String name) {
     viewMock.portfolioCreationMessage(name);
   }
 
+  /**
+   * the checkPortfolio method checks that the correct message is returned when a given
+   * portfolio's value is asked to be checked
+   * @param name of the given portfolio
+   * @param date the given day
+   */
   public void checkPortfolio(String name, String date) {
     // sample portfolio list placeholders to demonstrate that view does output correct
     // messages accordingly
@@ -223,6 +310,11 @@ public class StocksControllerMock implements StocksController {
     }
   }
 
+  /**
+   *
+   * @param num
+   * @param date
+   */
   public void checkCrossovers(String num, String date) {
     String[] dateSplit = date.split("-");
     String year = dateSplit[0];
@@ -234,6 +326,13 @@ public class StocksControllerMock implements StocksController {
     }
   }
 
+  /**
+   * the checkBuySellMessage adds the buying or selling shares text to the appendable in the class.
+   * @param quantity the quantity of shares being sold or bought
+   * @param stock the stock symbol
+   * @param portfolio the name of the portfolio
+   * @param sell a boolean for if the shares are being bought or sold (true is sold)
+   */
   public void checkBuySellMessage(Integer quantity, String stock, String portfolio, boolean sell) {
     viewMock.buySellMessage(quantity, stock, portfolio, sell);
   }

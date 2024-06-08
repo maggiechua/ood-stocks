@@ -20,7 +20,7 @@ public class StocksModelImpl implements StocksModel {
   private AlphaVantageDemo api;
 
   /**
-   * This makes a new StockModelImpl.
+   * This makes a new StocksModel Implementation.
    * @param stock the String representing the stock symbol
    * @param portfolios the hashmap holding the portfolios of the user
    */
@@ -204,5 +204,15 @@ public class StocksModelImpl implements StocksModel {
       portfolioValue += stockValue.get(0) * stock.getValue().doubleValue();
     }
     return portfolioValue;
+  }
+
+  @Override
+  public String getStock() {
+    return stock;
+  }
+
+  @Override
+  public HashMap<String, HashMap<String, Integer>> getPortfolios() {
+    return portfolios;
   }
 }

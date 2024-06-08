@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.util.HashMap;
+
 import stocks.StocksModel;
 import stocks.StocksModelImpl;
 
@@ -6,8 +9,29 @@ import stocks.StocksModelImpl;
  * testing purposes.
  */
 public class StocksModelMock implements StocksModel {
+  private Appendable log;
+
+  /**
+   * StocksModelMock is a mock created purposely for testing.
+   * @param ap a StringBuilder that represents all the commands that the controller
+   *           calls when it receives inputs
+   */
+  StocksModelMock(Appendable ap) {
+    this.log = ap;
+  }
+
+  public void appendResult(String result) {
+    try {
+      log.append(result);
+    }
+    catch (IOException e) {
+      throw new IllegalStateException(e.getMessage());
+    }
+  }
+
   @Override
   public StocksModelImpl stockSelect(String stock) {
+
     return null;
   }
 
@@ -44,5 +68,15 @@ public class StocksModelMock implements StocksModel {
   @Override
   public Double portfolioValue(String portfolioName, String date) {
     return 0.0;
+  }
+
+  @Override
+  public String getStock() {
+    return null;
+  }
+
+  @Override
+  public HashMap<String, HashMap<String, Integer>> getPortfolios() {
+    return null;
   }
 }

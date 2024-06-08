@@ -24,7 +24,7 @@ public class StocksViewImplTest {
   @Before
   public void setUp() {
     ap = new StringBuilder();
-    model = new StocksModelMock();
+    model = new StocksModelMock(ap);
     view = new StocksViewImpl(ap);
   }
 

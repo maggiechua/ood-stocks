@@ -32,10 +32,13 @@ public class StocksControllerImplTest {
   public void setUp() {
     ap = new StringBuilder();
     view = new StocksViewMock(ap);
-    model = new StocksModelMock();
+    model = new StocksModelMock(ap);
   }
 
   // CONTROLLER SENDING INPUTS TO MODEL
+
+
+  // CONTROLLER SENDING INPUTS TO VIEW
   @Test
   public void testViewDisplaysWelcomeMessage() {
     String input = "q";

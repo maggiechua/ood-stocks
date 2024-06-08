@@ -9,11 +9,19 @@ import stocks.StocksView;
 public class StocksViewMock implements StocksView {
   private Appendable log;
 
-  // create appendable log
+  /**
+   * StocksViewMock is a mock created purposely for testing.
+   * @param ap a StringBuilder that represents all the commands that the controller
+   *           calls when it receives inputs
+   */
   StocksViewMock(Appendable ap) {
     this.log = ap;
   }
 
+  /**
+   * The following method appends the command called by the controller to the log.
+   * @param result given string to add to the log of called commands.
+   */
   public void appendResult(String result) {
     try {
       log.append(result);

@@ -3,7 +3,7 @@ package stocks;
 /**
  * This interface represents the methods for the model section of the program.
  */
-public interface StocksModel {
+public interface StocksModel extends ReadOnlyModel {
   /**
    * the stockSelect method saves a stock to the class.
    * @param stock a string representing the stock symbol
@@ -32,7 +32,7 @@ public interface StocksModel {
    * saved in the class.
    * @param numOfDays the specific x value in the x-day crossover
    * @param date the specified date the user is checking
-   * @return a String representing whether or not the day is an x-day crossover.
+   * @return a String representing whether the day is an x-day crossover.
    */
   public String crossovers(Integer numOfDays, String date);
 
