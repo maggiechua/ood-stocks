@@ -132,8 +132,8 @@ public class StocksModelImpl implements StocksModel {
     List<Double> priceData = this.getStockInfo(this.stock, 1, date);
     try {
       if (priceData.isEmpty()) {
-        throw new IllegalArgumentException("The moving average cannot be calculated as " +
-                "the given date does not exist or does not contain a valid range.");
+        throw new IllegalArgumentException("The moving average cannot be calculated as "
+                + "the given date does not exist or does not contain a valid range.");
       }
       if (priceData.get(0) > movingAvg) {
         message = "Yes, this date is a " + numOfDays + "-day crossover.";

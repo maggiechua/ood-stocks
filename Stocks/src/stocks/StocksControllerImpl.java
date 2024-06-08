@@ -20,7 +20,8 @@ public class StocksControllerImpl implements StocksController {
    * @param rd something to read
    * @param output the StocksView connection (connects to methods to append words)
    */
-  public StocksControllerImpl(StocksModel stock, Readable rd, StocksView output) throws IllegalArgumentException {
+  public StocksControllerImpl(StocksModel stock, Readable rd, StocksView output)
+          throws IllegalArgumentException {
     if ((stock == null) || (rd == null)) {
       throw new IllegalArgumentException("Stock or Readable is null");
     }
@@ -29,6 +30,7 @@ public class StocksControllerImpl implements StocksController {
     this.output = output;
   }
 
+  @Override
   public void execute() {
     Scanner sc = new Scanner(rd);
     boolean quit = false;

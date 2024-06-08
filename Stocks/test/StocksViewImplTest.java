@@ -122,12 +122,12 @@ public class StocksViewImplTest {
     String s = split[1] + "format.] \n" + split[2];
 
     String expectedOutput = "Supported user instructions for selected stock are: \n"
-            + "check-gain-loss number-of-days start-date (checks gains or losses for stock in " +
-            "specific date range) \n"
+            + "check-gain-loss number-of-days start-date (checks gains or losses for stock in "
+            + "specific date range) \n"
             + "moving-average number-of-days date (checks x-day moving average for specified x day"
             + " count and date) \n"
-            + "check-crossovers number-of-days start-date (checks x-day crossovers for" +
-            " specified x day count in specific date range) \n"
+            + "check-crossovers number-of-days start-date (checks x-day crossovers for"
+            + " specified x day count in specific date range) \n"
             + "buy-stock number-of-shares portfolio-name (buy stock shares) \n"
             + "stock-menu (Print supported stocks instruction list) \n"
             + "menu (return to previous menu) \n"

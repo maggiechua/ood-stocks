@@ -24,7 +24,7 @@ public class AlphaVantageDemo {
               + ".co/query?function=TIME_SERIES_DAILY"
               + "&outputsize=full"
               + "&symbol"
-              + "=" + stockSymbol + "&apikey="+apiKey+"&datatype=csv");
+              + "=" + stockSymbol + "&apikey=" + apiKey + "&datatype=csv");
     }
     catch (MalformedURLException e) {
       throw new RuntimeException("the alphavantage API has either changed or "
@@ -38,12 +38,12 @@ public class AlphaVantageDemo {
       in = url.openStream();
       int b;
 
-      while ((b=in.read())!=-1) {
+      while ((b = in.read()) != -1) {
         output.append((char)b);
       }
     }
     catch (IOException e) {
-      throw new IllegalArgumentException("No price data found for "+stockSymbol);
+      throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
 
     String directoryPath = "Stocks/res/data/";
