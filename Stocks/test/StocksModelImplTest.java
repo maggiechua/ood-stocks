@@ -18,14 +18,12 @@ public class StocksModelImplTest {
   private StocksView view;
   private StocksModel model;
   private StocksController controller;
-  private HashMap<String,HashMap<String, Integer>> portfolios;
 
   @Before
   public void setUp() {
-    portfolios = new HashMap<>();
     ap = new StringBuilder();
     view = new StocksViewMock(ap);
-    model = new StocksModelImpl("GOOG", portfolios);
+    model = new StocksModelImpl("GOOG", new HashMap<String,HashMap<String, Integer>>());
   }
 
   // GAIN-LOSS
