@@ -88,7 +88,7 @@ public class StocksModelImplTest {
     controller.execute();
   }
 
-  @Test
+  @Test (expected = IllegalArgumentException.class)
   public void testGainLossBeyondScope() {
     // basically that the time period to calculate has a final day that does not exist
     // in the stock data

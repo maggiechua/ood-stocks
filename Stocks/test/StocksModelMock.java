@@ -20,6 +20,10 @@ public class StocksModelMock implements StocksModel {
     this.log = ap;
   }
 
+  /**
+   * The following method appends the command called by the controller to the log.
+   * @param result given string to add to the log of called commands.
+   */
   public void appendResult(String result) {
     try {
       log.append(result);
