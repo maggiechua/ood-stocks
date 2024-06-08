@@ -83,4 +83,9 @@ public class StocksModelMock implements StocksModel {
   public HashMap<String, HashMap<String, Integer>> getPortfolios() {
     return null;
   }
+
+  @Override
+  public Double getPortfolioValue(String name, String date) {
+    return 0.0;
+  }
 }
