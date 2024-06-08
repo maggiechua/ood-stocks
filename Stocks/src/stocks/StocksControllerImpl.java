@@ -139,7 +139,7 @@ public class StocksControllerImpl implements StocksController {
           }
           break;
         case "menu" :
-          output.welcomeMessage();
+          output.printMenu();
           break;
         case "q" :
         case "quit" :

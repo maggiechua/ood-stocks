@@ -31,3 +31,6 @@ This program currently supports the following stocks:
     - MSFT (Microsoft) through dates (2000-04-25 - 2024-06-03)
     - GOOG (Google) through dates (2014-04-15 - 2024-06-03)
     - NVDA (Nvidia) through dates (2000-02-18 - 2024-06-03)
+    - AAPL (Apple) through dates (2000-05-19 - 2024-06-03)
+    - TSLA (Tesla) through dates (2011-01-11 - 2024-06-03)
+    - NOTE: more stocks are permitted to be queried, and have varying dates of initial data)
