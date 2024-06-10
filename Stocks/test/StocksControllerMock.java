@@ -37,8 +37,8 @@ public class StocksControllerMock implements StocksController {
   }
 
   /**
-   *
-   * @return
+   * Returns the appendable result of method called in the model.
+   * @return the result of a model computation as a string
    */
   public String returnComputation() {
     return ap.toString();
@@ -72,6 +72,12 @@ public class StocksControllerMock implements StocksController {
    */
   public void modelTesting(String in, String[] commands) {
     switch (in) {
+      case "quit":
+        this.callMenu();
+        break;
+      case "select-stock":
+        this.callSelectStock(commands[1]);
+        break;
       // stock stats methods
       case "check-gain-loss":
         this.callGainLoss(Integer.parseInt(commands[1]), commands[2]);
@@ -111,6 +117,14 @@ public class StocksControllerMock implements StocksController {
     } catch (IOException e) {
       throw new IllegalStateException(e.getMessage());
     }
+  }
+
+  /**
+   * the callSelectStock changes the selected stock to the given one.
+   * @param stock the given stock to query
+   */
+  public void callSelectStock(String stock) {
+    modelMock = modelMock.stockSelect(stock);
   }
 
   /**
@@ -265,14 +279,16 @@ public class StocksControllerMock implements StocksController {
   }
 
   /**
-   * the callTypeInstruct method adds a user instruction frame message to the appendable in the class.
+   * the callTypeInstruct method adds a user instruction frame message to the appendable
+   * in the class.
    */
   public void callTypeInstruct() {
     viewMock.typeInstruct();
   }
 
   /**
-   * the callUndefined method returns an undefined instruction message to the appendable in the class.
+   * the callUndefined method returns an undefined instruction message to the appendable
+   * in the class.
    */
   public void callUndefined() {
     viewMock.undefined();
@@ -288,7 +304,7 @@ public class StocksControllerMock implements StocksController {
 
   /**
    * the checkPortfolio method checks that the correct message is returned when a given
-   * portfolio's value is asked to be checked
+   * portfolio's value is asked to be checked.
    * @param name of the given portfolio
    * @param date the given day
    */
@@ -311,9 +327,11 @@ public class StocksControllerMock implements StocksController {
   }
 
   /**
-   *
-   * @param num
-   * @param date
+   * the checkCrossOvers method shows that the view can output both possible
+   * cases where either a given date is determined to be a crossover or not one
+   * for the given range of days.
+   * @param num the moving average range of days to retrieve
+   * @param date the given date to be checked
    */
   public void checkCrossovers(String num, String date) {
     String[] dateSplit = date.split("-");

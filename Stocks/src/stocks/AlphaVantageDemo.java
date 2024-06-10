@@ -46,7 +46,7 @@ public class AlphaVantageDemo {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
 
-    String directoryPath = "Stocks/res/data/";
+    String directoryPath = "/Stocks/res/data/";
     try {
       String fileName = stockSymbol + ".csv";
       File file = new File(directoryPath + fileName);

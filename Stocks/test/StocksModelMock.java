@@ -20,6 +20,10 @@ public class StocksModelMock implements StocksModel {
     this.log = ap;
   }
 
+  /**
+   * The following method appends the command called by the controller to the log.
+   * @param result given string to add to the log of called commands.
+   */
   public void appendResult(String result) {
     try {
       log.append(result);
@@ -78,5 +82,10 @@ public class StocksModelMock implements StocksModel {
   @Override
   public HashMap<String, HashMap<String, Integer>> getPortfolios() {
     return null;
+  }
+
+  @Override
+  public Double getPortfolioValue(String name, String date) {
+    return 0.0;
   }
 }

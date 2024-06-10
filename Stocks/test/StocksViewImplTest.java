@@ -72,7 +72,7 @@ public class StocksViewImplTest {
     controller.execute();
     String[] split = ap.toString().split("format.] \n");
     String s = split[1];
-    String expectedOutput = "Invalid input: @ \n" + "Type instruction: ";
+    String expectedOutput = "Invalid input: Please try again. \n" + "Type instruction: ";
     assertEquals(expectedOutput, s);
   }
 
@@ -81,7 +81,7 @@ public class StocksViewImplTest {
     String input = "@";
     controller = new StocksControllerMock(model, view, input, false, ap);
     controller.execute();
-    String[] split = ap.toString().split("@ \n");
+    String[] split = ap.toString().split("Please try again. \n");
     String s = split[1];
     String expectedOutput = "Type instruction: ";
     assertEquals(expectedOutput, s);
@@ -164,7 +164,8 @@ public class StocksViewImplTest {
     String input = "check-portfolio retirement 2024-05-31";
     controller = new StocksControllerMock(model, view, input, false, ap);
     controller.execute();
-    String expectedOutput = "You may not have created this portfolio yet. \n";
+    String expectedOutput = "There may be an input error, or you may not have created " +
+            "this portfolio yet. Please try again. \n";
     String[] s1 = ap.toString().split("format.] \n");
     String s = s1[1];
     assertEquals(expectedOutput, s);
@@ -197,7 +198,7 @@ public class StocksViewImplTest {
     String input = "buy-stock 9 kiki";
     controller = new StocksControllerMock(model, view, input, false, ap);
     controller.execute();
-    String expectedOutput = "9 of GOOG bought to kiki \n";
+    String expectedOutput = "9 of GOOG bought to kiki. \n";
     String[] s1 = ap.toString().split("format.] \n");
     String s = s1[1];
     assertEquals(expectedOutput, s);
@@ -208,7 +209,7 @@ public class StocksViewImplTest {
     String input = "sell-stock NVDA 9 college";
     controller = new StocksControllerMock(model, view, input, false, ap);
     controller.execute();
-    String expectedOutput = "9 of NVDA sold from college \n";
+    String expectedOutput = "9 of NVDA sold from college. \n";
     String[] s1 = ap.toString().split("format.] \n");
     String s = s1[1];
     assertEquals(expectedOutput, s);
