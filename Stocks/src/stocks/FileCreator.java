@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * This class represents file making data. Its purpose is to create saved files for the program.
@@ -54,6 +56,30 @@ public class FileCreator {
       writer.write(output.toString());
     } catch (IOException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  public void createPortfolioFile(String portfolioName, String stockSymbol, Integer shares,
+                                  String date) {
+    String userDirectory = System.getProperty("user.dir");
+    String directoryPath = userDirectory + "/Stocks/res/";
+    String fileName = portfolioName + ".csv";
+    Path path = Paths.get(directoryPath + fileName);
+    File file = path.toFile();
+
+    if (!file.exists()) {
+      StringBuilder output = new StringBuilder();
+      output.append(stockSymbol + "," + shares + "," + date + "\n");
+      try {
+        file = new File(directoryPath + fileName);
+        FileWriter writer = new FileWriter(file);
+        writer.write(output.toString());
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    else {
+      
     }
   }
 }
