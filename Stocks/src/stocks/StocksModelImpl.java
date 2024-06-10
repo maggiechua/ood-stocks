@@ -10,6 +10,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+//TODO: UPDATE PORTFOLIO FEATURES
+  //TODO: purchase specific stock on a specified date
+  //TODO: sell stock on a specified date (allows user to sell fractional shares)
+//TODO: NEW PORTFOLIO FEATURES
+  //TODO: composition of portfolio on a specific date
+  //  [a) list of stocks b) # of shares per stock]
+  //TODO: distribution of value on a specific date
+  //  [a) list of stocks b) value of each individual stock in the portfolio]
+  //TODO: portfolio can be saved/loaded (recommend standard file formats: XML/JSON)
+  //TODO: re-balancing a portfolio
+  //  user gives an ideal distribution of stock values (i.e. 40/20/20/20)
+  //  can result in fractional ownership of stocks that can be sold
+//TODO: PERFORMANCE OVER TIME
+// # of lines for timestamps must be min 5, max 30 (minimum can be below 5 for day)
+// must include the following timestamps: day/month/year
+//    day -> computed with closing price
+//    month -> computed with last working day closing price of month
+//    year -> computed with last working day closing price of year
+// relative scale may be needed (given * = 1000), but scale must be shown on all charts
+
 /**
  * This class represents the model of the stock program. It stores stock dara and portfolios for
  * the user as well as accesses the API and saved files for stock data.
@@ -34,7 +54,7 @@ public class StocksModelImpl implements StocksModel {
    * the getAPIKey method stores and returns the API key used for the program.
    */
   public String getAPIKey() {
-    return "5APRD6N4EPK0WCIS";
+    return "HI5ADT0RWWANGUID";
   }
 
   /**

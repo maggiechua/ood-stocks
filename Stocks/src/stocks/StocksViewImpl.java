@@ -2,6 +2,12 @@ package stocks;
 
 import java.io.IOException;
 
+//TODO: PERFORMANCE OVER TIME
+// barchart must show the following:
+// - specified name of stock/portfolio and time range
+// - time stamps MUST all align (i.e. Jan 2010:, Feb 2010:, etc.)
+// - scale of the *
+
 /**
  * This class represents the view of the stock program. It updates the appendable for what the user
  * should be able to see in the program.

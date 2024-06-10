@@ -12,6 +12,9 @@ import stocks.StocksView;
 
 import static org.junit.Assert.assertEquals;
 
+//TODO: fix all controller tests for view
+//TODO: fix all controller tests for model
+
 /**
  * A JUnit Test Class for the Stocks Controller Implementation.
  */
