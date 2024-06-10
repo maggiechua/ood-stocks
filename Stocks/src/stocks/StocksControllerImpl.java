@@ -87,8 +87,9 @@ public class StocksControllerImpl implements StocksController {
               case "buy-stock" :
                 try {
                   numOfShares = sc.nextInt();
+                  date = sc.next();
                   portfolioName = sc.next();
-                  stock.buy(numOfShares, portfolioName);
+                  stock.buy(numOfShares, date, portfolioName);
                   output.buySellMessage(numOfShares, stockName, portfolioName, false);
                 }
                 catch (Exception e) {
@@ -132,8 +133,9 @@ public class StocksControllerImpl implements StocksController {
           try {
             stockName = sc.next();
             numOfShares = sc.nextInt();
+            date = sc.next();
             portfolioName = sc.next();
-            stock.sell(stockName, numOfShares, portfolioName);
+            stock.sell(stockName, numOfShares, date, portfolioName);
             output.buySellMessage(numOfShares, stockName, portfolioName, true);
           }
           catch (Exception e) {

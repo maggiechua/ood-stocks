@@ -60,12 +60,12 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl buy(Integer shares, String portfolioName) {
+  public StocksModelImpl buy(Integer shares, String date, String portfolioName) {
     return null;
   }
 
   @Override
-  public StocksModelImpl sell(String stock, Integer shares, String portfolioName) {
+  public StocksModelImpl sell(String stock, Integer shares, String date, String portfolioName) {
     return null;
   }
 

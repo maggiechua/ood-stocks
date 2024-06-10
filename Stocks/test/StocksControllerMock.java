@@ -89,7 +89,7 @@ public class StocksControllerMock implements StocksController {
         this.callCrossovers(Integer.parseInt(commands[1]), commands[2]);
         break;
       case "buy-stock":
-        this.callBuyStock(Integer.parseInt(commands[1]), commands[2]);
+        this.callBuyStock(Integer.parseInt(commands[1]), commands[2], commands[3]);
         break;
       // portfolio methods
       case "create-portfolio":
@@ -99,7 +99,7 @@ public class StocksControllerMock implements StocksController {
         this.callCheckPortfolio(commands[1], commands[2]);
         break;
       case "sell-stock":
-        this.callSellStock(commands[1], Integer.parseInt(commands[2]), commands[3]);
+        this.callSellStock(commands[1], Integer.parseInt(commands[2]), commands[3], commands[4]);
         break;
       default:
         break;
@@ -164,8 +164,8 @@ public class StocksControllerMock implements StocksController {
    * @param numShares the number of shares the user intends ot buy
    * @param portfolioName the name of the portfolio which is storing this data
    */
-  public void callBuyStock(int numShares, String portfolioName) {
-    modelMock.buy(numShares, portfolioName);
+  public void callBuyStock(int numShares, String date, String portfolioName) {
+    modelMock.buy(numShares, date, portfolioName);
   }
 
   /**
@@ -195,8 +195,8 @@ public class StocksControllerMock implements StocksController {
    * @param numShares the number of shares the user intends ot buy
    * @param portfolioName the name of the portfolio which is storing this data
    */
-  public void callSellStock(String stock, int numShares, String portfolioName) {
-    modelMock.sell(stock, numShares, portfolioName);
+  public void callSellStock(String stock, int numShares, String date, String portfolioName) {
+    modelMock.sell(stock, numShares, date, portfolioName);
   }
 
   // VIEW METHOD CALLS
