@@ -8,11 +8,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * This class represents the API data. Its purpose is to connect to the AlphaVantage API.
+ * This class represents file making data. Its purpose is to create saved files for the program.
  */
-public class AlphaVantageDemo {
+public class FileCreator {
   /**
-   * Get the number at the specified cell.
+   * Connect to AlphaVantageAPI and create a new CSV file with stock data.
    * @param stockSymbol the inputted stockSymbol
    * @param apiKey the API key to access the API data
    */
