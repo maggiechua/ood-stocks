@@ -2,11 +2,6 @@ package stocks;
 
 import java.io.IOException;
 
-//TODO: NEW PORTFOLIO FEATURES
-//TODO: composition of portfolio on a specific date
-//  [a) list of stocks b) # of shares per stock]
-//TODO: distribution of value on a specific date
-//  [a) list of stocks b) value of each individual stock in the portfolio]
 //TODO: PERFORMANCE OVER TIME
 // barchart must show the following:
 // - specified name of stock/portfolio and time range
