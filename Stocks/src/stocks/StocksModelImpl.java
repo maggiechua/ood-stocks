@@ -10,25 +10,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-//TODO: DN | we made an abstract class where we abstracted methods that were in common between
-// our implementations in order to reduce code duplication and ensure backwards compatability.
-
 /**
- * This is an abstract class with methods that are utilized in both the SimpleStocksModel
- * implementation and AdvancedStocksModel implementation that allow for a user to create/view
- * their portfolio(s) and calculate the gain-loss/moving-average/crossover for a select stock.
+ * This class represents the model of the stock program. It stores stock dara and portfolios for
+ * the user as well as accesses the API and saved files for stock data.
  */
-public abstract class AbstractStocksModel implements StocksModel {
-  protected String stock;
-  protected HashMap<String,HashMap<String, Integer>> portfolios;
-  protected AlphaVantageDemo api;
+public class StocksModelImpl implements StocksModel {
+  private String stock;
+  private HashMap<String,HashMap<String, Integer>> portfolios;
+  private AlphaVantageDemo api;
 
   /**
    * This makes a new StocksModel Implementation.
    * @param stock the String representing the stock symbol
    * @param portfolios the hashmap holding the portfolios of the user
    */
-  public AbstractStocksModel(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
+  public StocksModelImpl(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
     this.api = new AlphaVantageDemo();
@@ -38,7 +34,7 @@ public abstract class AbstractStocksModel implements StocksModel {
    * the getAPIKey method stores and returns the API key used for the program.
    */
   public String getAPIKey() {
-    return "HI5ADT0RWWANGUID";
+    return "5APRD6N4EPK0WCIS";
   }
 
   /**
@@ -86,8 +82,8 @@ public abstract class AbstractStocksModel implements StocksModel {
   }
 
   @Override
-  public AbstractStocksModel stockSelect(String s) {
-    return new SimpleStocksModelImpl(s, this.portfolios);
+  public StocksModelImpl stockSelect(String s) {
+    return new StocksModelImpl(s, this.portfolios);
   }
 
   @Override
@@ -144,7 +140,7 @@ public abstract class AbstractStocksModel implements StocksModel {
   }
 
   @Override
-  public AbstractStocksModel createPortfolio(String name) {
+  public StocksModelImpl createPortfolio(String name) {
     HashMap<String, HashMap<String, Integer>> pfs;
     if (this.portfolios == null) {
       pfs = new HashMap<String, HashMap<String, Integer>>();
@@ -154,14 +150,41 @@ public abstract class AbstractStocksModel implements StocksModel {
     }
     HashMap<String, Integer> newp = new HashMap<>();
     pfs.put(name, newp);
-    return new SimpleStocksModelImpl(this.stock, pfs);
+    return new StocksModelImpl(this.stock, pfs);
   }
 
   @Override
-  public abstract AbstractStocksModel buy(Integer shares, String portfolioName);
+  public StocksModelImpl buy(Integer shares, String portfolioName) {
+    HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
+    HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
+    pfs.remove(portfolioName);
+    if (currentPortfolio.containsKey(this.stock)) {
+      currentPortfolio.put(this.stock, currentPortfolio.get(this.stock) + shares);
+    }
+    else {
+      currentPortfolio.put(this.stock, shares);
+    }
+    pfs.put(portfolioName, currentPortfolio);
+    return new StocksModelImpl(this.stock, pfs);
+  }
 
   @Override
-  public abstract AbstractStocksModel sell(String stock, Integer shares, String portfolioName);
+  public StocksModelImpl sell(String stock, Integer shares, String portfolioName) {
+    HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
+    HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
+//    pfs.remove(portfolioName);
+    if (currentPortfolio.containsKey(stock)) {
+      if (currentPortfolio.get(stock) >= shares) {
+        currentPortfolio.put(stock, currentPortfolio.get(stock) - shares);
+      } else {
+        throw new IllegalArgumentException("not enough shares to sell");
+      }
+    } else {
+      throw new IllegalArgumentException("you don't own this stock");
+    }
+    pfs.put(portfolioName, currentPortfolio);
+    return new StocksModelImpl(stock, pfs);
+  }
 
   @Override
   public Double portfolioValue(String portfolioName, String date) {
