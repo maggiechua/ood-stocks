@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import stocks.StocksModel;
-import stocks.StocksModelImpl;
 
 /**
  * The StocksModelMock is a class that represents an imitation of our model for
@@ -34,8 +33,7 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl stockSelect(String stock) {
-
+  public StocksModel stockSelect(String stock) {
     return null;
   }
 
@@ -55,17 +53,17 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl createPortfolio(String name) {
+  public StocksModel createPortfolio(String name) {
     return null;
   }
 
   @Override
-  public StocksModelImpl buy(Integer shares, String portfolioName) {
+  public StocksModel buy(Integer shares, String portfolioName) {
     return null;
   }
 
   @Override
-  public StocksModelImpl sell(String stock, Integer shares, String portfolioName) {
+  public StocksModel sell(String stock, Integer shares, String portfolioName) {
     return null;
   }
 

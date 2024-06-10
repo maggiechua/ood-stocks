@@ -1,5 +1,7 @@
 package stocks;
 
+//TODO: DN | we changed the return types | StocksModelImpl => StocksModel
+
 /**
  * This interface represents the methods for the model section of the program.
  */
@@ -9,7 +11,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param stock a string representing the stock symbol
    * @return a new StocksModelImpl with the stock saved
    */
-  public StocksModelImpl stockSelect(String stock);
+  public StocksModel stockSelect(String stock);
 
   /**
    * the gainLoss method calculates the gain or loss of the stock saved in the class.
@@ -42,7 +44,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param name the name for the portfolio
    * @return a StocksModelImpl with the new portfolio saved
    */
-  public StocksModelImpl createPortfolio(String name);
+  public StocksModel createPortfolio(String name);
 
   /**
    * the buy method determines whether a given date is an x-day crossover for the stock
@@ -51,7 +53,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param portfolioName the name of the portfolio which is storing this data
    * @return a StocksModelImpl with the changed portfolio data
    */
-  public StocksModelImpl buy(Integer shares, String portfolioName);
+  public StocksModel buy(Integer shares, String portfolioName);
 
   /**
    * the buy method determines whether a given date is an x-day crossover for the stock
@@ -61,7 +63,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param portfolioName the name of the portfolio which is storing this data
    * @return a StocksModelImpl with the changed portfolio data
    */
-  public StocksModelImpl sell(String stock, Integer shares, String portfolioName);
+  public StocksModel sell(String stock, Integer shares, String portfolioName);
 
 
   /**

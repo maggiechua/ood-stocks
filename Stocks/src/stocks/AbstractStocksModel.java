@@ -10,41 +10,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-//TODO: UPDATE PORTFOLIO FEATURES
-  //TODO: purchase specific stock on a specified date
-  //TODO: sell stock on a specified date (allows user to sell fractional shares)
-//TODO: NEW PORTFOLIO FEATURES
-  //TODO: composition of portfolio on a specific date
-  //  [a) list of stocks b) # of shares per stock]
-  //TODO: distribution of value on a specific date
-  //  [a) list of stocks b) value of each individual stock in the portfolio]
-  //TODO: portfolio can be saved/loaded (recommend standard file formats: XML/JSON)
-  //TODO: re-balancing a portfolio
-  //  user gives an ideal distribution of stock values (i.e. 40/20/20/20)
-  //  can result in fractional ownership of stocks that can be sold
-//TODO: PERFORMANCE OVER TIME
-// # of lines for timestamps must be min 5, max 30 (minimum can be below 5 for day)
-// must include the following timestamps: day/month/year
-//    day -> computed with closing price
-//    month -> computed with last working day closing price of month
-//    year -> computed with last working day closing price of year
-// relative scale may be needed (given * = 1000), but scale must be shown on all charts
+//TODO: DN | we made an abstract class where we abstracted methods that were in common between
+// our implementations in order to reduce code duplication and ensure backwards compatability.
 
 /**
- * This class represents the model of the stock program. It stores stock dara and portfolios for
- * the user as well as accesses the API and saved files for stock data.
+ * This is an abstract class with methods that are utilized in both the SimpleStocksModel
+ * implementation and AdvancedStocksModel implementation that allow for a user to create/view
+ * their portfolio(s) and calculate the gain-loss/moving-average/crossover for a select stock.
  */
-public class StocksModelImpl implements StocksModel {
-  private String stock;
-  private HashMap<String,HashMap<String, Integer>> portfolios;
-  private AlphaVantageDemo api;
+public abstract class AbstractStocksModel implements StocksModel {
+  protected String stock;
+  protected HashMap<String,HashMap<String, Integer>> portfolios;
+  protected AlphaVantageDemo api;
 
   /**
    * This makes a new StocksModel Implementation.
    * @param stock the String representing the stock symbol
    * @param portfolios the hashmap holding the portfolios of the user
    */
-  public StocksModelImpl(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
+  public AbstractStocksModel(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
     this.api = new AlphaVantageDemo();
@@ -102,8 +86,8 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl stockSelect(String s) {
-    return new StocksModelImpl(s, this.portfolios);
+  public AbstractStocksModel stockSelect(String s) {
+    return new SimpleStocksModelImpl(s, this.portfolios);
   }
 
   @Override
@@ -160,7 +144,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl createPortfolio(String name) {
+  public AbstractStocksModel createPortfolio(String name) {
     HashMap<String, HashMap<String, Integer>> pfs;
     if (this.portfolios == null) {
       pfs = new HashMap<String, HashMap<String, Integer>>();
@@ -170,41 +154,14 @@ public class StocksModelImpl implements StocksModel {
     }
     HashMap<String, Integer> newp = new HashMap<>();
     pfs.put(name, newp);
-    return new StocksModelImpl(this.stock, pfs);
+    return new SimpleStocksModelImpl(this.stock, pfs);
   }
 
   @Override
-  public StocksModelImpl buy(Integer shares, String portfolioName) {
-    HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
-    HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
-    pfs.remove(portfolioName);
-    if (currentPortfolio.containsKey(this.stock)) {
-      currentPortfolio.put(this.stock, currentPortfolio.get(this.stock) + shares);
-    }
-    else {
-      currentPortfolio.put(this.stock, shares);
-    }
-    pfs.put(portfolioName, currentPortfolio);
-    return new StocksModelImpl(this.stock, pfs);
-  }
+  public abstract AbstractStocksModel buy(Integer shares, String portfolioName);
 
   @Override
-  public StocksModelImpl sell(String stock, Integer shares, String portfolioName) {
-    HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
-    HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
-//    pfs.remove(portfolioName);
-    if (currentPortfolio.containsKey(stock)) {
-      if (currentPortfolio.get(stock) >= shares) {
-        currentPortfolio.put(stock, currentPortfolio.get(stock) - shares);
-      } else {
-        throw new IllegalArgumentException("not enough shares to sell");
-      }
-    } else {
-      throw new IllegalArgumentException("you don't own this stock");
-    }
-    pfs.put(portfolioName, currentPortfolio);
-    return new StocksModelImpl(stock, pfs);
-  }
+  public abstract AbstractStocksModel sell(String stock, Integer shares, String portfolioName);
 
   @Override
   public Double portfolioValue(String portfolioName, String date) {
