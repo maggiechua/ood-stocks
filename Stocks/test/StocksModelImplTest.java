@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import stocks.StocksController;
 import stocks.StocksModel;
-import stocks.StocksModelImpl;
+import stocks.SimpleStocksModelImpl;
 import stocks.StocksView;
 
 import static org.junit.Assert.assertEquals;
@@ -25,7 +25,7 @@ public class StocksModelImplTest {
   public void setUp() {
     ap = new StringBuilder();
     view = new StocksViewMock(ap);
-    model = new StocksModelImpl("GOOG", new HashMap<String,HashMap<String, Integer>>());
+    model = new SimpleStocksModelImpl("GOOG", new HashMap<String,HashMap<String, Integer>>());
   }
 
   // GAIN-LOSS
