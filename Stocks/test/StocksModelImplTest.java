@@ -5,10 +5,12 @@ import java.util.HashMap;
 
 import stocks.StocksController;
 import stocks.StocksModel;
-import stocks.StocksModelImpl;
+import stocks.SimpleStocksModelImpl;
 import stocks.StocksView;
 
 import static org.junit.Assert.assertEquals;
+
+//TODO: debug the portfolio value test
 
 /**
  * A JUnit Test Class for the Stocks Model Implementation.
@@ -23,7 +25,7 @@ public class StocksModelImplTest {
   public void setUp() {
     ap = new StringBuilder();
     view = new StocksViewMock(ap);
-    model = new StocksModelImpl("GOOG", new HashMap<String,HashMap<String, Integer>>());
+    model = new SimpleStocksModelImpl("GOOG", new HashMap<String,HashMap<String, Integer>>());
   }
 
   // GAIN-LOSS
@@ -436,12 +438,12 @@ public class StocksModelImplTest {
     controller.execute();
 
     // check that the portfolio contains the expected number of shares for each stock
-    assertEquals(expectedPortfolio.get("a").get("GOOG"),
-            model.getPortfolios().get("a").get("GOOG"));
-    assertEquals(expectedPortfolio.get("a").get("NVDA"),
-            model.getPortfolios().get("a").get("NVDA"));
-    assertEquals(expectedPortfolio.get("a").get("MSFT"),
-            model.getPortfolios().get("a").get("MSFT"));
+//    assertEquals(expectedPortfolio.get("a").get("GOOG"),
+//            model.getPortfolios().get("a").get("GOOG"));
+//    assertEquals(expectedPortfolio.get("a").get("NVDA"),
+//            model.getPortfolios().get("a").get("NVDA"));
+//    assertEquals(expectedPortfolio.get("a").get("MSFT"),
+//            model.getPortfolios().get("a").get("MSFT"));
 
     String setup10 = "menu";
     controller = new StocksControllerMock(model, view, setup10, true, ap);
@@ -451,6 +453,8 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
     double portfolioValue = model.getPortfolioValue("a", "2024-05-29");
+    assertEquals(expectedPortfolio.get("a"),
+            model.getPortfolios().get("a"));
     assertEquals(expectedPortfolioValue, portfolioValue, 0.01);
   }
 }
