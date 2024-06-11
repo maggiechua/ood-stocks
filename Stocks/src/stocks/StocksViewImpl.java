@@ -66,6 +66,12 @@ public class StocksViewImpl implements StocksView {
     writeMessage("check-portfolio portfolio-name date "
             + "(checks portfolio value at a specific date) \n");
     writeMessage("sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares) \n");
+    writeMessage("composition portfolio-name date (displays composition of a portfolio) \n");
+    writeMessage("distribution portfolio-name date (displays distribution of a portfolio) \n");
+    writeMessage("balance portfolio-name date weights "
+            + "(re-balances the portfolio with given weights) \n");
+    writeMessage("bar-chart portfolio-name initial-date end-date (outputs a par chart displaying " +
+            "the performance of a portfolio int the given range) \n");
     writeMessage("menu (Print supported instruction list) \n");
     writeMessage("q or quit (quit the program) \n");
     writeMessage("[Please enter all dates in: YYYY-MM-DD format.] \n");
@@ -122,5 +128,16 @@ public class StocksViewImpl implements StocksView {
     else {
       writeMessage(quantity + " of " + stock + " bought to " + name + ". \n");
     }
+  }
+
+  @Override
+  public void askBalance(String stock) {
+    writeMessage("Please input new weight for " + stock + " : \n");
+  }
+
+  @Override
+  public void balanceInstruction() {
+    writeMessage("Please enter weights as doubles. For example: enter [ 25.0 ] to represent 25%, or" +
+            "[ 33.33 ] to represent 33.33%. \n");
   }
 }
