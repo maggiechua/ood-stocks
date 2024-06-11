@@ -1,5 +1,8 @@
 package stocks;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * This interface represents the methods for the model section of the program.
  */
@@ -72,4 +75,15 @@ public interface StocksModel extends ReadOnlyModel {
    * @return a Double of the portfolio value
    */
   public Double portfolioValue(String portfolioName, String date);
+
+  public String composition(String portfolioName, String date);
+
+  public String distribution(String portfolioName, String date);
+
+  public HashMap<String, Double> bar(String portfolioName, String date1, String date2);
+
+  public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
+          Double> weights);
+
+  public ArrayList<String> portfolioCount(String portfolioName);
 }
