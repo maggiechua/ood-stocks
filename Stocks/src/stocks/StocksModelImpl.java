@@ -38,7 +38,7 @@ import java.util.Scanner;
 public class StocksModelImpl implements StocksModel {
   private String stock;
   private HashMap<String,HashMap<String, Integer>> portfolios;
-  private AlphaVantageDemo api;
+  private FileCreator fc;
 
   /**
    * This makes a new StocksModel Implementation.
@@ -48,7 +48,7 @@ public class StocksModelImpl implements StocksModel {
   public StocksModelImpl(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
-    this.api = new AlphaVantageDemo();
+    this.fc = new FileCreator();
   }
 
   /**
@@ -75,7 +75,7 @@ public class StocksModelImpl implements StocksModel {
 
     List<Double> output = new ArrayList<>();
     if (!file.exists()) {
-      api.createStockCSVFile(stock, this.getAPIKey());
+      fc.createStockCSVFile(stock, this.getAPIKey());
     }
     try {
       Scanner sc = new Scanner(file);
@@ -175,7 +175,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl buy(Integer shares, String portfolioName) {
+  public StocksModelImpl buy(Integer shares, String date, String portfolioName) {
     HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
     HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
     pfs.remove(portfolioName);
@@ -190,7 +190,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl sell(String stock, Integer shares, String portfolioName) {
+  public StocksModelImpl sell(String stock, Integer shares, String date, String portfolioName) {
     HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
     HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
 //    pfs.remove(portfolioName);
