@@ -142,6 +142,20 @@ public class StocksControllerImpl implements StocksController {
             output.portfolioException(false);
           }
           break;
+        case "composition" :
+        case "distribution" :
+        case "balance" :
+          try {
+            stockName = sc.next();
+            date = sc.next();
+            for (int i = 0; i <= stock.getPortfolios().size(); i++) {
+
+            }
+          }
+          catch (Exception e) {
+
+          }
+        case "bar-chart" :
         case "menu" :
           output.printMenu();
           break;

@@ -75,12 +75,32 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
+  public String composition(String portfolioName, String date) {
+    return "";
+  }
+
+  @Override
+  public String distribution(String portfolioName, String date) {
+    return "";
+  }
+
+  @Override
+  public HashMap<String, Double> bar(String portfolioName, String date1, String date2) {
+    return null;
+  }
+
+  @Override
+  public StocksModelImpl balance(String portfolioName, String date, HashMap<String, Double> weights) {
+    return null;
+  }
+
+  @Override
   public String getStock() {
     return null;
   }
 
   @Override
-  public HashMap<String, HashMap<String, Integer>> getPortfolios() {
+  public HashMap<String, HashMap<String, Double>> getPortfolios() {
     return null;
   }
 

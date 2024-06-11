@@ -68,6 +68,29 @@ public class FileCreator {
     }
   }
 
+//   public void createPortfolioFile(String portfolioName, String stockSymbol, Integer shares,
+//                                   String date) {
+//     String userDirectory = System.getProperty("user.dir");
+//     String directoryPath = userDirectory + "/Stocks/res/";
+//     String fileName = portfolioName + ".csv";
+//     Path path = Paths.get(directoryPath + fileName);
+//     File file = path.toFile();
+
+//     if (!file.exists()) {
+//       StringBuilder output = new StringBuilder();
+//       output.append(stockSymbol + "," + shares + "," + date + "\n");
+//       try {
+//         file = new File(directoryPath + fileName);
+//         FileWriter writer = new FileWriter(file);
+//         writer.write(output.toString());
+//       } catch (IOException e) {
+//         throw new RuntimeException(e);
+//       }
+//     }
+//     else {
+
+//     }
+  
   /**
    * This is a method to create a new portfolio file with the given name.
    * @param portfolioName the name of the given portfolio

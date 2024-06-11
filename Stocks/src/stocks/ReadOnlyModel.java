@@ -17,7 +17,7 @@ public interface ReadOnlyModel {
    * A getter method that returns existing portfolios.
    * @return a hashmap of all the users' existing portfolios
    */
-  public HashMap<String, HashMap<String, Integer>> getPortfolios();
+  public HashMap<String, HashMap<String, Double>> getPortfolios();
 
   /**
    * A getter method that returns the existing portfolio value based on the given date.
