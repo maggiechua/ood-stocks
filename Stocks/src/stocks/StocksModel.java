@@ -76,9 +76,9 @@ public interface StocksModel extends ReadOnlyModel {
    */
   public Double portfolioValue(String portfolioName, String date);
 
-  public String composition(String portfolioName, String date);
+  public HashMap<String, Double> composition(String portfolioName, String date);
 
-  public String distribution(String portfolioName, String date);
+  public HashMap<String, Double> distribution(String portfolioName, String date);
 
   public HashMap<String, Double> bar(String portfolioName, String date1, String date2);
 

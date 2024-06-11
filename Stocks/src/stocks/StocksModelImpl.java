@@ -218,13 +218,22 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public String composition(String portfolioName, String date) {
-    return "";
+  public HashMap<String, Double> composition(String portfolioName, String date) {
+    // TODO: reset portfolios for date
+    HashMap<String, HashMap<String, Double>> pfs = this.portfolios;
+    return pfs.get(portfolioName);
   }
 
   @Override
-  public String distribution(String portfolioName, String date) {
-    return "";
+  public HashMap<String, Double> distribution(String portfolioName, String date) {
+    // TODO: reset portfolios for date
+    HashMap<String, Double> pf = this.portfolios.get(portfolioName);
+    HashMap<String, Double> dist = new HashMap<>();
+    for (Map.Entry<String, Double> stock: pf.entrySet()) {
+      List<Double> stockValue = this.getStockInfo(stock.getKey(), 1, date);
+      dist.put(stock.getKey(), stock.getValue() * stockValue.get(0) );
+    }
+    return dist;
   }
 
   @Override
