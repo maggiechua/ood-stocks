@@ -1,5 +1,6 @@
 package stocks;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -99,7 +100,8 @@ public interface StocksModel extends ReadOnlyModel {
    * @param date2 the end date the user is checking the portfolio performance of
    * @return a HashMap of dates with values
    */
-  public HashMap<String, Double> bar(String portfolioName, String date1, String date2);
+  public HashMap<String, Double> bar(String portfolioName, String date1, String date2)
+          throws ParseException;
 
   /**
    * the balance method re-balances a portfolio.

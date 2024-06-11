@@ -190,7 +190,7 @@ public class StocksControllerImpl implements StocksController {
             output.barWrite(stock.bar(portfolioName, date, date2));
           }
           catch (Exception e) {
-            // TODO: what exceptions
+            // TODO: what exceptions: length of time incorrect
           }
         case "menu" :
           output.printMenu();
