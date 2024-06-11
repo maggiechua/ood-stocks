@@ -47,39 +47,60 @@ public class FileCreator {
     catch (IOException e) {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
+    String directoryPath = "Stocks/res/data/";
+    String fileName = stockSymbol + ".csv";
+    String path = directoryPath + fileName;
+    this.createFile(path, output);
+  }
 
-    String directoryPath = "/Stocks/res/data/";
+  /**
+   * This is a method to create a file at the given path location containing the given data.
+   * @param path the given path of the file
+   * @param data the given data to be written into the file
+   */
+  public void createFile(String path, StringBuilder data) {
     try {
-      String fileName = stockSymbol + ".csv";
-      File file = new File(directoryPath + fileName);
+      File file = new File(path);
       FileWriter writer = new FileWriter(file);
-      writer.write(output.toString());
+      writer.write(data.toString());
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
   }
 
-  public void createPortfolioFile(String portfolioName, String stockSymbol, Integer shares,
-                                  String date) {
-    String userDirectory = System.getProperty("user.dir");
-    String directoryPath = userDirectory + "/Stocks/res/";
-    String fileName = portfolioName + ".csv";
-    Path path = Paths.get(directoryPath + fileName);
-    File file = path.toFile();
+//   public void createPortfolioFile(String portfolioName, String stockSymbol, Integer shares,
+//                                   String date) {
+//     String userDirectory = System.getProperty("user.dir");
+//     String directoryPath = userDirectory + "/Stocks/res/";
+//     String fileName = portfolioName + ".csv";
+//     Path path = Paths.get(directoryPath + fileName);
+//     File file = path.toFile();
 
-    if (!file.exists()) {
-      StringBuilder output = new StringBuilder();
-      output.append(stockSymbol + "," + shares + "," + date + "\n");
-      try {
-        file = new File(directoryPath + fileName);
-        FileWriter writer = new FileWriter(file);
-        writer.write(output.toString());
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
-    }
-    else {
+//     if (!file.exists()) {
+//       StringBuilder output = new StringBuilder();
+//       output.append(stockSymbol + "," + shares + "," + date + "\n");
+//       try {
+//         file = new File(directoryPath + fileName);
+//         FileWriter writer = new FileWriter(file);
+//         writer.write(output.toString());
+//       } catch (IOException e) {
+//         throw new RuntimeException(e);
+//       }
+//     }
+//     else {
 
-    }
+//     }
+  
+  /**
+   * This is a method to create a new portfolio file with the given name.
+   * @param portfolioName the name of the given portfolio
+   */
+  public void createNewPortfolioFile(String portfolioName) {
+    StringBuilder header = new StringBuilder();
+    header.append("Stock, Share(s), Date");
+    String directoryPath = "/Stocks/res/portfolios/";
+    String fileName = portfolioName + ".txt";
+    String path = directoryPath + fileName;
+    this.createFile(path, header);
   }
 }
