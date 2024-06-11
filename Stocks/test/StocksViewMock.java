@@ -85,4 +85,14 @@ public class StocksViewMock implements StocksView {
   public void buySellMessage(Integer quantity, String stock, String name, boolean sell) {
     this.appendResult("Buying or selling message printed in view. \n");
   }
+
+  @Override
+  public void askBalance(String stock) {
+
+  }
+
+  @Override
+  public void balanceInstruction() {
+
+  }
 }

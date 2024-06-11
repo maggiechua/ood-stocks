@@ -1,6 +1,8 @@
 package stocks;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 //TODO: PERFORMANCE OVER TIME
 // barchart must show the following:
@@ -139,5 +141,17 @@ public class StocksViewImpl implements StocksView {
   public void balanceInstruction() {
     writeMessage("Please enter weights as doubles. For example: enter [ 25.0 ] to represent 25%, or" +
             "[ 33.33 ] to represent 33.33%. \n");
+  }
+
+  @Override
+  public void listWrite(HashMap<String, Double> input) {
+    for (Map.Entry<String, Double> entry : input.entrySet()) {
+      writeMessage("Stock: " + entry.getKey() + " - Shares/Value: " + entry.getValue() + "\n");
+    }
+  }
+
+  @Override
+  public void barWrite(HashMap<String, Double> input) {
+
   }
 }
