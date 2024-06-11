@@ -100,9 +100,21 @@ public interface StocksModel extends ReadOnlyModel {
    * @return a HashMap of dates with values
    */
   public HashMap<String, Double> bar(String portfolioName, String date1, String date2);
-  
+
+  /**
+   * the balance method re-balances a portfolio.
+   * @param portfolioName the name of the portfolio
+   * @param date the date to re-balance the portfolio
+   * @param weights the weights of each stock
+   * @return a new StocksModelImpl with the changed portfolio data
+   */
   public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
           Double> weights);
 
-  public ArrayList<String> portfolioCount(String portfolioName);
+  /**
+   * the stockCount gets all the stocks of a portfolio into one list.
+   * @param portfolioName the name of the portfolio
+   * @return an ArrayList of the stocks in a portfolio
+   */
+  public ArrayList<String> stockCount(String portfolioName);
 }
