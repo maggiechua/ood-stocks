@@ -250,12 +250,22 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
           Double> weights) {
+    //TODO: adjusted portfolio values based on file, new method to update portfolios? or auto?
     HashMap<String, HashMap<String, Double>> pfs = this.portfolios;
     double max = portfolioValue(portfolioName, date);
     for (String a : weights.keySet()) {
-      Double newVal = weights.get(a);
+      Double shareCount = pfs.get(portfolioName).get(a);
+      Double perc = weights.get(a);
       List<Double> stockValue = this.getStockInfo(a, 1, date);
+      Double newVal = (perc/100) * max;
       newVal = newVal/stockValue.get(0);
+      shareCount = shareCount - newVal;
+      if (shareCount < 0) {
+        //TODO: add transaction mess for buy
+      }
+      else if (shareCount > 0) {
+        //TODO: add transaction mess for sell
+      }
       pfs.get(portfolioName).put(a, newVal);
     }
     return new StocksModelImpl(this.stock, pfs);
@@ -263,12 +273,13 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public ArrayList<String> portfolioCount(String portfolioName) {
-    ArrayList<String> stocks = new ArrayList<>();
+    HashMap<String, Double> pf = this.portfolios.get(portfolioName);
+    ArrayList<String> stockList = new ArrayList<>();
     //TODO: finish this for controller bar purposes
-    for (Map.Entry<>) {
-      stocks.add(portfolios.get(portfolioName).)
+    for (Map.Entry<String, Double> stock: pf.entrySet()) {
+      stockList.add(stock.getValue().toString());
     }
-    return this.portfolios.size();
+    return stockList;
   }
 
   @Override

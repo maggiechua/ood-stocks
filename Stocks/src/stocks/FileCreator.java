@@ -59,6 +59,8 @@ public class FileCreator {
     }
   }
 
+  //TODO: LOAD FILE METHOD
+
   public void createPortfolioFile(String portfolioName, String stockSymbol, Integer shares,
                                   String date) {
     String userDirectory = System.getProperty("user.dir");

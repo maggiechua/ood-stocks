@@ -1,5 +1,6 @@
 package stocks;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -40,6 +41,8 @@ public class StocksControllerImpl implements StocksController {
     String date;
     Integer numOfDays;
     Integer numOfShares;
+    HashMap<String, Double> weights = new HashMap<>();
+    Double weight;
 
     // print welcome message
     output.welcomeMessage();
@@ -146,14 +149,19 @@ public class StocksControllerImpl implements StocksController {
         case "distribution" :
         case "balance" :
           try {
-            stockName = sc.next();
+            portfolioName = sc.next();
             date = sc.next();
-            for (int i = 0; i <= stock.getPortfolios().size(); i++) {
-
+            output.balanceInstruction();
+            for (int i = 0; i <= stock.portfolioCount(portfolioName).size(); i++) {
+              String thisStock = stock.portfolioCount(portfolioName).get(i);
+              output.askBalance(thisStock);
+              weight = sc.nextDouble();
+              weights.put(thisStock, weight);
             }
+            stock.balance(portfolioName, date, weights);
           }
           catch (Exception e) {
-
+            // TODO: what exceptions
           }
         case "bar-chart" :
         case "menu" :
