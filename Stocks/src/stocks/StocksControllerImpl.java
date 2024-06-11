@@ -1,5 +1,6 @@
 package stocks;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -40,6 +41,9 @@ public class StocksControllerImpl implements StocksController {
     String date;
     Integer numOfDays;
     Integer numOfShares;
+    HashMap<String, Double> weights = new HashMap<>();
+    Double weight;
+    String date2;
 
     // print welcome message
     output.welcomeMessage();
@@ -142,6 +146,52 @@ public class StocksControllerImpl implements StocksController {
             output.portfolioException(false);
           }
           break;
+        case "composition" :
+          try {
+            portfolioName = sc.next();
+            date = sc.next();
+            stock.composition(portfolioName, date);
+            output.listWrite(stock.composition(portfolioName, date));;
+          }
+          catch (Exception e) {
+            // TODO: what exceptions
+          }
+        case "distribution" :
+          try {
+            portfolioName = sc.next();
+            date = sc.next();
+            output.listWrite(stock.distribution(portfolioName, date));
+          }
+          catch (Exception e) {
+            // TODO: what exceptions
+          }
+        case "balance" :
+          try {
+            portfolioName = sc.next();
+            date = sc.next();
+            output.balanceInstruction();
+            for (int i = 0; i <= stock.stockCount(portfolioName).size(); i++) {
+              String thisStock = stock.stockCount(portfolioName).get(i);
+              output.askBalance(thisStock);
+              weight = sc.nextDouble();
+              weights.put(thisStock, weight);
+            }
+            stock.balance(portfolioName, date, weights);
+          }
+          catch (Exception e) {
+            // TODO: what exceptions
+          }
+        case "bar-chart" :
+          try {
+            portfolioName = sc.next();
+            date = sc.next();
+            date2 = sc.next();
+            // TODO: output
+            output.barWrite(stock.bar(portfolioName, date, date2));
+          }
+          catch (Exception e) {
+            // TODO: what exceptions
+          }
         case "menu" :
           output.printMenu();
           break;

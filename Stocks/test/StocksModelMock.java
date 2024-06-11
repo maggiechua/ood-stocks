@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import stocks.StocksModel;
@@ -75,12 +76,37 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
+  public HashMap<String, Double> composition(String portfolioName, String date) {
+    return null;
+  }
+
+  @Override
+  public HashMap<String, Double> distribution(String portfolioName, String date) {
+    return null;
+  }
+
+  @Override
+  public HashMap<String, Double> bar(String portfolioName, String date1, String date2) {
+    return null;
+  }
+
+  @Override
+  public StocksModelImpl balance(String portfolioName, String date, HashMap<String, Double> weights) {
+    return null;
+  }
+
+  @Override
+  public ArrayList<String> stockCount(String portfolioName) {
+    return null;
+  }
+
+  @Override
   public String getStock() {
     return null;
   }
 
   @Override
-  public HashMap<String, HashMap<String, Integer>> getPortfolios() {
+  public HashMap<String, HashMap<String, Double>> getPortfolios() {
     return null;
   }
 

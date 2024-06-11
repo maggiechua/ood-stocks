@@ -25,7 +25,7 @@ public class StocksModelImplTest {
   public void setUp() {
     ap = new StringBuilder();
     view = new StocksViewMock(ap);
-    model = new StocksModelImpl("GOOG", new HashMap<String,HashMap<String, Integer>>());
+    model = new StocksModelImpl("GOOG", new HashMap<String,HashMap<String, Double>>());
   }
 
   // GAIN-LOSS

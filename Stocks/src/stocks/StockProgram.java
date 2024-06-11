@@ -13,7 +13,7 @@ public class StockProgram {
    */
   public static void main(String[] args) {
     String init = "";
-    HashMap<String, HashMap<String, Integer>> p = new HashMap<String,HashMap<String, Integer>>();
+    HashMap<String, HashMap<String, Double>> p = new HashMap<>();
     StocksModel model = new StocksModelImpl(init, p);
     Readable rd = new InputStreamReader(System.in);
     StocksView ap = new StocksViewImpl(System.out);

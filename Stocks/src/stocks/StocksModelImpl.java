@@ -37,7 +37,7 @@ import java.util.Scanner;
  */
 public class StocksModelImpl implements StocksModel {
   private String stock;
-  private HashMap<String,HashMap<String, Integer>> portfolios;
+  private HashMap<String,HashMap<String, Double>> portfolios;
   private FileCreator fc;
 
   /**
@@ -45,7 +45,7 @@ public class StocksModelImpl implements StocksModel {
    * @param stock the String representing the stock symbol
    * @param portfolios the hashmap holding the portfolios of the user
    */
-  public StocksModelImpl(String stock, HashMap<String, HashMap<String, Integer>> portfolios) {
+  public StocksModelImpl(String stock, HashMap<String, HashMap<String, Double>> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
     this.fc = new FileCreator();
@@ -54,7 +54,7 @@ public class StocksModelImpl implements StocksModel {
   /**
    * the getAPIKey method stores and returns the API key used for the program.
    */
-  public String getAPIKey() {
+  private String getAPIKey() {
     return "HI5ADT0RWWANGUID";
   }
 
@@ -162,29 +162,29 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public StocksModelImpl createPortfolio(String name) {
-    HashMap<String, HashMap<String, Integer>> pfs;
+    HashMap<String, HashMap<String, Double>> pfs;
     if (this.portfolios == null) {
-      pfs = new HashMap<String, HashMap<String, Integer>>();
+      pfs = new HashMap<String, HashMap<String, Double>>();
     }
     else {
       pfs = this.portfolios;
     }
     fc.createNewPortfolioFile(name);
-    HashMap<String, Integer> newp = new HashMap<>();
+    HashMap<String, Double> newp = new HashMap<>();
     pfs.put(name, newp);
     return new StocksModelImpl(this.stock, pfs);
   }
 
   @Override
   public StocksModelImpl buy(Integer shares, String date, String portfolioName) {
-    HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
-    HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
+    HashMap<String, HashMap<String, Double>> pfs = this.portfolios;
+    HashMap<String, Double> currentPortfolio = pfs.get(portfolioName);
     pfs.remove(portfolioName);
     if (currentPortfolio.containsKey(this.stock)) {
       currentPortfolio.put(this.stock, currentPortfolio.get(this.stock) + shares);
     }
     else {
-      currentPortfolio.put(this.stock, shares);
+      currentPortfolio.put(this.stock, Double.valueOf(shares));
     }
     fc.addNewStockToPortfolioFile(portfolioName, this.stock, shares, date);
     pfs.put(portfolioName, currentPortfolio);
@@ -193,9 +193,8 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public StocksModelImpl sell(String stock, Integer shares, String date, String portfolioName) {
-    HashMap<String, HashMap<String, Integer>> pfs = this.portfolios;
-    HashMap<String, Integer> currentPortfolio = pfs.get(portfolioName);
-//    pfs.remove(portfolioName);
+    HashMap<String, HashMap<String, Double>> pfs = this.portfolios;
+    HashMap<String, Double> currentPortfolio = pfs.get(portfolioName);
     if (currentPortfolio.containsKey(stock)) {
       if (currentPortfolio.get(stock) >= shares) {
         currentPortfolio.put(stock, currentPortfolio.get(stock) - shares);
@@ -211,13 +210,88 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public Double portfolioValue(String portfolioName, String date) {
-    HashMap<String, Integer> portfolio = portfolios.get(portfolioName);
+    HashMap<String, Double> portfolio = portfolios.get(portfolioName);
     double portfolioValue = 0.0;
-    for (Map.Entry<String, Integer> stock: portfolio.entrySet()) {
+    for (Map.Entry<String, Double> stock: portfolio.entrySet()) {
       List<Double> stockValue = this.getStockInfo(stock.getKey(), 1, date);
-      portfolioValue += stockValue.get(0) * stock.getValue().doubleValue();
+      portfolioValue += stockValue.get(0) * stock.getValue();
     }
     return portfolioValue;
+  }
+
+  @Override
+  public HashMap<String, Double> composition(String portfolioName, String date) {
+    // TODO: reset portfolios for date
+    HashMap<String, HashMap<String, Double>> pfs = this.portfolios;
+    return pfs.get(portfolioName);
+  }
+
+  @Override
+  public HashMap<String, Double> distribution(String portfolioName, String date) {
+    // TODO: reset portfolios for date
+    HashMap<String, Double> pf = this.portfolios.get(portfolioName);
+    HashMap<String, Double> dist = new HashMap<>();
+    for (Map.Entry<String, Double> stock: pf.entrySet()) {
+      List<Double> stockValue = this.getStockInfo(stock.getKey(), 1, date);
+      dist.put(stock.getKey(), stock.getValue() * stockValue.get(0) );
+    }
+    return dist;
+  }
+
+  @Override
+  public HashMap<String, Double> bar(String portfolioName, String date1, String date2) {
+    HashMap<String, Double> barValues = new HashMap<>();
+    String[] dateOne = date1.split("-");
+    String[] dateTwo = date2.split("-");
+    ArrayList<Integer> dates = new ArrayList<>();
+    for (String a: dateOne) {
+      dates.add(Integer.parseInt(a));
+    }
+    for (String a: dateTwo) {
+      dates.add(Integer.parseInt(a));
+    }
+
+    //TODO: figure out how to get a count of lines
+
+    for (String a : dateOne) {
+      barValues.put(a, portfolioValue(portfolioName, a));
+    }
+    return barValues;
+  }
+
+  @Override
+  public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
+          Double> weights) {
+    //TODO: adjusted portfolio values based on file, new method to update portfolios? or auto?
+    HashMap<String, HashMap<String, Double>> pfs = this.portfolios;
+    double max = portfolioValue(portfolioName, date);
+    for (String a : weights.keySet()) {
+      Double shareCount = pfs.get(portfolioName).get(a);
+      Double perc = weights.get(a);
+      List<Double> stockValue = this.getStockInfo(a, 1, date);
+      Double newVal = (perc/100) * max;
+      newVal = newVal/stockValue.get(0);
+      shareCount = shareCount - newVal;
+      if (shareCount < 0) {
+        //TODO: add transaction mess for buy
+      }
+      else if (shareCount > 0) {
+        //TODO: add transaction mess for sell
+      }
+      pfs.get(portfolioName).put(a, newVal);
+    }
+    return new StocksModelImpl(this.stock, pfs);
+  }
+
+  @Override
+  public ArrayList<String> stockCount(String portfolioName) {
+    HashMap<String, Double> pf = this.portfolios.get(portfolioName);
+    ArrayList<String> stockList = new ArrayList<>();
+    //TODO: finish this for controller bar purposes
+    for (Map.Entry<String, Double> stock: pf.entrySet()) {
+      stockList.add(stock.getValue().toString());
+    }
+    return stockList;
   }
 
   @Override
@@ -226,7 +300,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public HashMap<String, HashMap<String, Integer>> getPortfolios() {
+  public HashMap<String, HashMap<String, Double>> getPortfolios() {
     return portfolios;
   }
 
