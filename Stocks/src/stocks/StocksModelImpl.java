@@ -5,11 +5,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 //TODO: UPDATE PORTFOLIO FEATURES
   //TODO: purchase specific stock on a specified date
@@ -239,22 +247,72 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public HashMap<String, Double> bar(String portfolioName, String date1, String date2) {
+  public HashMap<String, Double> bar(String portfolioName, String date1, String date2)
+  throws ParseException {
     HashMap<String, Double> barValues = new HashMap<>();
-    String[] dateOne = date1.split("-");
-    String[] dateTwo = date2.split("-");
-    ArrayList<Integer> dates = new ArrayList<>();
-    for (String a: dateOne) {
-      dates.add(Integer.parseInt(a));
-    }
-    for (String a: dateTwo) {
-      dates.add(Integer.parseInt(a));
-    }
 
-    //TODO: figure out how to get a count of lines
+    LocalDate dateOne = LocalDate.parse(date1);
+    LocalDate dateTwo = LocalDate.parse(date2);
 
-    for (String a : dateOne) {
-      barValues.put(a, portfolioValue(portfolioName, a));
+    long diffDays = ChronoUnit.DAYS.between(dateOne, dateTwo);
+    long diffMonths = ChronoUnit.MONTHS.between(dateOne, dateTwo);
+    long diffYears = ChronoUnit.YEARS.between(dateOne, dateTwo);
+
+    if (diffDays < 5) {
+      throw new IllegalArgumentException();
+    }
+    else if (diffDays > 5 && diffDays < 30) {
+      while (dateOne != dateTwo) {
+        barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
+        dateOne = dateOne.plusDays(1);
+      }
+    }
+    else if (diffDays > 30) {
+      if (diffMonths < 5) {
+        double set = 0;
+        int days = (int) diffDays;
+        while (set < 5 || set > 30) {
+          for (int i = 1; i < 30; i++) {
+            set = days / i;
+          }
+        }
+        long s = (long) set;
+        while (dateOne != dateTwo) {
+          barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
+          dateOne = dateOne.plusDays(s);
+        }
+      }
+      else if (diffMonths > 5 && diffMonths < 30) {
+        while (dateOne != dateTwo) {
+          barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
+          dateOne = dateOne.plusMonths(1);
+        }
+      }
+      else if (diffMonths > 30) {
+        if (diffYears < 5) {
+          double set = 0;
+          int months = (int) diffMonths;
+          while (set < 5 || set > 30) {
+            for (int i = 1; i < 30; i++) {
+              set = months / i;
+            }
+          }
+          long s = (long) set;
+          while (dateOne != dateTwo) {
+            barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
+            dateOne = dateOne.plusMonths(s);
+          }
+        }
+        else if (diffYears > 5 && diffYears < 30) {
+          while (dateOne != dateTwo) {
+            barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
+            dateOne = dateOne.plusYears(1);
+          }
+        }
+        else {
+          throw new IllegalArgumentException();
+        }
+      }
     }
     return barValues;
   }
