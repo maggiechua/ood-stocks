@@ -170,8 +170,8 @@ public class StocksControllerImpl implements StocksController {
             portfolioName = sc.next();
             date = sc.next();
             output.balanceInstruction();
-            for (int i = 0; i <= stock.portfolioCount(portfolioName).size(); i++) {
-              String thisStock = stock.portfolioCount(portfolioName).get(i);
+            for (int i = 0; i <= stock.stockCount(portfolioName).size(); i++) {
+              String thisStock = stock.stockCount(portfolioName).get(i);
               output.askBalance(thisStock);
               weight = sc.nextDouble();
               weights.put(thisStock, weight);

@@ -282,7 +282,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public ArrayList<String> portfolioCount(String portfolioName) {
+  public ArrayList<String> stockCount(String portfolioName) {
     HashMap<String, Double> pf = this.portfolios.get(portfolioName);
     ArrayList<String> stockList = new ArrayList<>();
     //TODO: finish this for controller bar purposes

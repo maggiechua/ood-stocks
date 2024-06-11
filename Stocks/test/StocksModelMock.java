@@ -96,7 +96,7 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
-  public ArrayList<String> portfolioCount(String portfolioName) {
+  public ArrayList<String> stockCount(String portfolioName) {
     return null;
   }
 
