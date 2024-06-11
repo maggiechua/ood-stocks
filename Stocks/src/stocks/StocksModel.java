@@ -76,12 +76,31 @@ public interface StocksModel extends ReadOnlyModel {
    */
   public Double portfolioValue(String portfolioName, String date);
 
+  /**
+   * the composition method produces a list of stocks with their shares.
+   * @param portfolioName the name of the portfolio
+   * @param date the date the user is checking the portfolio composition of
+   * @return a HashMap of one portfolio
+   */
   public HashMap<String, Double> composition(String portfolioName, String date);
 
+  /**
+   * the distribution method produces a list of stocks and their respective values in the portfolio.
+   * @param portfolioName the name of the portfolio
+   * @param date the date the user is checking the portfolio distribution of
+   * @return a HashMap of stocks with their values
+   */
   public HashMap<String, Double> distribution(String portfolioName, String date);
 
+  /**
+   * the bar method calculates the performance of the portfolio over time.
+   * @param portfolioName the name of the portfolio
+   * @param date1 the starting date the user is checking the portfolio performance of
+   * @param date2 the end date the user is checking the portfolio performance of
+   * @return a HashMap of dates with values
+   */
   public HashMap<String, Double> bar(String portfolioName, String date1, String date2);
-
+  
   public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
           Double> weights);
 

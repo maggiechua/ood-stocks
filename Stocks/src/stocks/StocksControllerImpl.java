@@ -43,6 +43,7 @@ public class StocksControllerImpl implements StocksController {
     Integer numOfShares;
     HashMap<String, Double> weights = new HashMap<>();
     Double weight;
+    String date2;
 
     // print welcome message
     output.welcomeMessage();
@@ -146,7 +147,24 @@ public class StocksControllerImpl implements StocksController {
           }
           break;
         case "composition" :
+          try {
+            portfolioName = sc.next();
+            date = sc.next();
+            stock.composition(portfolioName, date);
+            output.listWrite(stock.composition(portfolioName, date));;
+          }
+          catch (Exception e) {
+            // TODO: what exceptions
+          }
         case "distribution" :
+          try {
+            portfolioName = sc.next();
+            date = sc.next();
+            output.listWrite(stock.distribution(portfolioName, date));
+          }
+          catch (Exception e) {
+            // TODO: what exceptions
+          }
         case "balance" :
           try {
             portfolioName = sc.next();
@@ -164,6 +182,16 @@ public class StocksControllerImpl implements StocksController {
             // TODO: what exceptions
           }
         case "bar-chart" :
+          try {
+            portfolioName = sc.next();
+            date = sc.next();
+            date2 = sc.next();
+            // TODO: output
+            output.barWrite(stock.bar(portfolioName, date, date2));
+          }
+          catch (Exception e) {
+            // TODO: what exceptions
+          }
         case "menu" :
           output.printMenu();
           break;
