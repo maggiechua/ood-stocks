@@ -177,6 +177,7 @@ public class StocksModelImpl implements StocksModel {
     else {
       pfs = this.portfolios;
     }
+    fc.createNewPortfolioFile(name);
     HashMap<String, Double> newp = new HashMap<>();
     pfs.put(name, newp);
     return new StocksModelImpl(this.stock, pfs);
@@ -193,6 +194,7 @@ public class StocksModelImpl implements StocksModel {
     else {
       currentPortfolio.put(this.stock, Double.valueOf(shares));
     }
+    fc.addNewStockToPortfolioFile(portfolioName, this.stock, shares, date);
     pfs.put(portfolioName, currentPortfolio);
     return new StocksModelImpl(this.stock, pfs);
   }
