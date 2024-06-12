@@ -186,7 +186,7 @@ public class StocksModelImpl implements StocksModel {
     else {
       currentPortfolio.put(this.stock, Double.valueOf(shares));
     }
-    fc.addNewStockToPortfolioFile(portfolioName, this.stock, shares, date);
+    fc.addStockToPortfolioFile(portfolioName, this.stock, shares, date);
     pfs.put(portfolioName, currentPortfolio);
     return new StocksModelImpl(this.stock, pfs);
   }
