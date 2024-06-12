@@ -112,6 +112,13 @@ public class StocksModelImpl implements StocksModel {
     return output;
   }
 
+  /**
+   * This is a method
+   */
+  private void loadPortfolios() {
+
+  }
+
   @Override
   public StocksModelImpl stockSelect(String s) {
     return new StocksModelImpl(s, this.portfolios);
