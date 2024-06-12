@@ -345,7 +345,6 @@ public class StocksModelImpl implements StocksModel {
   public ArrayList<String> stockCount(String portfolioName) {
     HashMap<String, Double> pf = this.portfolios.get(portfolioName);
     ArrayList<String> stockList = new ArrayList<>();
-    //TODO: finish this for controller bar purposes
     for (Map.Entry<String, Double> stock: pf.entrySet()) {
       stockList.add(stock.getValue().toString());
     }
