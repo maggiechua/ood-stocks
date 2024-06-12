@@ -364,7 +364,7 @@ public class StocksModelImpl implements StocksModel {
     }
     while (!pass) {
       for (int i = 0; i < Integer.MAX_VALUE; i++) {
-        if (max < 5 * (10^i)) {
+        if (max < 5 * (10 ^ i)) {
           scale = (10 ^ (i - 1));
           pass = true;
         }
