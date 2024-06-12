@@ -119,4 +119,6 @@ public interface StocksModel extends ReadOnlyModel {
    * @return an ArrayList of the stocks in a portfolio
    */
   public ArrayList<String> stockCount(String portfolioName);
+
+  public Integer makeScale(HashMap<String,Double> barData);
 }

@@ -187,7 +187,8 @@ public class StocksControllerImpl implements StocksController {
             date = sc.next();
             date2 = sc.next();
             // TODO: output
-            output.barWrite(stock.bar(portfolioName, date, date2));
+            HashMap<String, Double> chartData = stock.bar(portfolioName, date, date2);
+            output.barWrite(chartData, stock.makeScale(chartData));
           }
           catch (Exception e) {
             // TODO: what exceptions: length of time incorrect

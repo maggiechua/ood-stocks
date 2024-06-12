@@ -89,6 +89,7 @@ public interface StocksView {
   /**
    * the barWrite method adds the bar graph to the appendable in the class.
    * @param input the map of stocks with each value of the full stock
+   * @param scale the scale of the chart
    */
-  public void barWrite(HashMap<String, Double> input);
+  public void barWrite(HashMap<String, Double> input, Integer scale);
 }

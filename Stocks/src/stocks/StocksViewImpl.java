@@ -151,7 +151,7 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void barWrite(HashMap<String, Double> input) {
-
+  public void barWrite(HashMap<String, Double> input, Integer scale) {
+    for (Map.Entry<String, Double> entry : input.entrySet()) {}
   }
 }
