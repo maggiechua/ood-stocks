@@ -35,7 +35,11 @@ import javax.xml.transform.stream.StreamResult;
  * This class represents file making data. Its purpose is to create saved files for the program.
  */
 public class FileCreator {
-  XMLParser parse = new XMLParser();
+  FileParser parse;
+
+  public FileCreator() {
+    this.parse = new FileParser();
+  }
 
   /**
    * Connect to AlphaVantageAPI and create a new CSV file with stock data.
@@ -162,14 +166,17 @@ public class FileCreator {
    * exist.
    * @param path the given path to the XML document
    * @param doc the given XML document for the portfolio
-   * @param year the given year
+   * @param date the given date
    */
-  public void addNewYearTag(String path, Document doc, String year) {
+  public void addNewYearTag(String path, Document doc, Node parent, String stock,
+                            int shares, String date) {
+    String[] dateSplit = date.split("-");
     Element yearTag = doc.createElement("year");
+    parent.appendChild(yearTag);
     Attr newYear = doc.createAttribute("y");
-    newYear.setValue(year);
-    yearTag.appendChild(newYear);
-    this.writeToXMLFile(path, doc);
+    newYear.setValue(dateSplit[0]);
+    yearTag.setAttributeNode(newYear);
+    this.addNewMonthTag(path, doc, yearTag, stock, shares, date);
   }
 
   /**
@@ -177,31 +184,34 @@ public class FileCreator {
    * exist.
    * @param path the given path to the XML document
    * @param doc the given XML document for the portfolio
-   * @param month the given month
+   * @param date the given date
    */
-  public void addNewMonthTag(String path, Document doc, String month) {
+  public void addNewMonthTag(String path, Document doc, Node parent, String stock,
+                             int shares, String date) {
+    String[] dateSplit = date.split("-");
     Element monthTag = doc.createElement("month");
+    parent.appendChild(monthTag);
     Attr newMonth = doc.createAttribute("m");
-    newMonth.setValue(month);
-    monthTag.appendChild(newMonth);
-    this.writeToXMLFile(path, doc);
+    newMonth.setValue(dateSplit[1]);
+    monthTag.setAttributeNode(newMonth);
+    this.addNewStockTag(path, doc, monthTag, stock, shares, date);
   }
 
   /**
    * This is a method that adds a new stock node to a portfolio if it doesn't already exist.
    *
    * @param doc   the given XML document for the portfolio
-   * @param root  the given root tag in the XML document
+   * @param parent  the given parent tag in the XML document
    * @param stock the stock symbol for the given stock
    */
-  public void addNewStockTag(String path, Document doc, Element root, String stock,
+  public void addNewStockTag(String path, Document doc, Node parent, String stock,
                              int shares, String date) {
     Element stockTag = doc.createElement("stock");
-    root.appendChild(stockTag);
+    parent.appendChild(stockTag);
     Attr newStock = doc.createAttribute("symbol");
     newStock.setValue(stock);
     stockTag.setAttributeNode(newStock);
-    this.addNewTransactionTag(doc, stockTag, shares, date);
+    this.addNewTransactionTag(doc, stockTag, stock, shares, date);
     this.writeToXMLFile(path, doc);
   }
 
@@ -214,7 +224,9 @@ public class FileCreator {
    * @param shares      the given number of shares bought/sold
    * @param date        the given date that a purchase/sale was made
    */
-  public void addNewTransactionTag(Document doc, Node targetStock, int shares, String date) {
+  public void addNewTransactionTag(Document doc, Node targetStock,
+                                   String stock, int shares, String date) {
+    String[] dateSplit = date.split("-");
     Element transactionTag = null;
     transactionTag = doc.createElement("transaction");
     targetStock.appendChild(transactionTag);
@@ -233,23 +245,26 @@ public class FileCreator {
     transactionTag.appendChild(sharesTag);
 
     Element dateTag = doc.createElement("date");
-    dateTag.appendChild(doc.createTextNode(date));
+    dateTag.appendChild(doc.createTextNode(dateSplit[2]));
     transactionTag.appendChild(dateTag);
+
+    Element priceTag = doc.createElement("price");
+    String price = parse.getStockPrice(stock, date);
+    priceTag.appendChild(doc.createTextNode(price));
+    transactionTag.appendChild(priceTag);
   }
 
   /**
    * This is a method to determine if the given stock already has a parent node created for it.
-   * @param doc represents the given XML document of the portfolio
-   * @param stock the given stock symbol
+   * @param stockNodes represents a list of nodes representing stocks in a portfolio
    * @return the index of the target stock node in the list of nodes currently in the XML document
    * as an integer
    */
-  public int findTargetStockNode(Document doc, String stock) {
+  public int findTargetNode(NodeList stockNodes, String tag, String target) {
     int existingTagIndex = -1;
-    NodeList nodes = doc.getElementsByTagName(stock);
-    for (int n = 0; n < nodes.getLength(); n++) {
-      Node curNode = nodes.item(n);
-      if (curNode.getAttributes().getNamedItem("symbol").getNodeValue().equals(stock)) {
+    for (int n = 0; n < stockNodes.getLength(); n++) {
+      Node curNode = stockNodes.item(n);
+      if (curNode.getAttributes().getNamedItem(tag).getNodeValue().equals(target)) {
         existingTagIndex = n;
       }
     }
@@ -280,18 +295,35 @@ public class FileCreator {
       Document doc = documentBuilder.parse(filePath);
       Element root = doc.getDocumentElement();
 
-      int existingTagIndex = this.findTargetStockNode(doc, stock);
-      NodeList nodes = doc.getElementsByTagName("stock");
+      NodeList yearNodes = root.getChildNodes();
+      int existingYearTagIndex = this.findTargetNode(yearNodes, "year", year);
 
-      Node targetStock;
-      if (existingTagIndex == -1) {
-        this.addNewStockTag(filePath, doc, root, stock, shares, date);
+      if (existingYearTagIndex == -1) {
+        this.addNewYearTag(filePath, doc, root, stock, shares, date);
       }
       else {
-        targetStock = nodes.item(existingTagIndex);
-        this.addNewTransactionTag(doc, targetStock, shares, date);
-      }
+        Node targetYearNode = yearNodes.item(existingYearTagIndex);
+        NodeList monthNodes = targetYearNode.getChildNodes();
+        int existingMonthTagIndex = this.findTargetNode(monthNodes, "month", month);
 
+        if (existingMonthTagIndex == -1) {
+          this.addNewMonthTag(filePath, doc, monthNodes.item(existingMonthTagIndex),
+                  stock, shares, date);
+        }
+        else {
+          Node targetMonthNode = monthNodes.item(existingMonthTagIndex);
+          NodeList stockNodes = targetMonthNode.getChildNodes();
+          int existingStockTagIndex = this.findTargetNode(stockNodes, "symbol", stock);
+
+          if (existingStockTagIndex == -1) {
+            this.addNewStockTag(filePath, doc, targetMonthNode, stock, shares, day);
+          }
+          else {
+            Node targetStockNode = stockNodes.item(existingStockTagIndex);
+            this.addNewTransactionTag(doc, targetStockNode, stock, shares, day);
+          }
+        }
+      }
       this.writeToXMLFile(filePath, doc);
     } catch (SAXException e) {
       throw new RuntimeException(e);
