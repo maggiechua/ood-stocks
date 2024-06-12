@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<m>
-    <stock id="NVDA"/>
-    <transaction id="buy">
-        <shares>5</shares>
-        <date>2024-05-31</date>
-    </transaction>
-</m>
