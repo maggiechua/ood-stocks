@@ -47,6 +47,7 @@ public class StocksModelImpl implements StocksModel {
   private String stock;
   private HashMap<String,HashMap<String, Double>> portfolios;
   private FileCreator fc;
+  private FileParser fp;
 
   /**
    * This makes a new StocksModel Implementation.
@@ -57,6 +58,7 @@ public class StocksModelImpl implements StocksModel {
     this.stock = stock;
     this.portfolios = portfolios;
     this.fc = new FileCreator();
+    this.fp = new FileParser();
   }
 
   /**
