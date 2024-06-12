@@ -259,64 +259,33 @@ public class StocksModelImpl implements StocksModel {
   public HashMap<String, Double> bar(String portfolioName, String date1, String date2)
   throws ParseException {
     HashMap<String, Double> barValues = new HashMap<>();
-
     LocalDate dateOne = LocalDate.parse(date1);
-    LocalDate dateTwo = LocalDate.parse(date2);
-
+    LocalDate dateTwo = LocalDate.parse(date2).plusDays(1);
     long diffDays = ChronoUnit.DAYS.between(dateOne, dateTwo);
     long diffMonths = ChronoUnit.MONTHS.between(dateOne, dateTwo);
     long diffYears = ChronoUnit.YEARS.between(dateOne, dateTwo);
-
+    long s = 0;
     if (diffDays < 5) {
       throw new IllegalArgumentException();
     }
     else if (diffDays > 5 && diffDays < 30) {
-      while (dateOne != dateTwo) {
-        barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
-        dateOne = dateOne.plusDays(1);
-      }
+      orgBarData(dateOne, dateTwo, portfolioName, 0, 1);
     }
     else if (diffDays > 30) {
       if (diffMonths < 5) {
-        double set = 0;
-        int days = (int) diffDays;
-        while (set < 5 || set > 30) {
-          for (int i = 1; i < 30; i++) {
-            set = days / i;
-          }
-        }
-        long s = (long) set;
-        while (dateOne != dateTwo) {
-          barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
-          dateOne = dateOne.plusDays(s);
-        }
+        s = newSet(diffDays);
+        orgBarData(dateOne, dateTwo, portfolioName, 0, s);
       }
       else if (diffMonths > 5 && diffMonths < 30) {
-        while (dateOne != dateTwo) {
-          barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
-          dateOne = dateOne.plusMonths(1);
-        }
+        orgBarData(dateOne, dateTwo, portfolioName, 1, 1);
       }
       else if (diffMonths > 30) {
         if (diffYears < 5) {
-          double set = 0;
-          int months = (int) diffMonths;
-          while (set < 5 || set > 30) {
-            for (int i = 1; i < 30; i++) {
-              set = months / i;
-            }
-          }
-          long s = (long) set;
-          while (dateOne != dateTwo) {
-            barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
-            dateOne = dateOne.plusMonths(s);
-          }
+          s = newSet(diffMonths);
+          orgBarData(dateOne, dateTwo, portfolioName, 1, s);
         }
         else if (diffYears > 5 && diffYears < 30) {
-          while (dateOne != dateTwo) {
-            barValues.put(dateOne.toString(), portfolioValue(portfolioName, dateOne.toString()));
-            dateOne = dateOne.plusYears(1);
-          }
+          orgBarData(dateOne, dateTwo, portfolioName, 2, 1);
         }
         else {
           throw new IllegalArgumentException();
@@ -324,6 +293,40 @@ public class StocksModelImpl implements StocksModel {
       }
     }
     return barValues;
+  }
+
+  private long newSet(long difference) {
+    double set = 0;
+    int months = (int) difference;
+    while (set < 5 || set > 30) {
+      for (int i = 1; i < 30; i++) {
+        set = months / i;
+      }
+    }
+    return (long) set;
+  }
+
+  private HashMap<String, Double> orgBarData(LocalDate one, LocalDate two,String portfolioName,
+                                             int time, long setValue) {
+    HashMap<String, Double> barValues = new HashMap<>();
+    while (one != two) {
+      barValues.put(organizeDate(one), portfolioValue(portfolioName, one.toString()));
+      if (time == 0) {
+        one = one.plusDays(setValue);
+      }
+      if (time == 1) {
+        one = one.plusMonths(setValue);
+      }
+      if (time == 2) {
+        one = one.plusYears(setValue);
+      }
+    }
+    return barValues;
+  }
+
+  private String organizeDate(LocalDate date) {
+    SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+    return formatter.format(date);
   }
 
   @Override
@@ -354,7 +357,6 @@ public class StocksModelImpl implements StocksModel {
   public ArrayList<String> stockCount(String portfolioName) {
     HashMap<String, Double> pf = this.portfolios.get(portfolioName);
     ArrayList<String> stockList = new ArrayList<>();
-    //TODO: finish this for controller bar purposes
     for (Map.Entry<String, Double> stock: pf.entrySet()) {
       stockList.add(stock.getValue().toString());
     }
