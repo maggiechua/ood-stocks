@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.HashMap;
 
 import stocks.StocksView;
 
@@ -14,7 +15,7 @@ public class StocksViewMock implements StocksView {
    * @param ap a StringBuilder that represents all the commands that the controller
    *           calls when it receives inputs
    */
-  StocksViewMock(Appendable ap) {
+  public StocksViewMock(Appendable ap) {
     this.log = ap;
   }
 
@@ -93,6 +94,16 @@ public class StocksViewMock implements StocksView {
 
   @Override
   public void balanceInstruction() {
+
+  }
+
+  @Override
+  public void listWrite(HashMap<String, Double> input) {
+
+  }
+
+  @Override
+  public void barWrite(HashMap<String, Double> input) {
 
   }
 }
