@@ -353,6 +353,27 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
+  public Integer makeScale(HashMap<String, Double> barData) {
+    int scale = 1;
+    Double max = 0.0;
+    boolean pass = false;
+    for (Map.Entry<String, Double> bar: barData.entrySet()) {
+      if (bar.getValue() > max) {
+        max = bar.getValue();
+      }
+    }
+    while (!pass) {
+      for (int i = 0; i < Integer.MAX_VALUE; i++) {
+        if (max < 5 * (10^i)) {
+          scale = (10 ^ (i - 1));
+          pass = true;
+        }
+      }
+    }
+    return scale;
+  }
+
+  @Override
   public String getStock() {
     return stock;
   }
