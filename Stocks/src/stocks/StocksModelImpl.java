@@ -2,6 +2,7 @@ package stocks;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -10,9 +11,12 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.stream.Stream;
 
 //TODO: UPDATE PORTFOLIO FEATURES
   //TODO: purchase specific stock on a specified date
@@ -28,6 +32,7 @@ import java.util.Scanner;
   //  can result in fractional ownership of stocks that can be sold
 //TODO: PERFORMANCE OVER TIME
 // # of lines for timestamps must be min 5, max 30 (minimum can be below 5 for day)
+// below 5 days, you default to graphing the four lines with 5 data points
 // must include the following timestamps: day/month/year
 //    day -> computed with closing price
 //    month -> computed with last working day closing price of month
@@ -108,16 +113,25 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public void loadPortfolios() {
-
+  public StocksModel loadPortfolios() {
+    Set<Path> files = fp.retrieveFilesInDirectory();
+    List<Portfolio> portfolios = new ArrayList<>();
+    for (Path path : files) {
+      String portfolioName = path.getFileName().toString();
+      Map<String, Double> contents = new HashMap<>();
+      List<Transaction> transactions = fp.parsePortfolioTransactions(path);
+      Portfolio p = new Portfolio(portfolioName, contents, transactions);
+      p.loadContents(transactions);
+      portfolios.add(p);
+    }
+    return new StocksModelImpl(this.stock, portfolios);
   }
 
   @Override
   public void savePortfolios() {
     for (int p = 0; p < portfolios.size(); p++) {
       Portfolio curPortfolio = portfolios.get(p);
-      List<Transaction> sortedTransactions = curPortfolio.sortTransactions();
-      fc.createNewPortfolioFile(portfolios.get(p).getName(), sortedTransactions);
+      curPortfolio.savePortfolio();
     }
   }
 
@@ -232,6 +246,7 @@ public class StocksModelImpl implements StocksModel {
     }
     else {
       Portfolio p = currentPortfolio.addToPortfolio(this.stock, date, shares);
+      p.savePortfolio();
       pfs.add(p);
     }
     return new StocksModelImpl(this.stock, pfs);
@@ -244,12 +259,13 @@ public class StocksModelImpl implements StocksModel {
     Portfolio currentPortfolio = pfs.remove(pIndex);
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
-      //TODO: figure out if we just default to the next market day
+      //TODO: figure out if we just default to the next market day -> yes
       //TODO: update buy/sell message to inform the user.
       pfs.add(currentPortfolio);
     }
     else {
       Portfolio p = currentPortfolio.removeFromPortfolio(this.stock, date, shares);
+      p.savePortfolio();
       pfs.add(p);
     }
     return new StocksModelImpl(stock, pfs);
@@ -259,6 +275,8 @@ public class StocksModelImpl implements StocksModel {
   public Double portfolioValue(String portfolioName, String date) {
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio portfolio = portfolios.get(pIndex);
+    //TODO: reset portfolios for date
+    this.loadPortfolios();
     return portfolio.calculateValue(date);
   }
 

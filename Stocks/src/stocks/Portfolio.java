@@ -1,5 +1,6 @@
 package stocks;
 
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ public class Portfolio {
   private String name;
   private Map<String, Double> contents;
   private List<Transaction> transactions;
+  private FileCreator fc;
   private FileParser fp;
   private CompareTransaction cp;
 
@@ -25,6 +27,7 @@ public class Portfolio {
     this.name = name;
     this.contents = contents;
     this.transactions = transactions;
+    this.fc = new FileCreator();
     this.fp = new FileParser();
     this.cp = new CompareTransaction();
   }
@@ -39,6 +42,23 @@ public class Portfolio {
 
   public List<Transaction> getTransactionsLog() {
     return this.transactions;
+  }
+
+  /**
+   * the loadPortfolio method loads data from this portfolio into Portfolio objects local
+   * to the program up to a specific date.
+   * @param date the given date to load the portfolio to
+   */
+  public void loadPortfolio(Path path, String date) {
+
+  }
+
+  /**
+   * the savePortfolio method saves this portfolio.
+   */
+  public void savePortfolio() {
+    List<Transaction> sortedTransactions = this.sortTransactions();
+    fc.createNewPortfolioFile(this.name, sortedTransactions);
   }
 
   /**
@@ -61,6 +81,15 @@ public class Portfolio {
     List<Transaction> lot = transactions;
     Collections.sort(lot, cp);
     return lot;
+  }
+
+  /**
+   * The following method loads the contents of the portfolio according to the given list of
+   * transactions.
+   * @param transactions a list of transactions made in a portfolio
+   */
+  public void loadContents(List<Transaction> transactions) {
+    //TODO: also pass in a hashset to represent stocks 
   }
 
   /**
