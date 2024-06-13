@@ -58,6 +58,16 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
+  public void loadPortfolios() {
+
+  }
+
+  @Override
+  public void savePortfolios() {
+
+  }
+
+  @Override
   public StocksModelImpl createPortfolio(String name) {
     return null;
   }
