@@ -7,11 +7,15 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,7 +25,6 @@ import javax.xml.parsers.ParserConfigurationException;
  * This is a class that parses XML files.
  */
 public class FileParser {
-
   /**
    * This is a method that retrieves the closing stock price for a given stock on a given day. 
    * @param stockSymbol the given stock symbol
@@ -53,15 +56,42 @@ public class FileParser {
     return stockPrice;
   }
 
-  public void parseXMLDocument(String path) {
+  /**
+   * The following method retrieves all the files in the portfolios directory.
+   * @return all portfolio files as a set
+   */
+  public Set<Path> retrieveFilesInDirectory() {
+    Set<Path> files = new HashSet<>();
+    try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(
+            "Stocks/res/portfolios/"))) {
+      for (Path path : stream) {
+        files.add(path);
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return files;
+  }
+
+  /**
+   * The following method reads the information listed on a portfolio file.
+   * @param path the given path to the desired portfolio file
+   */
+  public List<Transaction> parsePortfolioTransactions(Path path) {
+    List<Transaction> transactionList = new ArrayList<>();
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     try {
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document doc = builder.parse(path);
+      Document doc = builder.parse(path.toString());
       doc.getDocumentElement().normalize();
-      NodeList stockList = doc.getElementsByTagName("stock");
-      for (int i = 0; i < stockList.getLength(); i++) {
-        Node transaction = stockList.item(i);
+
+      NodeList byYear = doc.getElementsByTagName("year");
+      for (int i = 0; i < byYear.getLength(); i++) {
+        NodeList transactions = byYear.item(i).getChildNodes();
+        for (int s = 0; s < transactions.getLength(); s++) {
+          NodeList t = transactions.item(i).getChildNodes();
+
+        }
 
       }
     }
@@ -72,5 +102,6 @@ public class FileParser {
     } catch (SAXException e) {
       throw new RuntimeException(e);
     }
+    return transactionList;
   }
 }

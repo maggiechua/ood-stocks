@@ -1,0 +1,46 @@
+<v46>
+    <year y="2020">
+        <date day="09" month="03">
+            <transaction type="buy">
+                <stock symbol="NVDA"/>
+                <shares>200.0</shares>
+                <date>09</date>
+                <price>245.4400</price>
+            </transaction>
+        </date>
+    </year>
+    <year y="2024">
+        <date day="30" month="05">
+            <transaction type="buy">
+                <stock symbol="GOOG"/>
+                <shares>25.0</shares>
+                <date>30</date>
+                <price>173.5600</price>
+            </transaction>
+        </date>
+        <date day="30" month="05">
+            <transaction type="buy">
+                <stock symbol="NVDA"/>
+                <shares>300.0</shares>
+                <date>30</date>
+                <price>1105.0000</price>
+            </transaction>
+        </date>
+        <date day="31" month="05">
+            <transaction type="sell">
+                <stock symbol="GOOG"/>
+                <shares>-5.0</shares>
+                <date>31</date>
+                <price>173.9600</price>
+            </transaction>
+        </date>
+        <date day="31" month="05">
+            <transaction type="sell">
+                <stock symbol="NVDA"/>
+                <shares>-50.0</shares>
+                <date>31</date>
+                <price>1096.3300</price>
+            </transaction>
+        </date>
+    </year>
+</v46>
