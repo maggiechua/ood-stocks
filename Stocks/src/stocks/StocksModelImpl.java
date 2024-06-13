@@ -231,7 +231,7 @@ public class StocksModelImpl implements StocksModel {
     }
     else {
       Portfolio p = currentPortfolio.addToPortfolio(this.stock, date, shares);
-      fc.addStockToPortfolioFile(portfolioName, this.stock, shares, date);
+//      fc.addStockToPortfolioFile(portfolioName, this.stock, shares, date);
       pfs.add(p);
     }
     return new StocksModelImpl(this.stock, pfs);
