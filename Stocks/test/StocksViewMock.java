@@ -103,12 +103,11 @@ public class StocksViewMock implements StocksView {
   }
 
   @Override
+<<<<<<< HEAD
   public void barWrite(HashMap<String, Double> input, Integer scale) {
-
-  }
-
-
+=======
   public void barWrite(HashMap<String, Double> input) {
+>>>>>>> 220a7ccd96a789dc078dddc73fb2ef2e30696429
 
   }
 }

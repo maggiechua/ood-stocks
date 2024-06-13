@@ -44,6 +44,7 @@ public class StocksControllerImpl implements StocksController {
     HashMap<String, Double> weights = new HashMap<>();
     Double weight;
     String date2;
+    Integer whatNext;
 
     // print welcome message
     output.welcomeMessage();
@@ -62,60 +63,12 @@ public class StocksControllerImpl implements StocksController {
           while (!miniquit) {
             output.typeInstruct();
             String nextInput = sc.next();
-            switch (nextInput) {
-              case "check-gain-loss" :
-                try {
-                  numOfDays = sc.nextInt();
-                  date = sc.next();
-                  output.formattedReturn(stock.gainLoss(numOfDays, date));
-                }
-                catch (Exception ignored) {
-                }
-                break;
-              case "moving-average" :
-                try {
-                  numOfDays = sc.nextInt();
-                  date = sc.next();
-                  output.formattedReturn(stock.movingAvg(numOfDays, date));
-                }
-                catch (Exception ignored) {
-                }
-                break;
-              case "check-crossovers" :
-                try {
-                  numOfDays = sc.nextInt();
-                  date = sc.next();
-                  output.returnResult(stock.crossovers(numOfDays, date));
-                }
-                catch (Exception ignored) {
-                }
-                break;
-              case "buy-stock" :
-                try {
-                  numOfShares = sc.nextInt();
-                  date = sc.next();
-                  portfolioName = sc.next();
-                  stock.buy(numOfShares, date, portfolioName);
-                  output.buySellMessage(numOfShares, stockName, portfolioName, false);
-                }
-                catch (Exception e) {
-                  output.portfolioException(true);
-                }
-                break;
-              case "stock-menu" :
-                output.printStockMenu();
-                break;
-              case "menu" :
-                miniquit = true;
-                output.printMenu();
-                break;
-              case "q" :
-              case "quit" :
-                output.printMenu();
-                miniquit = true;
-                break;
-              default :
-                output.undefined();
+            whatNext = stockActions(sc, nextInput, stockName);
+            if (whatNext == 1) {
+              miniquit = true;
+            }
+            if (whatNext == 2) {
+              quit = true;
             }
           }
           break;
@@ -208,5 +161,78 @@ public class StocksControllerImpl implements StocksController {
           output.undefined();
       }
     }
+  }
+
+  private Integer stockActions(Scanner sc, String nextInput, String stockName) {
+    boolean quit = false;
+    boolean miniquit = false;
+    String portfolioName;
+    String date;
+    Integer numOfDays;
+    Integer numOfShares;
+    Integer whatNext = 0;
+    switch (nextInput) {
+      case "check-gain-loss" :
+        try {
+          numOfDays = sc.nextInt();
+          date = sc.next();
+          output.formattedReturn(stock.gainLoss(numOfDays, date));
+        }
+        catch (Exception ignored) {
+        }
+        break;
+      case "moving-average" :
+        try {
+          numOfDays = sc.nextInt();
+          date = sc.next();
+          output.formattedReturn(stock.movingAvg(numOfDays, date));
+        }
+        catch (Exception ignored) {
+        }
+        break;
+      case "check-crossovers" :
+        try {
+          numOfDays = sc.nextInt();
+          date = sc.next();
+          output.returnResult(stock.crossovers(numOfDays, date));
+        }
+        catch (Exception ignored) {
+        }
+        break;
+      case "buy-stock" :
+        try {
+          numOfShares = sc.nextInt();
+          date = sc.next();
+          portfolioName = sc.next();
+          stock.buy(numOfShares, date, portfolioName);
+          output.buySellMessage(numOfShares, stockName, portfolioName, false);
+        }
+        catch (Exception e) {
+          output.portfolioException(true);
+        }
+        break;
+      case "stock-menu" :
+        output.printStockMenu();
+        break;
+      case "menu" :
+        miniquit = true;
+        output.printMenu();
+        break;
+      case "q" :
+      case "quit" :
+        output.farewellMessage();
+        miniquit = true;
+        quit = true;
+        break;
+      default :
+        output.undefined();
+    }
+    if (miniquit) {
+      whatNext = 1;
+    }
+    if (quit) {
+      whatNext = 2;
+    }
+    return whatNext;
   }
 }

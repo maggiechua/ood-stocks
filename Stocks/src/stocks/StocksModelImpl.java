@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -285,6 +285,7 @@ public class StocksModelImpl implements StocksModel {
     LocalDate dateOne = LocalDate.parse(date1);
     LocalDate dateTwo = LocalDate.parse(date2).plusDays(1);
     long diffDays = ChronoUnit.DAYS.between(dateOne, dateTwo);
+    long diffWeeks = ChronoUnit.WEEKS.between(dateOne, dateTwo);
     long diffMonths = ChronoUnit.MONTHS.between(dateOne, dateTwo);
     long diffYears = ChronoUnit.YEARS.between(dateOne, dateTwo);
     long s = 0;
@@ -295,23 +296,32 @@ public class StocksModelImpl implements StocksModel {
       orgBarData(dateOne, dateTwo, portfolioName, 0, 1);
     }
     else if (diffDays > 30) {
-      if (diffMonths < 5) {
+      if (diffWeeks < 5) {
         s = newSet(diffDays);
         orgBarData(dateOne, dateTwo, portfolioName, 0, s);
       }
-      else if (diffMonths > 5 && diffMonths < 30) {
-        orgBarData(dateOne, dateTwo, portfolioName, 1, 1);
+      else if (diffWeeks > 5 && diffWeeks < 30) {
+        orgBarData(dateTwo, dateOne, portfolioName, 1, 1);
       }
-      else if (diffMonths > 30) {
-        if (diffYears < 5) {
-          s = newSet(diffMonths);
+      else if (diffWeeks > 30) {
+        if (diffMonths < 5) {
+          s = newSet(diffWeeks);
           orgBarData(dateOne, dateTwo, portfolioName, 1, s);
         }
-        else if (diffYears > 5 && diffYears < 30) {
+        else if (diffMonths > 5 && diffMonths < 30) {
           orgBarData(dateOne, dateTwo, portfolioName, 2, 1);
         }
-        else {
-          throw new IllegalArgumentException();
+        else if (diffMonths > 30) {
+          if (diffYears < 5) {
+            s = newSet(diffMonths);
+            orgBarData(dateOne, dateTwo, portfolioName, 2, s);
+          }
+          else if (diffYears > 5 && diffYears < 30) {
+            orgBarData(dateOne, dateTwo, portfolioName, 3, 1);
+          }
+          else {
+            throw new IllegalArgumentException();
+          }
         }
       }
     }
@@ -320,10 +330,10 @@ public class StocksModelImpl implements StocksModel {
 
   private long newSet(long difference) {
     double set = 0;
-    int months = (int) difference;
+    int diff = (int) difference;
     while (set < 5 || set > 30) {
       for (int i = 1; i < 30; i++) {
-        set = months / i;
+        set = diff / i;
       }
     }
     return (long) set;
@@ -338,9 +348,12 @@ public class StocksModelImpl implements StocksModel {
         one = one.plusDays(setValue);
       }
       if (time == 1) {
-        one = one.plusMonths(setValue);
+        one = one.plusWeeks(setValue);
       }
       if (time == 2) {
+        one = one.plusMonths(setValue);
+      }
+      if (time == 3) {
         one = one.plusYears(setValue);
       }
     }
@@ -348,7 +361,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   private String organizeDate(LocalDate date) {
-    SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
     return formatter.format(date);
   }
 

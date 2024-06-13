@@ -81,7 +81,7 @@ public class FileCreator {
     } catch (IOException e) {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
-    String directoryPath = "Stocks/res/data/";
+    String directoryPath = "/res/data/";
     String fileName = stockSymbol + ".csv";
     String path = directoryPath + fileName;
     this.createFile(path, output);
@@ -106,12 +106,13 @@ public class FileCreator {
 
   /**
    * This is a method to create a new portfolio file with the given name.
+   *
    * @param portfolioName the name of the given portfolio
-   * @param lot the given list of sorted transactions
+   * @param lot           the given list of sorted transactions
    */
   public void createNewPortfolioFile(String portfolioName, List<Transaction> lot) {
     String userDirectory = System.getProperty("user.dir");
-    String directoryPath = "/Stocks/res/portfolios/";
+    String directoryPath = "/res/portfolios/";
     String fileName = portfolioName + ".xml";
     String path = userDirectory + directoryPath + fileName;
     this.createXMLFile(path, portfolioName, lot);
@@ -214,9 +215,10 @@ public class FileCreator {
   /**
    * This is a method that adds a new year node to a portfolio if the given year doesn't already
    * exist.
-   * @param doc the given XML document for the portfolio
+   *
+   * @param doc    the given XML document for the portfolio
    * @param parent the given parent node
-   * @param year the given year
+   * @param year   the given year
    */
   public void addNewYearTag(Document doc, Node parent, String year) {
     Element yearTag = doc.createElement("year");
@@ -229,10 +231,11 @@ public class FileCreator {
   /**
    * This is a method that adds a new month node to a portfolio if the given month doesn't already
    * exist.
-   * @param doc the given XML document for the portfolio
+   *
+   * @param doc    the given XML document for the portfolio
    * @param parent the given parent node
-   * @param month the given month
-   * @param t the given transaction
+   * @param month  the given month
+   * @param t      the given transaction
    */
   public void addNewDateTag(Document doc, Node parent, String month, Transaction t) {
     Element dateTag = doc.createElement("date");
@@ -250,9 +253,9 @@ public class FileCreator {
   /**
    * This is a method that adds a new stock node to a portfolio if it doesn't already exist.
    *
-   * @param doc   the given XML document for the portfolio
-   * @param parent  the given parent tag in the XML document
-   * @param t the given transaction
+   * @param doc    the given XML document for the portfolio
+   * @param parent the given parent tag in the XML document
+   * @param t      the given transaction
    */
   public void addNewStockTag(Document doc, Node parent, Transaction t) {
     Element stockTag = doc.createElement("stock");
@@ -267,9 +270,9 @@ public class FileCreator {
    * This is a method that adds a new transaction node to a portfolio when the user decides
    * to buy/sell/re-balance their portfolio.
    *
-   * @param doc         the given XML document for the portfolio
+   * @param doc        the given XML document for the portfolio
    * @param parentNode the given parent node for the transaction
-   * @param t the given transaction
+   * @param t          the given transaction
    */
   public void addNewTransactionTag(Document doc, Node parentNode, Transaction t) {
     String[] dateSplit = t.getDate().split("-");
