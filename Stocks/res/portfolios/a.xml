@@ -1,1 +1,13 @@
-<a/>
+<a>
+    <year y="2024">
+        <month m="05">
+            <stock symbol="GOOG">
+                <transaction type="buy">
+                    <shares>15.0</shares>
+                    <date>30</date>
+                    <price>173.5600</price>
+                </transaction>
+            </stock>
+        </month>
+    </year>
+</a>
