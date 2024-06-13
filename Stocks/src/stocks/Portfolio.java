@@ -1,5 +1,6 @@
 package stocks;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +10,10 @@ import java.util.Map;
  */
 public class Portfolio {
   private String name;
-  private HashMap<String, Double> contents;
+  private Map<String, Double> contents;
   private List<Transaction> transactions;
   private FileParser fp;
+  private CompareTransaction cp;
 
   /**
    * This constructor creates a Portfolio object.
@@ -19,18 +21,19 @@ public class Portfolio {
    * @param contents the existing contents of the portfolio
    * @param transactions a list of transactions for this portfolio
    */
-  public Portfolio(String name, HashMap<String, Double> contents, List<Transaction> transactions) {
+  public Portfolio(String name, Map<String, Double> contents, List<Transaction> transactions) {
     this.name = name;
     this.contents = contents;
     this.transactions = transactions;
     this.fp = new FileParser();
+    this.cp = new CompareTransaction();
   }
 
   public String getName() {
     return this.name;
   }
 
-  public HashMap<String, Double> getPortfolioContents() {
+  public Map<String, Double> getPortfolioContents() {
     return this.contents;
   }
 
@@ -51,6 +54,16 @@ public class Portfolio {
   }
 
   /**
+   * The following method sorts this portfolio's lists of transactions in chronological order.
+   * @return a list of sorted transactions
+   */
+  public List<Transaction> sortTransactions() {
+    List<Transaction> lot = transactions;
+    Collections.sort(lot, cp);
+    return lot;
+  }
+
+  /**
    * The following method adds purchased shares to the portfolio.
    * @param stock the given stock
    * @param date the given date
@@ -58,7 +71,7 @@ public class Portfolio {
    * @return a new updated portfolio
    */
   public Portfolio addToPortfolio(String stock, String date, double shares) {
-    HashMap<String, Double> currentPortfolio = this.contents;
+    Map<String, Double> currentPortfolio = this.contents;
     if (currentPortfolio.containsKey(stock)) {
       currentPortfolio.put(stock, currentPortfolio.get(stock) + shares);
     }
@@ -77,7 +90,7 @@ public class Portfolio {
    * @return a new updated portfolio
    */
   public Portfolio removeFromPortfolio(String stock, String date, double shares) {
-    HashMap<String, Double> currentPortfolio = this.contents;
+    Map<String, Double> currentPortfolio = this.contents;
     if (currentPortfolio.containsKey(stock)) {
       if (currentPortfolio.get(stock) >= shares) {
         currentPortfolio.put(stock, currentPortfolio.get(stock) - shares);
@@ -118,5 +131,4 @@ public class Portfolio {
     }
     return dist;
   }
-
 }
