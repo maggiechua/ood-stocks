@@ -1,23 +1,18 @@
 package stocks;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 //TODO: UPDATE PORTFOLIO FEATURES
   //TODO: purchase specific stock on a specified date
@@ -112,11 +107,18 @@ public class StocksModelImpl implements StocksModel {
     return output;
   }
 
-  /**
-   * This is a method
-   */
-  private void loadPortfolios() {
+  @Override
+  public void loadPortfolios() {
 
+  }
+
+  @Override
+  public void savePortfolios() {
+    for (int p = 0; p < portfolios.size(); p++) {
+      Portfolio curPortfolio = portfolios.get(p);
+      List<Transaction> sortedTransactions = curPortfolio.sortTransactions();
+      fc.createNewPortfolioFile(portfolios.get(p).getName(), sortedTransactions);
+    }
   }
 
   @Override
@@ -186,7 +188,6 @@ public class StocksModelImpl implements StocksModel {
     else {
       pfs = this.portfolios;
     }
-    fc.createNewPortfolioFile(name);
     pfs.add(new Portfolio(name, new HashMap<String, Double>(), new ArrayList<Transaction>()));
     return new StocksModelImpl(this.stock, pfs);
   }
@@ -231,7 +232,6 @@ public class StocksModelImpl implements StocksModel {
     }
     else {
       Portfolio p = currentPortfolio.addToPortfolio(this.stock, date, shares);
-//      fc.addStockToPortfolioFile(portfolioName, this.stock, shares, date);
       pfs.add(p);
     }
     return new StocksModelImpl(this.stock, pfs);
@@ -244,6 +244,7 @@ public class StocksModelImpl implements StocksModel {
     Portfolio currentPortfolio = pfs.remove(pIndex);
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
+      //TODO: figure out if we just default to the next market day
       //TODO: update buy/sell message to inform the user.
       pfs.add(currentPortfolio);
     }
@@ -266,7 +267,7 @@ public class StocksModelImpl implements StocksModel {
     // TODO: reset portfolios for date
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    return pfs.get(pIndex).getPortfolioContents();
+    return (HashMap<String, Double>) pfs.get(pIndex).getPortfolioContents();
   }
 
   @Override
@@ -328,9 +329,9 @@ public class StocksModelImpl implements StocksModel {
     return (long) set;
   }
 
-  private HashMap<String, Double> orgBarData(LocalDate one, LocalDate two,String portfolioName,
+  private Map<String, Double> orgBarData(LocalDate one, LocalDate two,String portfolioName,
                                              int time, long setValue) {
-    HashMap<String, Double> barValues = new HashMap<>();
+    Map<String, Double> barValues = new HashMap<>();
     while (one != two) {
       barValues.put(organizeDate(one), portfolioValue(portfolioName, one.toString()));
       if (time == 0) {

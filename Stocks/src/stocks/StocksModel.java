@@ -3,6 +3,7 @@ package stocks;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This interface represents the methods for the model section of the program.
@@ -39,6 +40,18 @@ public interface StocksModel extends ReadOnlyModel {
    * @return a String representing whether the day is an x-day crossover.
    */
   public String crossovers(Integer numOfDays, String date);
+
+  //TODO: new methods to load a portfolio from a file and save it to a file
+  /**
+   * the loadPortfolios method loads the saved portfolio(s)' contents from XML files into Portfolio
+   * objects.
+   */
+  public void loadPortfolios();
+
+  /**
+   * the savePortfolios method saves the portfolio(s)' contents within the program into XML files.
+   */
+  public void savePortfolios();
 
   /**
    * the createPortfolio method determines whether a given date is an x-day crossover for the stock
@@ -79,16 +92,18 @@ public interface StocksModel extends ReadOnlyModel {
 
   /**
    * the composition method produces a list of stocks with their shares.
+   *
    * @param portfolioName the name of the portfolio
-   * @param date the date the user is checking the portfolio composition of
+   * @param date          the date the user is checking the portfolio composition of
    * @return a HashMap of one portfolio
    */
   public HashMap<String, Double> composition(String portfolioName, String date);
 
   /**
    * the distribution method produces a list of stocks and their respective values in the portfolio.
+   *
    * @param portfolioName the name of the portfolio
-   * @param date the date the user is checking the portfolio distribution of
+   * @param date          the date the user is checking the portfolio distribution of
    * @return a HashMap of stocks with their values
    */
   public HashMap<String, Double> distribution(String portfolioName, String date);
@@ -100,7 +115,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param date2 the end date the user is checking the portfolio performance of
    * @return a HashMap of dates with values
    */
-  public HashMap<String, Double> bar(String portfolioName, String date1, String date2)
+  public Map<String, Double> bar(String portfolioName, String date1, String date2)
           throws ParseException;
 
   /**
