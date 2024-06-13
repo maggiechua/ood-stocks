@@ -92,4 +92,6 @@ public interface StocksView {
    * @param scale the scale of the chart
    */
   public void barWrite(HashMap<String, Double> input, Integer scale);
+
+  public void invalidDate(String type);
 }

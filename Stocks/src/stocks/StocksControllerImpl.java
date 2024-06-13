@@ -39,7 +39,6 @@ public class StocksControllerImpl implements StocksController {
     String stockName;
     String portfolioName;
     String date;
-    Integer numOfDays;
     Integer numOfShares;
     HashMap<String, Double> weights = new HashMap<>();
     Double weight;
@@ -80,7 +79,7 @@ public class StocksControllerImpl implements StocksController {
         case "check-portfolio" :
           try {
             portfolioName = sc.next();
-            date = sc.next();
+            date = dateProcess(sc);
             output.formattedReturn(stock.portfolioValue(portfolioName, date));
           }
           catch (Exception e) {
@@ -91,7 +90,7 @@ public class StocksControllerImpl implements StocksController {
           try {
             stockName = sc.next();
             numOfShares = sc.nextInt();
-            date = sc.next();
+            date = dateProcess(sc);
             portfolioName = sc.next();
             stock.sell(stockName, numOfShares, date, portfolioName);
             output.buySellMessage(numOfShares, stockName, portfolioName, true);
@@ -103,7 +102,7 @@ public class StocksControllerImpl implements StocksController {
         case "composition" :
           try {
             portfolioName = sc.next();
-            date = sc.next();
+            date = dateProcess(sc);
             stock.composition(portfolioName, date);
             output.listWrite(stock.composition(portfolioName, date));;
           }
@@ -113,7 +112,7 @@ public class StocksControllerImpl implements StocksController {
         case "distribution" :
           try {
             portfolioName = sc.next();
-            date = sc.next();
+            date = dateProcess(sc);
             output.listWrite(stock.distribution(portfolioName, date));
           }
           catch (Exception e) {
@@ -122,7 +121,7 @@ public class StocksControllerImpl implements StocksController {
         case "balance" :
           try {
             portfolioName = sc.next();
-            date = sc.next();
+            date = dateProcess(sc);
             output.balanceInstruction();
             for (int i = 0; i <= stock.stockCount(portfolioName).size(); i++) {
               String thisStock = stock.stockCount(portfolioName).get(i);
@@ -138,8 +137,8 @@ public class StocksControllerImpl implements StocksController {
         case "bar-chart" :
           try {
             portfolioName = sc.next();
-            date = sc.next();
-            date2 = sc.next();
+            date = dateProcess(sc);
+            date2 = dateProcess(sc);
             // TODO: output
             HashMap<String, Double> chartData = (HashMap<String, Double>)
                     stock.bar(portfolioName, date, date2);
@@ -175,7 +174,7 @@ public class StocksControllerImpl implements StocksController {
       case "check-gain-loss" :
         try {
           numOfDays = sc.nextInt();
-          date = sc.next();
+          date = dateProcess(sc);
           output.formattedReturn(stock.gainLoss(numOfDays, date));
         }
         catch (Exception ignored) {
@@ -184,7 +183,7 @@ public class StocksControllerImpl implements StocksController {
       case "moving-average" :
         try {
           numOfDays = sc.nextInt();
-          date = sc.next();
+          date = dateProcess(sc);
           output.formattedReturn(stock.movingAvg(numOfDays, date));
         }
         catch (Exception ignored) {
@@ -193,7 +192,7 @@ public class StocksControllerImpl implements StocksController {
       case "check-crossovers" :
         try {
           numOfDays = sc.nextInt();
-          date = sc.next();
+          date = dateProcess(sc);
           output.returnResult(stock.crossovers(numOfDays, date));
         }
         catch (Exception ignored) {
@@ -202,7 +201,7 @@ public class StocksControllerImpl implements StocksController {
       case "buy-stock" :
         try {
           numOfShares = sc.nextInt();
-          date = sc.next();
+          date = dateProcess(sc);
           portfolioName = sc.next();
           stock.buy(numOfShares, date, portfolioName);
           output.buySellMessage(numOfShares, stockName, portfolioName, false);
@@ -234,5 +233,53 @@ public class StocksControllerImpl implements StocksController {
       whatNext = 2;
     }
     return whatNext;
+  }
+
+  private String dateProcess(Scanner sc) {
+    String date;
+    String day = "";
+    String month = "";
+    String year = "";
+    boolean yearCheck = false;
+    boolean monthCheck = false;
+    boolean dayCheck = false;
+    while (!yearCheck) {
+      year = sc.next();
+      yearCheck = checkDate(year, 2);
+      if (!yearCheck) {
+        output.invalidDate("year");
+      }
+    }
+    while (!monthCheck) {
+      month = sc.next();
+      monthCheck = checkDate(month, 1);
+      if (!monthCheck) {
+        output.invalidDate("month");
+      }
+    }
+    while (!dayCheck) {
+      day = sc.next();
+      dayCheck = checkDate(day, 0);
+      if (!dayCheck) {
+        output.invalidDate("day");
+      }
+    }
+    date = year + "-" + month + "-" + day;
+    return date;
+  }
+
+  private boolean checkDate(String input, Integer type) {
+    Integer dateCheck = Integer.parseInt(input);
+    boolean r = true;
+    if ((type == 0) && (dateCheck > 31 || dateCheck < 0)) {
+        r = false;
+      }
+    else if ((type == 1) && (dateCheck > 12 || dateCheck < 0)) {
+      r = false;
+    }
+    else if ((type == 2) && (dateCheck > 2024 || dateCheck < 200)) {
+      r = false;
+    }
+    return r;
   }
 }
