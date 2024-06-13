@@ -163,4 +163,9 @@ public class StocksViewImpl implements StocksView {
     }
     writeMessage("Scale : * = " + scale + "\n");
   }
+
+  @Override
+  public void invalidDate(String type) {
+    writeMessage("Invalid " + type + ", please enter a new " + type + " value: ");
+  }
 }
