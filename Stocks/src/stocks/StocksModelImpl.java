@@ -339,11 +339,14 @@ public class StocksModelImpl implements StocksModel {
     return (long) set;
   }
 
+  // TODO: it needs to check and add days to the last of the month/year - days and weeks should be okay
   private Map<String, Double> orgBarData(LocalDate one, LocalDate two,String portfolioName,
                                              int time, long setValue) {
     Map<String, Double> barValues = new HashMap<>();
     while (one != two) {
-      barValues.put(organizeDate(one), portfolioValue(portfolioName, one.toString()));
+      String dateOut = organizeDate(one);
+      Double valueGet = portfolioValue(portfolioName, one.toString());
+      barValues.put(dateOut, valueGet);
       if (time == 0) {
         one = one.plusDays(setValue);
       }
