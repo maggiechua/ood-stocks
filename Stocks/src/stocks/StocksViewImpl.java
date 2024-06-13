@@ -114,7 +114,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void formattedReturn(Double inp) {
-    writeMessage(String.format("%,.2f", inp) + " \n");
+    writeMessage("$" + String.format("%,.2f", inp) + " \n");
   }
 
   @Override

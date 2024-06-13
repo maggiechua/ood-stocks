@@ -74,7 +74,7 @@ public class FileCreator {
     } catch (IOException e) {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
-    String directoryPath = "Stocks/res/data/";
+    String directoryPath = "/res/data/";
     String fileName = stockSymbol + ".csv";
     String path = directoryPath + fileName;
     this.createFile(path, output, true);
@@ -109,7 +109,7 @@ public class FileCreator {
       header.append(heading.charAt(i));
     }
     String userDirectory = System.getProperty("user.dir");
-    String directoryPath = "/Stocks/res/portfolios/";
+    String directoryPath = "/res/portfolios/";
     String fileName = portfolioName + ".xml";
     String path = userDirectory + directoryPath + fileName;
     this.createXMLFile(path, portfolioName);
@@ -277,7 +277,7 @@ public class FileCreator {
    * @param shares the given number of shares
    */
   public void addStockToPortfolioFile(String portfolio, String stock, int shares, String date) {
-    String filePath = System.getProperty("user.dir") + "/Stocks/res/portfolios/"
+    String filePath = System.getProperty("user.dir") + "/res/portfolios/"
             + portfolio + ".xml";
     String[] dateSplit = date.split("-");
     String year = dateSplit[0];

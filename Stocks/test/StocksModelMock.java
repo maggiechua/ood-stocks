@@ -101,6 +101,11 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
+  public Integer makeScale(HashMap<String, Double> barData) {
+    return 0;
+  }
+
+  @Override
   public String getStock() {
     return null;
   }
