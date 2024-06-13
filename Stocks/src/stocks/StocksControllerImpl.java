@@ -39,6 +39,7 @@ public class StocksControllerImpl implements StocksController {
     String stockName;
     String portfolioName;
     String date;
+    Integer numOfDays;
     Integer numOfShares;
     HashMap<String, Double> weights = new HashMap<>();
     Double weight;
@@ -47,6 +48,8 @@ public class StocksControllerImpl implements StocksController {
 
     // print welcome message
     output.welcomeMessage();
+    // load portfolio(s)' contents into the program if they exist
+    stock.loadPortfolios();
 
     while (!quit) {
       output.typeInstruct();
@@ -138,7 +141,8 @@ public class StocksControllerImpl implements StocksController {
             date = sc.next();
             date2 = sc.next();
             // TODO: output
-            HashMap<String, Double> chartData = stock.bar(portfolioName, date, date2);
+            HashMap<String, Double> chartData = (HashMap<String, Double>)
+                    stock.bar(portfolioName, date, date2);
             output.barWrite(chartData, stock.makeScale(chartData));
           }
           catch (Exception e) {
@@ -149,6 +153,7 @@ public class StocksControllerImpl implements StocksController {
           break;
         case "q" :
         case "quit" :
+          stock.savePortfolios();
           output.farewellMessage();
           quit = true;
           break;

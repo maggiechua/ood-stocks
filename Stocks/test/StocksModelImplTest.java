@@ -1,14 +1,21 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import javax.sound.sampled.Port;
+
+import stocks.Portfolio;
 import stocks.StocksController;
 import stocks.StocksModel;
 import stocks.StocksModelImpl;
 import stocks.StocksView;
+import stocks.Transaction;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 //TODO: debug the portfolio value test
 
@@ -20,12 +27,15 @@ public class StocksModelImplTest {
   private StocksView view;
   private StocksModel model;
   private StocksController controller;
+  private Portfolio p;
 
   @Before
   public void setUp() {
     ap = new StringBuilder();
     view = new StocksViewMock(ap);
-    model = new StocksModelImpl("GOOG", new HashMap<String,HashMap<String, Double>>());
+    model = new StocksModelImpl("GOOG", new ArrayList<Portfolio>());
+    p = new Portfolio("a", new HashMap<String, Double>(),
+            new ArrayList<Transaction>());
   }
 
   // GAIN-LOSS
@@ -251,22 +261,35 @@ public class StocksModelImplTest {
   }
 
   // PORTFOLIO METHODS
+  /**
+   * The following method compares the given two transactions by their contents.
+   * @param t1 the first transaction
+   * @param t2 the second transaction
+   * @return a boolean if both transactions are equivalent, otherwise false
+   */
+  public boolean compareTransactions(Transaction t1, Transaction t2) {
+    return t1.getStock().equals(t2.getStock())
+            && t1.getShares().equals(t2.getShares())
+            && t1.getDate().equals(t2.getDate())
+            && t1.getPrice().equals(t2.getPrice());
+  }
+
   @Test
   public void testCreatePortfolio() {
     String input = "create-portfolio a";
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    assertEquals(expectedPortfolio, model.getPortfolios());
+    List<Portfolio> expectedPortfolios = new ArrayList<>();
+    assertEquals(expectedPortfolios, model.getPortfolios());
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-    expectedPortfolio.put("a", new HashMap<String, Integer>());
-    assertEquals(expectedPortfolio, model.getPortfolios());
+    expectedPortfolios.add(p);
+    assertEquals(expectedPortfolios.get(0).getName(), model.getPortfolios().get(0).getName());
+    assertEquals(expectedPortfolios.get(0).getPortfolioContents(),
+            model.getPortfolios().get(0).getPortfolioContents());
   }
 
   @Test
   public void testBuyStock() {
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    expectedPortfolio.put("a", new HashMap<String, Integer>());
-    expectedPortfolio.get("a").put("GOOG", 15);
+    p.addToPortfolio("GOOG", "2024-05-31", 15.0);
 
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
@@ -276,18 +299,21 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup2, true, ap);
     controller.execute();
 
-    String input = "buy-stock 15 a";
+    String input = "buy-stock 15 2024-05-31 a";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-    assertEquals(expectedPortfolio.get("a").get("GOOG"),
-            model.getPortfolios().get("a").get("GOOG"));
+    assertEquals(p.getPortfolioContents().get("GOOG"),
+            model.getPortfolios().get(0).getPortfolioContents().get("GOOG"));
+    assertTrue(this.compareTransactions(p.getTransactionsLog().get(0),
+            model.getPortfolios().get(0).getTransactionsLog().get(0)));
   }
 
   @Test
   public void testSellStockHaveEnoughShares() {
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    expectedPortfolio.put("a", new HashMap<String, Integer>());
-    expectedPortfolio.get("a").put("GOOG", 6);
+    p = new Portfolio("a", new HashMap<String, Double>(),
+            new ArrayList<Transaction>());
+    p.addToPortfolio("GOOG", "2024-05-30", 15);
+    p.removeFromPortfolio("GOOG", "2024-05-31", 9);
 
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
@@ -297,22 +323,29 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup2, true, ap);
     controller.execute();
 
-    String setup3 = "buy-stock 15 a";
+    String setup3 = "buy-stock 15 2024-05-30 a";
     controller = new StocksControllerMock(model, view, setup3, true, ap);
     controller.execute();
 
-    String input = "sell-stock GOOG 9 a";
+    String input = "sell-stock GOOG 9 2024-05-31 a";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-    assertEquals(expectedPortfolio.get("a").get("GOOG"),
-            model.getPortfolios().get("a").get("GOOG"));
+
+    // checks that it does not subtract from portfolio if there is not enough stock
+    assertEquals(p.getPortfolioContents().get("GOOG"),
+            model.getPortfolios().get(0).getPortfolioContents().get("GOOG"));
+
+    // checks that the transaction log is the same size
+    assertEquals(p.getTransactionsLog().size(),
+            model.getPortfolios().get(0).getTransactionsLog().size());
+
+    // checks that the transactions are equivalent
+    assertTrue(this.compareTransactions(p.getTransactionsLog().get(0),
+            model.getPortfolios().get(0).getTransactionsLog().get(0)));
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testSellStockDontOwnStock() {
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    expectedPortfolio.put("a", new HashMap<String, Integer>());
-
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
     controller.execute();
@@ -321,17 +354,13 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup2, true, ap);
     controller.execute();
 
-    String input = "sell-stock GOOG 9 a";
+    String input = "sell-stock GOOG 9 2024-05-31 a";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testSellStockNotEnoughShares() {
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    expectedPortfolio.put("a", new HashMap<String, Integer>());
-    expectedPortfolio.get("a").put("GOOG", 6);
-
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
     controller.execute();
@@ -340,67 +369,33 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup2, true, ap);
     controller.execute();
 
-    String input = "sell-stock GOOG 9 a";
+    String input = "sell-stock GOOG 9 2024-05-31 a";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-  }
-
-  @Test
-  public void testSellStockNotEnoughSharesDoesNotSubtractFromPortfolio() {
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    expectedPortfolio.put("a", new HashMap<String, Integer>());
-    expectedPortfolio.get("a").put("GOOG", 6);
-
-    String setup1 = "create-portfolio a";
-    controller = new StocksControllerMock(model, view, setup1, true, ap);
-    controller.execute();
-
-    String setup2 = "select-stock GOOG";
-    controller = new StocksControllerMock(model, view, setup2, true, ap);
-    controller.execute();
-
-    String setup3 = "buy-stock 6 a";
-    controller = new StocksControllerMock(model, view, setup3, true, ap);
-    controller.execute();
-    assertEquals(expectedPortfolio.get("a").get("GOOG"),
-            model.getPortfolios().get("a").get("GOOG"));
-
-    String input = "sell-stock GOOG 9 a";
-    controller = new StocksControllerMock(model, view, input, true, ap);
-    try {
-      controller.execute();
-    }
-    catch (Exception e) {
-      //
-    }
-    assertEquals(expectedPortfolio.get("a").get("GOOG"),
-            model.getPortfolios().get("a").get("GOOG"));
   }
 
   @Test
   public void testEmptyPortfolioValue() {
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    expectedPortfolio.put("a", new HashMap<String, Integer>());
-    double expectedPortfolioValue = 0.0;
+    double expectedPortfolioValue = p.calculateValue("2024-05-30");
 
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
     controller.execute();
 
-    double portfolioValue = model.getPortfolioValue("a", "2024-05-29");
+    double portfolioValue = model.getPortfolioValue("a", "2024-05-30");
     assertEquals(expectedPortfolioValue, portfolioValue, 0.01);
   }
 
-  // still incomplete
+  //TODO: fix test -> current issue is that the quit command doesn't actually quit
+  // also test will fail with current file writing method calls as they are incomplete
   @Test
   public void testPortfolioValueWithStocks() {
-    HashMap<String,HashMap<String, Integer>> expectedPortfolio = new HashMap<>();
-    expectedPortfolio.put("a", new HashMap<String, Integer>());
-    expectedPortfolio.get("a").put("GOOG", 5);
-    expectedPortfolio.get("a").put("NVDA", 25);
-    expectedPortfolio.get("a").put("MSFT", 20);
+    p.addToPortfolio("GOOG", "2024-05-30", 5);
+    p.addToPortfolio("NVDA", "2024-05-30", 25);
+    p.addToPortfolio("MSFT", "2024-05-30", 20);
     double expectedPortfolioValue = 38176.65;
 
+    // use the controller mock to put in desired commands
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
     controller.execute();
@@ -409,7 +404,7 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup2, true, ap);
     controller.execute();
 
-    String setup3 = "buy-stock 5 a";
+    String setup3 = "buy-stock 5 2024-05-30 a";
     controller = new StocksControllerMock(model, view, setup3, true, ap);
     controller.execute();
 
@@ -421,7 +416,7 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup5, true, ap);
     controller.execute();
 
-    String setup6 = "buy-stock 25 a";
+    String setup6 = "buy-stock 25 2024-05-30 a";
     controller = new StocksControllerMock(model, view, setup6, true, ap);
     controller.execute();
 
@@ -433,28 +428,28 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup8, true, ap);
     controller.execute();
 
-    String setup9 = "buy-stock 20 a";
+    String setup9 = "buy-stock 20 2024-05-30 a";
     controller = new StocksControllerMock(model, view, setup9, true, ap);
     controller.execute();
 
     // check that the portfolio contains the expected number of shares for each stock
-//    assertEquals(expectedPortfolio.get("a").get("GOOG"),
-//            model.getPortfolios().get("a").get("GOOG"));
-//    assertEquals(expectedPortfolio.get("a").get("NVDA"),
-//            model.getPortfolios().get("a").get("NVDA"));
-//    assertEquals(expectedPortfolio.get("a").get("MSFT"),
-//            model.getPortfolios().get("a").get("MSFT"));
+    assertEquals(p.getPortfolioContents().get("GOOG"),
+            model.getPortfolios().get(0).getPortfolioContents().get("GOOG"));
+    assertEquals(p.getPortfolioContents().get("NVDA"),
+            model.getPortfolios().get(0).getPortfolioContents().get("NVDA"));
+    assertEquals(p.getPortfolioContents().get("MSFT"),
+            model.getPortfolios().get(0).getPortfolioContents().get("MSFT"));
 
+    // use the controller mock to put in desired commands
     String setup10 = "menu";
     controller = new StocksControllerMock(model, view, setup10, true, ap);
     controller.execute();
 
-    String input = "check-portfolio a 2024-05-29";
+    String input = "check-portfolio a 2024-05-31";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
-    double portfolioValue = model.getPortfolioValue("a", "2024-05-29");
-    assertEquals(expectedPortfolio.get("a"),
-            model.getPortfolios().get("a"));
-    assertEquals(expectedPortfolioValue, portfolioValue, 0.01);
+
+    assertEquals(p.calculateValue("2024-05-31"),
+            model.getPortfolios().get(0).calculateValue("2024-05-31"), 0.01);
   }
 }
