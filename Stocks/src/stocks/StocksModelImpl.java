@@ -206,14 +206,34 @@ public class StocksModelImpl implements StocksModel {
     return pIndex;
   }
 
+  /**
+   * The following method determines if the given date is a valid market day.
+   * @param date the given date
+   * @return a boolean where true is a valid market day and false is a non-market day
+   */
+  private boolean validMarketDay(String date) {
+    String stockPrice = fp.getStockPrice(this.stock, date);
+    if (stockPrice.isEmpty()) {
+      return false;
+    }
+    return true;
+  }
+
   @Override
   public StocksModelImpl buy(double shares, String date, String portfolioName) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio currentPortfolio = pfs.remove(pIndex);
-    Portfolio p = currentPortfolio.addToPortfolio(this.stock, shares);
-    fc.addStockToPortfolioFile(portfolioName, this.stock, shares, date);
-    pfs.add(p);
+    boolean validDay = this.validMarketDay(date);
+    if (!validDay) {
+      //TODO: update buy/sell message to inform the user.
+      pfs.add(currentPortfolio);
+    }
+    else {
+      Portfolio p = currentPortfolio.addToPortfolio(this.stock, date, shares);
+      fc.addStockToPortfolioFile(portfolioName, this.stock, shares, date);
+      pfs.add(p);
+    }
     return new StocksModelImpl(this.stock, pfs);
   }
 
@@ -222,9 +242,15 @@ public class StocksModelImpl implements StocksModel {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio currentPortfolio = pfs.remove(pIndex);
-    //
-    Portfolio p = currentPortfolio.removeFromPortfolio(this.stock, shares);
-    pfs.add(p);
+    boolean validDay = this.validMarketDay(date);
+    if (!validDay) {
+      //TODO: update buy/sell message to inform the user.
+      pfs.add(currentPortfolio);
+    }
+    else {
+      Portfolio p = currentPortfolio.removeFromPortfolio(this.stock, date, shares);
+      pfs.add(p);
+    }
     return new StocksModelImpl(stock, pfs);
   }
 
@@ -354,7 +380,7 @@ public class StocksModelImpl implements StocksModel {
   public ArrayList<String> stockCount(String portfolioName) {
     Portfolio pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
     ArrayList<String> stockList = new ArrayList<>();
-    for (Map.Entry<String, Double> stock: pf.entrySet()) {
+    for (Map.Entry<String, Double> stock: pf.getPortfolioContents().entrySet()) {
       stockList.add(stock.getValue().toString());
     }
     return stockList;

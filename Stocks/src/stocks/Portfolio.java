@@ -39,12 +39,25 @@ public class Portfolio {
   }
 
   /**
+   * The following method adds a transaction to the transaction log.
+   * @param stock the given stock
+   * @param date the given date
+   * @param shares the number of shares
+   */
+  public void addTransaction(String stock, String date, double shares) {
+    Transaction t = new Transaction(stock, shares, date,
+            Double.parseDouble(fp.getStockPrice(stock, date)));
+    transactions.add(t);
+  }
+
+  /**
    * The following method adds purchased shares to the portfolio.
    * @param stock the given stock
+   * @param date the given date
    * @param shares the number of shares purchased
    * @return a new updated portfolio
    */
-  public Portfolio addToPortfolio(String stock, double shares) {
+  public Portfolio addToPortfolio(String stock, String date, double shares) {
     HashMap<String, Double> currentPortfolio = this.contents;
     if (currentPortfolio.containsKey(stock)) {
       currentPortfolio.put(stock, currentPortfolio.get(stock) + shares);
@@ -52,20 +65,23 @@ public class Portfolio {
     else {
       currentPortfolio.put(stock, shares);
     }
+    this.addTransaction(stock, date, shares);
     return new Portfolio(this.name, currentPortfolio, this.transactions);
   }
 
   /**
    * The following method removes sold shares from the portfolio.
    * @param stock the given stock
+   * @param date the given date
    * @param shares the number of shares purchased
    * @return a new updated portfolio
    */
-  public Portfolio removeFromPortfolio(String stock, double shares) {
+  public Portfolio removeFromPortfolio(String stock, String date, double shares) {
     HashMap<String, Double> currentPortfolio = this.contents;
     if (currentPortfolio.containsKey(stock)) {
       if (currentPortfolio.get(stock) >= shares) {
         currentPortfolio.put(stock, currentPortfolio.get(stock) - shares);
+        this.addTransaction(stock, date, -shares);
       } else {
         throw new IllegalArgumentException("not enough shares to sell");
       }
