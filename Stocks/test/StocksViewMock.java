@@ -15,7 +15,7 @@ public class StocksViewMock implements StocksView {
    * @param ap a StringBuilder that represents all the commands that the controller
    *           calls when it receives inputs
    */
-  StocksViewMock(Appendable ap) {
+  public StocksViewMock(Appendable ap) {
     this.log = ap;
   }
 
@@ -103,7 +103,11 @@ public class StocksViewMock implements StocksView {
   }
 
   @Override
+<<<<<<< HEAD
   public void barWrite(HashMap<String, Double> input, Integer scale) {
+=======
+  public void barWrite(HashMap<String, Double> input) {
+>>>>>>> 220a7ccd96a789dc078dddc73fb2ef2e30696429
 
   }
 }
