@@ -12,6 +12,7 @@ public class StocksViewMock implements StocksView {
 
   /**
    * StocksViewMock is a mock created purposely for testing.
+   *
    * @param ap a StringBuilder that represents all the commands that the controller
    *           calls when it receives inputs
    */
@@ -21,13 +22,13 @@ public class StocksViewMock implements StocksView {
 
   /**
    * The following method appends the command called by the controller to the log.
+   *
    * @param result given string to add to the log of called commands.
    */
   public void appendResult(String result) {
     try {
       log.append(result);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new IllegalStateException(e.getMessage());
     }
   }
@@ -103,11 +104,6 @@ public class StocksViewMock implements StocksView {
   }
 
   @Override
-<<<<<<< HEAD
   public void barWrite(HashMap<String, Double> input, Integer scale) {
-=======
-  public void barWrite(HashMap<String, Double> input) {
->>>>>>> 220a7ccd96a789dc078dddc73fb2ef2e30696429
-
   }
 }

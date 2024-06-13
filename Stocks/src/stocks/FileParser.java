@@ -30,7 +30,7 @@ public class FileParser {
    */
   protected String getStockPrice(String stockSymbol, String date) {
     String userDirectory = System.getProperty("user.dir");
-    String directoryPath = userDirectory + "/Stocks/res/data/";
+    String directoryPath = userDirectory + "/res/data/";
     String fileName = stockSymbol + ".csv";
     Path path = Paths.get(directoryPath + fileName);
     File file = path.toFile();
