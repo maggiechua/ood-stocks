@@ -169,7 +169,7 @@ public class FileCreator {
    * @param date the given date
    */
   public void addNewYearTag(String path, Document doc, Node parent, String stock,
-                            int shares, String date) {
+                            double shares, String date) {
     String[] dateSplit = date.split("-");
     Element yearTag = doc.createElement("year");
     parent.appendChild(yearTag);
@@ -187,7 +187,7 @@ public class FileCreator {
    * @param date the given date
    */
   public void addNewMonthTag(String path, Document doc, Node parent, String stock,
-                             int shares, String date) {
+                             double shares, String date) {
     String[] dateSplit = date.split("-");
     Element monthTag = doc.createElement("month");
     parent.appendChild(monthTag);
@@ -205,7 +205,7 @@ public class FileCreator {
    * @param stock the stock symbol for the given stock
    */
   public void addNewStockTag(String path, Document doc, Node parent, String stock,
-                             int shares, String date) {
+                             double shares, String date) {
     Element stockTag = doc.createElement("stock");
     parent.appendChild(stockTag);
     Attr newStock = doc.createAttribute("symbol");
@@ -225,7 +225,7 @@ public class FileCreator {
    * @param date        the given date that a purchase/sale was made
    */
   public void addNewTransactionTag(Document doc, Node targetStock,
-                                   String stock, int shares, String date) {
+                                   String stock, double shares, String date) {
     String[] dateSplit = date.split("-");
     Element transactionTag = null;
     transactionTag = doc.createElement("transaction");
@@ -276,7 +276,7 @@ public class FileCreator {
    * @param stock  the given stock symbol
    * @param shares the given number of shares
    */
-  public void addStockToPortfolioFile(String portfolio, String stock, int shares, String date) {
+  public void addStockToPortfolioFile(String portfolio, String stock, double shares, String date) {
     String filePath = System.getProperty("user.dir") + "/Stocks/res/portfolios/"
             + portfolio + ".xml";
     String[] dateSplit = date.split("-");

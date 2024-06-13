@@ -55,7 +55,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param portfolioName the name of the portfolio which is storing this data
    * @return a StocksModelImpl with the changed portfolio data
    */
-  public StocksModelImpl buy(Integer shares, String date, String portfolioName);
+  public StocksModelImpl buy(double shares, String date, String portfolioName);
 
   /**
    * the buy method determines whether a given date is an x-day crossover for the stock
