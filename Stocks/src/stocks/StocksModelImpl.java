@@ -15,27 +15,6 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-//TODO: UPDATE PORTFOLIO FEATURES
-  //TODO: purchase specific stock on a specified date
-  //TODO: sell stock on a specified date (allows user to sell fractional shares)
-//TODO: NEW PORTFOLIO FEATURES
-  //TODO: composition of portfolio on a specific date
-  //  [a) list of stocks b) # of shares per stock]
-  //TODO: distribution of value on a specific date
-  //  [a) list of stocks b) value of each individual stock in the portfolio]
-  //TODO: portfolio can be saved/loaded (recommend standard file formats: XML/JSON)
-  //TODO: re-balancing a portfolio
-  //  user gives an ideal distribution of stock values (i.e. 40/20/20/20)
-  //  can result in fractional ownership of stocks that can be sold
-//TODO: PERFORMANCE OVER TIME
-// # of lines for timestamps must be min 5, max 30 (minimum can be below 5 for day)
-// below 5 days, you default to graphing the four lines with 5 data points
-// must include the following timestamps: day/month/year
-//    day -> computed with closing price
-//    month -> computed with last working day closing price of month
-//    year -> computed with last working day closing price of year
-// relative scale may be needed (given * = 1000), but scale must be shown on all charts
-
 /**
  * This class represents the model of the stock program. It stores stock dara and portfolios for
  * the user as well as accesses the API and saved files for stock data.
@@ -147,8 +126,8 @@ public class StocksModelImpl implements StocksModel {
       startDate = priceData.get(0);
     }
     catch (Exception e) {
-      throw new IllegalArgumentException("The gain-loss cannot be calculated as " +
-              "the given date does not exist or does not contain a valid range.");
+      throw new IllegalArgumentException("The gain-loss cannot be calculated as "
+              + "the given date does not exist or does not contain a valid range.");
     }
     return startDate - lastDate;
   }
@@ -164,8 +143,8 @@ public class StocksModelImpl implements StocksModel {
       }
     }
     catch (Exception e) {
-      throw new IllegalArgumentException("The moving average cannot be calculated as " +
-              "the given date does not exist or does not contain a valid range.");
+      throw new IllegalArgumentException("The moving average cannot be calculated as "
+              + "the given date does not exist or does not contain a valid range.");
     }
     return sum / numOfDays;
   }
@@ -225,10 +204,7 @@ public class StocksModelImpl implements StocksModel {
    */
   private boolean validMarketDay(String date) {
     String stockPrice = fp.getStockPrice(this.stock, date);
-    if (stockPrice.isEmpty()) {
-      return false;
-    }
-    return true;
+    return !stockPrice.isEmpty();
   }
 
   @Override
@@ -295,7 +271,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public HashMap<String, Double> bar(String name, String date1, String date2)
-  throws ParseException {
+          throws ParseException {
     HashMap<String, Double> barValues = new HashMap<>();
     LocalDate dateOne = LocalDate.parse(date1);
     LocalDate dateTwo = LocalDate.parse(date2).plusDays(1);
@@ -369,7 +345,7 @@ public class StocksModelImpl implements StocksModel {
    * @param setValue the interval between checks
    * @return a Map of data to make the bar chart
    */
-  // TODO: it needs to check and add days to the last of the month/year - days and weeks should be okay
+  // TODO: it needs to check and add days to the last of the month/year
   private Map<String, Double> orgBarData(LocalDate one, LocalDate two, String name,
                                              int time, long setValue) {
     Map<String, Double> barValues = new HashMap<>();
@@ -421,8 +397,8 @@ public class StocksModelImpl implements StocksModel {
       Double shareCount = pfs.get(pIndex).getPortfolioContents().get(a);
       Double perc = weights.get(a);
       List<Double> stockValue = this.getStockInfo(a, 1, date);
-      Double newVal = (perc/100) * max;
-      newVal = newVal/stockValue.get(0);
+      Double newVal = (perc / 100) * max;
+      newVal = newVal / stockValue.get(0);
       shareCount = shareCount - newVal;
       if (shareCount < 0) {
         //TODO: add transaction mess for buy

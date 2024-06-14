@@ -64,7 +64,7 @@ public class StocksModelMock implements StocksModel {
 
   @Override
   public void savePortfolios() {
-
+    // TODO: this
   }
 
   @Override
@@ -103,7 +103,8 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl balance(String portfolioName, String date, HashMap<String, Double> weights) {
+  public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
+          Double> weights) {
     return null;
   }
 

@@ -164,8 +164,8 @@ public class StocksViewImplTest {
     String input = "check-portfolio retirement 2024-05-31";
     controller = new StocksControllerMock(model, view, input, false, ap);
     controller.execute();
-    String expectedOutput = "There may be an input error, or you may not have created " +
-            "this portfolio yet. Please try again. \n";
+    String expectedOutput = "There may be an input error, or you may not have created "
+            + "this portfolio yet. Please try again. \n";
     String[] s1 = ap.toString().split("format.] \n");
     String s = s1[1];
     assertEquals(expectedOutput, s);

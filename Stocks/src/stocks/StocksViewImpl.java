@@ -99,12 +99,12 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void portfolioException(boolean buy) {
     if (buy) {
-      writeMessage("There may be an input error, or you may not have created this portfolio yet. " +
-              "Please try again. \n");
+      writeMessage("There may be an input error, or you may not have created this portfolio yet. "
+              + "Please try again. \n");
     }
     else {
-      writeMessage("There may be an input error, you may not have created this portfolio yet, or " +
-              "you may not own enough stocks in it. Please try again. \n");
+      writeMessage("There may be an input error, you may not have created this portfolio yet, or "
+              + "you may not own enough stocks in it. Please try again. \n");
     }
   }
 
@@ -135,8 +135,8 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void balanceInstruction() {
-    writeMessage("Please enter weights as doubles. For example: enter [ 25.0 ] to represent 25%, or" +
-            "[ 33.33 ] to represent 33.33%. \n");
+    writeMessage("Please enter weights as doubles. For example: enter [ 25.0 ] to represent 25%, or"
+            + "[ 33.33 ] to represent 33.33%. \n");
   }
 
   @Override
@@ -152,7 +152,7 @@ public class StocksViewImpl implements StocksView {
     int asterisk = 0;
     writeMessage("Performance of " + name + " from " + date1 + " to " + date2 + "\n \n");
     for (Map.Entry<String, Double> entry : input.entrySet()) {
-      asterisk = (int) Math.round(entry.getValue()/scale);
+      asterisk = (int) Math.round(entry.getValue() / scale);
       writeMessage(entry.getKey() + " : ");
       for (int i = 0; i < asterisk; i++) {
         writeMessage("*");

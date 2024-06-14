@@ -90,26 +90,27 @@ public class StocksViewMock implements StocksView {
 
   @Override
   public void askBalance(String stock) {
-
+    this.appendResult("Ask balance printed in view. \n");
   }
 
   @Override
   public void balanceInstruction() {
-
+    this.appendResult("Balance instructions printed in view. \n");
   }
 
   @Override
   public void listWrite(HashMap<String, Double> input) {
-
+    this.appendResult("List printed in view. \n");
   }
 
   @Override
   public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
                        Integer scale) {
+    this.appendResult("Bar chart printed in view. \n");
   }
 
   @Override
   public void invalidDate(String type) {
-
+    this.appendResult("Invalid date printed in view. \n");
   }
 }

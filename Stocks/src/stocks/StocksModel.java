@@ -43,8 +43,8 @@ public interface StocksModel extends ReadOnlyModel {
 
   //TODO: new methods to load a portfolio from a file and save it to a file
   /**
-   * the loadPortfolios method loads the saved portfolio(s)' contents from XML files into PortfolioImpl
-   * objects.
+   * the loadPortfolios method loads the saved portfolio(s)' contents from XML files into
+   * PortfolioImpl objects.
    */
   public StocksModel loadPortfolios();
 

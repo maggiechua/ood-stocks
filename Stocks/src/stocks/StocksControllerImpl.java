@@ -49,7 +49,7 @@ public class StocksControllerImpl implements StocksController {
     // print welcome message
     output.welcomeMessage();
     // load portfolio(s)' contents into the program if they exist
-//    stock.loadPortfolios();
+    // stock.loadPortfolios();
 
     while (!quit) {
       output.typeInstruct();
@@ -106,7 +106,7 @@ public class StocksControllerImpl implements StocksController {
             portfolioName = sc.next();
             date = dateProcess(sc);
             stock.composition(portfolioName, date);
-            output.listWrite(stock.composition(portfolioName, date));;
+            output.listWrite(stock.composition(portfolioName, date));
           }
           catch (Exception e) {
             // TODO: what exceptions
@@ -319,7 +319,7 @@ public class StocksControllerImpl implements StocksController {
   }
 
   /**
-   * the checkDate method checks to ensure that a date inputted is valid
+   * the checkDate method checks to ensure that a date inputted is valid.
    * @param input the value input
    * @param type the part of the date (i.e. year, month, day)
    * @return a boolean to state whether the given value is valid
@@ -328,8 +328,8 @@ public class StocksControllerImpl implements StocksController {
     Integer dateCheck = Integer.parseInt(input);
     boolean r = true;
     if ((type == 0) && (dateCheck > 31 || dateCheck < 0)) {
-        r = false;
-      }
+      r = false;
+    }
     else if ((type == 1) && (dateCheck > 12 || dateCheck < 0)) {
       r = false;
     }

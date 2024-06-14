@@ -93,8 +93,6 @@ public interface StocksView {
    * @param date2 the ending date
    * @param input the data input
    * @param scale the scale for the asterisks
-   * @param input the map of stocks with each value of the full stock
-   * @param scale the scale of the chart
    */
   public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
                        Integer scale);
