@@ -229,13 +229,7 @@ public class FileParser {
           //                <price>245.4400</price>
           //            </transaction>
           //        </date>
-        boolean addT = false;
-        if (!upToDate.isEmpty()) {
-          if (cp.compare(upToDate, date) >= 0) {
-            addT = true;
-          }
-        }
-        if (upToDate.isEmpty() || addT) {
+        if (cp.compare(upToDate, date) >= 0 || date.isEmpty()) {
           NodeList tr = dateNode.getChildNodes(); // <transaction></transaction>
           String[] trInfo = tr.item(1).getTextContent().split("\n            ");
           String stock = trInfo[1];
