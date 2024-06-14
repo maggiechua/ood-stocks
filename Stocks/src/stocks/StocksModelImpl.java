@@ -208,21 +208,34 @@ public class StocksModelImpl implements StocksModel {
     return !stockPrice.isEmpty();
   }
 
+  /**
+   * The following method determines the next market day given an invalid date.
+   * @param date the given date
+   * @return the next market day as a String
+   */
+  private String getNextMarketDay(String date) {
+    List<Integer> dayDifference = new ArrayList<>();
+
+    return "";
+  }
+
   @Override
   public StocksModelImpl buy(double shares, String date, String portfolioName) {
     List<PortfolioImpl> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     PortfolioImpl currentPortfolio = pfs.remove(pIndex);
+    PortfolioImpl p;
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
+      String nextMDay = this.getNextMarketDay(date);
+      p = currentPortfolio.addToPortfolio(this.stock, nextMDay, shares);
       //TODO: update buy/sell message to inform the user.
-      pfs.add(currentPortfolio);
     }
     else {
-      PortfolioImpl p = currentPortfolio.addToPortfolio(this.stock, date, shares);
-      p.savePortfolio();
-      pfs.add(p);
+      p = currentPortfolio.addToPortfolio(this.stock, date, shares);
     }
+    p.savePortfolio();
+    pfs.add(p);
     return new StocksModelImpl(this.stock, pfs);
   }
 
@@ -231,17 +244,18 @@ public class StocksModelImpl implements StocksModel {
     List<PortfolioImpl> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     PortfolioImpl currentPortfolio = pfs.remove(pIndex);
+    PortfolioImpl p;
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
-      //TODO: figure out if we just default to the next market day -> yes
+      String nextMDay = this.getNextMarketDay(date);
+      p = currentPortfolio.removeFromPortfolio(this.stock, nextMDay, shares);
       //TODO: update buy/sell message to inform the user.
-      pfs.add(currentPortfolio);
     }
     else {
-      PortfolioImpl p = currentPortfolio.removeFromPortfolio(this.stock, date, shares);
-      p.savePortfolio();
-      pfs.add(p);
+      p = currentPortfolio.removeFromPortfolio(this.stock, date, shares);
     }
+    p.savePortfolio();
+    pfs.add(p);
     return new StocksModelImpl(stock, pfs);
   }
 
