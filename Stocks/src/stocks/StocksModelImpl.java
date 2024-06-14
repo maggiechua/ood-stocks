@@ -26,6 +26,12 @@ public class StocksModelImpl implements StocksModel {
   private FileParser fp;
 
   /**
+   * The portfolios object was previously a HashMap, where now it is a List of a PortfolioImpl
+   * class we created to assist in saving portfolios and retrieving portfolio data.
+   * The fc and fp objects were created for the purpose of accessing and saving file data.
+   */
+
+  /**
    * This makes a new StocksModel Implementation.
    * @param stock the String representing the stock symbol
    * @param portfolios the hashmap holding the portfolios of the user
@@ -207,6 +213,10 @@ public class StocksModelImpl implements StocksModel {
     return !stockPrice.isEmpty();
   }
 
+
+  /**
+   * The buy method now intakes a date, for the new features.
+   */
   @Override
   public StocksModelImpl buy(double shares, String date, String portfolioName) {
     List<PortfolioImpl> pfs = this.portfolios;
@@ -214,7 +224,6 @@ public class StocksModelImpl implements StocksModel {
     PortfolioImpl currentPortfolio = pfs.remove(pIndex);
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
-      //TODO: update buy/sell message to inform the user.
       pfs.add(currentPortfolio);
     }
     else {
@@ -225,6 +234,9 @@ public class StocksModelImpl implements StocksModel {
     return new StocksModelImpl(this.stock, pfs);
   }
 
+  /**
+   * The sell method now intakes a date, for the new features.
+   */
   @Override
   public StocksModelImpl sell(String stock, Integer shares, String date, String portfolioName) {
     List<PortfolioImpl> pfs = this.portfolios;
@@ -232,8 +244,6 @@ public class StocksModelImpl implements StocksModel {
     PortfolioImpl currentPortfolio = pfs.remove(pIndex);
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
-      //TODO: figure out if we just default to the next market day -> yes
-      //TODO: update buy/sell message to inform the user.
       pfs.add(currentPortfolio);
     }
     else {
@@ -248,14 +258,12 @@ public class StocksModelImpl implements StocksModel {
   public Double portfolioValue(String portfolioName, String date) {
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     PortfolioImpl portfolio = portfolios.get(pIndex);
-    //TODO: reset portfolios for date
     this.loadPortfolios();
     return portfolio.calculateValue(date);
   }
 
   @Override
   public HashMap<String, Double> composition(String portfolioName, String date) {
-    // TODO: reset portfolios for date
     List<PortfolioImpl> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     return (HashMap<String, Double>) pfs.get(pIndex).getPortfolioContents();
@@ -263,7 +271,6 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public HashMap<String, Double> distribution(String portfolioName, String date) {
-    // TODO: reset portfolios for date
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     PortfolioImpl pf = this.portfolios.get(pIndex);
     return pf.findDistribution(date);
@@ -389,7 +396,6 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
           Double> weights) {
-    //TODO: adjusted portfolio values based on file, new method to update portfolios? or auto?
     List<PortfolioImpl> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     double max = portfolioValue(portfolioName, date);
