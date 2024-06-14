@@ -49,7 +49,7 @@ public class StocksControllerImpl implements StocksController {
     // print welcome message
     output.welcomeMessage();
     // load portfolio(s)' contents into the program if they exist
-    stock.loadPortfolios();
+//    stock.loadPortfolios();
 
     while (!quit) {
       output.typeInstruct();

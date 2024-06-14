@@ -5,22 +5,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -29,7 +23,6 @@ import java.util.TreeSet;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.events.Attribute;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -81,7 +74,7 @@ public class FileCreator {
     } catch (IOException e) {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
-    String directoryPath = "/res/data/";
+    String directoryPath = "Stocks/res/data/";
     String fileName = stockSymbol + ".csv";
     String path = directoryPath + fileName;
     this.createFile(path, output);
@@ -112,7 +105,7 @@ public class FileCreator {
    */
   public void createNewPortfolioFile(String portfolioName, List<Transaction> lot) {
     String userDirectory = System.getProperty("user.dir");
-    String directoryPath = "/res/portfolios/";
+    String directoryPath = "Stocks/res/portfolios/";
     String fileName = portfolioName + ".xml";
     String path = userDirectory + directoryPath + fileName;
     this.createXMLFile(path, portfolioName, lot);
@@ -247,7 +240,7 @@ public class FileCreator {
     newDay.setValue(dateSplit[2]);
     dateTag.setAttributeNode(newMonth);
     dateTag.setAttributeNode(newDay);
-    this.addNewStockTag(doc, dateTag, t);
+    this.addNewTransactionTag(doc, dateTag, t);
   }
 
   /**
@@ -263,7 +256,6 @@ public class FileCreator {
     Attr newStock = doc.createAttribute("symbol");
     newStock.setValue(t.getStock());
     stockTag.setAttributeNode(newStock);
-    this.addNewTransactionTag(doc, parent, t);
   }
 
   /**
@@ -289,13 +281,11 @@ public class FileCreator {
     type.setValue(transactionType);
     transactionTag.setAttributeNode(type);
 
+    this.addNewStockTag(doc, transactionTag, t);
+
     Element sharesTag = doc.createElement("shares");
     sharesTag.appendChild(doc.createTextNode("" + t.getShares()));
     transactionTag.appendChild(sharesTag);
-
-    Element dateTag = doc.createElement("date");
-    dateTag.appendChild(doc.createTextNode(dateSplit[2]));
-    transactionTag.appendChild(dateTag);
 
     Element priceTag = doc.createElement("price");
     String price = parse.getStockPrice(t.getStock(), t.getDate());
