@@ -60,6 +60,9 @@ public class StocksViewImpl implements StocksView {
     writeMessage("Thank you for using this program! \n");
   }
 
+  /**
+   * The printMenu method has been updated for the new features.
+   */
   @Override
   public void printMenu() throws IllegalStateException {
     writeMessage("Supported user instructions are: \n");
@@ -76,6 +79,9 @@ public class StocksViewImpl implements StocksView {
     writeMessage("q or quit (quit the program) \n");
   }
 
+  /**
+   * The printStockMenu method has been updated for the new features.
+   */
   @Override
   public void printStockMenu() throws IllegalStateException {
     writeMessage("Supported user instructions for selected stock are: \n");
