@@ -270,10 +270,12 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public HashMap<String, Double> composition(String portfolioName, String date) {
+  public Map<String, Double> composition(String portfolioName, String date) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    return (HashMap<String, Double>) pfs.get(pIndex).getPortfolioContents();
+    Portfolio p = portfolios.get(pIndex);
+    Path path = fp.retrievePath(fp.getOSType(), portfolioName, "portfolios", ".xml");
+    return p.loadPortfolio(path, date);
   }
 
   @Override

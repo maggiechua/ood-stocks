@@ -120,6 +120,11 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
+  public boolean validMarketDay(String date) {
+    return false;
+  }
+
+  @Override
   public String getStock() {
     return null;
   }
