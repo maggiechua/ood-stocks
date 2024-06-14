@@ -1,0 +1,11 @@
+<a>
+    <year y="2015">
+        <date day="09" month="09">
+            <transaction type="buy">
+                <stock symbol="GOOG"/>
+                <shares>5.0</shares>
+                <price>612.7200</price>
+            </transaction>
+        </date>
+    </year>
+</a>

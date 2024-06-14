@@ -113,4 +113,19 @@ public class StocksViewMock implements StocksView {
   public void invalidDate(String type) {
     this.appendResult("Invalid date printed in view. \n");
   }
+
+  @Override
+  public void askDate(String type) {
+    this.appendResult("Asking date printed in view. \n");
+  }
+
+  @Override
+  public void whichPortfolio() {
+    this.appendResult("Asking portfolio printed in view. \n");
+  }
+
+  @Override
+  public void rebalanced(String portfolioName) {
+    this.appendResult("Rebalanced printed in view. \n");
+  }
 }

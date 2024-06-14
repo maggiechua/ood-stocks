@@ -343,7 +343,7 @@ public class StocksControllerImpl implements StocksController {
     else if ((type == 1) && (dateCheck > 12 || dateCheck < 0)) {
       r = false;
     }
-    else if ((type == 2) && (dateCheck > 2024 || dateCheck < 200)) {
+    else if ((type == 2) && (dateCheck > 2024 || dateCheck < 2000)) {
       r = false;
     }
     return r;
