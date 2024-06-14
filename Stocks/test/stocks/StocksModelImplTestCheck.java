@@ -6,15 +6,13 @@ import org.junit.Test;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
 public class StocksModelImplTestCheck {
   private StocksModel model;
 
 
   @Before
   public void setUp() throws Exception {
-    model = new StocksModelImpl("GOOG", new ArrayList<Portfolio>());
+    model = new StocksModelImpl("GOOG", new ArrayList<PortfolioImpl>());
   }
 
   @Test

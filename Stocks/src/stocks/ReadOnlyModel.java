@@ -1,6 +1,5 @@
 package stocks;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public interface ReadOnlyModel {
    * A getter method that returns existing portfolios.
    * @return a hashmap of all the users' existing portfolios
    */
-  public List<Portfolio> getPortfolios();
+  public List<PortfolioImpl> getPortfolios();
 
   /**
    * A getter method that returns the existing portfolio value based on the given date.

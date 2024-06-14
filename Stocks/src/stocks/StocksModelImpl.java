@@ -2,7 +2,6 @@ package stocks;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -11,12 +10,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.stream.Stream;
 
 //TODO: UPDATE PORTFOLIO FEATURES
   //TODO: purchase specific stock on a specified date
@@ -45,7 +42,7 @@ import java.util.stream.Stream;
  */
 public class StocksModelImpl implements StocksModel {
   private String stock;
-  private List<Portfolio> portfolios;
+  private List<PortfolioImpl> portfolios;
   private FileCreator fc;
   private FileParser fp;
 
@@ -54,7 +51,7 @@ public class StocksModelImpl implements StocksModel {
    * @param stock the String representing the stock symbol
    * @param portfolios the hashmap holding the portfolios of the user
    */
-  public StocksModelImpl(String stock, List<Portfolio> portfolios) {
+  public StocksModelImpl(String stock, List<PortfolioImpl> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
     this.fc = new FileCreator();
@@ -115,12 +112,12 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public StocksModel loadPortfolios() {
     Set<Path> files = fp.retrieveFilesInDirectory();
-    List<Portfolio> portfolios = new ArrayList<>();
+    List<PortfolioImpl> portfolios = new ArrayList<>();
     for (Path path : files) {
       String portfolioName = path.getFileName().toString();
       Map<String, Double> contents = new HashMap<>();
       List<Transaction> transactions = fp.parsePortfolioTransactions(path);
-      Portfolio p = new Portfolio(portfolioName, contents, transactions);
+      PortfolioImpl p = new PortfolioImpl(portfolioName, contents, transactions);
       p.loadContents(transactions);
       portfolios.add(p);
     }
@@ -130,7 +127,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public void savePortfolios() {
     for (int p = 0; p < portfolios.size(); p++) {
-      Portfolio curPortfolio = portfolios.get(p);
+      PortfolioImpl curPortfolio = portfolios.get(p);
       curPortfolio.savePortfolio();
     }
   }
@@ -195,14 +192,14 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public StocksModelImpl createPortfolio(String name) {
-    List<Portfolio> pfs;
+    List<PortfolioImpl> pfs;
     if (this.portfolios == null) {
-      pfs = new ArrayList<Portfolio>();
+      pfs = new ArrayList<PortfolioImpl>();
     }
     else {
       pfs = this.portfolios;
     }
-    pfs.add(new Portfolio(name, new HashMap<String, Double>(), new ArrayList<Transaction>()));
+    pfs.add(new PortfolioImpl(name, new HashMap<String, Double>(), new ArrayList<Transaction>()));
     return new StocksModelImpl(this.stock, pfs);
   }
 
@@ -236,16 +233,16 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public StocksModelImpl buy(double shares, String date, String portfolioName) {
-    List<Portfolio> pfs = this.portfolios;
+    List<PortfolioImpl> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    Portfolio currentPortfolio = pfs.remove(pIndex);
+    PortfolioImpl currentPortfolio = pfs.remove(pIndex);
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
       //TODO: update buy/sell message to inform the user.
       pfs.add(currentPortfolio);
     }
     else {
-      Portfolio p = currentPortfolio.addToPortfolio(this.stock, date, shares);
+      PortfolioImpl p = currentPortfolio.addToPortfolio(this.stock, date, shares);
       p.savePortfolio();
       pfs.add(p);
     }
@@ -254,9 +251,9 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public StocksModelImpl sell(String stock, Integer shares, String date, String portfolioName) {
-    List<Portfolio> pfs = this.portfolios;
+    List<PortfolioImpl> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    Portfolio currentPortfolio = pfs.remove(pIndex);
+    PortfolioImpl currentPortfolio = pfs.remove(pIndex);
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
       //TODO: figure out if we just default to the next market day -> yes
@@ -264,7 +261,7 @@ public class StocksModelImpl implements StocksModel {
       pfs.add(currentPortfolio);
     }
     else {
-      Portfolio p = currentPortfolio.removeFromPortfolio(this.stock, date, shares);
+      PortfolioImpl p = currentPortfolio.removeFromPortfolio(this.stock, date, shares);
       p.savePortfolio();
       pfs.add(p);
     }
@@ -274,7 +271,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public Double portfolioValue(String portfolioName, String date) {
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    Portfolio portfolio = portfolios.get(pIndex);
+    PortfolioImpl portfolio = portfolios.get(pIndex);
     //TODO: reset portfolios for date
     this.loadPortfolios();
     return portfolio.calculateValue(date);
@@ -283,7 +280,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public HashMap<String, Double> composition(String portfolioName, String date) {
     // TODO: reset portfolios for date
-    List<Portfolio> pfs = this.portfolios;
+    List<PortfolioImpl> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     return (HashMap<String, Double>) pfs.get(pIndex).getPortfolioContents();
   }
@@ -292,7 +289,7 @@ public class StocksModelImpl implements StocksModel {
   public HashMap<String, Double> distribution(String portfolioName, String date) {
     // TODO: reset portfolios for date
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    Portfolio pf = this.portfolios.get(pIndex);
+    PortfolioImpl pf = this.portfolios.get(pIndex);
     return pf.findDistribution(date);
   }
 
@@ -402,6 +399,12 @@ public class StocksModelImpl implements StocksModel {
     return barValues;
   }
 
+  /**
+   * the organizeDate method reformats the date to an even number of characters
+   * saved in the class.
+   * @param date the given date
+   * @return a formatted version of the date specifically for the bar chart
+   */
   private String organizeDate(LocalDate date) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
     return formatter.format(date);
@@ -411,7 +414,7 @@ public class StocksModelImpl implements StocksModel {
   public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
           Double> weights) {
     //TODO: adjusted portfolio values based on file, new method to update portfolios? or auto?
-    List<Portfolio> pfs = this.portfolios;
+    List<PortfolioImpl> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     double max = portfolioValue(portfolioName, date);
     for (String a : weights.keySet()) {
@@ -434,7 +437,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public ArrayList<String> stockCount(String portfolioName) {
-    Portfolio pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
+    PortfolioImpl pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
     ArrayList<String> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> stock: pf.getPortfolioContents().entrySet()) {
       stockList.add(stock.getValue().toString());
@@ -469,7 +472,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public List<Portfolio> getPortfolios() {
+  public List<PortfolioImpl> getPortfolios() {
     return portfolios;
   }
 

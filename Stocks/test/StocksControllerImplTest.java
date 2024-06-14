@@ -166,7 +166,7 @@ public class StocksControllerImplTest {
     rd = new InputStreamReader(in);
     controller = new StocksControllerImpl(model, rd, view);
     controller.execute();
-    String expectedOutput = "Portfolio created printed in view. ";
+    String expectedOutput = "PortfolioImpl created printed in view. ";
     String resultString = ap.toString();
     String[] split = resultString.split("\n");
     assertEquals(expectedOutput, split[2]);

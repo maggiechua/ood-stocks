@@ -65,15 +65,6 @@ public class StocksViewImpl implements StocksView {
     writeMessage("Supported user instructions are: \n");
     writeMessage("select-stock stock-symbol (select a stock to see functions) \n");
     writeMessage("create-portfolio portfolio-name (creates a new empty portfolio) \n");
-    writeMessage("check-portfolio portfolio-name date "
-            + "(checks portfolio value at a specific date) \n");
-    writeMessage("sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares) \n");
-    writeMessage("composition portfolio-name date (displays composition of a portfolio) \n");
-    writeMessage("distribution portfolio-name date (displays distribution of a portfolio) \n");
-    writeMessage("balance portfolio-name date weights "
-            + "(re-balances the portfolio with given weights) \n");
-    writeMessage("bar-chart portfolio-name initial-date end-date (outputs a par chart displaying " +
-            "the performance of a portfolio int the given range) \n");
     writeMessage("check-portfolio portfolio-name (checks portfolio value at a specific date) \n");
     writeMessage("sell-stock stock-symbol number-of-shares (sell stock shares) \n");
     writeMessage("composition portfolio-name (displays composition of a portfolio) \n");
@@ -94,7 +85,7 @@ public class StocksViewImpl implements StocksView {
             + "for specified x day count and date) \n");
     writeMessage("check-crossovers number-of-days (checks x-day crossovers for"
             + " specified x day count in specific date range) \n");
-    writeMessage("buy-stock number-of-shares portfolio-name (buy stock shares) \n");
+    writeMessage("buy-stock number-of-shares (buy stock shares) \n");
     writeMessage("stock-menu (Print supported stocks instruction list) \n");
     writeMessage("menu (return to previous menu) \n");
     writeMessage("q or quit (quit the program) \n");
@@ -124,7 +115,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void portfolioCreationMessage(String name) {
-    writeMessage("Portfolio " + name + " created. \n");
+    writeMessage("PortfolioImpl " + name + " created. \n");
   }
 
   @Override
@@ -188,6 +179,6 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void rebalanced(String portfolioName) {
-    writeMessage("Portfolio " + portfolioName + " rebalanced.");
+    writeMessage("PortfolioImpl " + portfolioName + " rebalanced.");
   }
 }
