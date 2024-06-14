@@ -12,10 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -41,7 +39,7 @@ public class FileParser {
    * find a reason for this discrepancy, nor a solution for it.
    */
   public String getOSType() {
-    return "windows";
+    return "mac";
   }
 
   /**
@@ -67,7 +65,7 @@ public class FileParser {
   }
 
   /**
-   * This is a method that retrieves the closing stock price for a given stock on a given day. 
+   * This is a method that retrieves the closing stock price for a given stock on a given day.
    * @param stockSymbol the given stock symbol
    * @param date the given date expressed as YYYY-MM-DD
    * @return the given date's closing stock price as a String
@@ -224,13 +222,13 @@ public class FileParser {
         int day = Integer.parseInt(
                 dateNode.getAttributes().getNamedItem("day").getNodeValue());
         String date = String.format("%04d-%02d-%02d", year, month, day);
-          //<date day="09" month="03">
-          //            <transaction type="buy">
-          //                <stock symbol="NVDA"/>
-          //                <shares>200.0</shares>
-          //                <price>245.4400</price>
-          //            </transaction>
-          //        </date>
+        //<date day="09" month="03">
+        //            <transaction type="buy">
+        //                <stock symbol="NVDA"/>
+        //                <shares>200.0</shares>
+        //                <price>245.4400</price>
+        //            </transaction>
+        //        </date>
         boolean addT = false;
         if (!upToDate.isEmpty()) {
           if (cp.compare(upToDate, date) >= 0) {
