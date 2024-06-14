@@ -169,7 +169,8 @@ public class StocksControllerMock implements StocksController {
   }
 
   /**
-   * the callCreatePortfolio method determines whether a given date is an x-day crossover for the stock
+   * the callCreatePortfolio method determines whether a given date is an x-day crossover for the
+   * stock.
    * saved in the class.
    * @param portfolioName the name for the portfolio
    */
@@ -178,7 +179,8 @@ public class StocksControllerMock implements StocksController {
   }
 
   /**
-   * the callCheckPortfolio method determines whether a given date is an x-day crossover for the stock
+   * the callCheckPortfolio method determines whether a given date is an x-day crossover for the
+   * stock.
    * saved in the class.
    * @param portfolioName the name of the portfolio
    * @param date the date the user is checking the portfolio value of

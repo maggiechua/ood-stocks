@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class constructs a PortfolioImpl object containing a name, contents, and a log of transactions.
+ * This class constructs a PortfolioImpl containing a name, contents, and a log of transactions.
  */
-public class PortfolioImpl implements Portfolio{
+public class PortfolioImpl implements Portfolio {
   private String name;
   private Map<String, Double> contents;
   private List<Transaction> transactions;
@@ -50,6 +50,7 @@ public class PortfolioImpl implements Portfolio{
 
   @Override
   public void loadPortfolio(Path path, String date) {
+    // TODO: this
   }
 
   @Override

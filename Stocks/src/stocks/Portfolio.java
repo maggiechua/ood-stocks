@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This interface represents the methods for a portfolio.
+ */
 public interface Portfolio {
 
   /**
