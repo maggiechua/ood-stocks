@@ -31,11 +31,18 @@ public class StocksControllerImpl implements StocksController {
     this.output = output;
   }
 
+  /**
+   * There are minor changes in this method as compared to the previous submission, for the sake of
+   * separation into the stockActions method, but also in the way dates are taken in, and to ensure
+   * that invalid inputs are erased after setting to the default case. There are some added lines
+   * for extra outputs: for example, asking for the portfolio name in a separate line. Additionally,
+   * there are extra lines to load and save portfolios.
+   */
   @Override
   public void execute() {
     Scanner sc = new Scanner(rd);
     boolean quit = false;
-    boolean miniquit = false;
+    boolean miniquit;
     String stockName;
     String portfolioName;
     String date;
@@ -177,6 +184,11 @@ public class StocksControllerImpl implements StocksController {
   }
 
   /**
+   * The stockActions method was previously combined with the execute method, but has been split
+   * so that the methods are easier to read and understand.
+   */
+
+  /**
    * the stockActions method goes through the controls for the stock menu.
    * @param sc the scanner being used
    * @param nextInput the user input
@@ -281,7 +293,6 @@ public class StocksControllerImpl implements StocksController {
       catch (Exception e) {
         yearCheck = false;
       }
-      yearCheck = checkDate(year, 2);
       if (!yearCheck) {
         output.invalidDate("year");
       }
@@ -295,7 +306,6 @@ public class StocksControllerImpl implements StocksController {
       catch (Exception e) {
         monthCheck = false;
       }
-      monthCheck = checkDate(month, 1);
       if (!monthCheck) {
         output.invalidDate("month");
       }
@@ -309,7 +319,6 @@ public class StocksControllerImpl implements StocksController {
       catch (Exception e) {
         dayCheck = false;
       }
-      dayCheck = checkDate(day, 0);
       if (!dayCheck) {
         output.invalidDate("day");
       }
