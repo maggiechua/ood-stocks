@@ -154,46 +154,9 @@ public class FileCreator {
       Element rootElement = doc.createElement(portfolioName);
       doc.appendChild(rootElement);
 
-      //adding the years with transactions
-      SortedSet<String> yearNodes = new TreeSet<>();
+      //adding the transactions in chronological order
       for (Transaction t : lot) {
-        String[] dateSplit = t.getDate().split("-");
-        yearNodes.add(dateSplit[0]);
-      }
-      for (String year : yearNodes) {
-        this.addNewYearTag(doc, rootElement, year);
-      }
-
-      //adding the months with transactions
-      List<Set<String>> monthNodesList = new ArrayList<Set<String>>();
-      List<List<String>> dayNodesList = new ArrayList<>();
-      List<List<Transaction>> transactionsList = new ArrayList<>();
-      for (String yearNode : yearNodes) {
-        SortedSet<String> monthNodes = new TreeSet<String>();
-        List<String> dayNodes = new ArrayList<>();
-        List<Transaction> transactionNodes = new ArrayList<>();
-        for (Transaction t : lot) {
-          String[] dateSplit = t.getDate().split("-");
-          if (dateSplit[0].equals(yearNode)) {
-            monthNodes.add(dateSplit[1]);
-            dayNodes.add(dateSplit[2]);
-            transactionNodes.add(t);
-          }
-        }
-        monthNodesList.add(monthNodes);
-        dayNodesList.add(dayNodes);
-        transactionsList.add(transactionNodes);
-      }
-      NodeList yNodes = rootElement.getChildNodes();
-      int index = 0;
-      for (Set<String> monthNodes : monthNodesList) {
-        for (String month : monthNodes) {
-          for (int i = 0; i < dayNodesList.get(index).size(); i++) {
-            this.addNewDateTag(doc, yNodes.item(index), month,
-                    transactionsList.get(index).get(i));
-          }
-        }
-        index++;
+        this.addNewDateTag(doc, rootElement, t);
       }
 
       //write the content into xml file
@@ -205,56 +168,27 @@ public class FileCreator {
   }
 
   /**
-   * This is a method that adds a new year node to a portfolio if the given year doesn't already
-   * exist.
-   *
-   * @param doc    the given XML document for the portfolio
-   * @param parent the given parent node
-   * @param year   the given year
-   */
-  public void addNewYearTag(Document doc, Node parent, String year) {
-    Element yearTag = doc.createElement("year");
-    parent.appendChild(yearTag);
-    Attr newYear = doc.createAttribute("y");
-    newYear.setValue(year);
-    yearTag.setAttributeNode(newYear);
-  }
-
-  /**
    * This is a method that adds a new month node to a portfolio if the given month doesn't already
    * exist.
    *
    * @param doc    the given XML document for the portfolio
    * @param parent the given parent node
-   * @param month  the given month
    * @param t      the given transaction
    */
-  public void addNewDateTag(Document doc, Node parent, String month, Transaction t) {
+  public void addNewDateTag(Document doc, Node parent, Transaction t) {
+    String[] dateSplit = t.getDate().split("-");
     Element dateTag = doc.createElement("date");
     parent.appendChild(dateTag);
+    Attr newYear = doc.createAttribute("year");
+    newYear.setValue(dateSplit[0]);
     Attr newMonth = doc.createAttribute("month");
-    newMonth.setValue(month);
+    newMonth.setValue(dateSplit[1]);
     Attr newDay = doc.createAttribute("day");
-    String[] dateSplit = t.getDate().split("-");
     newDay.setValue(dateSplit[2]);
+    dateTag.setAttributeNode(newYear);
     dateTag.setAttributeNode(newMonth);
     dateTag.setAttributeNode(newDay);
     this.addNewTransactionTag(doc, dateTag, t);
-  }
-
-  /**
-   * This is a method that adds a new stock node to a portfolio if it doesn't already exist.
-   *
-   * @param doc    the given XML document for the portfolio
-   * @param parent the given parent tag in the XML document
-   * @param t      the given transaction
-   */
-  public void addNewStockTag(Document doc, Node parent, Transaction t) {
-    Element stockTag = doc.createElement("stock");
-    parent.appendChild(stockTag);
-    Attr newStock = doc.createAttribute("symbol");
-    newStock.setValue(t.getStock());
-    stockTag.setAttributeNode(newStock);
   }
 
   /**
@@ -266,7 +200,6 @@ public class FileCreator {
    * @param t          the given transaction
    */
   public void addNewTransactionTag(Document doc, Node parentNode, Transaction t) {
-    String[] dateSplit = t.getDate().split("-");
     Element transactionTag = null;
     transactionTag = doc.createElement("transaction");
     parentNode.appendChild(transactionTag);
@@ -280,7 +213,9 @@ public class FileCreator {
     type.setValue(transactionType);
     transactionTag.setAttributeNode(type);
 
-    this.addNewStockTag(doc, transactionTag, t);
+    Element stockTag = doc.createElement("stock");
+    stockTag.appendChild(doc.createTextNode(t.getStock()));
+    transactionTag.appendChild(stockTag);
 
     Element sharesTag = doc.createElement("shares");
     sharesTag.appendChild(doc.createTextNode("" + t.getShares()));

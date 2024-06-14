@@ -1,0 +1,16 @@
+<v63>
+    <date day="09" month="03" year="2020">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>200.0</shares>
+            <price>1215.5600</price>
+        </transaction>
+    </date>
+    <date day="30" month="05" year="2024">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>500.0</shares>
+            <price>173.5600</price>
+        </transaction>
+    </date>
+</v63>

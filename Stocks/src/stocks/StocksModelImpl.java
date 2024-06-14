@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ import java.util.Set;
  */
 public class StocksModelImpl implements StocksModel {
   private String stock;
-  private List<PortfolioImpl> portfolios;
+  private List<Portfolio> portfolios;
   private FileCreator fc;
   private FileParser fp;
 
@@ -36,7 +37,7 @@ public class StocksModelImpl implements StocksModel {
    * @param stock the String representing the stock symbol
    * @param portfolios the hashmap holding the portfolios of the user
    */
-  public StocksModelImpl(String stock, List<PortfolioImpl> portfolios) {
+  public StocksModelImpl(String stock, List<Portfolio> portfolios) {
     this.stock = stock;
     this.portfolios = portfolios;
     this.fc = new FileCreator();
@@ -103,13 +104,14 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public StocksModel loadPortfolios() {
     Set<Path> files = fp.retrieveFilesInDirectory();
-    List<PortfolioImpl> portfolios = new ArrayList<>();
+    List<Portfolio> portfolios = new ArrayList<>();
     for (Path path : files) {
       String portfolioName = path.getFileName().toString();
       Map<String, Double> contents = new HashMap<>();
       List<Transaction> transactions = fp.parsePortfolioTransactions(path);
-      PortfolioImpl p = new PortfolioImpl(portfolioName, contents, transactions);
-      p.loadContents(transactions);
+      Portfolio p = new PortfolioImpl(portfolioName, contents, transactions);
+      Set<String> stocks = p.getStocksList();
+      p.loadContents(stocks);
       portfolios.add(p);
     }
     return new StocksModelImpl(this.stock, portfolios);
@@ -118,7 +120,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public void savePortfolios() {
     for (int p = 0; p < portfolios.size(); p++) {
-      PortfolioImpl curPortfolio = portfolios.get(p);
+      Portfolio curPortfolio = portfolios.get(p);
       curPortfolio.savePortfolio();
     }
   }
@@ -183,9 +185,9 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public StocksModelImpl createPortfolio(String name) {
-    List<PortfolioImpl> pfs;
+    List<Portfolio> pfs;
     if (this.portfolios == null) {
-      pfs = new ArrayList<PortfolioImpl>();
+      pfs = new ArrayList<Portfolio>();
     }
     else {
       pfs = this.portfolios;
@@ -222,10 +224,10 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public StocksModelImpl buy(double shares, String date, String portfolioName) {
-    List<PortfolioImpl> pfs = this.portfolios;
+    List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    PortfolioImpl currentPortfolio = pfs.remove(pIndex);
-    PortfolioImpl p;
+    Portfolio currentPortfolio = pfs.remove(pIndex);
+    Portfolio p;
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
       String nextMDay = fp.getNextMarketDay(this.stock, date);
@@ -246,10 +248,10 @@ public class StocksModelImpl implements StocksModel {
    */
   @Override
   public StocksModelImpl sell(String stock, Integer shares, String date, String portfolioName) {
-    List<PortfolioImpl> pfs = this.portfolios;
+    List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    PortfolioImpl currentPortfolio = pfs.remove(pIndex);
-    PortfolioImpl p;
+    Portfolio currentPortfolio = pfs.remove(pIndex);
+    Portfolio p;
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
       String nextMDay = fp.getNextMarketDay(this.stock, date);
@@ -267,14 +269,14 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public Double portfolioValue(String portfolioName, String date) {
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    PortfolioImpl portfolio = portfolios.get(pIndex);
+    Portfolio portfolio = portfolios.get(pIndex);
     this.loadPortfolios();
     return portfolio.calculateValue(date);
   }
 
   @Override
   public HashMap<String, Double> composition(String portfolioName, String date) {
-    List<PortfolioImpl> pfs = this.portfolios;
+    List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     return (HashMap<String, Double>) pfs.get(pIndex).getPortfolioContents();
   }
@@ -282,7 +284,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public HashMap<String, Double> distribution(String portfolioName, String date) {
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    PortfolioImpl pf = this.portfolios.get(pIndex);
+    Portfolio pf = this.portfolios.get(pIndex);
     return pf.findDistribution(date);
   }
 
@@ -372,7 +374,7 @@ public class StocksModelImpl implements StocksModel {
       int month = Integer.parseInt(date[1]);
       if (portfolios.contains(name)) {
         int pIndex = this.retrievePortfolioIndex(name);
-        PortfolioImpl portfolio = portfolios.get(pIndex);
+        Portfolio portfolio = portfolios.get(pIndex);
         valueGet = portfolio.calculateLastValue("month", month);
       }
       else {
@@ -383,7 +385,7 @@ public class StocksModelImpl implements StocksModel {
       int year = Integer.parseInt(date[2]);
       if (portfolios.contains(name)) {
         int pIndex = this.retrievePortfolioIndex(name);
-        PortfolioImpl portfolio = portfolios.get(pIndex);
+        Portfolio portfolio = portfolios.get(pIndex);
         valueGet = portfolio.calculateLastValue("year", year);
       }
       else {
@@ -446,8 +448,9 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
           Double> weights) {
-    List<PortfolioImpl> pfs = this.portfolios;
+    List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
+    Portfolio p = pfs.remove(pIndex);
     double max = portfolioValue(portfolioName, date);
     for (String a : weights.keySet()) {
       Double shareCount = pfs.get(pIndex).getPortfolioContents().get(a);
@@ -457,11 +460,14 @@ public class StocksModelImpl implements StocksModel {
       newVal = newVal / stockValue.get(0);
       shareCount = shareCount - newVal;
       if (shareCount < 0) {
+        p.addToPortfolio(stock, date, Math.abs(shareCount));
         //TODO: add transaction mess for buy
       }
       else if (shareCount > 0) {
+        p.removeFromPortfolio(stock, date, shareCount);
         //TODO: add transaction mess for sell
       }
+      pfs.add(p);
       pfs.get(pIndex).getPortfolioContents().put(a, newVal);
     }
     return new StocksModelImpl(this.stock, pfs);
@@ -469,7 +475,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public ArrayList<String> stockCount(String portfolioName) {
-    PortfolioImpl pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
+    Portfolio pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
     ArrayList<String> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> stock: pf.getPortfolioContents().entrySet()) {
       stockList.add(stock.getValue().toString());
@@ -504,7 +510,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public List<PortfolioImpl> getPortfolios() {
+  public List<Portfolio> getPortfolios() {
     return portfolios;
   }
 

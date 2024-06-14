@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This interface represents the methods for a portfolio.
@@ -52,11 +53,17 @@ public interface Portfolio {
   public List<Transaction> sortTransactions();
 
   /**
+   * The following method gets all the stock names that exist in a portfolio without duplicates.
+   * @return a set of stocks represented as strings
+   */
+  public Set<String> getStocksList();
+
+  /**
    * The following method loads the contents of the portfolio according to the given list of
    * transactions.
-   * @param transactions a list of transactions made in a portfolio
+   * @param stocks a set of stocks
    */
-  public void loadContents(List<Transaction> transactions);
+  public void loadContents(Set<String> stocks);
 
   /**
    * The following method adds purchased shares to the portfolio.
@@ -82,6 +89,14 @@ public interface Portfolio {
    * @return the total value of the portfolio based on the given date
    */
   public double calculateValue(String date);
+
+  /**
+   *
+   * @param date the given date
+   * @param time
+   * @return
+   */
+  public double calculateLastValue(String date, int time);
 
   /**
    * The following method finds the distribution of value within this portfolio.
