@@ -1,16 +1,9 @@
 <a>
-    <date day="09" month="10" year="2019">
+    <date day="09" month="09" year="2019">
         <transaction type="buy">
-            <stock>AAPL</stock>
-            <shares>20.0</shares>
-            <price>227.0300</price>
-        </transaction>
-    </date>
-    <date day="12" month="10" year="2020">
-        <transaction type="buy">
-            <stock>NVDA</stock>
+            <stock>GOOG</stock>
             <shares>10.0</shares>
-            <price>569.0400</price>
+            <price>1204.4100</price>
         </transaction>
     </date>
 </a>

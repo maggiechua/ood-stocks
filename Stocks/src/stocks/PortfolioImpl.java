@@ -1,7 +1,6 @@
 package stocks;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,10 +51,15 @@ public class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public Map<String, Double> loadPortfolio(Path path, String date) {
+  public Map<String, Double> loadPortfolio(Path path, String date, boolean reload) {
     List<Transaction> t = fp.parsePortfolioTransactions(path, date);
     Set<String> stocks = this.getStocksList(t);
-    return this.loadContents(stocks, t, date);
+    if (reload) {
+      return this.reloadContents(stocks, t, date);
+    }
+    else {
+      return this.loadContents(stocks, t, date);
+    }
   }
 
   @Override
@@ -109,6 +113,27 @@ public class PortfolioImpl implements Portfolio {
   }
 
   @Override
+  public Map<String, Double> reloadContents(Set<String> stocks, List<Transaction> transactions,
+                                            String date) {
+    Map<String, Double> portfolio = new HashMap<>();
+    for (String stock : stocks) {
+      double numValue = 0.0;
+      for (Transaction t : transactions) {
+        if (t.getStock().equals(stock)) {
+          numValue += (t.getShares() * t.getPrice());
+        }
+      }
+      if (date.isEmpty()) {
+        contents.put(stock, numValue);
+      }
+      else {
+        portfolio.put(stock, numValue);
+      }
+    }
+    return portfolio;
+  }
+
+  @Override
   public PortfolioImpl addToPortfolio(String stock, String date, double shares) {
     Map<String, Double> currentPortfolio = this.contents;
     if (currentPortfolio.containsKey(stock)) {
@@ -141,7 +166,7 @@ public class PortfolioImpl implements Portfolio {
   public double calculateValue(String date) {
     double portfolioValue = 0.0;
     Path path = fp.retrievePath(fp.getOSType(), this.name, "portfolios", ".xml");
-    Map<String, Double> tempPortfolio = this.loadPortfolio(path, date);
+    Map<String, Double> tempPortfolio = this.loadPortfolio(path, date, false);
     for (Map.Entry<String, Double> stock: tempPortfolio.entrySet()) {
       Double stockPrice = Double.parseDouble(fp.getStockPrice(stock.getKey(), date));
       portfolioValue += stockPrice * stock.getValue();
@@ -161,12 +186,7 @@ public class PortfolioImpl implements Portfolio {
 
   @Override
   public Map<String, Double> findDistribution(String date) {
-    Path path = fp.retrievePath(fp.getOSType(), this.name, "portfolios", ".xml");
-//    HashMap<String, Double> dist = new HashMap<>();
-//    for (Map.Entry<String, Double> stock: this.contents.entrySet()) {
-//      Double stockPrice = Double.parseDouble(fp.getStockPrice(stock.getKey(), date));
-//      dist.put(stock.getKey(), stock.getValue() * stockPrice);
-//    }
-    return this.loadPortfolio(path, date);
+    Path path = fp.retrievePath(fp.getOSType(), this.name, "portfolios/", ".xml");
+    return this.loadPortfolio(path, date, true);
   }
 }

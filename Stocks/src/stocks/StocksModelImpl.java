@@ -277,11 +277,10 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public Map<String, Double> composition(String portfolioName, String date) {
-    List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio p = portfolios.get(pIndex);
     Path path = fp.retrievePath(fp.getOSType(), portfolioName, "portfolios/", ".xml");
-    return p.loadPortfolio(path, date);
+    return p.loadPortfolio(path, date, false);
   }
 
   @Override
