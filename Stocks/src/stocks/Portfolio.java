@@ -30,9 +30,10 @@ public interface Portfolio {
    * to the program up to a specific date.
    * @param path the given path to the portfolio file
    * @param date the given date to load the portfolio to
+   * @param reload for distribution method
    * @return a map representing the portfolio up to a given date
    */
-  public Map<String, Double> loadPortfolio(Path path, String date);
+  public Map<String, Double> loadPortfolio(Path path, String date, boolean reload);
 
   /**
    * the savePortfolio method saves this portfolio.
@@ -71,6 +72,17 @@ public interface Portfolio {
    */
   public Map<String, Double> loadContents(Set<String> stocks, List<Transaction> transactions,
                                           String date);
+
+  /**
+   * The following method loads the total cost of a stock.
+   * @param stocks a set of stocks
+   * @param transactions a given list of transactions
+   * @param date a given date
+   * @return a Map representing the portfolio up to a specified period. returns a blank map if the
+   * program has just started, and it needs to load file data into the program.
+   */
+  Map<String, Double> reloadContents(Set<String> stocks, List<Transaction> transactions,
+                                     String date);
 
   /**
    * The following method adds purchased shares to the portfolio.

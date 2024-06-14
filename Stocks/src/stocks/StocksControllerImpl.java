@@ -112,7 +112,6 @@ public class StocksControllerImpl implements StocksController {
           try {
             portfolioName = sc.next();
             date = dateProcess(sc, false);
-            stock.composition(portfolioName, date);
             output.listWrite(stock.composition(portfolioName, date), "comp");
           }
           catch (Exception e) {
