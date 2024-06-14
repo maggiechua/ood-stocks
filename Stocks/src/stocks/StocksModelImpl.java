@@ -210,12 +210,8 @@ public class StocksModelImpl implements StocksModel {
     return pIndex;
   }
 
-  /**
-   * The following method determines if the given date is a valid market day.
-   * @param date the given date
-   * @return a boolean where true is a valid market day and false is a non-market day
-   */
-  private boolean validMarketDay(String date) {
+  @Override
+  public boolean validMarketDay(String date) {
     String stockPrice = fp.getStockPrice(this.stock, date);
     return !stockPrice.isEmpty();
   }
@@ -268,7 +264,7 @@ public class StocksModelImpl implements StocksModel {
   public Double portfolioValue(String portfolioName, String date) {
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     PortfolioImpl portfolio = portfolios.get(pIndex);
-    this.loadPortfolios();
+//    this.loadPortfolios();
     return portfolio.calculateValue(date);
   }
 
@@ -380,7 +376,7 @@ public class StocksModelImpl implements StocksModel {
       }
     }
     else if (time == 3) {
-      int year = Integer.parseInt(date[2]);
+      int year = Integer.parseInt(date[0]);
       if (portfolios.contains(name)) {
         int pIndex = this.retrievePortfolioIndex(name);
         PortfolioImpl portfolio = portfolios.get(pIndex);
@@ -472,7 +468,7 @@ public class StocksModelImpl implements StocksModel {
     PortfolioImpl pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
     ArrayList<String> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> stock: pf.getPortfolioContents().entrySet()) {
-      stockList.add(stock.getValue().toString());
+      stockList.add(stock.getKey());
     }
     return stockList;
   }

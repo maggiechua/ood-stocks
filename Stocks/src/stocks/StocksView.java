@@ -83,8 +83,9 @@ public interface StocksView {
   /**
    * the listWrite method adds the list text to the appendable in the class.
    * @param input the map of stocks with their respective share counts
+   * @param type the type of list: either distribution or composition
    */
-  public void listWrite(HashMap<String, Double> input);
+  public void listWrite(HashMap<String, Double> input, String type);
 
   /**
    * the barWrite method adds the bar graph to the appendable in the class.

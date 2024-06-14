@@ -99,7 +99,7 @@ public class StocksViewMock implements StocksView {
   }
 
   @Override
-  public void listWrite(HashMap<String, Double> input) {
+  public void listWrite(HashMap<String, Double> input, String type) {
     this.appendResult("List printed in view. \n");
   }
 

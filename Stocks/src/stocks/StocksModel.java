@@ -140,4 +140,11 @@ public interface StocksModel extends ReadOnlyModel {
    * @return an integer for the scale
    */
   public Integer makeScale(HashMap<String,Double> barData);
+
+  /**
+   * The following method determines if the given date is a valid market day.
+   * @param date the given date
+   * @return a boolean where true is a valid market day and false is a non-market day
+   */
+  public boolean validMarketDay(String date);
 }
