@@ -146,7 +146,7 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void listWrite(HashMap<String, Double> input, String type) {
+  public void listWrite(Map<String, Double> input, String type) {
     for (Map.Entry<String, Double> entry : input.entrySet()) {
       if (type.equals("comp")) {
         writeMessage("Stock: " + entry.getKey() + " - Shares: "

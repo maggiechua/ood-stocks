@@ -29,9 +29,11 @@ public interface Portfolio {
   /**
    * the loadPortfolio method loads data from this portfolio into Portfolio objects local
    * to the program up to a specific date.
+   * @param path the given path to the portfolio file
    * @param date the given date to load the portfolio to
+   * @return a map representing the portfolio up to a given date
    */
-  public void loadPortfolio(Path path, String date);
+  public Map<String, Double> loadPortfolio(Path path, String date);
 
   /**
    * the savePortfolio method saves this portfolio.
@@ -61,10 +63,15 @@ public interface Portfolio {
 
   /**
    * The following method loads the contents of the portfolio according to the given list of
-   * transactions.
+   * transactions up to a given date.
    * @param stocks a set of stocks
+   * @param transactions a given list of transactions
+   * @param date a given date
+   * @return a Map representing the portfolio up to a specified period. returns a blank map if the
+   * program has just started, and it needs to load file data into the program.
    */
-  public void loadContents(Set<String> stocks);
+  public Map<String, Double> loadContents(Set<String> stocks, List<Transaction> transactions,
+                                          String date);
 
   /**
    * The following method adds purchased shares to the portfolio.
@@ -102,9 +109,9 @@ public interface Portfolio {
   /**
    * The following method finds the distribution of value within this portfolio.
    * @param date the given date
-   * @return a hashmap of the portfolio showing the monetary value for each stock
+   * @return a map of the portfolio showing the monetary value for each stock
    */
-  public HashMap<String, Double> findDistribution(String date);
+  public Map<String, Double> findDistribution(String date);
 
 
 }
