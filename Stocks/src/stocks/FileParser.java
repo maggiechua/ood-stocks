@@ -11,8 +11,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -69,6 +71,64 @@ public class FileParser {
       System.out.println("The stock did not exist on the date given.");
     }
     return stockPrice;
+  }
+
+  /**
+   * The following method gets the closing price of the last market day of a time period
+   * (month/year).
+   * @param stock the given stock
+   * @param type the integer representation to determine where to split the string representation
+   *             of a date
+   * @param time the given integer representation of the time period (month/year)
+   * @return the closing price of the last market day as a String
+   */
+  private String getLastDay(String stock, int type, int time) {
+    Path path = this.retrievePath(this.getOSType(), stock, "data/", ".csv");
+    File file = path.toFile();
+
+    String stockPrice = "";
+    String curDay = "";
+    String nextDay = "";
+    try {
+      Scanner sc = new Scanner(file);
+      while (sc.hasNextLine()) {
+        String line = sc.nextLine();
+        String[] lineInfo = line.split(",");
+        curDay = lineInfo[0];
+        if (sc.hasNextLine()) {
+          String nextLine = sc.nextLine();
+          String[] nextDaySplit = nextLine.split(",");
+          nextDay = nextDaySplit[0];
+          String[] nDaySplit = nextDay.split("-");
+          if (Integer.parseInt(nDaySplit[type]) == time + 1) {
+            stockPrice = curDay;
+            break;
+          }
+        }
+      }
+    }
+    catch (IOException e) {
+      System.out.println("The stock did not exist based on the given time period.");
+    }
+    return stockPrice;
+  }
+
+  /**
+   * The following method gets the last working day of the given stock for the given time period.
+   * @param stock the given stock
+   * @param timePeriod the given time period (either month/year) represented as a String
+   * @param time the given integer representation of the month/year
+   * @return the last working day as a String
+   */
+  public String getLastWorkingDay(String stock, String timePeriod, int time) {
+    String lastDayPrice = "";
+    if (timePeriod.equals("year")) {
+      lastDayPrice = this.getLastDay(stock, 0, time);
+    }
+    else if (timePeriod.equals("month")) {
+      lastDayPrice = this.getLastDay(stock, 1, time);
+    }
+    return lastDayPrice;
   }
 
   /**
