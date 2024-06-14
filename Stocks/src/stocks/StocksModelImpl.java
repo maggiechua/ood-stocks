@@ -370,7 +370,7 @@ public class StocksModelImpl implements StocksModel {
       int month = Integer.parseInt(date[1]);
       if (portfolios.contains(name)) {
         int pIndex = this.retrievePortfolioIndex(name);
-        PortfolioImpl portfolio = portfolios.get(pIndex);
+        Portfolio portfolio = portfolios.get(pIndex);
         valueGet = portfolio.calculateLastValue("month", month);
       }
       else {
@@ -381,7 +381,7 @@ public class StocksModelImpl implements StocksModel {
       int year = Integer.parseInt(date[2]);
       if (portfolios.contains(name)) {
         int pIndex = this.retrievePortfolioIndex(name);
-        PortfolioImpl portfolio = portfolios.get(pIndex);
+        Portfolio portfolio = portfolios.get(pIndex);
         valueGet = portfolio.calculateLastValue("year", year);
       }
       else {
@@ -444,7 +444,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
           Double> weights) {
-    List<PortfolioImpl> pfs = this.portfolios;
+    List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     double max = portfolioValue(portfolioName, date);
     for (String a : weights.keySet()) {
@@ -467,7 +467,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public ArrayList<String> stockCount(String portfolioName) {
-    PortfolioImpl pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
+    Portfolio pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
     ArrayList<String> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> stock: pf.getPortfolioContents().entrySet()) {
       stockList.add(stock.getValue().toString());
@@ -502,7 +502,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public List<PortfolioImpl> getPortfolios() {
+  public List<Portfolio> getPortfolios() {
     return portfolios;
   }
 
