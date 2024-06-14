@@ -94,9 +94,9 @@ public interface StocksModel extends ReadOnlyModel {
    *
    * @param portfolioName the name of the portfolio
    * @param date          the date the user is checking the portfolio composition of
-   * @return a HashMap of one portfolio
+   * @return a Map of one portfolio
    */
-  public HashMap<String, Double> composition(String portfolioName, String date);
+  public Map<String, Double> composition(String portfolioName, String date);
 
   /**
    * the distribution method produces a list of stocks and their respective values in the portfolio.
