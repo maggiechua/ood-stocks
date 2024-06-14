@@ -85,14 +85,31 @@ public class FileParser {
       Document doc = builder.parse(path.toString());
       doc.getDocumentElement().normalize();
 
-      NodeList byYear = doc.getElementsByTagName("year");
+      NodeList byYear = doc.getElementsByTagName("year"); // <year></year>
+      NodeList byT = doc.getElementsByTagName("date");
       for (int i = 0; i < byYear.getLength(); i++) {
-        NodeList transactions = byYear.item(i).getChildNodes();
+        NodeList transactions = byYear.item(i).getChildNodes(); // <date></date>
+        int year = Integer.parseInt(
+                transactions.item(i).getAttributes().getNamedItem("y").getNodeValue());
         for (int s = 0; s < transactions.getLength(); s++) {
-          NodeList t = transactions.item(i).getChildNodes();
-
+          int month = Integer.parseInt(
+                  transactions.item(s).getAttributes().getNamedItem("month").getNodeValue());
+          int day = Integer.parseInt(
+                  transactions.item(s).getAttributes().getNamedItem("day").getNodeValue());
+          String date = String.format("%04d-%02d-%02d", year, month, day);
+          //<date day="09" month="03">
+          //            <transaction type="buy">
+          //                <stock symbol="NVDA"/>
+          //                <shares>200.0</shares>
+          //                <price>245.4400</price>
+          //            </transaction>
+          //        </date>
+          NodeList t = transactions.item(i).getChildNodes(); // <transaction></transaction>
+          String stock = t.item(0).toString();
+          Double shares = Double.parseDouble(t.item(1).getNodeValue());
+          Double price = Double.parseDouble(t.item(2).getNodeValue());
+          transactionList.add(new Transaction(stock, shares, date, price));
         }
-
       }
     }
     catch (ParserConfigurationException e) {

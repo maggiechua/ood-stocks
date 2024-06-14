@@ -74,7 +74,7 @@ public class FileCreator {
     } catch (IOException e) {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
-    String directoryPath = "/res/data/";
+    String directoryPath = "Stocks/res/data/";
     String fileName = stockSymbol + ".csv";
     String path = directoryPath + fileName;
     this.createFile(path, output);
@@ -105,7 +105,7 @@ public class FileCreator {
    */
   public void createNewPortfolioFile(String portfolioName, List<Transaction> lot) {
     String userDirectory = System.getProperty("user.dir");
-    String directoryPath = "/res/portfolios/";
+    String directoryPath = "Stocks/res/portfolios/";
     String fileName = portfolioName + ".xml";
     String path = userDirectory + directoryPath + fileName;
     this.createXMLFile(path, portfolioName, lot);
@@ -286,10 +286,6 @@ public class FileCreator {
     Element sharesTag = doc.createElement("shares");
     sharesTag.appendChild(doc.createTextNode("" + t.getShares()));
     transactionTag.appendChild(sharesTag);
-
-    Element dateTag = doc.createElement("date");
-    dateTag.appendChild(doc.createTextNode(dateSplit[2]));
-    transactionTag.appendChild(dateTag);
 
     Element priceTag = doc.createElement("price");
     String price = parse.getStockPrice(t.getStock(), t.getDate());

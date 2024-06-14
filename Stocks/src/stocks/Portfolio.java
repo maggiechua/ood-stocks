@@ -30,6 +30,7 @@ public class Portfolio {
     this.fc = new FileCreator();
     this.fp = new FileParser();
     this.cp = new CompareTransaction();
+    transactions.sort(this.cp);
   }
 
   public String getName() {
