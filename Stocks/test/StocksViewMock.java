@@ -80,7 +80,7 @@ public class StocksViewMock implements StocksView {
 
   @Override
   public void portfolioCreationMessage(String name) {
-    this.appendResult("Portfolio created printed in view. \n");
+    this.appendResult("PortfolioImpl created printed in view. \n");
   }
 
   @Override

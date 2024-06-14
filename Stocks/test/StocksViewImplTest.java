@@ -142,7 +142,7 @@ public class StocksViewImplTest {
     String input = "create-portfolio kiki";
     controller = new StocksControllerMock(model, view, input, false, ap);
     controller.execute();
-    String expectedOutput = "Portfolio kiki" + " created. \n";
+    String expectedOutput = "PortfolioImpl kiki" + " created. \n";
     String[] s1 = ap.toString().split("format.] \n");
     String s = s1[1];
     assertEquals(expectedOutput, s);
