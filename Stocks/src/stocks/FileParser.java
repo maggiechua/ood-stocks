@@ -39,7 +39,7 @@ public class FileParser {
    * find a reason for this discrepancy, nor a solution for it.
    */
   public String getOSType() {
-    return "windows";
+    return "mac";
   }
 
   /**
