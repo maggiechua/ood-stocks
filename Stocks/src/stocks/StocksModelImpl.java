@@ -178,6 +178,7 @@ public class StocksModelImpl implements StocksModel {
     else {
       pfs = this.portfolios;
     }
+    fc.createNewPortfolioFile(name, new ArrayList<Transaction>());
     pfs.add(new PortfolioImpl(name, new HashMap<String, Double>(), new ArrayList<Transaction>()));
     return new StocksModelImpl(this.stock, pfs);
   }

@@ -24,6 +24,25 @@ import javax.xml.parsers.ParserConfigurationException;
  * This is a class that parses XML files.
  */
 public class FileParser {
+
+  public String getOSType() {
+    return "windows";
+  }
+
+  public Path retrievePath(String os, String name, String dir, String fileType) {
+    String userDirectory = System.getProperty("user.dir");
+    String directoryPath = "";
+    String fileName = name + fileType;
+    if (os.equals("windows")) {
+      directoryPath = userDirectory + "/Stocks/res/" + dir;
+    }
+    else if (os.equals("mac")) {
+      directoryPath = userDirectory + "/res/" + dir;
+    }
+    Path path = Paths.get(directoryPath + fileName);
+    return path;
+  }
+
   /**
    * This is a method that retrieves the closing stock price for a given stock on a given day. 
    * @param stockSymbol the given stock symbol
@@ -31,10 +50,7 @@ public class FileParser {
    * @return the given date's closing stock price as a String
    */
   protected String getStockPrice(String stockSymbol, String date) {
-    String userDirectory = System.getProperty("user.dir");
-    String directoryPath = userDirectory + "/res/data/";
-    String fileName = stockSymbol + ".csv";
-    Path path = Paths.get(directoryPath + fileName);
+    Path path = this.retrievePath(this.getOSType(), stockSymbol, "data/", ".csv");
     File file = path.toFile();
 
     String stockPrice = "";
