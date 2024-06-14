@@ -53,7 +53,9 @@ public class PortfolioImpl implements Portfolio {
 
   @Override
   public void loadPortfolio(Path path, String date) {
-    // TODO: this
+    List<Transaction> t = fp.parsePortfolioTransactions(path, date);
+    Set<String> stocks = this.getStocksList(t);
+
   }
 
   @Override
@@ -77,9 +79,9 @@ public class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public Set<String> getStocksList() {
+  public Set<String> getStocksList(List<Transaction> tr) {
     Set<String> stocks = new HashSet<>();
-    for (Transaction t : transactions) {
+    for (Transaction t : tr) {
       stocks.add(t.getStock());
     }
     return stocks;

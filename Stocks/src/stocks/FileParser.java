@@ -190,7 +190,8 @@ public class FileParser {
   public Set<Path> retrieveFilesInDirectory() {
     Set<Path> files = new HashSet<>();
     try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(
-            "Stocks/res/portfolios/"))) {
+            this.retrievePath(
+                    this.getOSType(), "", "portfolios", "").toString()))) {
       for (Path path : stream) {
         files.add(path);
       }
@@ -203,8 +204,9 @@ public class FileParser {
   /**
    * The following method reads the information listed on a portfolio file.
    * @param path the given path to the desired portfolio file
+   * @param upToDate the given date to retrieve transactions up to
    */
-  public List<Transaction> parsePortfolioTransactions(Path path) {
+  public List<Transaction> parsePortfolioTransactions(Path path, String upToDate) {
     List<Transaction> transactionList = new ArrayList<>();
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     try {
@@ -229,13 +231,15 @@ public class FileParser {
           //                <price>245.4400</price>
           //            </transaction>
           //        </date>
-        NodeList tr = dateNode.getChildNodes(); // <transaction></transaction>
-        String[] trInfo = tr.item(1).getTextContent().split("\n            ");
-        String stock = trInfo[1];
-        Double shares = Double.valueOf(trInfo[2]);
-        Double price = Double.valueOf(trInfo[3]);
-        transactionList.add(new Transaction(stock, shares, date, price));
+        if (cp.compare(upToDate, date) >= 0 || date.isEmpty()) {
+          NodeList tr = dateNode.getChildNodes(); // <transaction></transaction>
+          String[] trInfo = tr.item(1).getTextContent().split("\n            ");
+          String stock = trInfo[1];
+          Double shares = Double.valueOf(trInfo[2]);
+          Double price = Double.valueOf(trInfo[3]);
+          transactionList.add(new Transaction(stock, shares, date, price));
         }
+      }
 
 //      for (Transaction t : transactionList) {
 //        System.out.println("Transaction: " + t.getStock() + " " + t.getDate() + " "
