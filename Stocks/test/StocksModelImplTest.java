@@ -8,6 +8,7 @@ import java.util.List;
 import javax.sound.sampled.Port;
 
 import stocks.Portfolio;
+import stocks.PortfolioImpl;
 import stocks.StocksController;
 import stocks.StocksModel;
 import stocks.StocksModelImpl;
@@ -34,7 +35,7 @@ public class StocksModelImplTest {
     ap = new StringBuilder();
     view = new StocksViewMock(ap);
     model = new StocksModelImpl("GOOG", new ArrayList<Portfolio>());
-    p = new Portfolio("a", new HashMap<String, Double>(),
+    p = new PortfolioImpl("a", new HashMap<String, Double>(),
             new ArrayList<Transaction>());
   }
 
@@ -310,7 +311,7 @@ public class StocksModelImplTest {
 
   @Test
   public void testSellStockHaveEnoughShares() {
-    p = new Portfolio("a", new HashMap<String, Double>(),
+    p = new PortfolioImpl("a", new HashMap<String, Double>(),
             new ArrayList<Transaction>());
     p.addToPortfolio("GOOG", "2024-05-30", 15);
     p.removeFromPortfolio("GOOG", "2024-05-31", 9);

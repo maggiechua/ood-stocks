@@ -91,6 +91,7 @@ public class StocksControllerImpl implements StocksController {
             stockName = sc.next();
             numOfShares = sc.nextInt();
             date = dateProcess(sc);
+            output.whichPortfolio();
             portfolioName = sc.next();
             stock.sell(stockName, numOfShares, date, portfolioName);
             output.buySellMessage(numOfShares, stockName, portfolioName, true);
@@ -162,6 +163,13 @@ public class StocksControllerImpl implements StocksController {
     }
   }
 
+  /**
+   * the checkDate method checks to ensure that a date inputted is valid
+   * @param sc the scanner being used
+   * @param nextInput the user input
+   * @param stockName the stock inputted by the user
+   * @return an Integer value to tell the main execute function what to do next
+   */
   private Integer stockActions(Scanner sc, String nextInput, String stockName) {
     boolean quit = false;
     boolean miniquit = false;
@@ -202,6 +210,7 @@ public class StocksControllerImpl implements StocksController {
         try {
           numOfShares = sc.nextInt();
           date = dateProcess(sc);
+          output.whichPortfolio();
           portfolioName = sc.next();
           stock.buy(numOfShares, date, portfolioName);
           output.buySellMessage(numOfShares, stockName, portfolioName, false);
@@ -235,6 +244,12 @@ public class StocksControllerImpl implements StocksController {
     return whatNext;
   }
 
+  /**
+   * the dateProcess method asks for each part of the date separately and checks each to ensure it
+   * is valid.
+   * @param sc the scanner being used
+   * @return a string for the date
+   */
   private String dateProcess(Scanner sc) {
     String date;
     String day = "";
@@ -244,22 +259,40 @@ public class StocksControllerImpl implements StocksController {
     boolean monthCheck = false;
     boolean dayCheck = false;
     while (!yearCheck) {
+      output.askDate("year");
       year = sc.next();
-      yearCheck = checkDate(year, 2);
+      try {
+        yearCheck = checkDate(year, 2);
+      }
+      catch (Exception e) {
+        yearCheck = false;
+      }
       if (!yearCheck) {
         output.invalidDate("year");
       }
     }
     while (!monthCheck) {
+      output.askDate("month");
       month = sc.next();
-      monthCheck = checkDate(month, 1);
+      try {
+        monthCheck = checkDate(month, 1);
+      }
+      catch (Exception e) {
+        monthCheck = false;
+      }
       if (!monthCheck) {
         output.invalidDate("month");
       }
     }
     while (!dayCheck) {
+      output.askDate("date");
       day = sc.next();
-      dayCheck = checkDate(day, 0);
+      try {
+        dayCheck = checkDate(day, 0);
+      }
+      catch (Exception e) {
+        dayCheck = false;
+      }
       if (!dayCheck) {
         output.invalidDate("day");
       }
@@ -268,6 +301,12 @@ public class StocksControllerImpl implements StocksController {
     return date;
   }
 
+  /**
+   * the checkDate method checks to ensure that a date inputted is valid
+   * @param input the value input
+   * @param type the part of the date (i.e. year, month, day)
+   * @return a boolean to state whether the given value is valid
+   */
   private boolean checkDate(String input, Integer type) {
     Integer dateCheck = Integer.parseInt(input);
     boolean r = true;

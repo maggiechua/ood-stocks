@@ -67,7 +67,7 @@ public class StocksViewImpl implements StocksView {
     writeMessage("create-portfolio portfolio-name (creates a new empty portfolio) \n");
     writeMessage("check-portfolio portfolio-name date "
             + "(checks portfolio value at a specific date) \n");
-    writeMessage("sell-stock stock-symbol number-of-shares portfolio-name (sell stock shares) \n");
+    writeMessage("sell-stock stock-symbol number-of-shares (sell stock shares) \n");
     writeMessage("composition portfolio-name date (displays composition of a portfolio) \n");
     writeMessage("distribution portfolio-name date (displays distribution of a portfolio) \n");
     writeMessage("balance portfolio-name date weights "
@@ -88,7 +88,7 @@ public class StocksViewImpl implements StocksView {
             + "for specified x day count and date) \n");
     writeMessage("check-crossovers number-of-days start-date (checks x-day crossovers for"
             + " specified x day count in specific date range) \n");
-    writeMessage("buy-stock number-of-shares portfolio-name (buy stock shares) \n");
+    writeMessage("buy-stock number-of-shares (buy stock shares) \n");
     writeMessage("stock-menu (Print supported stocks instruction list) \n");
     writeMessage("menu (return to previous menu) \n");
     writeMessage("q or quit (quit the program) \n");
@@ -169,5 +169,15 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void invalidDate(String type) {
     writeMessage("Invalid " + type + ", please enter a new " + type + " value: ");
+  }
+
+  @Override
+  public void askDate(String type) {
+    writeMessage("Please input a " + type + " value: ");
+  }
+
+  @Override
+  public void whichPortfolio() {
+    writeMessage("Enter the portfolio you'd like to perform this action to: ");
   }
 }
