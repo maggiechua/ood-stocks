@@ -46,10 +46,10 @@ public interface StocksModel extends ReadOnlyModel {
    * the loadPortfolios method loads the saved portfolio(s)' contents from XML files into Portfolio
    * objects.
    */
-  public void loadPortfolios();
+  public StocksModel loadPortfolios();
 
   /**
-   * the savePortfolios method saves the portfolio(s)' contents within the program into XML files.
+   * the savePortfolios method saves all the portfolios contents within the program into XML files.
    */
   public void savePortfolios();
 

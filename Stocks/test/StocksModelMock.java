@@ -58,8 +58,8 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
-  public void loadPortfolios() {
-
+  public StocksModel loadPortfolios() {
+    return this;
   }
 
   @Override

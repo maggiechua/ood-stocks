@@ -1,5 +1,7 @@
 package stocks;
 
+import java.nio.file.Path;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,23 @@ public interface Portfolio {
   public List<Transaction> getTransactionsLog();
 
   /**
+   * the loadPortfolio method loads data from this portfolio into Portfolio objects local
+   * to the program up to a specific date.
+   * @param date the given date to load the portfolio to
+   */
+  public void loadPortfolio(Path path, String date) {
+
+  }
+
+  /**
+   * the savePortfolio method saves this portfolio.
+   */
+  public void savePortfolio() {
+    List<Transaction> sortedTransactions = this.sortTransactions();
+    fc.createNewPortfolioFile(this.name, sortedTransactions);
+  }
+
+  /**
    * The following method adds a transaction to the transaction log.
    * @param stock the given stock
    * @param date the given date
@@ -34,6 +53,15 @@ public interface Portfolio {
    * @return a list of sorted transactions
    */
   public List<Transaction> sortTransactions();
+
+  /**
+   * The following method loads the contents of the portfolio according to the given list of
+   * transactions.
+   * @param transactions a list of transactions made in a portfolio
+   */
+  public void loadContents(List<Transaction> transactions) {
+    //TODO: also pass in a hashset to represent stocks 
+  }
 
   /**
    * The following method adds purchased shares to the portfolio.
