@@ -445,6 +445,7 @@ public class StocksModelImpl implements StocksModel {
           Double> weights) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
+    Portfolio p = pfs.remove(pIndex);
     double max = portfolioValue(portfolioName, date);
     for (String a : weights.keySet()) {
       Double shareCount = pfs.get(pIndex).getPortfolioContents().get(a);
@@ -454,11 +455,12 @@ public class StocksModelImpl implements StocksModel {
       newVal = newVal / stockValue.get(0);
       shareCount = shareCount - newVal;
       if (shareCount < 0) {
-        //TODO: add transaction mess for buy
+        p.addToPortfolio(stock, date, Math.abs(shareCount));
       }
       else if (shareCount > 0) {
-        //TODO: add transaction mess for sell
+        p.removeFromPortfolio(stock, date, shareCount);
       }
+      pfs.add(p);
       pfs.get(pIndex).getPortfolioContents().put(a, newVal);
     }
     return new StocksModelImpl(this.stock, pfs);
