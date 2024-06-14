@@ -40,10 +40,10 @@ import javax.xml.transform.stream.StreamResult;
  * This class represents file making data. Its purpose is to create saved files for the program.
  */
 public class FileCreator {
-  FileParser parse;
+  FileParser fp;
 
   public FileCreator() {
-    this.parse = new FileParser();
+    this.fp = new FileParser();
   }
 
   /**
@@ -79,9 +79,7 @@ public class FileCreator {
     } catch (IOException e) {
       throw new IllegalArgumentException("No price data found for " + stockSymbol);
     }
-    String directoryPath = "Stocks/res/data/";
-    String fileName = stockSymbol + ".csv";
-    String path = directoryPath + fileName;
+    Path path = fp.retrievePath(fp.getOSType(), stockSymbol, "data/",".csv");
     this.createFile(path, output);
   }
 
@@ -91,9 +89,9 @@ public class FileCreator {
    * @param path the given path of the file
    * @param data the given data to be written into the file
    */
-  public void createFile(String path, StringBuilder data) {
+  public void createFile(Path path, StringBuilder data) {
     try {
-      File file = new File(path);
+      File file = new File(path.toString());
       FileWriter writer = new FileWriter(file);
       writer.write(data.toString());
       writer.close();
@@ -109,10 +107,7 @@ public class FileCreator {
    * @param lot           the given list of sorted transactions
    */
   public void createNewPortfolioFile(String portfolioName, List<Transaction> lot) {
-    String userDirectory = System.getProperty("user.dir");
-    String directoryPath = "Stocks/res/portfolios/";
-    String fileName = portfolioName + ".xml";
-    String path = userDirectory + directoryPath + fileName;
+    Path path = fp.retrievePath(fp.getOSType(), portfolioName, "portfolios/", ".xml");
     this.createXMLFile(path, portfolioName, lot);
   }
 
@@ -122,7 +117,7 @@ public class FileCreator {
    * @param filePath the given path to the desired file
    * @param doc      the given XML Document
    */
-  public void writeToXMLFile(String filePath, Document doc) {
+  public void writeToXMLFile(Path filePath, Document doc) {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     Transformer transformer = null;
     try {
@@ -133,7 +128,7 @@ public class FileCreator {
       throw new RuntimeException(e);
     }
     DOMSource source = new DOMSource(doc);
-    StreamResult result = new StreamResult(new File(filePath));
+    StreamResult result = new StreamResult(new File(filePath.toString()));
     try {
       transformer.transform(source, result);
     } catch (TransformerException e) {
@@ -144,9 +139,8 @@ public class FileCreator {
   /**
    * This is a method that creates XML files to represent portfolios.
    */
-  public void createXMLFile(String path, String portfolioName, List<Transaction> lot) {
-    Path filePath = Paths.get(path);
-    File file = filePath.toFile();
+  public void createXMLFile(Path path, String portfolioName, List<Transaction> lot) {
+    File file = path.toFile();
 
     if (file.exists()) {
       file.delete();
@@ -293,7 +287,7 @@ public class FileCreator {
     transactionTag.appendChild(sharesTag);
 
     Element priceTag = doc.createElement("price");
-    String price = parse.getStockPrice(t.getStock(), t.getDate());
+    String price = fp.getStockPrice(t.getStock(), t.getDate());
     priceTag.appendChild(doc.createTextNode(price));
     transactionTag.appendChild(priceTag);
   }

@@ -323,7 +323,8 @@ public class StocksControllerImpl implements StocksController {
         output.invalidDate("day");
       }
     }
-    date = year + "-" + month + "-" + day;
+    date = String.format("%04d-%02d-%02d",
+            Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     return date;
   }
 

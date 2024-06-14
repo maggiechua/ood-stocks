@@ -1,0 +1,11 @@
+<v53>
+    <year y="2024">
+        <date day="30" month="05">
+            <transaction type="buy">
+                <stock symbol="GOOG"/>
+                <shares>25.0</shares>
+                <price>173.5600</price>
+            </transaction>
+        </date>
+    </year>
+</v53>
