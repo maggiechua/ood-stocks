@@ -358,6 +358,12 @@ public class StocksModelImpl implements StocksModel {
                                              int time, long setValue) {
     Map<String, Double> barValues = new HashMap<>();
     Double valueGet;
+    if (time == 2) {
+      valueGet = null;
+    }
+    else if (time == 3) {
+      valueGet = null;
+    }
     while (one != two) {
       String dateOut = organizeDate(one);
       if (portfolios.contains(name)) {

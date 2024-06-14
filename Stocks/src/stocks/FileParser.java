@@ -25,10 +25,25 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class FileParser {
 
+  /**
+   * This method returns OS type. If the user OS type does not match the return, PLEASE change it.
+   * "mac" for mac.
+   * "windows" for windows.
+   * This is an error to do with file path and the location of directories- we have not been able to
+   * find a reason for this discrepancy, nor a solution for it.
+   */
   public String getOSType() {
-    return "windows";
+    return "mac";
   }
 
+  /**
+   * The retrievePath method returns the path to a selected file in a directory.
+   * @param os OS for user computer
+   * @param name name of the file
+   * @param dir the directory the file is located in
+   * @param fileType type of file the user is querying
+   * @returns a path to the file
+   */
   public Path retrievePath(String os, String name, String dir, String fileType) {
     String userDirectory = System.getProperty("user.dir");
     String directoryPath = "";
