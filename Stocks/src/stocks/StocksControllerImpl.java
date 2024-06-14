@@ -310,7 +310,7 @@ public class StocksControllerImpl implements StocksController {
         output.invalidDate("month");
       }
     }
-    while (!dayCheck || check) {
+    while (!dayCheck) {
       output.askDate("date");
       day = sc.next();
       try {
@@ -322,18 +322,14 @@ public class StocksControllerImpl implements StocksController {
       if (!dayCheck) {
         output.invalidDate("day");
       }
-      else {
-        if (!stock.validMarketDay(String.format("%04d-%02d-%02d",
-                Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)))) {
-          output.invalidDate("mkday");
-        }
-        else {
-          check = false;
-        }
-      }
     }
     date = String.format("%04d-%02d-%02d",
             Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+    if (check) {
+      if (stock.validMarketDay(date)) {
+        date = stock.nextMarketDay(date);
+      }
+    }
     return date;
   }
 

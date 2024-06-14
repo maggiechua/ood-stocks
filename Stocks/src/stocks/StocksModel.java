@@ -147,4 +147,11 @@ public interface StocksModel extends ReadOnlyModel {
    * @return a boolean where true is a valid market day and false is a non-market day
    */
   public boolean validMarketDay(String date);
+
+  /**
+   * The following method returns the next valid market day.
+   * @param date the given date
+   * @return a string of the next valid market date
+   */
+  public String nextMarketDay(String date);
 }

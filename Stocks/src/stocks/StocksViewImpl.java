@@ -177,12 +177,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void invalidDate(String type) {
-    if (type.equals("mkday")) {
-      writeMessage("This day is not a market day, please enter a new day value: ");
-    }
-    else {
       writeMessage("Invalid " + type + ", please enter a new " + type + " value: ");
-    }
   }
 
   @Override
