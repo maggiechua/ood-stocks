@@ -117,6 +117,15 @@ public class PortfolioImpl implements Portfolio {
     return portfolioValue;
   }
 
+  public double calculateLastValue(String timePeriod, int time) {
+    double portfolioValue = 0.0;
+    for (Map.Entry<String, Double> stock: contents.entrySet()) {
+      Double endPrice = Double.parseDouble(fp.getLastWorkingDay(stock.getKey(), timePeriod, time));
+      portfolioValue += endPrice * stock.getValue();
+    }
+    return portfolioValue;
+  }
+
   @Override
   public HashMap<String, Double> findDistribution(String date) {
     HashMap<String, Double> dist = new HashMap<>();

@@ -41,7 +41,6 @@ public interface StocksModel extends ReadOnlyModel {
    */
   public String crossovers(Integer numOfDays, String date);
 
-  //TODO: new methods to load a portfolio from a file and save it to a file
   /**
    * the loadPortfolios method loads the saved portfolio(s)' contents from XML files into
    * PortfolioImpl objects.
@@ -129,11 +128,16 @@ public interface StocksModel extends ReadOnlyModel {
           Double> weights);
 
   /**
-   * the stockCount gets all the stocks of a portfolio into one list.
+   * the stockCount method gets all the stocks of a portfolio into one list.
    * @param portfolioName the name of the portfolio
    * @return an ArrayList of the stocks in a portfolio
    */
   public ArrayList<String> stockCount(String portfolioName);
 
+  /**
+   * the makeScale method calculates a scale for the bar chart based on its data.
+   * @param barData the data of the bar chart
+   * @return an integer for the scale
+   */
   public Integer makeScale(HashMap<String,Double> barData);
 }

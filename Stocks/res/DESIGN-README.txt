@@ -7,10 +7,11 @@ stored in the View section (including the StocksView interface, and the StocksVi
 the executing method of the program which interacts with user inputs is stores in the Controller
 section (including the StocksController interface, and the StocksControllerImpl class).
 
-StocksControllerImpl only contains the execute method. This class only interacts directly with the
-StocksModel interface and the StocksView interface, pulling from methods stored there. The model
-and view of our program do not directly interact in any way, only through the controller class
-calling methods from each interface.
+StocksController only contains the execute method. StocksControllerImpl implements this method, as
+well as other helper methods for better separation and readibility. This class only interacts
+directly with the StocksModel interface and the StocksView interface, pulling from methods stored
+there. The model and view of our program do not directly interact in any way, only through the
+controller class calling methods from each interface.
 
 All stock related data and methods are stored solely in the model section, as stated prior, to
 allow us to enhance and fix any stock access features without interrupting processes in the view
@@ -19,17 +20,18 @@ permit us to make changes to outputted text in an organized, isolated fashion. O
 StocksControllerImpl pulls solely from the view and model interfaces, rather than classes, to allow
 us to add any future classes with more ease through which we can expand our program's features.
 
-Our StocksModelImpl uses AlphaVantage API as it was a resource provided to us to use as stock data.
+Our Model uses AlphaVantage API as it was a resource provided to us to use as stock data, creates
+csv files to save stock data from the API, and creates xml files to save portfolio data.
 Our StocksViewImpl uses an Appendable to store text to be outputted for readability.
-Our StocksControllerImpl uses a Scanner to read user inputs as it was a resource we were informed of by
-our instructors and works to fulfill our purposes.
+Our StocksControllerImpl uses a Scanner to read user inputs as it was a resource we were informed
+of by our instructors and works to fulfill our purposes.
 
 StockProgram connects to our three implementations (StocksModelImpl, StocksViewImpl, and
 StocksControllerImpl) and runs the program.
 
 Our design is described in greater depth below:
 
-Model: StocksModel
+Model: StocksModel, Portfolio
     - [holds the data and methods of the program]
     - Includes:
         - StocksModelImpl
@@ -46,9 +48,15 @@ Model: StocksModel
             Methods (not in interface):
             - getAPIKey (stores the API key used to access the API)
             getStockInfo (pulls stock information from data, or calls createStockCSVFile)
-        - AlphaVantageDemo
+        - FileCreator
             Methods (not pulled from Interface):
             - createStockCSVFile (creates a CSV file in data to store stock data)
+        - FileParser
+        - PortfolioImpl
+        - Transaction
+        - CompareTransaction
+        - CompareDate
+        - ReadOnlyModel
 View: StocksView
     - [holds the methods to visualize outputs for user]
     - Includes:
