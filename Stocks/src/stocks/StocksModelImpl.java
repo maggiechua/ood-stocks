@@ -108,9 +108,9 @@ public class StocksModelImpl implements StocksModel {
     for (Path path : files) {
       String portfolioName = path.getFileName().toString();
       Map<String, Double> contents = new HashMap<>();
-      List<Transaction> transactions = fp.parsePortfolioTransactions(path);
+      List<Transaction> transactions = fp.parsePortfolioTransactions(path, "");
       Portfolio p = new PortfolioImpl(portfolioName, contents, transactions);
-      Set<String> stocks = p.getStocksList();
+      Set<String> stocks = p.getStocksList(transactions);
       p.loadContents(stocks);
       portfolios.add(p);
     }

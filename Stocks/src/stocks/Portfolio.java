@@ -54,9 +54,10 @@ public interface Portfolio {
 
   /**
    * The following method gets all the stock names that exist in a portfolio without duplicates.
+   * @param tr a given list of transactions
    * @return a set of stocks represented as strings
    */
-  public Set<String> getStocksList();
+  public Set<String> getStocksList(List<Transaction> tr);
 
   /**
    * The following method loads the contents of the portfolio according to the given list of
