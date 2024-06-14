@@ -1,0 +1,16 @@
+<a>
+    <date day="02" month="08" year="2017">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>10.0</shares>
+            <price>164.3900</price>
+        </transaction>
+    </date>
+    <date day="05" month="09" year="2018">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>5.0</shares>
+            <price>1186.4800</price>
+        </transaction>
+    </date>
+</a>
