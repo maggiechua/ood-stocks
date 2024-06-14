@@ -26,6 +26,11 @@ import javax.xml.parsers.ParserConfigurationException;
  * This is a class that parses XML files.
  */
 public class FileParser {
+  private CompareDate cp;
+
+  public FileParser() {
+    this.cp = new CompareDate();
+  }
 
   public String getOSType() {
     return "windows";
@@ -114,11 +119,42 @@ public class FileParser {
   }
 
   /**
+   * The following method gets the next market day based on the given date.
+   * @param stock the given stock
+   * @param date the given date
+   * @return the next market day as a String
+   */
+  public String getNextMarketDay(String stock, String date) {
+    Path path = this.retrievePath(this.getOSType(), stock, "data/", ".csv");
+    File file = path.toFile();
+
+    String nextMDay = "";
+    try {
+      Scanner sc = new Scanner(file);
+      sc.nextLine();
+      while (sc.hasNextLine()) {
+        String line = sc.nextLine();
+        String[] lineInfo = line.split(",");
+        String curDay = lineInfo[0];
+        int dayDif = cp.compare(curDay, date);
+        if (dayDif > 0) {
+          nextMDay = curDay;
+          break;
+        }
+      }
+    }
+    catch (IOException e) {
+      System.out.println("The next market day is in the future.");
+    }
+    return nextMDay;
+  }
+
+  /**
    * The following method gets the last working day of the given stock for the given time period.
    * @param stock the given stock
    * @param timePeriod the given time period (either month/year) represented as a String
    * @param time the given integer representation of the month/year
-   * @return the last working day as a String
+   * @return the last working day price as a String
    */
   public String getLastWorkingDay(String stock, String timePeriod, int time) {
     String lastDayPrice = "";

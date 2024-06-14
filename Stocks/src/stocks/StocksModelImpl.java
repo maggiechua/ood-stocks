@@ -214,17 +214,6 @@ public class StocksModelImpl implements StocksModel {
     return !stockPrice.isEmpty();
   }
 
-  /**
-   * The following method determines the next market day given an invalid date.
-   * @param date the given date
-   * @return the next market day as a String
-   */
-  private String getNextMarketDay(String date) {
-    List<Integer> dayDifference = new ArrayList<>();
-
-    return "";
-  }
-
   @Override
   public StocksModelImpl buy(double shares, String date, String portfolioName) {
     List<PortfolioImpl> pfs = this.portfolios;
@@ -233,7 +222,7 @@ public class StocksModelImpl implements StocksModel {
     PortfolioImpl p;
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
-      String nextMDay = this.getNextMarketDay(date);
+      String nextMDay = fp.getNextMarketDay(this.stock, date);
       p = currentPortfolio.addToPortfolio(this.stock, nextMDay, shares);
       //TODO: update buy/sell message to inform the user.
       pfs.add(currentPortfolio);
@@ -257,7 +246,7 @@ public class StocksModelImpl implements StocksModel {
     PortfolioImpl p;
     boolean validDay = this.validMarketDay(date);
     if (!validDay) {
-      String nextMDay = this.getNextMarketDay(date);
+      String nextMDay = fp.getNextMarketDay(this.stock, date);
       p = currentPortfolio.removeFromPortfolio(this.stock, nextMDay, shares);
       //TODO: update buy/sell message to inform the user.
     }
