@@ -177,7 +177,12 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void invalidDate(String type) {
+    if (type.equals("day") || type.equals("month") || type.equals("year")) {
       writeMessage("Invalid " + type + ", please enter a new " + type + " value: ");
+    }
+    else {
+      writeMessage("Inputted date is not a market day, using closest market date: " + type);
+    }
   }
 
   @Override
