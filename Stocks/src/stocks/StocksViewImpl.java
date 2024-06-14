@@ -136,7 +136,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void askBalance(String stock) {
-    writeMessage("Please input new weight for " + stock + " : \n");
+    writeMessage("Please input new weight for " + stock + " : ");
   }
 
   @Override
@@ -146,9 +146,16 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void listWrite(HashMap<String, Double> input) {
+  public void listWrite(HashMap<String, Double> input, String type) {
     for (Map.Entry<String, Double> entry : input.entrySet()) {
-      writeMessage("Stock: " + entry.getKey() + " - Shares/Value: " + entry.getValue() + "\n");
+      if (type.equals("comp")) {
+        writeMessage("Stock: " + entry.getKey() + " - Shares: "
+                + String.format("%,.4f", entry.getValue()) + "\n");
+      }
+      else if (type.equals("dist")) {
+        writeMessage("Stock: " + entry.getKey() + " - Value: $"
+                + String.format("%,.2f", entry.getValue()) + "\n");
+      }
     }
   }
 
@@ -170,7 +177,12 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void invalidDate(String type) {
-    writeMessage("Invalid " + type + ", please enter a new " + type + " value: ");
+    if (type.equals("mkday")) {
+      writeMessage("This day is not a market day, please enter a new day value: ");
+    }
+    else {
+      writeMessage("Invalid " + type + ", please enter a new " + type + " value: ");
+    }
   }
 
   @Override
@@ -185,6 +197,6 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void rebalanced(String portfolioName) {
-    writeMessage("PortfolioImpl " + portfolioName + " rebalanced.");
+    writeMessage("PortfolioImpl " + portfolioName + " rebalanced. \n");
   }
 }

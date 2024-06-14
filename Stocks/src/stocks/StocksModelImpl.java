@@ -212,12 +212,8 @@ public class StocksModelImpl implements StocksModel {
     return pIndex;
   }
 
-  /**
-   * The following method determines if the given date is a valid market day.
-   * @param date the given date
-   * @return a boolean where true is a valid market day and false is a non-market day
-   */
-  private boolean validMarketDay(String date) {
+  @Override
+  public boolean validMarketDay(String date) {
     String stockPrice = fp.getStockPrice(this.stock, date);
     return !stockPrice.isEmpty();
   }
@@ -374,7 +370,7 @@ public class StocksModelImpl implements StocksModel {
       int month = Integer.parseInt(date[1]);
       if (portfolios.contains(name)) {
         int pIndex = this.retrievePortfolioIndex(name);
-        Portfolio portfolio = portfolios.get(pIndex);
+        PortfolioImpl portfolio = portfolios.get(pIndex);
         valueGet = portfolio.calculateLastValue("month", month);
       }
       else {
@@ -385,7 +381,7 @@ public class StocksModelImpl implements StocksModel {
       int year = Integer.parseInt(date[2]);
       if (portfolios.contains(name)) {
         int pIndex = this.retrievePortfolioIndex(name);
-        Portfolio portfolio = portfolios.get(pIndex);
+        PortfolioImpl portfolio = portfolios.get(pIndex);
         valueGet = portfolio.calculateLastValue("year", year);
       }
       else {
@@ -448,9 +444,8 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
           Double> weights) {
-    List<Portfolio> pfs = this.portfolios;
+    List<PortfolioImpl> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    Portfolio p = pfs.remove(pIndex);
     double max = portfolioValue(portfolioName, date);
     for (String a : weights.keySet()) {
       Double shareCount = pfs.get(pIndex).getPortfolioContents().get(a);
@@ -460,14 +455,11 @@ public class StocksModelImpl implements StocksModel {
       newVal = newVal / stockValue.get(0);
       shareCount = shareCount - newVal;
       if (shareCount < 0) {
-        p.addToPortfolio(stock, date, Math.abs(shareCount));
         //TODO: add transaction mess for buy
       }
       else if (shareCount > 0) {
-        p.removeFromPortfolio(stock, date, shareCount);
         //TODO: add transaction mess for sell
       }
-      pfs.add(p);
       pfs.get(pIndex).getPortfolioContents().put(a, newVal);
     }
     return new StocksModelImpl(this.stock, pfs);
@@ -475,7 +467,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public ArrayList<String> stockCount(String portfolioName) {
-    Portfolio pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
+    PortfolioImpl pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
     ArrayList<String> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> stock: pf.getPortfolioContents().entrySet()) {
       stockList.add(stock.getValue().toString());
@@ -510,7 +502,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public List<Portfolio> getPortfolios() {
+  public List<PortfolioImpl> getPortfolios() {
     return portfolios;
   }
 
