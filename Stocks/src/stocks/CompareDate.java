@@ -19,6 +19,9 @@ public class CompareDate implements Comparator<String> {
    */
   public int getDayVal(String date) {
     String[] dateSplit = date.split("-");
-    return Integer.parseInt(dateSplit[2]);
+    int tYear = Integer.parseInt(dateSplit[0]);
+    int tMonth = Integer.parseInt(dateSplit[1]);
+    int tDay = Integer.parseInt(dateSplit[2]);
+    return tYear * 365 + tMonth * 30 + tDay;
   }
 }
