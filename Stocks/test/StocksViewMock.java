@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import stocks.StocksView;
 
@@ -99,7 +100,7 @@ public class StocksViewMock implements StocksView {
   }
 
   @Override
-  public void listWrite(HashMap<String, Double> input, String type) {
+  public void listWrite(Map<String, Double> input, String type) {
     this.appendResult("List printed in view. \n");
   }
 

@@ -1,6 +1,7 @@
 package stocks;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This interface represents the methods for the view section of the program.
@@ -85,7 +86,7 @@ public interface StocksView {
    * @param input the map of stocks with their respective share counts
    * @param type the type of list: either distribution or composition
    */
-  public void listWrite(HashMap<String, Double> input, String type);
+  public void listWrite(Map<String, Double> input, String type);
 
   /**
    * the barWrite method adds the bar graph to the appendable in the class.

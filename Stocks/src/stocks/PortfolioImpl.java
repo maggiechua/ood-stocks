@@ -52,10 +52,10 @@ public class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public void loadPortfolio(Path path, String date) {
+  public Map<String, Double> loadPortfolio(Path path, String date) {
     List<Transaction> t = fp.parsePortfolioTransactions(path, date);
     Set<String> stocks = this.getStocksList(t);
-
+    return this.loadContents(stocks, t, date);
   }
 
   @Override
@@ -88,7 +88,9 @@ public class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public void loadContents(Set<String> stocks) {
+  public Map<String, Double> loadContents(Set<String> stocks, List<Transaction> transactions,
+                                          String date) {
+    Map<String, Double> portfolio = new HashMap<>();
     for (String stock : stocks) {
       double numShares = 0.0;
       for (Transaction t : transactions) {
@@ -96,8 +98,14 @@ public class PortfolioImpl implements Portfolio {
           numShares += t.getShares();
         }
       }
-      contents.put(stock, numShares);
+      if (date.isEmpty()) {
+        contents.put(stock, numShares);
+      }
+      else {
+        portfolio.put(stock, numShares);
+      }
     }
+    return portfolio;
   }
 
   @Override
@@ -132,7 +140,9 @@ public class PortfolioImpl implements Portfolio {
   @Override
   public double calculateValue(String date) {
     double portfolioValue = 0.0;
-    for (Map.Entry<String, Double> stock: contents.entrySet()) {
+    Path path = fp.retrievePath(fp.getOSType(), this.name, "portfolios", ".xml");
+    Map<String, Double> tempPortfolio = this.loadPortfolio(path, date);
+    for (Map.Entry<String, Double> stock: tempPortfolio.entrySet()) {
       Double stockPrice = Double.parseDouble(fp.getStockPrice(stock.getKey(), date));
       portfolioValue += stockPrice * stock.getValue();
     }
@@ -150,12 +160,13 @@ public class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public HashMap<String, Double> findDistribution(String date) {
-    HashMap<String, Double> dist = new HashMap<>();
-    for (Map.Entry<String, Double> stock: this.contents.entrySet()) {
-      Double stockPrice = Double.parseDouble(fp.getStockPrice(stock.getKey(), date));
-      dist.put(stock.getKey(), stock.getValue() * stockPrice);
-    }
-    return dist;
+  public Map<String, Double> findDistribution(String date) {
+    Path path = fp.retrievePath(fp.getOSType(), this.name, "portfolios", ".xml");
+//    HashMap<String, Double> dist = new HashMap<>();
+//    for (Map.Entry<String, Double> stock: this.contents.entrySet()) {
+//      Double stockPrice = Double.parseDouble(fp.getStockPrice(stock.getKey(), date));
+//      dist.put(stock.getKey(), stock.getValue() * stockPrice);
+//    }
+    return this.loadPortfolio(path, date);
   }
 }
