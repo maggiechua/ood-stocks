@@ -407,7 +407,7 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup3, true, ap);
     controller.execute();
 
-    String setup4 = "quit";
+    String setup4 = "menu";
     controller = new StocksControllerMock(model, view, setup4, true, ap);
     controller.execute();
 
@@ -419,7 +419,7 @@ public class StocksModelImplTest {
     controller = new StocksControllerMock(model, view, setup6, true, ap);
     controller.execute();
 
-    String setup7 = "quit";
+    String setup7 = "menu";
     controller = new StocksControllerMock(model, view, setup7, true, ap);
     controller.execute();
 

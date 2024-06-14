@@ -125,6 +125,11 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
+  public String nextMarketDay(String date) {
+    return "";
+  }
+
+  @Override
   public String getStock() {
     return null;
   }
