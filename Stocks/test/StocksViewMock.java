@@ -104,6 +104,12 @@ public class StocksViewMock implements StocksView {
   }
 
   @Override
-  public void barWrite(HashMap<String, Double> input, Integer scale) {
+  public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
+                       Integer scale) {
+  }
+
+  @Override
+  public void invalidDate(String type) {
+
   }
 }

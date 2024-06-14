@@ -151,8 +151,10 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void barWrite(HashMap<String, Double> input, Integer scale) {
+  public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
+                       Integer scale) {
     int asterisk = 0;
+    writeMessage("Performance of " + name + " from " + date1 + " to " + date2 + "\n \n");
     for (Map.Entry<String, Double> entry : input.entrySet()) {
       asterisk = (int) Math.round(entry.getValue()/scale);
       writeMessage(entry.getKey() + " : ");
@@ -161,7 +163,7 @@ public class StocksViewImpl implements StocksView {
       }
       writeMessage("\n");
     }
-    writeMessage("Scale : * = " + scale + "\n");
+    writeMessage("\nScale : * = " + scale + "\n");
   }
 
   @Override

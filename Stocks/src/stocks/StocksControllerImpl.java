@@ -136,13 +136,13 @@ public class StocksControllerImpl implements StocksController {
           }
         case "bar-chart" :
           try {
-            portfolioName = sc.next();
+            String name = sc.next();
             date = dateProcess(sc);
             date2 = dateProcess(sc);
             // TODO: output
             HashMap<String, Double> chartData = (HashMap<String, Double>)
-                    stock.bar(portfolioName, date, date2);
-            output.barWrite(chartData, stock.makeScale(chartData));
+                    stock.bar(name, date, date2);
+            output.barWrite(name, date, date2, chartData, stock.makeScale(chartData));
           }
           catch (Exception e) {
             // TODO: what exceptions: length of time incorrect

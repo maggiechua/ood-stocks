@@ -279,7 +279,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public HashMap<String, Double> bar(String portfolioName, String date1, String date2)
+  public HashMap<String, Double> bar(String name, String date1, String date2)
   throws ParseException {
     HashMap<String, Double> barValues = new HashMap<>();
     LocalDate dateOne = LocalDate.parse(date1);
@@ -293,31 +293,31 @@ public class StocksModelImpl implements StocksModel {
       throw new IllegalArgumentException();
     }
     else if (diffDays > 5 && diffDays < 30) {
-      orgBarData(dateOne, dateTwo, portfolioName, 0, 1);
+      orgBarData(dateOne, dateTwo, name, 0, 1);
     }
     else if (diffDays > 30) {
       if (diffWeeks < 5) {
         s = newSet(diffDays);
-        orgBarData(dateOne, dateTwo, portfolioName, 0, s);
+        orgBarData(dateOne, dateTwo, name, 0, s);
       }
       else if (diffWeeks > 5 && diffWeeks < 30) {
-        orgBarData(dateTwo, dateOne, portfolioName, 1, 1);
+        orgBarData(dateTwo, dateOne, name, 1, 1);
       }
       else if (diffWeeks > 30) {
         if (diffMonths < 5) {
           s = newSet(diffWeeks);
-          orgBarData(dateOne, dateTwo, portfolioName, 1, s);
+          orgBarData(dateOne, dateTwo, name, 1, s);
         }
         else if (diffMonths > 5 && diffMonths < 30) {
-          orgBarData(dateOne, dateTwo, portfolioName, 2, 1);
+          orgBarData(dateOne, dateTwo, name, 2, 1);
         }
         else if (diffMonths > 30) {
           if (diffYears < 5) {
             s = newSet(diffMonths);
-            orgBarData(dateOne, dateTwo, portfolioName, 2, s);
+            orgBarData(dateOne, dateTwo, name, 2, s);
           }
           else if (diffYears > 5 && diffYears < 30) {
-            orgBarData(dateOne, dateTwo, portfolioName, 3, 1);
+            orgBarData(dateOne, dateTwo, name, 3, 1);
           }
           else {
             throw new IllegalArgumentException();
@@ -328,6 +328,11 @@ public class StocksModelImpl implements StocksModel {
     return barValues;
   }
 
+  /**
+   * the newSet method calculates a working interval between each date in the bar chart.
+   * @param difference the difference between the two dates
+   * @return a long of the new interval
+   */
   private long newSet(long difference) {
     double set = 0;
     int diff = (int) difference;
@@ -339,13 +344,29 @@ public class StocksModelImpl implements StocksModel {
     return (long) set;
   }
 
+  /**
+   * the orgBarData method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param one the start date
+   * @param two the end date
+   * @param name the name of the dataset - either stock or portfolio
+   * @param time type of time to check
+   * @param setValue the interval between checks
+   * @return a Map of data to make the bar chart
+   */
   // TODO: it needs to check and add days to the last of the month/year - days and weeks should be okay
-  private Map<String, Double> orgBarData(LocalDate one, LocalDate two,String portfolioName,
+  private Map<String, Double> orgBarData(LocalDate one, LocalDate two, String name,
                                              int time, long setValue) {
     Map<String, Double> barValues = new HashMap<>();
+    Double valueGet;
     while (one != two) {
       String dateOut = organizeDate(one);
-      Double valueGet = portfolioValue(portfolioName, one.toString());
+      if (portfolios.contains(name)) {
+        valueGet = portfolioValue(name, one.toString());
+      }
+      else {
+        valueGet = this.getStockInfo(name, 1, one.toString()).get(0);
+      }
       barValues.put(dateOut, valueGet);
       if (time == 0) {
         one = one.plusDays(setValue);
