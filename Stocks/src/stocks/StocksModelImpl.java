@@ -202,7 +202,7 @@ public class StocksModelImpl implements StocksModel {
     else {
       pfs = this.portfolios;
     }
-    pfs.add(new PortfolioImpl(name, new HashMap<String, Double>(), new ArrayList<Transaction>()));
+    pfs.add(new Portfolio(name, new HashMap<String, Double>(), new ArrayList<Transaction>()));
     return new StocksModelImpl(this.stock, pfs);
   }
 
@@ -282,6 +282,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public HashMap<String, Double> composition(String portfolioName, String date) {
+    // TODO: reset portfolios for date
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     return (HashMap<String, Double>) pfs.get(pIndex).getPortfolioContents();
@@ -289,6 +290,7 @@ public class StocksModelImpl implements StocksModel {
 
   @Override
   public HashMap<String, Double> distribution(String portfolioName, String date) {
+    // TODO: reset portfolios for date
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio pf = this.portfolios.get(pIndex);
     return pf.findDistribution(date);
@@ -400,12 +402,6 @@ public class StocksModelImpl implements StocksModel {
     return barValues;
   }
 
-  /**
-   * the organizeDate method reformats the date to an even number of characters
-   * saved in the class.
-   * @param date the given date
-   * @return a formatted version of the date specifically for the bar chart
-   */
   private String organizeDate(LocalDate date) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
     return formatter.format(date);

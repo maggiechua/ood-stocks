@@ -88,21 +88,14 @@ public interface StocksView {
 
   /**
    * the barWrite method adds the bar graph to the appendable in the class.
-   * @param name the name of the stock or portfolio to make a chart for
-   * @param date1 the starting date
-   * @param date2 the ending date
-   * @param input the data input
-   * @param scale the scale for the asterisks
+   * @param input the map of stocks with each value of the full stock
+   * @param scale the scale of the chart
    */
   public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
                        Integer scale);
 
-  /**
-   * the invalidDate method adds an error message for an invalid date to the appendable.
-   * @param type the part of the date (ie. year, month, day) which is incorrect
-   */
   public void invalidDate(String type);
-
+  
   /**
    * the askDate method adds a message to ask for the date to the appendable.
    * @param type the part of the date (ie. year, month, day)
