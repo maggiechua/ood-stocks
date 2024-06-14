@@ -111,7 +111,7 @@ public class StocksModelImpl implements StocksModel {
       List<Transaction> transactions = fp.parsePortfolioTransactions(path, "");
       Portfolio p = new PortfolioImpl(portfolioName, contents, transactions);
       Set<String> stocks = p.getStocksList(transactions);
-      p.loadContents(stocks);
+      p.loadContents(stocks, transactions, "");
       portfolios.add(p);
     }
     return new StocksModelImpl(this.stock, portfolios);
@@ -266,7 +266,6 @@ public class StocksModelImpl implements StocksModel {
   public Double portfolioValue(String portfolioName, String date) {
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio portfolio = portfolios.get(pIndex);
-    this.loadPortfolios();
     return portfolio.calculateValue(date);
   }
 
@@ -278,7 +277,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public HashMap<String, Double> distribution(String portfolioName, String date) {
+  public Map<String, Double> distribution(String portfolioName, String date) {
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio pf = this.portfolios.get(pIndex);
     return pf.findDistribution(date);
@@ -472,7 +471,7 @@ public class StocksModelImpl implements StocksModel {
     Portfolio pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
     ArrayList<String> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> stock: pf.getPortfolioContents().entrySet()) {
-      stockList.add(stock.getKey().toString());
+      stockList.add(stock.getKey());
     }
     return stockList;
   }
