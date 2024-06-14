@@ -193,7 +193,7 @@ public class FileParser {
     Set<Path> files = new HashSet<>();
     try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(
             this.retrievePath(
-                    this.getOSType(), "", "portfolios", "").toString()))) {
+                    this.getOSType(), "", "portfolios/", "").toString()))) {
       for (Path path : stream) {
         files.add(path);
       }
