@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -216,6 +215,11 @@ public class StocksModelImpl implements StocksModel {
   public boolean validMarketDay(String date) {
     String stockPrice = fp.getStockPrice(this.stock, date);
     return !stockPrice.isEmpty();
+  }
+
+  @Override
+  public String nextMarketDay(String date) {
+    return fp.getNextMarketDay(this.stock, date);
   }
 
   @Override
