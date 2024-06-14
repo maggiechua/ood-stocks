@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import stocks.Portfolio;
 import stocks.PortfolioImpl;
 import stocks.StocksController;
 import stocks.StocksModel;
@@ -31,7 +32,7 @@ public class StocksModelImplTest {
   public void setUp() {
     ap = new StringBuilder();
     view = new StocksViewMock(ap);
-    model = new StocksModelImpl("GOOG", new ArrayList<PortfolioImpl>());
+    model = new StocksModelImpl("GOOG", new ArrayList<Portfolio>());
     p = new PortfolioImpl("a", new HashMap<String, Double>(),
             new ArrayList<Transaction>());
   }

@@ -1,10 +1,13 @@
 package stocks;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class constructs a PortfolioImpl containing a name, contents, and a log of transactions.
@@ -74,8 +77,25 @@ public class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public void loadContents(List<Transaction> transactions) {
-    //TODO: also pass in a hashset to represent stocks 
+  public Set<String> getStocksList() {
+    Set<String> stocks = new HashSet<>();
+    for (Transaction t : transactions) {
+      stocks.add(t.getStock());
+    }
+    return stocks;
+  }
+
+  @Override
+  public void loadContents(Set<String> stocks) {
+    for (String stock : stocks) {
+      double numShares = 0.0;
+      for (Transaction t : transactions) {
+        if (t.getStock().equals(stock)) {
+          numShares += t.getShares();
+        }
+      }
+      contents.put(stock, numShares);
+    }
   }
 
   @Override
@@ -117,6 +137,7 @@ public class PortfolioImpl implements Portfolio {
     return portfolioValue;
   }
 
+  @Override
   public double calculateLastValue(String timePeriod, int time) {
     double portfolioValue = 0.0;
     for (Map.Entry<String, Double> stock: contents.entrySet()) {

@@ -14,7 +14,7 @@ public class StockProgram {
    */
   public static void main(String[] args) {
     String init = "";
-    List<PortfolioImpl> p = new ArrayList<>();
+    List<Portfolio> p = new ArrayList<>();
     StocksModel model = new StocksModelImpl(init, p);
     Readable rd = new InputStreamReader(System.in);
     StocksView ap = new StocksViewImpl(System.out);
