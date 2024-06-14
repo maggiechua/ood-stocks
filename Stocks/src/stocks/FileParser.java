@@ -39,7 +39,7 @@ public class FileParser {
    * find a reason for this discrepancy, nor a solution for it.
    */
   public String getOSType() {
-    return "mac";
+    return "windows";
   }
 
   /**
@@ -143,6 +143,7 @@ public class FileParser {
     File file = path.toFile();
 
     String nextMDay = "";
+    int smallestDif = 100;
     try {
       Scanner sc = new Scanner(file);
       sc.nextLine();
@@ -151,8 +152,11 @@ public class FileParser {
         String[] lineInfo = line.split(",");
         String curDay = lineInfo[0];
         int dayDif = cp.compare(curDay, date);
-        if (dayDif > 0) {
+        if (dayDif < smallestDif && dayDif > 0) {
+          smallestDif = dayDif;
           nextMDay = curDay;
+        }
+        else if (dayDif < 0) {
           break;
         }
       }
@@ -189,7 +193,7 @@ public class FileParser {
     Set<Path> files = new HashSet<>();
     try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(
             this.retrievePath(
-                    this.getOSType(), "", "portfolios", "").toString()))) {
+                    this.getOSType(), "", "portfolios/", "").toString()))) {
       for (Path path : stream) {
         files.add(path);
       }

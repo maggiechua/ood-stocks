@@ -61,14 +61,16 @@ public class StocksModelImpl implements StocksModel {
   protected List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
     String userDirectory = System.getProperty("user.dir");
     String directoryPath;
-    if (fp.getOSType().equals("mac")) {
-      directoryPath = userDirectory + "/res/data/";
-    }
-    else {
-      directoryPath = userDirectory + "/Stocks/res/data/";
-    }
-    String fileName = stockSymbol + ".csv";
-    Path path = Paths.get(directoryPath + fileName);
+
+    Path path = fp.retrievePath(fp.getOSType(), stockSymbol, "data/", ".csv");
+//    if (fp.getOSType().equals("mac")) {
+//      directoryPath = userDirectory + "/res/data/";
+//    }
+//    else {
+//      directoryPath = userDirectory + "/Stocks/res/data/";
+//    }
+//    String fileName = stockSymbol + ".csv";
+//    Path path = Paths.get(directoryPath + fileName);
     File file = path.toFile();
 
     List<Double> output = new ArrayList<>();
@@ -274,10 +276,12 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public HashMap<String, Double> composition(String portfolioName, String date) {
+  public Map<String, Double> composition(String portfolioName, String date) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    return (HashMap<String, Double>) pfs.get(pIndex).getPortfolioContents();
+    Portfolio p = portfolios.get(pIndex);
+    Path path = fp.retrievePath(fp.getOSType(), portfolioName, "portfolios/", ".xml");
+    return p.loadPortfolio(path, date);
   }
 
   @Override
