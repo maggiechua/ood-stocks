@@ -91,7 +91,8 @@ public interface StocksView {
    * @param input the map of stocks with each value of the full stock
    * @param scale the scale of the chart
    */
-  public void barWrite(HashMap<String, Double> input, Integer scale);
+  public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
+                       Integer scale);
 
   public void invalidDate(String type);
 }
