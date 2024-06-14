@@ -17,7 +17,7 @@ public class StocksModelImplTestCheck {
 
   @Before
   public void setUp() throws Exception {
-    model = new StocksModelImpl("GOOG", new ArrayList<PortfolioImpl>());
+    model = new StocksModelImpl("GOOG", new ArrayList<Portfolio>());
   }
 
   @Test

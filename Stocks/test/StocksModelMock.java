@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import stocks.Portfolio;
 import stocks.PortfolioImpl;
 import stocks.StocksModel;
 import stocks.StocksModelImpl;
@@ -124,7 +125,7 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
-  public List<PortfolioImpl> getPortfolios() {
+  public List<Portfolio> getPortfolios() {
     return null;
   }
 
