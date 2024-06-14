@@ -367,25 +367,44 @@ public class StocksModelImpl implements StocksModel {
    * @param setValue the interval between checks
    * @return a Map of data to make the bar chart
    */
-  // TODO: it needs to check and add days to the last of the month/year
   private Map<String, Double> orgBarData(LocalDate one, LocalDate two, String name,
                                              int time, long setValue) {
     Map<String, Double> barValues = new HashMap<>();
     Double valueGet;
+    String [] date = one.toString().split("-");
+    String dateOut;
     if (time == 2) {
-      valueGet = null;
+      int month = Integer.parseInt(date[1]);
+      if (portfolios.contains(name)) {
+        int pIndex = this.retrievePortfolioIndex(name);
+        PortfolioImpl portfolio = portfolios.get(pIndex);
+        valueGet = portfolio.calculateLastValue("month", month);
+      }
+      else {
+        valueGet = Double.parseDouble(fp.getLastWorkingDay(name, "month", month));
+      }
     }
     else if (time == 3) {
-      valueGet = null;
+      int year = Integer.parseInt(date[2]);
+      if (portfolios.contains(name)) {
+        int pIndex = this.retrievePortfolioIndex(name);
+        PortfolioImpl portfolio = portfolios.get(pIndex);
+        valueGet = portfolio.calculateLastValue("year", year);
+      }
+      else {
+        valueGet = Double.parseDouble(fp.getLastWorkingDay(name, "year", year));
+      }
     }
-    while (one != two) {
-      String dateOut = organizeDate(one);
+    else {
       if (portfolios.contains(name)) {
         valueGet = portfolioValue(name, one.toString());
       }
       else {
         valueGet = this.getStockInfo(name, 1, one.toString()).get(0);
       }
+    }
+    while (one != two) {
+      dateOut = organizeDate(one, time);
       barValues.put(dateOut, valueGet);
       if (time == 0) {
         one = one.plusDays(setValue);
@@ -399,6 +418,12 @@ public class StocksModelImpl implements StocksModel {
       if (time == 3) {
         one = one.plusYears(setValue);
       }
+      if (portfolios.contains(name)) {
+        valueGet = portfolioValue(name, one.toString());
+      }
+      else {
+        valueGet = this.getStockInfo(name, 1, one.toString()).get(0);
+      }
     }
     return barValues;
   }
@@ -409,8 +434,17 @@ public class StocksModelImpl implements StocksModel {
    * @param date the given date
    * @return a formatted version of the date specifically for the bar chart
    */
-  private String organizeDate(LocalDate date) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+  private String organizeDate(LocalDate date, int type) {
+    DateTimeFormatter formatter;
+    if (type == 2) {
+      formatter = DateTimeFormatter.ofPattern("MMM yyyy");
+    }
+    if (type == 3) {
+      formatter = DateTimeFormatter.ofPattern("yyyy");
+    }
+    else {
+      formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    }
     return formatter.format(date);
   }
 
