@@ -74,25 +74,30 @@ public class StocksViewImpl implements StocksView {
             + "(re-balances the portfolio with given weights) \n");
     writeMessage("bar-chart portfolio-name initial-date end-date (outputs a par chart displaying " +
             "the performance of a portfolio int the given range) \n");
+    writeMessage("check-portfolio portfolio-name (checks portfolio value at a specific date) \n");
+    writeMessage("sell-stock stock-symbol number-of-shares (sell stock shares) \n");
+    writeMessage("composition portfolio-name (displays composition of a portfolio) \n");
+    writeMessage("distribution portfolio-name (displays distribution of a portfolio) \n");
+    writeMessage("balance portfolio-name (re-balances the portfolio with given weights) \n");
+    writeMessage("bar-chart portfolio-name (outputs a par chart displaying "
+            + "the performance of a portfolio int the given range) \n");
     writeMessage("menu (Print supported instruction list) \n");
     writeMessage("q or quit (quit the program) \n");
-    writeMessage("[Please enter all dates in: YYYY-MM-DD format.] \n");
   }
 
   @Override
   public void printStockMenu() throws IllegalStateException {
     writeMessage("Supported user instructions for selected stock are: \n");
-    writeMessage("check-gain-loss number-of-days start-date (checks gains or losses for stock in "
+    writeMessage("check-gain-loss number-of-days (checks gains or losses for stock in "
             + "specific date range) \n");
-    writeMessage("moving-average number-of-days date (checks x-day moving average "
+    writeMessage("moving-average number-of-days (checks x-day moving average "
             + "for specified x day count and date) \n");
-    writeMessage("check-crossovers number-of-days start-date (checks x-day crossovers for"
+    writeMessage("check-crossovers number-of-days (checks x-day crossovers for"
             + " specified x day count in specific date range) \n");
     writeMessage("buy-stock number-of-shares portfolio-name (buy stock shares) \n");
     writeMessage("stock-menu (Print supported stocks instruction list) \n");
     writeMessage("menu (return to previous menu) \n");
     writeMessage("q or quit (quit the program) \n");
-    writeMessage("[Please enter all dates in: YYYY-MM-DD format.] \n");
   }
 
   @Override
@@ -108,7 +113,7 @@ public class StocksViewImpl implements StocksView {
     }
     else {
       writeMessage("There may be an input error, you may not have created this portfolio yet, or " +
-              "you may not own enough shares to sell. Please try again. \n");
+              "you may not own enough stocks in it. Please try again. \n");
     }
   }
 
@@ -169,5 +174,20 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void invalidDate(String type) {
     writeMessage("Invalid " + type + ", please enter a new " + type + " value: ");
+  }
+
+  @Override
+  public void askDate(String type) {
+    writeMessage("Please input a " + type + " value: ");
+  }
+
+  @Override
+  public void whichPortfolio() {
+    writeMessage("Enter the portfolio you'd like to perform this action to: ");
+  }
+
+  @Override
+  public void rebalanced(String portfolioName) {
+    writeMessage("Portfolio " + portfolioName + " rebalanced.");
   }
 }

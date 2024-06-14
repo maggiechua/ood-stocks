@@ -95,4 +95,21 @@ public interface StocksView {
                        Integer scale);
 
   public void invalidDate(String type);
+  
+  /**
+   * the askDate method adds a message to ask for the date to the appendable.
+   * @param type the part of the date (ie. year, month, day)
+   */
+  public void askDate(String type);
+
+  /**
+   * the askDate method adds a message to ask for the portfolio to the appendable.
+   */
+  public void whichPortfolio();
+
+  /**
+   * the rebalanced method adds a message returning re-balancing weights to the appendable.
+   * @param portfolioName the name of the portfolio being rebalanced
+   */
+  public void rebalanced(String portfolioName);
 }

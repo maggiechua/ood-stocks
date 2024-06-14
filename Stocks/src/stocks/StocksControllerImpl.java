@@ -44,6 +44,7 @@ public class StocksControllerImpl implements StocksController {
     Double weight;
     String date2;
     Integer whatNext;
+    String thisStock;
 
     // print welcome message
     output.welcomeMessage();
@@ -109,6 +110,7 @@ public class StocksControllerImpl implements StocksController {
           catch (Exception e) {
             // TODO: what exceptions
           }
+          break;
         case "distribution" :
           try {
             portfolioName = sc.next();
@@ -118,22 +120,31 @@ public class StocksControllerImpl implements StocksController {
           catch (Exception e) {
             // TODO: what exceptions
           }
+          break;
         case "balance" :
           try {
             portfolioName = sc.next();
-            date = dateProcess(sc);
-            output.balanceInstruction();
-            for (int i = 0; i <= stock.stockCount(portfolioName).size(); i++) {
-              String thisStock = stock.stockCount(portfolioName).get(i);
-              output.askBalance(thisStock);
-              weight = sc.nextDouble();
-              weights.put(thisStock, weight);
+            int size = stock.stockCount(portfolioName).size();
+            if (size == 0) {
+              output.portfolioException(false);
             }
-            stock.balance(portfolioName, date, weights);
+            else {
+              date = dateProcess(sc);
+              output.balanceInstruction();
+              for (int i = 1; i <= size; i++) {
+                thisStock = stock.stockCount(portfolioName).get(i);
+                output.askBalance(thisStock);
+                weight = sc.nextDouble();
+                weights.put(thisStock, weight);
+              }
+              stock.balance(portfolioName, date, weights);
+              output.rebalanced(portfolioName);
+            }
           }
           catch (Exception e) {
             // TODO: what exceptions
           }
+          break;
         case "bar-chart" :
           try {
             String name = sc.next();
@@ -147,6 +158,7 @@ public class StocksControllerImpl implements StocksController {
           catch (Exception e) {
             // TODO: what exceptions: length of time incorrect
           }
+          break;
         case "menu" :
           output.printMenu();
           break;
@@ -158,6 +170,7 @@ public class StocksControllerImpl implements StocksController {
           break;
         default :
           output.undefined();
+          sc.nextLine();
       }
     }
   }
@@ -225,6 +238,7 @@ public class StocksControllerImpl implements StocksController {
         break;
       default :
         output.undefined();
+        sc.nextLine();
     }
     if (miniquit) {
       whatNext = 1;
