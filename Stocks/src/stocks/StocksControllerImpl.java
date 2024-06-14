@@ -326,7 +326,7 @@ public class StocksControllerImpl implements StocksController {
     date = String.format("%04d-%02d-%02d",
             Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     if (check) {
-      if (stock.validMarketDay(date)) {
+      if (!stock.validMarketDay(date)) {
         date = stock.nextMarketDay(date);
       }
     }
