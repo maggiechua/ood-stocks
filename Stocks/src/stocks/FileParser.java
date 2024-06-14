@@ -65,7 +65,7 @@ public class FileParser {
   }
 
   /**
-   * This is a method that retrieves the closing stock price for a given stock on a given day. 
+   * This is a method that retrieves the closing stock price for a given stock on a given day.
    * @param stockSymbol the given stock symbol
    * @param date the given date expressed as YYYY-MM-DD
    * @return the given date's closing stock price as a String
@@ -222,14 +222,20 @@ public class FileParser {
         int day = Integer.parseInt(
                 dateNode.getAttributes().getNamedItem("day").getNodeValue());
         String date = String.format("%04d-%02d-%02d", year, month, day);
-          //<date day="09" month="03">
-          //            <transaction type="buy">
-          //                <stock symbol="NVDA"/>
-          //                <shares>200.0</shares>
-          //                <price>245.4400</price>
-          //            </transaction>
-          //        </date>
-        if (cp.compare(upToDate, date) >= 0 || date.isEmpty()) {
+        //<date day="09" month="03">
+        //            <transaction type="buy">
+        //                <stock symbol="NVDA"/>
+        //                <shares>200.0</shares>
+        //                <price>245.4400</price>
+        //            </transaction>
+        //        </date>
+        boolean addT = false;
+        if (!upToDate.isEmpty()) {
+          if (cp.compare(upToDate, date) >= 0) {
+            addT = true;
+          }
+        }
+        if (upToDate.isEmpty() || addT) {
           NodeList tr = dateNode.getChildNodes(); // <transaction></transaction>
           String[] trInfo = tr.item(1).getTextContent().split("\n            ");
           String stock = trInfo[1];
