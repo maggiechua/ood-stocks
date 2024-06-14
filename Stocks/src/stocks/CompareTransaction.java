@@ -9,18 +9,19 @@ import java.util.Comparator;
 public class CompareTransaction implements Comparator<Transaction> {
   @Override
   public int compare(Transaction o1, Transaction o2) {
-    String[] t1Date = o1.getDate().split("-");
-    int t1Year = Integer.parseInt(t1Date[0]);
-    int t1Month = Integer.parseInt(t1Date[1]);
-    int t1Day = Integer.parseInt(t1Date[2]);
-    int t1TotalDays = t1Year * 365 + t1Month * 30 + t1Day;
+    return this.determineTotalDays(o1.getDate()) - this.determineTotalDays(o2.getDate());
+  }
 
-    String[] t2Date = o2.getDate().split("-");
-    int t2Year = Integer.parseInt(t2Date[0]);
-    int t2Month = Integer.parseInt(t2Date[1]);
-    int t2Day = Integer.parseInt(t2Date[2]);
-    int t2TotalDays = t2Year * 365 + t2Month * 30 + t2Day;
-
-    return t1TotalDays - t2TotalDays;
+  /**
+   * The following method determines the approximate total number of days a date is equivalent to.
+   * @param date the given date of the transaction
+   * @return the total approximate number of days as an integer
+   */
+  public int determineTotalDays(String date) {
+    String[] dateSplit = date.split("-");
+    int tYear = Integer.parseInt(dateSplit[0]);
+    int tMonth = Integer.parseInt(dateSplit[1]);
+    int tDay = Integer.parseInt(dateSplit[2]);
+    return tYear * 365 + tMonth * 30 + tDay;
   }
 }
