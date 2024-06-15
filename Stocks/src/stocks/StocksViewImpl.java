@@ -181,7 +181,7 @@ public class StocksViewImpl implements StocksView {
       writeMessage("Invalid " + type + ", please enter a new " + type + " value: ");
     }
     else {
-      writeMessage("Inputted date is not a market day, using closest market date: " + type);
+      writeMessage("Inputted date is not a market day, using closest market date: " + type + " \n");
     }
   }
 

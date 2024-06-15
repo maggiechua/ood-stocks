@@ -53,9 +53,7 @@ public class StocksControllerImpl implements StocksController {
     Integer whatNext;
     String thisStock;
 
-    // print welcome message
     output.welcomeMessage();
-    // load portfolio(s)' contents into the program if they exist
     stock.loadPortfolios();
 
     while (!quit) {
@@ -185,9 +183,7 @@ public class StocksControllerImpl implements StocksController {
   /**
    * The stockActions method was previously combined with the execute method, but has been split
    * so that the methods are easier to read and understand.
-   */
-
-  /**
+   * ---
    * the stockActions method goes through the controls for the stock menu.
    * @param sc the scanner being used
    * @param nextInput the user input
@@ -326,6 +322,7 @@ public class StocksControllerImpl implements StocksController {
     if (check) {
       if (!stock.validMarketDay(date)) {
         date = stock.nextMarketDay(date);
+        output.invalidDate(date);
       }
     }
     return date;
