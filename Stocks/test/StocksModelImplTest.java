@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -658,15 +659,5 @@ public class StocksModelImplTest {
     assertEquals(expectedComposition.get("GOOG"), testComposition.get("GOOG"));
     assertEquals(expectedComposition.get("NVDA"), testComposition.get("NVDA"));
     assertEquals(expectedComposition.get("MSFT"), testComposition.get("MSFT"));
-  }
-
-  @Test
-  public void testBar() {
-
-  }
-
-  @Test
-  public void testLoadContents() {
-
   }
 }

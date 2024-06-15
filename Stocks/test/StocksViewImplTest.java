@@ -1,10 +1,19 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import stocks.Portfolio;
+import stocks.PortfolioImpl;
 import stocks.StocksController;
 import stocks.StocksModel;
+import stocks.StocksModelImpl;
 import stocks.StocksView;
 import stocks.StocksViewImpl;
+import stocks.Transaction;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,12 +29,14 @@ public class StocksViewImplTest {
   private StocksModel model;
   private StocksView view;
   private StocksController controller;
+  private Portfolio p;
 
   @Before
   public void setUp() {
     ap = new StringBuilder();
     model = new StocksModelMock(ap);
     view = new StocksViewImpl(ap);
+    p = new PortfolioImpl("a", new HashMap<String, Double>(), new ArrayList<Transaction>());
   }
 
   @Test
@@ -213,5 +224,28 @@ public class StocksViewImplTest {
     String[] s1 = ap.toString().split("format.] \n");
     String s = s1[1];
     assertEquals(expectedOutput, s);
+  }
+
+  @Test
+  public void testBarDayPortfolio() throws ParseException {
+    p.addToPortfolio("GOOG", "2024-05-20", 5);
+    p.addToPortfolio("NVDA", "2024-05-20", 25); //
+    p.addToPortfolio("MSFT", "2024-05-20", 20); //8506.8
+    List<Portfolio> portfolios = new ArrayList<>();
+    portfolios.add(p);
+
+    String expectedBarChart =
+            "Performance of portfolio a from 2024-05-20 to 2024-05-24 \n" +
+                    "2024-05-20: *********** \n" +
+                    "2024-05-21: *********** \n" +
+                    "2024-05-22: *********** \n" +
+                    "2024-05-23: ************ \n" +
+                    "2024-05-24: ************ \n" +
+                    "Scale: * = 3000";
+
+    HashMap<String, Double> testBarChart =
+            new StocksModelImpl("", portfolios).bar("a", "2024-05-20",
+                    "2024-05-24");
+    assertEquals(expectedBarChart, testBarChart.toString());
   }
 }
