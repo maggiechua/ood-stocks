@@ -28,9 +28,7 @@ import javax.xml.transform.stream.StreamResult;
 /**
  * This class was previously 'AlphaVantageDemo',and existed solely for the purpose of creating new
  * CSV files from the API. Now, it also helps in creating files to save portfolio and log data.
- */
-
-/**
+ * ---
  * This class represents file making data. Its purpose is to create saved files for the program.
  */
 public class FileCreator {
