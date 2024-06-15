@@ -76,28 +76,28 @@ public class StocksModelImplTest {
   }
 
   // GAIN-LOSS EXCEPTIONS
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGainLossFutureDate() {
     String input = "check-gain-loss 5 2024-07-09";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGainLossDateStockDidNotExistYet() {
     String input = "check-gain-loss 5 2000-05-09";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGainLossNonMarketDay() {
     String input = "check-gain-loss 5 2024-05-25";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGainLossBeyondScope() {
     // basically that the time period to calculate has a final day that does not exist
     // in the stock data
@@ -144,28 +144,28 @@ public class StocksModelImplTest {
   }
 
   // MOVING-AVG EXCEPTIONS
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testMovingAvgFutureDate() {
     String input = "moving-average 5 2024-07-09";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testMovingAvgDidNotExistYet() {
     String input = "moving-average 5 2000-05-09";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testMovingAvgNonMarketDay() {
     String input = "moving-average 5 2024-05-25";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testMovingAvgBeyondScope() {
     // basically that the time period to calculate has a final day that does not exist
     // in the stock data
@@ -230,28 +230,28 @@ public class StocksModelImplTest {
   }
 
   // CROSSOVER EXCEPTIONS
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testCrossOversFutureDate() {
     String input = "check-crossovers 5 2024-07-09";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testCrossOversDateStockDidNotExistYet() {
     String input = "check-crossovers 5 2000-05-09";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testCrossOversNonMarketDay() {
     String input = "check-crossovers 5 2024-05-25";
     controller = new StocksControllerMock(model, view, input, true, ap);
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testCrossOversBeyondScope() {
     // basically that the time period to calculate has a final day that does not exist
     // in the stock data
@@ -261,8 +261,10 @@ public class StocksModelImplTest {
   }
 
   // PORTFOLIO METHODS
+
   /**
    * The following method compares the given two transactions by their contents.
+   *
    * @param t1 the first transaction
    * @param t2 the second transaction
    * @return a boolean if both transactions are equivalent, otherwise false
@@ -344,7 +346,7 @@ public class StocksModelImplTest {
             model.getPortfolios().get(0).getTransactionsLog().get(0)));
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSellStockDontOwnStock() {
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
@@ -359,7 +361,7 @@ public class StocksModelImplTest {
     controller.execute();
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSellStockNotEnoughShares() {
     String setup1 = "create-portfolio a";
     controller = new StocksControllerMock(model, view, setup1, true, ap);
@@ -456,13 +458,13 @@ public class StocksModelImplTest {
     // comments on the side represent stock price values on 2024-05-31 where 50 shares are
     // bought for the following four stocks
     p.addToPortfolio("GOOG", "2024-05-30", 135.0719);
-      // 8,698.00 | 173.96/s | 85.0719
+    // 8,698.00 | 173.96/s | 85.0719
     p.addToPortfolio("NVDA", "2024-05-30", 21.4326);
-      // 54,816.50 | 1096.33/s | -28.5674
+    // 54,816.50 | 1096.33/s | -28.5674
     p.addToPortfolio("MSFT", "2024-05-30", 56.6018);
-      // 20,756.50 | 415.13/s | +6.6018
+    // 20,756.50 | 415.13/s | +6.6018
     p.addToPortfolio("AAPL", "2024-05-30", 120.901);
-      // 9,717.50 | 194.35/s | +70.9010
+    // 9,717.50 | 194.35/s | +70.9010
     double expectedTotalPValue = 93988.5; // 23,497.125 | 25% value
 
     // use the controller mock to put in desired commands
@@ -658,15 +660,5 @@ public class StocksModelImplTest {
     assertEquals(expectedComposition.get("GOOG"), testComposition.get("GOOG"));
     assertEquals(expectedComposition.get("NVDA"), testComposition.get("NVDA"));
     assertEquals(expectedComposition.get("MSFT"), testComposition.get("MSFT"));
-  }
-
-  @Test
-  public void testBar() {
-
-  }
-
-  @Test
-  public void testLoadContents() {
-
   }
 }
