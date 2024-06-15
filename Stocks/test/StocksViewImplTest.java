@@ -214,4 +214,27 @@ public class StocksViewImplTest {
     String s = s1[1];
     assertEquals(expectedOutput, s);
   }
+
+  @Test
+  public void testBarDayPortfolio() throws ParseException {
+    p.addToPortfolio("GOOG", "2024-05-20", 5);
+    p.addToPortfolio("NVDA", "2024-05-20", 25); //
+    p.addToPortfolio("MSFT", "2024-05-20", 20); //8506.8
+    List<Portfolio> portfolios = new ArrayList<>();
+    portfolios.add(p);
+
+    String expectedBarChart =
+            "Performance of portfolio a from 2024-05-20 to 2024-05-24 \n" +
+                    "2024-05-20: *********** \n" +
+                    "2024-05-21: *********** \n" +
+                    "2024-05-22: *********** \n" +
+                    "2024-05-23: ************ \n" +
+                    "2024-05-24: ************ \n" +
+                    "Scale: * = 3000";
+
+    HashMap<String, Double> testBarChart =
+            new StocksModelImpl("", portfolios).bar("a", "2024-05-20",
+                    "2024-05-24");
+    assertEquals(expectedBarChart, testBarChart.toString());
+  }
 }
