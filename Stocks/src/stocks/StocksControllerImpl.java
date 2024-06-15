@@ -54,6 +54,7 @@ public class StocksControllerImpl implements StocksController {
     String thisStock;
 
     output.welcomeMessage();
+    stock.loadPortfolios();
 
     while (!quit) {
       output.typeInstruct();
