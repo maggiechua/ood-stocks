@@ -31,13 +31,12 @@ public class FileParser {
     this.cp = new CompareDate();
   }
 
-  /**
-   * This method returns OS type. If the user OS type does not match the return, PLEASE change it.
-   * "mac" for mac.
-   * "windows" for windows.
-   * This is an error to do with file path and the location of directories- we have not been able to
-   * find a reason for this discrepancy, nor a solution for it.
-   */
+
+  // This method returns OS type. If the user OS type does not match the return, PLEASE change it.
+  // "mac" for mac.
+  // "windows" for windows.
+  // This is an error to do with file path and the location of directories- we have not been able to
+  // find a reason for this discrepancy, nor a solution for it.
   public String getOSType() {
     return "mac";
   }
@@ -226,13 +225,6 @@ public class FileParser {
         int day = Integer.parseInt(
                 dateNode.getAttributes().getNamedItem("day").getNodeValue());
         String date = String.format("%04d-%02d-%02d", year, month, day);
-        //<date day="09" month="03">
-        //            <transaction type="buy">
-        //                <stock symbol="NVDA"/>
-        //                <shares>200.0</shares>
-        //                <price>245.4400</price>
-        //            </transaction>
-        //        </date>
         boolean addT = false;
         if (!upToDate.isEmpty()) {
           if (cp.compare(upToDate, date) >= 0) {
@@ -248,11 +240,6 @@ public class FileParser {
           transactionList.add(new Transaction(stock, shares, date, price));
         }
       }
-
-//      for (Transaction t : transactionList) {
-//        System.out.println("Transaction: " + t.getStock() + " " + t.getDate() + " "
-//                + t.getShares() + " " + t.getPrice());
-//      }
     }
     catch (ParserConfigurationException e) {
       e.printStackTrace();

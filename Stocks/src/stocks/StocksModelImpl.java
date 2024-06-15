@@ -3,7 +3,6 @@ package stocks;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,9 +28,7 @@ public class StocksModelImpl implements StocksModel {
    * The portfolios object was previously a HashMap, where now it is a List of a PortfolioImpl
    * class we created to assist in saving portfolios and retrieving portfolio data.
    * The fc and fp objects were created for the purpose of accessing and saving file data.
-   */
-
-  /**
+   * ---
    * This makes a new StocksModel Implementation.
    * @param stock the String representing the stock symbol
    * @param portfolios the hashmap holding the portfolios of the user
@@ -63,14 +60,6 @@ public class StocksModelImpl implements StocksModel {
     String directoryPath;
 
     Path path = fp.retrievePath(fp.getOSType(), stockSymbol, "data/", ".csv");
-//    if (fp.getOSType().equals("mac")) {
-//      directoryPath = userDirectory + "/res/data/";
-//    }
-//    else {
-//      directoryPath = userDirectory + "/Stocks/res/data/";
-//    }
-//    String fileName = stockSymbol + ".csv";
-//    Path path = Paths.get(directoryPath + fileName);
     File file = path.toFile();
 
     List<Double> output = new ArrayList<>();
@@ -348,8 +337,8 @@ public class StocksModelImpl implements StocksModel {
   private long newSet(long difference) {
     double set = 0;
     int diff = (int) difference;
-    while (set < 5 || set > 30) {
-      for (int i = 1; i < 30; i++) {
+    for (int i = 1; i < 30; i++) {
+      if (set < 5 || set > 30) {
         set = diff / i;
       }
     }
@@ -374,17 +363,18 @@ public class StocksModelImpl implements StocksModel {
     String dateOut;
     if (time == 2) {
       int month = Integer.parseInt(date[1]);
-      if (portfolios.contains(name)) {
+      try {
+        stockCount(name);
         int pIndex = this.retrievePortfolioIndex(name);
         Portfolio portfolio = portfolios.get(pIndex);
-        valueGet = portfolio.calculateLastValue("month", month);
+        valueGet = portfolio.calculateValue(one.toString());
       }
-      else {
-        valueGet = Double.parseDouble(fp.getLastWorkingDay(name, "month", month));
+      catch (Exception ignored) {
+        valueGet = Double.parseDouble(fp.getStockPrice(name, one.toString()));
       }
     }
     else if (time == 3) {
-      int year = Integer.parseInt(date[2]);
+      int year = Integer.parseInt(date[0]);
       if (portfolios.contains(name)) {
         int pIndex = this.retrievePortfolioIndex(name);
         Portfolio portfolio = portfolios.get(pIndex);
@@ -421,7 +411,12 @@ public class StocksModelImpl implements StocksModel {
         valueGet = portfolioValue(name, one.toString());
       }
       else {
-        valueGet = this.getStockInfo(name, 1, one.toString()).get(0);
+        try {
+          valueGet = this.getStockInfo(name, 1, one.toString()).get(0);
+        }
+        catch (Exception ignored) {
+          valueGet = Double.parseDouble(fp.getStockPrice(name, this.nextMarketDay(one.toString())));
+        }
       }
     }
     return barValues;

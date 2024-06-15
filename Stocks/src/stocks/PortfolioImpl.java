@@ -165,7 +165,7 @@ public class PortfolioImpl implements Portfolio {
   @Override
   public double calculateValue(String date) {
     double portfolioValue = 0.0;
-    Path path = fp.retrievePath(fp.getOSType(), this.name, "portfolios", ".xml");
+    Path path = fp.retrievePath(fp.getOSType(), this.name, "portfolios/", ".xml");
     Map<String, Double> tempPortfolio = this.loadPortfolio(path, date, false);
     for (Map.Entry<String, Double> stock: tempPortfolio.entrySet()) {
       Double stockPrice = Double.parseDouble(fp.getStockPrice(stock.getKey(), date));

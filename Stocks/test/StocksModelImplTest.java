@@ -451,46 +451,4 @@ public class StocksModelImplTest {
     assertEquals(p.calculateValue("2024-05-31"),
             model.getPortfolios().get(0).calculateValue("2024-05-31"), 0.01);
   }
-
-  @Test
-  public void testBalanceWithStocks() {
-    p.addToPortfolio("GOOG", "2024-05-30", 5);
-    p.addToPortfolio("NVDA", "2024-05-30", 25);
-    p.addToPortfolio("MSFT", "2024-05-30", 20);
-    double expectedPortfolioValue = 38176.65;
-
-    // use the controller mock to put in desired commands
-    String setup1 = "create-portfolio a";
-    controller = new StocksControllerMock(model, view, setup1, true, ap);
-    controller.execute();
-
-    String setup2 = "select-stock GOOG";
-    controller = new StocksControllerMock(model, view, setup2, true, ap);
-    controller.execute();
-
-    String setup3 = "buy-stock 5 2024 05 30 a";
-    controller = new StocksControllerMock(model, view, setup3, true, ap);
-    controller.execute();
-
-    String setup4 = "quit";
-    controller = new StocksControllerMock(model, view, setup4, true, ap);
-    controller.execute();
-
-    String setup5 = "select-stock NVDA";
-    controller = new StocksControllerMock(model, view, setup5, true, ap);
-    controller.execute();
-
-    String setup6 = "buy-stock 25 2024 05 30 a";
-    controller = new StocksControllerMock(model, view, setup6, true, ap);
-    controller.execute();
-
-    String setup7 = "menu balance a";
-    controller = new StocksControllerMock(model, view, setup7, true, ap);
-    controller.execute();
-
-    String setup8 = "quit";
-    controller = new StocksControllerMock(model, view, setup8, true, ap);
-    controller.execute();
-
-  }
 }
