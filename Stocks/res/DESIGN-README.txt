@@ -1,5 +1,10 @@
 PROGRAM DESIGN:
 
+We chose to change methods for buy and sell to include date entries, as opposed to creating new
+methods as we found our design ensures that changing the parameters would be relatively easy for us.
+We added new classes and methods for our added features. Additional specific changes are written in
+for each change from the last assignment within the files. We hope our notes will suffice.
+
 Our design is based off of the MVC format- where we attempted to separate MVC as much as possible.
 All stock data access and methods are stored in the Model section (including the StocksModel
 interface, the StocksModelImpl class, and alphaVantageDemo), all text output related methods are

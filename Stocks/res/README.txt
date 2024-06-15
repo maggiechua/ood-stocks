@@ -14,6 +14,7 @@ portfolios:
     - the distribution of a portfolio on a specific date
     - the value of the portfolio on a specific date
     - a bar chart displaying the performance of a portfolio in a specific date range
+        (the bar feature does not currently work)
 The user is also permitted to re-balance their portfolio with weights of their own choosing.
 Dates are inputted manually, and are asked for specifically by the program to be inputted after
 selecting an action by inputting first the year when requested by the program, then the month, then

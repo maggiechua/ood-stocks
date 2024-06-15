@@ -67,8 +67,7 @@ public interface Portfolio {
    * @param stocks a set of stocks
    * @param transactions a given list of transactions
    * @param date a given date
-   * @return a Map representing the portfolio up to a specified period. returns a blank map if the
-   * program has just started, and it needs to load file data into the program.
+   * @return a Map representing the portfolio up to a specified period.
    */
   public Map<String, Double> loadContents(Set<String> stocks, List<Transaction> transactions,
                                           String date);
@@ -78,8 +77,7 @@ public interface Portfolio {
    * @param stocks a set of stocks
    * @param transactions a given list of transactions
    * @param date a given date
-   * @return a Map representing the portfolio up to a specified period. returns a blank map if the
-   * program has just started, and it needs to load file data into the program.
+   * @return a Map representing the portfolio up to a specified period.
    */
   Map<String, Double> reloadContents(Set<String> stocks, List<Transaction> transactions,
                                      String date);
@@ -110,10 +108,10 @@ public interface Portfolio {
   public double calculateValue(String date);
 
   /**
-   *
+   * The following method calculates the last value of a subset of time.
    * @param date the given date
-   * @param time
-   * @return
+   * @param time the subset fo time
+   * @returns a double for the value
    */
   public double calculateLastValue(String date, int time);
 
