@@ -1,8 +1,15 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import stocks.Portfolio;
 import stocks.StocksController;
 import stocks.StocksModel;
+import stocks.StocksModelImpl;
 import stocks.StocksView;
 import stocks.StocksViewImpl;
 
@@ -20,6 +27,7 @@ public class StocksViewImplTest {
   private StocksModel model;
   private StocksView view;
   private StocksController controller;
+  private Portfolio p;
 
   @Before
   public void setUp() {

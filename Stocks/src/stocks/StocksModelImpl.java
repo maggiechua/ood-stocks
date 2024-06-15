@@ -372,24 +372,28 @@ public class StocksModelImpl implements StocksModel {
     }
     else if (time == 3) {
       int year = Integer.parseInt(date[0]);
-      if (portfolios.contains(name)) {
+      try {
+        stockCount(name);
         int pIndex = this.retrievePortfolioIndex(name);
         Portfolio portfolio = portfolios.get(pIndex);
-        valueGet = portfolio.calculateLastValue("year", year);
+        valueGet = portfolio.calculateValue(one.toString());
       }
-      else {
-        valueGet = Double.parseDouble(fp.getLastWorkingDay(name, "year", year));
+      catch (Exception ignored) {
+        valueGet = Double.parseDouble(fp.getStockPrice(name, one.toString()));
       }
     }
     else {
-      if (portfolios.contains(name)) {
-        valueGet = portfolioValue(name, one.toString());
+      try {
+        stockCount(name);
+        int pIndex = this.retrievePortfolioIndex(name);
+        Portfolio portfolio = portfolios.get(pIndex);
+        valueGet = portfolio.calculateValue(one.toString());
       }
-      else {
-        valueGet = this.getStockInfo(name, 1, one.toString()).get(0);
+      catch (Exception ignored) {
+        valueGet = Double.parseDouble(fp.getStockPrice(name, one.toString()));
       }
     }
-    while (one != two) {
+    while (one.compareTo(two) < 0) {
       dateOut = organizeDate(one, time);
       barValues.put(dateOut, valueGet);
       if (time == 0) {
@@ -404,17 +408,24 @@ public class StocksModelImpl implements StocksModel {
       if (time == 3) {
         one = one.plusYears(setValue);
       }
-      if (portfolios.contains(name)) {
-        valueGet = portfolioValue(name, one.toString());
+      try {
+        stockCount(name);
+        int pIndex = this.retrievePortfolioIndex(name);
+        Portfolio portfolio = portfolios.get(pIndex);
+        valueGet = portfolio.calculateValue(one.toString());
       }
-      else {
-        try {
-          valueGet = this.getStockInfo(name, 1, one.toString()).get(0);
-        }
-        catch (Exception ignored) {
-          valueGet = Double.parseDouble(fp.getStockPrice(name, this.nextMarketDay(one.toString())));
-        }
+      catch (Exception ignored) {
+        valueGet = Double.parseDouble(fp.getStockPrice(name, one.toString()));
       }
+    }
+    try {
+      stockCount(name);
+      int pIndex = this.retrievePortfolioIndex(name);
+      Portfolio portfolio = portfolios.get(pIndex);
+      valueGet = portfolio.calculateValue(two.toString());
+    }
+    catch (Exception ignored) {
+      valueGet = Double.parseDouble(fp.getStockPrice(name, two.toString()));
     }
     return barValues;
   }
