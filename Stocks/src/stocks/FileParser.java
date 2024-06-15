@@ -248,11 +248,6 @@ public class FileParser {
           transactionList.add(new Transaction(stock, shares, date, price));
         }
       }
-
-//      for (Transaction t : transactionList) {
-//        System.out.println("Transaction: " + t.getStock() + " " + t.getDate() + " "
-//                + t.getShares() + " " + t.getPrice());
-//      }
     }
     catch (ParserConfigurationException e) {
       e.printStackTrace();

@@ -1,9 +1,0 @@
-<a>
-    <date day="09" month="09" year="2019">
-        <transaction type="buy">
-            <stock>GOOG</stock>
-            <shares>10.0</shares>
-            <price>1204.4100</price>
-        </transaction>
-    </date>
-</a>
