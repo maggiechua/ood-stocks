@@ -37,7 +37,7 @@ public class FileParser {
   // This is an error to do with file path and the location of directories- we have not been able to
   // find a reason for this discrepancy, nor a solution for it.
   public String getOSType() {
-    return "windows";
+    return "mac";
   }
 
   /**
@@ -94,32 +94,43 @@ public class FileParser {
    * The following method gets the closing price of the last market day of a time period
    * (month/year).
    * @param stock the given stock
-   * @param type the integer representation to determine where to split the string representation
+   * @param month the integer representation to determine where to split the string representation
    *             of a date
-   * @param time the given integer representation of the time period (month/year)
+   * @param year the given integer representation of the time period (month/year)
    * @return the closing price of the last market day as a String
    */
-  private String getLastDay(String stock, int type, int time) {
+  protected String getLastWorkingDay(String stock, int month, int year) {
     Path path = this.retrievePath(this.getOSType(), stock, "data/", ".csv");
     File file = path.toFile();
+    boolean checkMonth = false;
 
-    String stockPrice = "";
-    String curDay = "";
+    if (month != 0) {
+      checkMonth = true;
+    }
+
+    String lastDay = "";
+    String currDay = "";
     String nextDay = "";
     try {
       Scanner sc = new Scanner(file);
       while (sc.hasNextLine()) {
         String line = sc.nextLine();
+        currDay = line.split(",")[0];
         String[] lineInfo = line.split(",");
-        curDay = lineInfo[0];
         if (sc.hasNextLine()) {
           String nextLine = sc.nextLine();
           String[] nextDaySplit = nextLine.split(",");
           nextDay = nextDaySplit[0];
           String[] nDaySplit = nextDay.split("-");
-          if (Integer.parseInt(nDaySplit[type]) == time + 1) {
-            stockPrice = curDay;
-            break;
+          if (Integer.parseInt(nDaySplit[0]) == year) {
+            if (checkMonth && Integer.parseInt(nDaySplit[1]) == month) {
+              lastDay = currDay;
+              break;
+            }
+            else if (!checkMonth) {
+              lastDay = nextDay;
+              break;
+            }
           }
         }
       }
@@ -127,7 +138,7 @@ public class FileParser {
     catch (IOException e) {
       System.out.println("The stock did not exist based on the given time period.");
     }
-    return stockPrice;
+    return lastDay;
   }
 
   /**
@@ -163,24 +174,6 @@ public class FileParser {
       System.out.println("The next market day is in the future.");
     }
     return nextMDay;
-  }
-
-  /**
-   * The following method gets the last working day of the given stock for the given time period.
-   * @param stock the given stock
-   * @param timePeriod the given time period (either month/year) represented as a String
-   * @param time the given integer representation of the month/year
-   * @return the last working day price as a String
-   */
-  public String getLastWorkingDay(String stock, String timePeriod, int time) {
-    String lastDayPrice = "";
-    if (timePeriod.equals("year")) {
-      lastDayPrice = this.getLastDay(stock, 0, time);
-    }
-    else if (timePeriod.equals("month")) {
-      lastDayPrice = this.getLastDay(stock, 1, time);
-    }
-    return lastDayPrice;
   }
 
   /**
