@@ -1,9 +1,12 @@
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import stocks.StocksController;
 import stocks.StocksModel;
+import stocks.StocksModelImpl;
 import stocks.StocksView;
 
 /**
@@ -16,8 +19,10 @@ public class StocksControllerMock implements StocksController {
   StocksModel modelMock;
   StocksView viewMock;
   String input;
+  String curStock;
   boolean testingModel;
   Appendable ap;
+  Map<String, Double> weights;
 
   /**
    * A StocksControllerMock takes in a model, view, input, and testingModel to aid in testing
@@ -32,8 +37,10 @@ public class StocksControllerMock implements StocksController {
     this.modelMock = m;
     this.viewMock = s;
     this.input = input;
+    this.curStock = "";
     this.testingModel = testingModel;
     this.ap = ap;
+    this.weights = new HashMap<>();
   }
 
   /**
@@ -73,7 +80,7 @@ public class StocksControllerMock implements StocksController {
   public void modelTesting(String in, String[] commands) {
     switch (in) {
       case "menu":
-        this.callMenu();
+        modelMock = new StocksModelImpl("", modelMock.getPortfolios());
         break;
       case "select-stock":
         modelMock = this.callSelectStock(commands[1]);
@@ -89,7 +96,8 @@ public class StocksControllerMock implements StocksController {
         this.callCrossovers(Integer.parseInt(commands[1]), commands[2]);
         break;
       case "buy-stock":
-        this.callBuyStock(Integer.parseInt(commands[1]), commands[2], commands[3]);
+        this.curStock = commands[1];
+        this.callBuyStock(Double.valueOf(commands[2]), commands[3], commands[4]);
         break;
       // portfolio methods
       case "create-portfolio":
@@ -100,6 +108,18 @@ public class StocksControllerMock implements StocksController {
         break;
       case "sell-stock":
         this.callSellStock(commands[1], Integer.parseInt(commands[2]), commands[3], commands[4]);
+        break;
+      case "distribution":
+        this.callDistribution(commands[1], commands[2]);
+        break;
+      case "composition":
+        this.callComposition(commands[1], commands[2]);
+        break;
+      case "balance":
+        for (int i = 3; i < commands.length - 1; i = i + 2) {
+          weights.put(commands[i], Double.valueOf(commands[i + 1]));
+        }
+        this.callBalance(commands[1], commands[2], weights);
         break;
       default:
         break;
@@ -164,7 +184,8 @@ public class StocksControllerMock implements StocksController {
    * @param numShares the number of shares the user intends ot buy
    * @param portfolioName the name of the portfolio which is storing this data
    */
-  public void callBuyStock(int numShares, String date, String portfolioName) {
+  public void callBuyStock(double numShares, String date, String portfolioName) {
+    modelMock = modelMock.stockSelect(curStock);
     modelMock.buy(numShares, date, portfolioName);
   }
 
@@ -199,6 +220,35 @@ public class StocksControllerMock implements StocksController {
    */
   public void callSellStock(String stock, int numShares, String date, String portfolioName) {
     modelMock.sell(stock, numShares, date, portfolioName);
+  }
+
+  /**
+   * the callDistribution method calls the distribution method inside the model
+   * @param portfolioName the name of the portfolio
+   * @param date the given date
+   */
+  public void callDistribution(String portfolioName, String date) {
+    modelMock.distribution(portfolioName, date);
+  }
+
+  /**
+   * the callComposition method calls the composition method inside the model.
+   * @param portfolioName the name of the portfolio
+   * @param date the given date
+   */
+  public void callComposition(String portfolioName, String date) {
+    modelMock.composition(portfolioName, date);
+  }
+
+  /**
+   * the callBalance method calls the balance method inside the model.
+   * @param portfolioName the given portfolio name
+   * @param date the given date
+   * @param weights a map consisting of the stock and the desired weight
+   */
+  public void callBalance(String portfolioName, String date, Map<String,
+          Double> weights) {
+    modelMock.balance(portfolioName, date, weights);
   }
 
   // VIEW METHOD CALLS

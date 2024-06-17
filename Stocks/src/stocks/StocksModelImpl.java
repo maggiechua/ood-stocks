@@ -392,7 +392,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
+  public StocksModelImpl balance(String portfolioName, String date, Map<String,
           Double> weights) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
