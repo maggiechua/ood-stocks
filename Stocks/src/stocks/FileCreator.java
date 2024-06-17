@@ -12,7 +12,9 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,6 +38,53 @@ public class FileCreator {
 
   public FileCreator() {
     this.fp = new FileParser();
+  }
+  /**
+   * the getAPIKey method stores and returns the API key used for the program.
+   */
+  private String getAPIKey() {
+    return "HI5ADT0RWWANGUID";
+  }
+
+  /**
+   * the createPortfolio method determines whether a given date is an x-day crossover for the stock
+   * saved in the class.
+   * @param stockSymbol the stock symbol
+   * @param numOfDays the number of days in the range to search for
+   * @param date the date to find the data of
+   * @return a List of data in Double format
+   */
+  protected List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
+    Path path = fp.retrievePath(fp.getOSType(), stockSymbol, "data/", ".csv");
+    File file = path.toFile();
+
+    List<Double> output = new ArrayList<>();
+    if (!file.exists()) {
+      this.createStockCSVFile(stockSymbol, this.getAPIKey());
+    }
+    try {
+      Scanner sc = new Scanner(file);
+      int counter = 0;
+      while (sc.hasNextLine()) {
+        String line = sc.nextLine();
+        String[] lineInfo = line.split(",");
+        if (lineInfo[0].equals(date)) {
+          output.add(Double.parseDouble(lineInfo[4]));
+          counter++;
+        }
+        else if (counter - 1 == numOfDays) {
+          break;
+        }
+        else if (counter > 0) {
+          output.add(Double.parseDouble(lineInfo[4]));
+          counter++;
+        }
+      }
+    }
+    catch (IOException e) {
+      System.out.println("The stock did not exist on the date given.");
+    }
+    return output;
   }
 
   /**
