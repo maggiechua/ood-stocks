@@ -120,14 +120,15 @@ public class PortfolioImpl implements Portfolio {
       double numValue = 0.0;
       for (Transaction t : transactions) {
         if (t.getStock().equals(stock)) {
-          numValue += (t.getShares() * t.getPrice());
+          numValue += (t.getShares() * Double.parseDouble(fp.getStockPrice(t.getStock(), date)));
         }
       }
       if (date.isEmpty()) {
         contents.put(stock, numValue);
       }
       else {
-        portfolio.put(stock, numValue);
+        String value = String.format("%.2f", numValue);
+        portfolio.put(stock, Double.parseDouble(value));
       }
     }
     return portfolio;

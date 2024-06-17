@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import stocks.Portfolio;
 import stocks.StocksModel;
@@ -103,8 +104,8 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
-          Double> weights) {
+  public StocksModelImpl balance(String portfolioName, String date, Map<String,
+            Double> weights) {
     return null;
   }
 

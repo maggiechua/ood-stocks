@@ -124,7 +124,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param weights the weights of each stock
    * @return a new StocksModelImpl with the changed portfolio data
    */
-  public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
+  public StocksModelImpl balance(String portfolioName, String date, Map<String,
           Double> weights);
 
   /**
