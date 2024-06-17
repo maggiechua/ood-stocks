@@ -19,7 +19,6 @@ import stocks.Transaction;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-//TODO: debug the portfolio value test
 
 /**
  * A JUnit Test Class for the Stocks Model Implementation.
@@ -67,6 +66,10 @@ public class StocksModelImplTest {
   }
 
   // Portfolio Transactions:
+  // Note: Since we have a while loop in the original controller that allows the user to exit the
+  // stock menu, we prove that those work in the view tests, but for the purposes of the model,
+  // we simplify the information transfer process to prove that the model methods work, which is
+  // why the inputs given do not match 1:1
   @Test
   public void testCreatePortfolio() {
     List<String> input = new ArrayList<>(Arrays.asList("create-portfolio a"));
@@ -84,7 +87,7 @@ public class StocksModelImplTest {
     p.addToPortfolio("GOOG", "2024-05-31", 15.0);
 
     List<String> commands = new ArrayList<>(Arrays.asList(
-            "create-portfolio a", "select-stock GOOG", "buy-stock 15 2024-05-31 a"));
+            "create-portfolio a", "select-stock GOOG", "buy-stock GOOG 15 2024-05-31 a"));
     this.testingHelper(commands);
 
     assertEquals(p.getPortfolioContents().get("GOOG"),
@@ -100,7 +103,7 @@ public class StocksModelImplTest {
     p.addToPortfolio("GOOG", "2024-05-28", 15.0);
 
     List<String> commands = new ArrayList<>(Arrays.asList(
-            "create-portfolio a", "select-stock GOOG", "buy-stock 15 2024-05-25 a"));
+            "create-portfolio a", "select-stock GOOG", "buy-stock GOOG 15 2024-05-25 a"));
     this.testingHelper(commands);
 
     assertEquals(p.getPortfolioContents().get("GOOG"),
@@ -116,7 +119,7 @@ public class StocksModelImplTest {
     p.removeFromPortfolio("GOOG", "2024-05-28", 15.0);
 
     List<String> commands = new ArrayList<>(Arrays.asList(
-            "create-portfolio a", "select-stock GOOG", "buy-stock 15 2024-05-24 a",
+            "create-portfolio a", "select-stock GOOG", "buy-stock GOOG 15 2024-05-24 a",
             "sell-stock GOOG 15 2024-05-25 a"));
     this.testingHelper(commands);
 
@@ -134,7 +137,7 @@ public class StocksModelImplTest {
     p.removeFromPortfolio("GOOG", "2024-05-31", 9);
 
     List<String> commands = new ArrayList<>(Arrays.asList(
-            "create-portfolio a", "select-stock GOOG", "buy-stock 15 2024-05-30 a",
+            "create-portfolio a", "select-stock GOOG", "buy-stock GOOG 15 2024-05-30 a",
             "sell-stock GOOG 9 2024-05-31 a"));
 
     this.testingHelper(commands);
@@ -189,9 +192,10 @@ public class StocksModelImplTest {
     double expectedPortfolioValue = 38176.65;
 
     List<String> commands = new ArrayList<>(Arrays.asList(
-            "create-portfolio a", "select-stock GOOG", "buy-stock 5 2024-05-30 a",
-            "menu", "select-stock NVDA", "buy-stock 25 2024-05-30 a",
-            "menu", "select-stock MSFT", "buy-stock 20 2024-05-30 a"
+            "create-portfolio a", "select-stock GOOG",
+            "buy-stock GOOG 5 2024-05-30 a",
+            "buy-stock NVDA 25 2024-05-30 a",
+            "buy-stock MSFT 20 2024-05-30 a"
     ));
     this.testingHelper(commands);
 
@@ -226,11 +230,11 @@ public class StocksModelImplTest {
     double expectedTotalPValue = 93988.5; // 23,497.125 | 25% value
 
     List<String> commands = new ArrayList<>(Arrays.asList(
-            "create-portfolio a", "select-stock GOOG", "buy-stock 50 2024-05-30 a",
-            "menu", "select-stock NVDA", "buy-stock 50 2024-05-30 a",
-            "menu", "select-stock MSFT", "buy-stock 50 2024-05-30 a",
-            "menu", "select-stock AAPL", "buy-stock 50 2024-05-30 a",
-            "balance a 25.0 25.0 25.0 25.0"));
+            "create-portfolio a", "buy-stock GOOG 50 2024-05-30 a",
+            "buy-stock NVDA 50 2024-05-30 a",
+            "buy-stock MSFT 50 2024-05-30 a",
+            "buy-stock AAPL 50 2024-05-30 a",
+            "balance a 2024-05-31 GOOG 25.0 NVDA 25.0 MSFT 25.0 AAPL 25.0"));
     this.testingHelper(commands);
 
     assertEquals(p.getPortfolioContents().get("GOOG"),
@@ -253,10 +257,11 @@ public class StocksModelImplTest {
     p.addToPortfolio("MSFT", "2024-05-30", 20);
 
     List<String> commands = new ArrayList<>(Arrays.asList(
-            "create-portfolio a", "select-stock GOOG", "buy-stock 5 2024-05-30 a",
-            "menu", "select-stock NVDA", "buy-stock 25 2024-05-30 a",
-            "menu", "select-stock MSFT", "buy-stock 20 2024-05-30 a",
-            "menu", "distribution a 2024-05-31"));
+            "create-portfolio a", "select-stock GOOG",
+            "buy-stock GOOG 5 2024-05-30 a",
+            "buy-stock NVDA 25 2024-05-30 a",
+            "buy-stock MSFT 20 2024-05-30 a",
+            "distribution a 2024-05-31"));
     this.testingHelper(commands);
 
     Map<String, Double> expectedDistribution = new HashMap<>();
@@ -281,10 +286,10 @@ public class StocksModelImplTest {
     p.addToPortfolio("MSFT", "2024-05-30", 20);
 
     List<String> commands = new ArrayList<>(Arrays.asList(
-            "create-portfolio a", "select-stock GOOG", "buy-stock 5 2024-05-30 a",
-            "menu", "select-stock NVDA", "buy-stock 25 2024-05-30 a",
-            "menu", "select-stock MSFT", "buy-stock 20 2024-05-30 a",
-            "menu", "composition a 2024-05-31"));
+            "create-portfolio a", "buy-stock GOOG 5 2024-05-30 a",
+            "buy-stock NVDA 25 2024-05-30 a",
+            "buy-stock MSFT 20 2024-05-30 a",
+            "composition a 2024-05-31"));
     this.testingHelper(commands);
 
     Map<String, Double> expectedComposition = new HashMap<>();
