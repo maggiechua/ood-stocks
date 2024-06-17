@@ -219,15 +219,17 @@ public class StocksModelImplTest {
   public void testReBalanceWithStocks() {
     // comments on the side represent stock price values on 2024-05-31 where 50 shares are
     // bought for the following four stocks
-    p.addToPortfolio("GOOG", "2024-05-30", 135.0719);
-    // 8,698.00 | 173.96/s | 85.0719
-    p.addToPortfolio("NVDA", "2024-05-30", 21.4326);
-    // 54,816.50 | 1096.33/s | -28.5674
-    p.addToPortfolio("MSFT", "2024-05-30", 56.6018);
-    // 20,756.50 | 415.13/s | +6.6018
-    p.addToPortfolio("AAPL", "2024-05-30", 120.901);
-    // 9,717.50 | 194.35/s | +70.9010
-    double expectedTotalPValue = 93988.5; // 23,497.125 | 25% value
+    p.addToPortfolio("GOOG", "2024-05-30", 134.92110255231086);
+    // 8,698.00 | 173.96/s | 84.9211026
+    p.addToPortfolio("NVDA", "2024-05-30", 21.408585918473452);
+    // 54,816.50 | 1096.33/s | -28.5914141
+    p.addToPortfolio("MSFT", "2024-05-30", 56.538614409943875);
+    // 20,756.50 | 415.13/s | +6.53861441
+    p.addToPortfolio("AAPL", "2024-05-30", 122.0851755526658);
+    // 9,717.50 | 192.25/s | +72.0851756
+
+    // $93,883.5 (prior) | 23,470.875 (25%)
+    double expectedTotalPValue = 93883.5;
 
     List<String> commands = new ArrayList<>(Arrays.asList(
             "create-portfolio a", "buy-stock GOOG 50 2024-05-30 a",

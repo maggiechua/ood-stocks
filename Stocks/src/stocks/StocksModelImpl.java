@@ -396,20 +396,20 @@ public class StocksModelImpl implements StocksModel {
           Double> weights) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    Portfolio p = pfs.remove(pIndex);
     double max = portfolioValue(portfolioName, date);
+    Portfolio p = pfs.remove(pIndex);
     for (String a : weights.keySet()) {
-      Double shareCount = pfs.get(pIndex).getPortfolioContents().get(a);
+      Double shareCount = p.getPortfolioContents().get(a);
       Double perc = weights.get(a);
       List<Double> stockValue = fc.getStockInfo(a, 1, date);
       Double newVal = (perc / 100) * max;
       newVal = newVal / stockValue.get(0);
       shareCount = shareCount - newVal;
       if (shareCount < 0) {
-        p.addToPortfolio(stock, date, Math.abs(shareCount));
+        p.addToPortfolio(a, date, Math.abs(shareCount));
       }
       else if (shareCount > 0) {
-        p.removeFromPortfolio(stock, date, shareCount);
+        p.removeFromPortfolio(a, date, shareCount);
       }
       pfs.add(p);
       pfs.get(pIndex).getPortfolioContents().put(a, newVal);
