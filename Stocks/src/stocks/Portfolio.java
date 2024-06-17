@@ -110,10 +110,9 @@ public interface Portfolio {
   /**
    * The following method calculates the last value of a subset of time.
    * @param date the given date
-   * @param time the subset fo time
    * @returns a double for the value
    */
-  public double calculateLastValue(String date, int time);
+  public double calculateLastValue(String date);
 
   /**
    * The following method finds the distribution of value within this portfolio.

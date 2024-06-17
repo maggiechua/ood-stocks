@@ -175,10 +175,13 @@ public class PortfolioImpl implements Portfolio {
   }
 
   @Override
-  public double calculateLastValue(String timePeriod, int time) {
+  public double calculateLastValue(String date) {
     double portfolioValue = 0.0;
+    String[] dateValues = date.split("-");
+    int year = Integer.parseInt(dateValues[0]);
+    int month = Integer.parseInt(dateValues[1]);
     for (Map.Entry<String, Double> stock: contents.entrySet()) {
-      Double endPrice = Double.parseDouble(fp.getLastWorkingDay(stock.getKey(), timePeriod, time));
+      Double endPrice = Double.parseDouble(fp.getLastWorkingDay(stock.getKey(), month, year));
       portfolioValue += endPrice * stock.getValue();
     }
     return portfolioValue;
