@@ -291,31 +291,31 @@ public class StocksModelImpl implements StocksModel {
       throw new IllegalArgumentException();
     }
     else if (diffDays > 5 && diffDays < 30) {
-      orgBarData(dateOne, dateTwo, name, 0, 1);
+      barValues = orgBarData(dateOne, dateTwo, name, 0, 1);
     }
     else if (diffDays > 30) {
       if (diffWeeks < 5) {
         s = newSet(diffDays);
-        orgBarData(dateOne, dateTwo, name, 0, s);
+        barValues = orgBarData(dateOne, dateTwo, name, 0, s);
       }
       else if (diffWeeks > 5 && diffWeeks < 30) {
-        orgBarData(dateTwo, dateOne, name, 1, 1);
+        barValues = orgBarData(dateTwo, dateOne, name, 1, 1);
       }
       else if (diffWeeks > 30) {
         if (diffMonths < 5) {
           s = newSet(diffWeeks);
-          orgBarData(dateOne, dateTwo, name, 1, s);
+          barValues = orgBarData(dateOne, dateTwo, name, 1, s);
         }
         else if (diffMonths > 5 && diffMonths < 30) {
-          orgBarData(dateOne, dateTwo, name, 2, 1);
+          barValues = orgBarData(dateOne, dateTwo, name, 2, 1);
         }
         else if (diffMonths > 30) {
           if (diffYears < 5) {
             s = newSet(diffMonths);
-            orgBarData(dateOne, dateTwo, name, 2, s);
+            barValues = orgBarData(dateOne, dateTwo, name, 2, s);
           }
           else if (diffYears > 5 && diffYears < 30) {
-            orgBarData(dateOne, dateTwo, name, 3, 1);
+            barValues = orgBarData(dateOne, dateTwo, name, 3, 1);
           }
           else {
             throw new IllegalArgumentException();
@@ -352,50 +352,45 @@ public class StocksModelImpl implements StocksModel {
    * @param setValue the interval between checks
    * @return a Map of data to make the bar chart
    */
-  private Map<String, Double> orgBarData(LocalDate one, LocalDate two, String name,
+  private HashMap<String, Double> orgBarData(LocalDate one, LocalDate two, String name,
                                              int time, long setValue) {
-    Map<String, Double> barValues = new HashMap<>();
+    boolean isPortfolio = true;
+    if (retrievePortfolioIndex(name) == -1) {
+      isPortfolio = false;
+    }
+
+    HashMap<String, Double> barValues = new HashMap<>();
     Double valueGet;
     String [] date = one.toString().split("-");
+    int month = Integer.parseInt(date[1]);
+    int year = Integer.parseInt(date[0]);
     String dateOut;
-    if (time == 2) {
-      int month = Integer.parseInt(date[1]);
-      try {
-        stockCount(name);
-        int pIndex = this.retrievePortfolioIndex(name);
-        Portfolio portfolio = portfolios.get(pIndex);
-        valueGet = portfolio.calculateValue(one.toString());
-      }
-      catch (Exception ignored) {
-        valueGet = Double.parseDouble(fp.getStockPrice(name, one.toString()));
-      }
-    }
-    else if (time == 3) {
-      int year = Integer.parseInt(date[0]);
-      try {
-        stockCount(name);
-        int pIndex = this.retrievePortfolioIndex(name);
-        Portfolio portfolio = portfolios.get(pIndex);
-        valueGet = portfolio.calculateValue(one.toString());
-      }
-      catch (Exception ignored) {
-        valueGet = Double.parseDouble(fp.getStockPrice(name, one.toString()));
-      }
-    }
-    else {
-      try {
-        stockCount(name);
-        int pIndex = this.retrievePortfolioIndex(name);
-        Portfolio portfolio = portfolios.get(pIndex);
-        valueGet = portfolio.calculateValue(one.toString());
-      }
-      catch (Exception ignored) {
-        valueGet = Double.parseDouble(fp.getStockPrice(name, one.toString()));
-      }
-    }
-    while (one.compareTo(two) < 0) {
+    valueGet = addingDates(one, time, setValue, isPortfolio , name, true);
+    while (one.compareTo(two) <= 0) {
       dateOut = organizeDate(one, time);
       barValues.put(dateOut, valueGet);
+      valueGet = addingDates(one, time, setValue, isPortfolio , name, false);
+    }
+    return barValues;
+  }
+
+  /**
+   * the addingDates method helps to add time to dates to get data for the bar chart.
+   * saved in the class.
+   * @param one the initial date
+   * @param time the type of time period to add
+   * @param setValue the value to add
+   * @param portfolio whether name is a portfolio
+   * @param name the name of the dataset - either stock or portfolio
+   * @param initial if this is the initial check
+   * @return a double of the value calculated
+   */
+  private Double addingDates(LocalDate one, int time, long setValue, boolean portfolio,
+                             String name, boolean initial) {
+    double value = 0;
+    int pIndex = this.retrievePortfolioIndex(name);
+    Portfolio pf = portfolios.get(pIndex);
+    if (!initial) {
       if (time == 0) {
         one = one.plusDays(setValue);
       }
@@ -408,26 +403,36 @@ public class StocksModelImpl implements StocksModel {
       if (time == 3) {
         one = one.plusYears(setValue);
       }
-      try {
-        stockCount(name);
-        int pIndex = this.retrievePortfolioIndex(name);
-        Portfolio portfolio = portfolios.get(pIndex);
-        valueGet = portfolio.calculateValue(one.toString());
+    }
+    if (time < 2) {
+      if (portfolio) {
+        value = pf.calculateValue(one.toString());
       }
-      catch (Exception ignored) {
-        valueGet = Double.parseDouble(fp.getStockPrice(name, one.toString()));
+      else {
+        value = Double.parseDouble(fp.getStockPrice(name, one.toString()));
       }
     }
-    try {
-      stockCount(name);
-      int pIndex = this.retrievePortfolioIndex(name);
-      Portfolio portfolio = portfolios.get(pIndex);
-      valueGet = portfolio.calculateValue(two.toString());
+    else {
+      String [] date = one.toString().split("-");
+      int month = Integer.parseInt(date[1]);
+      int year = Integer.parseInt(date[0]);
+      if (time == 2) {
+        if (portfolio) {
+          value = pf.calculateLastValue(one.toString(), "month");
+        } else {
+          value = Double.parseDouble(fp.getStockPrice(name, fp.getLastWorkingDay(name, month, year)));
+        }
+      }
+      if (time == 3) {
+        if (portfolio) {
+          value = pf.calculateLastValue(one.toString(), "year");
+        }
+        else {
+          value = Double.parseDouble(fp.getStockPrice(name, fp.getLastWorkingDay(name, 0, year)));
+        }
+      }
     }
-    catch (Exception ignored) {
-      valueGet = Double.parseDouble(fp.getStockPrice(name, two.toString()));
-    }
-    return barValues;
+    return value;
   }
 
   /**
