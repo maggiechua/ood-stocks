@@ -449,7 +449,7 @@ public class StocksModelImpl implements StocksModel {
     if (type == 2) {
       formatter = DateTimeFormatter.ofPattern("MMM yyyy");
     }
-    if (type == 3) {
+    else if (type == 3) {
       formatter = DateTimeFormatter.ofPattern("yyyy");
     }
     else {
