@@ -2,12 +2,17 @@ package stocks;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,6 +168,53 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
+  public ArrayList<String> reorder(Map<String, Double> input) throws ParseException {
+    ArrayList<LocalDate> dates = new ArrayList<>();
+    ArrayList<String> orderDates = new ArrayList<>();
+    SimpleDateFormat dateFormatter;
+    Date dateObject;
+    String[] tempDate;
+    String temp;
+    Integer type = 0;
+
+    for (Map.Entry<String, Double> entry : input.entrySet()) {
+      try {
+        dateFormatter = new SimpleDateFormat("MMM dd yyyy");
+        dateObject = dateFormatter.parse(entry.getKey());
+        type = 1;
+      }
+      catch (ParseException e) {
+        dateFormatter = new SimpleDateFormat("MMM yyyy");
+        dateObject = dateFormatter.parse(entry.getKey());
+        tempDate = dateObject.toString().split(" ");
+        temp = tempDate[0] + " 1 " + tempDate[1];
+        type = 2;
+      }
+      catch (Exception e) {
+        dateFormatter = new SimpleDateFormat("yyyy");
+        dateObject = dateFormatter.parse(entry.getKey());
+        temp = "Jan 1 " + dateObject.toString();
+        type = 3;
+      }
+      dateFormatter.applyPattern("yyyy-MM-dd");
+      String result = dateFormatter.format(dateObject);
+      dates.add(LocalDate.parse(result));
+    }
+
+    while (!dates.isEmpty()) {
+      LocalDate smallest = dates.get(0);
+      for (int i = 1; i < dates.size(); i++) {
+        if (dates.get(i).isBefore(smallest)) {
+          smallest = dates.get(i);
+        }
+      }
+      dates.remove(smallest);
+      orderDates.add(organizeDate(smallest, type));
+    }
+    return orderDates;
+  }
+
+  @Override
   public StocksModelImpl buy(double shares, String date, String portfolioName) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
@@ -314,14 +366,28 @@ public class StocksModelImpl implements StocksModel {
     HashMap<String, Double> barValues = new HashMap<>();
     Double valueGet;
     String [] date = one.toString().split("-");
-    int month = Integer.parseInt(date[1]);
-    int year = Integer.parseInt(date[0]);
     String dateOut;
-    valueGet = addingDates(one, time, setValue, isPortfolio , name, true);
+    valueGet = addingDates(one, time, setValue, isPortfolio , name);
+    boolean initial = true;
     while (one.compareTo(two) <= 0) {
       dateOut = organizeDate(one, time);
       barValues.put(dateOut, valueGet);
-      valueGet = addingDates(one, time, setValue, isPortfolio , name, false);
+      if (!initial) {
+        if (time == 0) {
+          one = one.plusDays(setValue);
+        }
+        if (time == 1) {
+          one = one.plusWeeks(setValue);
+        }
+        if (time == 2) {
+          one = one.plusMonths(setValue);
+        }
+        if (time == 3) {
+          one = one.plusYears(setValue);
+        }
+      }
+      valueGet = addingDates(one, time, setValue, isPortfolio , name);
+      initial = false;
     }
     return barValues;
   }
@@ -334,28 +400,13 @@ public class StocksModelImpl implements StocksModel {
    * @param setValue the value to add
    * @param portfolio whether name is a portfolio
    * @param name the name of the dataset - either stock or portfolio
-   * @param initial if this is the initial check
    * @return a double of the value calculated
    */
   private Double addingDates(LocalDate one, int time, long setValue, boolean portfolio,
-                             String name, boolean initial) {
+                             String name) {
     double value = 0;
     int pIndex = this.retrievePortfolioIndex(name);
     Portfolio pf = portfolios.get(pIndex);
-    if (!initial) {
-      if (time == 0) {
-        one = one.plusDays(setValue);
-      }
-      if (time == 1) {
-        one = one.plusWeeks(setValue);
-      }
-      if (time == 2) {
-        one = one.plusMonths(setValue);
-      }
-      if (time == 3) {
-        one = one.plusYears(setValue);
-      }
-    }
     if (time < 2) {
       if (portfolio) {
         value = pf.calculateValue(one.toString());
@@ -370,14 +421,14 @@ public class StocksModelImpl implements StocksModel {
       int year = Integer.parseInt(date[0]);
       if (time == 2) {
         if (portfolio) {
-          value = pf.calculateLastValue(one.toString(), "month");
+          value = portfolioValue(name, fp.getLastWorkingDay("NVDA", month, year));
         } else {
           value = Double.parseDouble(fp.getStockPrice(name, fp.getLastWorkingDay(name, month, year)));
         }
       }
       if (time == 3) {
         if (portfolio) {
-          value = pf.calculateLastValue(one.toString(), "year");
+          value = portfolioValue(name, fp.getLastWorkingDay("NVDA", 0, year));
         }
         else {
           value = Double.parseDouble(fp.getStockPrice(name, fp.getLastWorkingDay(name, 0, year)));
@@ -455,9 +506,10 @@ public class StocksModelImpl implements StocksModel {
     }
     while (!pass) {
       for (int i = 0; i < Integer.MAX_VALUE; i++) {
-        if (max < 5 * (10 ^ i)) {
-          scale = (10 ^ (i - 1));
+        if (max < 5 * Math.pow(10, i)) {
+          scale = (int) Math.pow(10, (i - 1));
           pass = true;
+          break;
         }
       }
     }

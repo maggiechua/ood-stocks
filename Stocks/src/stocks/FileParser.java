@@ -109,25 +109,20 @@ public class FileParser {
     }
 
     String lastDay = "";
-    String currDay = "";
     String nextDay = "";
     try {
       Scanner sc = new Scanner(file);
       while (sc.hasNextLine()) {
-        String line = sc.nextLine();
-        currDay = line.split(",")[0];
-        String[] lineInfo = line.split(",");
-        if (sc.hasNextLine()) {
-          String nextLine = sc.nextLine();
-          String[] nextDaySplit = nextLine.split(",");
-          nextDay = nextDaySplit[0];
-          String[] nDaySplit = nextDay.split("-");
+        String nextLine = sc.nextLine();
+        String[] nextDaySplit = nextLine.split(",");
+        nextDay = nextDaySplit[0];
+        String[] nDaySplit = nextDay.split("-");
+        if (!nextDay.equals("timestamp")) {
           if (Integer.parseInt(nDaySplit[0]) == year) {
             if (checkMonth && Integer.parseInt(nDaySplit[1]) == month) {
-              lastDay = currDay;
+              lastDay = nextDay;
               break;
-            }
-            else if (!checkMonth) {
+            } else if (!checkMonth) {
               lastDay = nextDay;
               break;
             }
