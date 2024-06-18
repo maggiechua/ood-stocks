@@ -1,8 +1,12 @@
 package stocks;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 //TODO: PERFORMANCE OVER TIME
 // barchart must show the following:
@@ -161,18 +165,18 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
-                       Integer scale) {
+                       Integer scale, ArrayList<String> order) {
     int asterisk = 0;
     writeMessage("Performance of " + name + " from " + date1 + " to " + date2 + "\n \n");
-    for (Map.Entry<String, Double> entry : input.entrySet()) {
-      asterisk = (int) Math.round(entry.getValue() / scale);
-      writeMessage(entry.getKey() + " : ");
+    for (String s : order) {
+      asterisk = (int) Math.round(input.get(s) / scale);
+      writeMessage(s + " : ");
       for (int i = 0; i < asterisk; i++) {
         writeMessage("*");
       }
       writeMessage("\n");
     }
-    writeMessage("\nScale : * = " + scale + "\n");
+    writeMessage("\nScale : * = $" + scale + "\n");
   }
 
   @Override

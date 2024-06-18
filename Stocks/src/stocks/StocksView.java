@@ -1,5 +1,7 @@
 package stocks;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,9 +97,10 @@ public interface StocksView {
    * @param date2 the ending date
    * @param input the data input
    * @param scale the scale for the asterisks
+   * @param order the chronological order of the dates
    */
   public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
-                       Integer scale);
+                       Integer scale, ArrayList<String> order);
 
   /**
    * the invalidDate method adds an error message for an invalid date to the appendable.

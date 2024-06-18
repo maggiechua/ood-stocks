@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -106,7 +107,7 @@ public class StocksViewMock implements StocksView {
 
   @Override
   public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
-                       Integer scale) {
+                       Integer scale, ArrayList<String> order) {
     this.appendResult("Bar chart printed in view. \n");
   }
 

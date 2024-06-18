@@ -130,6 +130,11 @@ public class StocksModelMock implements StocksModel {
   }
 
   @Override
+  public ArrayList<String> reorder(Map<String, Double> input) {
+    return null;
+  }
+
+  @Override
   public String getStock() {
     return null;
   }

@@ -188,7 +188,7 @@ public class PortfolioImpl implements Portfolio {
       month = Integer.parseInt(dateValues[1]);
     }
     for (Map.Entry<String, Double> stock: contents.entrySet()) {
-      Double endPrice = Double.parseDouble(fp.getLastWorkingDay(stock.getKey(), month, year));
+      Double endPrice = calculateValue(fp.getLastWorkingDay(stock.getKey(), month, year));
       portfolioValue += endPrice * stock.getValue();
     }
     return portfolioValue;
