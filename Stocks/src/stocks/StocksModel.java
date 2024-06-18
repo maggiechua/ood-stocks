@@ -154,4 +154,11 @@ public interface StocksModel extends ReadOnlyModel {
    * @return a string of the next valid market date
    */
   public String nextMarketDay(String date);
+
+  /**
+   * The following method reorders the hashmap in chronological order.
+   * @param input the hashmap of bar data
+   * @return an arraylist of the dates in order
+   */
+  public ArrayList<String> reorder(Map<String, Double> input) throws ParseException;
 }

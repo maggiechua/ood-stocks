@@ -2,12 +2,17 @@ package stocks;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,6 +169,53 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
+  public ArrayList<String> reorder(Map<String, Double> input) throws ParseException {
+    ArrayList<LocalDate> dates = new ArrayList<>();
+    ArrayList<String> orderDates = new ArrayList<>();
+    SimpleDateFormat dateFormatter;
+    Date dateObject;
+    String[] tempDate;
+    String temp;
+    Integer type = 0;
+
+    for (Map.Entry<String, Double> entry : input.entrySet()) {
+      try {
+        dateFormatter = new SimpleDateFormat("MMM dd yyyy");
+        dateObject = dateFormatter.parse(entry.getKey());
+        type = 1;
+      }
+      catch (ParseException e) {
+        dateFormatter = new SimpleDateFormat("MMM yyyy");
+        dateObject = dateFormatter.parse(entry.getKey());
+        tempDate = dateObject.toString().split(" ");
+        temp = tempDate[0] + " 1 " + tempDate[1];
+        type = 2;
+      }
+      catch (Exception e) {
+        dateFormatter = new SimpleDateFormat("yyyy");
+        dateObject = dateFormatter.parse(entry.getKey());
+        temp = "Jan 1 " + dateObject.toString();
+        type = 3;
+      }
+      dateFormatter.applyPattern("yyyy-MM-dd");
+      String result = dateFormatter.format(dateObject);
+      dates.add(LocalDate.parse(result));
+    }
+
+    while (!dates.isEmpty()) {
+      LocalDate smallest = dates.get(0);
+      for (int i = 1; i < dates.size(); i++) {
+        if (dates.get(i).isBefore(smallest)) {
+          smallest = dates.get(i);
+        }
+      }
+      dates.remove(smallest);
+      orderDates.add(organizeDate(smallest, type));
+    }
+    return orderDates;
+  }
+
+  @Override
   public StocksModelImpl buy(double shares, String date, String portfolioName) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
@@ -244,31 +296,31 @@ public class StocksModelImpl implements StocksModel {
       throw new IllegalArgumentException();
     }
     else if (diffDays > 5 && diffDays < 30) {
-      orgBarData(dateOne, dateTwo, name, 0, 1);
+      barValues = orgBarData(dateOne, dateTwo, name, 0, 1);
     }
     else if (diffDays > 30) {
       if (diffWeeks < 5) {
         s = newSet(diffDays);
-        orgBarData(dateOne, dateTwo, name, 0, s);
+        barValues = orgBarData(dateOne, dateTwo, name, 0, s);
       }
       else if (diffWeeks > 5 && diffWeeks < 30) {
-        orgBarData(dateTwo, dateOne, name, 1, 1);
+        barValues = orgBarData(dateTwo, dateOne, name, 1, 1);
       }
       else if (diffWeeks > 30) {
         if (diffMonths < 5) {
           s = newSet(diffWeeks);
-          orgBarData(dateOne, dateTwo, name, 1, s);
+          barValues = orgBarData(dateOne, dateTwo, name, 1, s);
         }
         else if (diffMonths > 5 && diffMonths < 30) {
-          orgBarData(dateOne, dateTwo, name, 2, 1);
+          barValues = orgBarData(dateOne, dateTwo, name, 2, 1);
         }
         else if (diffMonths > 30) {
           if (diffYears < 5) {
             s = newSet(diffMonths);
-            orgBarData(dateOne, dateTwo, name, 2, s);
+            barValues = orgBarData(dateOne, dateTwo, name, 2, s);
           }
           else if (diffYears > 5 && diffYears < 30) {
-            orgBarData(dateOne, dateTwo, name, 3, 1);
+            barValues = orgBarData(dateOne, dateTwo, name, 3, 1);
           }
           else {
             throw new IllegalArgumentException();
@@ -305,71 +357,86 @@ public class StocksModelImpl implements StocksModel {
    * @param setValue the interval between checks
    * @return a Map of data to make the bar chart
    */
-  private Map<String, Double> orgBarData(LocalDate one, LocalDate two, String name,
+  private HashMap<String, Double> orgBarData(LocalDate one, LocalDate two, String name,
                                              int time, long setValue) {
-    Map<String, Double> barValues = new HashMap<>();
+    boolean isPortfolio = true;
+    if (retrievePortfolioIndex(name) == -1) {
+      isPortfolio = false;
+    }
+
+    HashMap<String, Double> barValues = new HashMap<>();
     Double valueGet;
     String [] date = one.toString().split("-");
     String dateOut;
-    if (time == 2) {
-      int month = Integer.parseInt(date[1]);
-      try {
-        stockCount(name);
-        int pIndex = this.retrievePortfolioIndex(name);
-        Portfolio portfolio = portfolios.get(pIndex);
-        valueGet = portfolio.calculateValue(one.toString());
+    valueGet = addingDates(one, time, setValue, isPortfolio , name);
+    boolean initial = true;
+    while (one.compareTo(two) <= 0) {
+      dateOut = organizeDate(one, time);
+      barValues.put(dateOut, valueGet);
+      if (!initial) {
+        if (time == 0) {
+          one = one.plusDays(setValue);
+        }
+        if (time == 1) {
+          one = one.plusWeeks(setValue);
+        }
+        if (time == 2) {
+          one = one.plusMonths(setValue);
+        }
+        if (time == 3) {
+          one = one.plusYears(setValue);
+        }
       }
-      catch (Exception ignored) {
-        valueGet = Double.parseDouble(fp.getStockPrice(name, one.toString()));
-      }
+      valueGet = addingDates(one, time, setValue, isPortfolio , name);
+      initial = false;
     }
-    else if (time == 3) {
-      int year = Integer.parseInt(date[0]);
-      if (portfolios.contains(name)) {
-        int pIndex = this.retrievePortfolioIndex(name);
-        Portfolio portfolio = portfolios.get(pIndex);
-        valueGet = 0.0;
+    return barValues;
+  }
+
+  /**
+   * the addingDates method helps to add time to dates to get data for the bar chart.
+   * saved in the class.
+   * @param one the initial date
+   * @param time the type of time period to add
+   * @param setValue the value to add
+   * @param portfolio whether name is a portfolio
+   * @param name the name of the dataset - either stock or portfolio
+   * @return a double of the value calculated
+   */
+  private Double addingDates(LocalDate one, int time, long setValue, boolean portfolio,
+                             String name) {
+    double value = 0;
+    int pIndex = this.retrievePortfolioIndex(name);
+    Portfolio pf = portfolios.get(pIndex);
+    if (time < 2) {
+      if (portfolio) {
+        value = pf.calculateValue(one.toString());
       }
       else {
-        valueGet = Double.parseDouble(fp.getLastWorkingDay(name, 0, year));
+        value = Double.parseDouble(fp.getStockPrice(name, one.toString()));
       }
     }
     else {
-      if (portfolios.contains(name)) {
-        valueGet = portfolioValue(name, one.toString());
-      }
-      else {
-        valueGet = fc.getStockInfo(name, 1, one.toString()).get(0);
-      }
-    }
-    while (one != two) {
-      dateOut = organizeDate(one, time);
-      barValues.put(dateOut, valueGet);
-      if (time == 0) {
-        one = one.plusDays(setValue);
-      }
-      if (time == 1) {
-        one = one.plusWeeks(setValue);
-      }
+      String [] date = one.toString().split("-");
+      int month = Integer.parseInt(date[1]);
+      int year = Integer.parseInt(date[0]);
       if (time == 2) {
-        one = one.plusMonths(setValue);
+        if (portfolio) {
+          value = portfolioValue(name, fp.getLastWorkingDay("NVDA", month, year));
+        } else {
+          value = Double.parseDouble(fp.getStockPrice(name, fp.getLastWorkingDay(name, month, year)));
+        }
       }
       if (time == 3) {
-        one = one.plusYears(setValue);
-      }
-      if (portfolios.contains(name)) {
-        valueGet = portfolioValue(name, one.toString());
-      }
-      else {
-        try {
-          valueGet = fc.getStockInfo(name, 1, one.toString()).get(0);
+        if (portfolio) {
+          value = portfolioValue(name, fp.getLastWorkingDay("NVDA", 0, year));
         }
-        catch (Exception ignored) {
-          valueGet = Double.parseDouble(fp.getStockPrice(name, this.nextMarketDay(one.toString())));
+        else {
+          value = Double.parseDouble(fp.getStockPrice(name, fp.getLastWorkingDay(name, 0, year)));
         }
       }
     }
-    return barValues;
+    return value;
   }
 
   /**
@@ -383,7 +450,7 @@ public class StocksModelImpl implements StocksModel {
     if (type == 2) {
       formatter = DateTimeFormatter.ofPattern("MMM yyyy");
     }
-    if (type == 3) {
+    else if (type == 3) {
       formatter = DateTimeFormatter.ofPattern("yyyy");
     }
     else {
@@ -397,8 +464,8 @@ public class StocksModelImpl implements StocksModel {
           Double> weights) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
-    double max = portfolioValue(portfolioName, date);
     Portfolio p = pfs.remove(pIndex);
+    double max = portfolioValue(portfolioName, date);
     for (String a : weights.keySet()) {
       Double shareCount = p.getPortfolioContents().get(a);
       Double perc = weights.get(a);
@@ -440,9 +507,10 @@ public class StocksModelImpl implements StocksModel {
     }
     while (!pass) {
       for (int i = 0; i < Integer.MAX_VALUE; i++) {
-        if (max < 5 * (10 ^ i)) {
-          scale = (10 ^ (i - 1));
+        if (max < 5 * Math.pow(10, i)) {
+          scale = (int) Math.pow(10, (i - 1));
           pass = true;
+          break;
         }
       }
     }
