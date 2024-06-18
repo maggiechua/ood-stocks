@@ -1,0 +1,2312 @@
+<testing>
+    <date day="11" month="05" year="2000">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>220.59879313864548</shares>
+            <price>54.8800</price>
+        </transaction>
+    </date>
+    <date day="17" month="05" year="2000">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>367.5897437590797</shares>
+            <price>110.5000</price>
+        </transaction>
+    </date>
+    <date day="07" month="07" year="2000">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-87.38533623853627</shares>
+            <price>36.1300</price>
+        </transaction>
+    </date>
+    <date day="07" month="09" year="2000">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>128.10737861428512</shares>
+            <price>43.5000</price>
+        </transaction>
+    </date>
+    <date day="25" month="09" year="2000">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>164.56142862382467</shares>
+            <price>53.5000</price>
+        </transaction>
+    </date>
+    <date day="18" month="12" year="2000">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-174.0856803019214</shares>
+            <price>38.6700</price>
+        </transaction>
+    </date>
+    <date day="09" month="01" year="2001">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>63.11264944241152</shares>
+            <price>16.3800</price>
+        </transaction>
+    </date>
+    <date day="05" month="06" year="2001">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-18.709303829608388</shares>
+            <price>16.4400</price>
+        </transaction>
+    </date>
+    <date day="08" month="06" year="2001">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-191.0119840212909</shares>
+            <price>21.3200</price>
+        </transaction>
+    </date>
+    <date day="09" month="07" year="2001">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>292.8662145241113</shares>
+            <price>15.8100</price>
+        </transaction>
+    </date>
+    <date day="24" month="07" year="2001">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-212.62641056268453</shares>
+            <price>12.0600</price>
+        </transaction>
+    </date>
+    <date day="10" month="08" year="2001">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>214.63805728495873</shares>
+            <price>9.9500</price>
+        </transaction>
+    </date>
+    <date day="24" month="09" year="2001">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>156.78633162926516</shares>
+            <price>7.4600</price>
+        </transaction>
+    </date>
+    <date day="27" month="09" year="2001">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>5.84525067214678</shares>
+            <price>15.5100</price>
+        </transaction>
+    </date>
+    <date day="05" month="02" year="2002">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>28.660563420366252</shares>
+            <price>25.4500</price>
+        </transaction>
+    </date>
+    <date day="12" month="04" year="2002">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>55.24910646143612</shares>
+            <price>36.6800</price>
+        </transaction>
+    </date>
+    <date day="30" month="04" year="2002">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>33.48723469966959</shares>
+            <price>52.2600</price>
+        </transaction>
+    </date>
+    <date day="11" month="07" year="2002">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-2.5681262682685215</shares>
+            <price>52.9100</price>
+        </transaction>
+    </date>
+    <date day="05" month="08" year="2002">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-5.226577905143058</shares>
+            <price>12.8700</price>
+        </transaction>
+    </date>
+    <date day="06" month="08" year="2002">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>71.73261761166253</shares>
+            <price>45.6700</price>
+        </transaction>
+    </date>
+    <date day="19" month="12" year="2002">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>195.5493202362089</shares>
+            <price>12.6500</price>
+        </transaction>
+    </date>
+    <date day="21" month="01" year="2003">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-418.63201159799894</shares>
+            <price>21.0800</price>
+        </transaction>
+    </date>
+    <date day="07" month="02" year="2003">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>126.33143133727171</shares>
+            <price>14.1500</price>
+        </transaction>
+    </date>
+    <date day="13" month="02" year="2003">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>131.57297165428707</shares>
+            <price>9.8700</price>
+        </transaction>
+    </date>
+    <date day="03" month="03" year="2003">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>244.14083975653952</shares>
+            <price>21.8100</price>
+        </transaction>
+    </date>
+    <date day="08" month="05" year="2003">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-0.2533034164386625</shares>
+            <price>25.7400</price>
+        </transaction>
+    </date>
+    <date day="27" month="06" year="2003">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-99.6982340590818</shares>
+            <price>36.3000</price>
+        </transaction>
+    </date>
+    <date day="17" month="07" year="2003">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-11.754950728940821</shares>
+            <price>22.0000</price>
+        </transaction>
+    </date>
+    <date day="22" month="07" year="2003">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>339.345413947359</shares>
+            <price>26.3800</price>
+        </transaction>
+    </date>
+    <date day="05" month="12" year="2003">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-217.7844672177314</shares>
+            <price>51.5600</price>
+        </transaction>
+    </date>
+    <date day="27" month="01" year="2004">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>156.2899147973765</shares>
+            <price>22.6300</price>
+        </transaction>
+    </date>
+    <date day="03" month="02" year="2004">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-32.25783656427379</shares>
+            <price>27.2900</price>
+        </transaction>
+    </date>
+    <date day="18" month="03" year="2004">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>28.576582534226322</shares>
+            <price>43.0100</price>
+        </transaction>
+    </date>
+    <date day="17" month="06" year="2004">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-15.908718820883585</shares>
+            <price>49.7700</price>
+        </transaction>
+    </date>
+    <date day="22" month="10" year="2004">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>458.47522177939214</shares>
+            <price>27.7400</price>
+        </transaction>
+    </date>
+    <date day="09" month="11" year="2004">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-236.04727828571205</shares>
+            <price>17.7200</price>
+        </transaction>
+    </date>
+    <date day="09" month="03" year="2005">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-142.65499977302264</shares>
+            <price>25.7500</price>
+        </transaction>
+    </date>
+    <date day="28" month="03" year="2005">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>302.4936069648926</shares>
+            <price>42.5300</price>
+        </transaction>
+    </date>
+    <date day="08" month="04" year="2005">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-246.1736161457989</shares>
+            <price>43.7400</price>
+        </transaction>
+    </date>
+    <date day="26" month="07" year="2005">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>10.474681219324582</shares>
+            <price>25.5400</price>
+        </transaction>
+    </date>
+    <date day="27" month="09" year="2005">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>83.59631744532092</shares>
+            <price>25.3400</price>
+        </transaction>
+    </date>
+    <date day="12" month="12" year="2005">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>0.9531794104272997</shares>
+            <price>74.9100</price>
+        </transaction>
+    </date>
+    <date day="28" month="03" year="2006">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-29.779814761697526</shares>
+            <price>26.9000</price>
+        </transaction>
+    </date>
+    <date day="20" month="04" year="2006">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>205.53602845034027</shares>
+            <price>29.1200</price>
+        </transaction>
+    </date>
+    <date day="09" month="05" year="2006">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>205.33205287890993</shares>
+            <price>23.6200</price>
+        </transaction>
+    </date>
+    <date day="09" month="06" year="2006">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-181.43403874038611</shares>
+            <price>22.0300</price>
+        </transaction>
+    </date>
+    <date day="04" month="08" year="2006">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>184.27416251529465</shares>
+            <price>27.2900</price>
+        </transaction>
+    </date>
+    <date day="27" month="09" year="2006">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>83.48627531718058</shares>
+            <price>30.1400</price>
+        </transaction>
+    </date>
+    <date day="04" month="10" year="2006">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>7.934714034832691</shares>
+            <price>32.7600</price>
+        </transaction>
+    </date>
+    <date day="05" month="10" year="2006">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>12.547994616290612</shares>
+            <price>33.3200</price>
+        </transaction>
+    </date>
+    <date day="17" month="10" year="2006">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-12.535137028374779</shares>
+            <price>32.4700</price>
+        </transaction>
+    </date>
+    <date day="01" month="12" year="2006">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>273.7326914619027</shares>
+            <price>35.5400</price>
+        </transaction>
+    </date>
+    <date day="16" month="02" year="2007">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-12.69894573516482</shares>
+            <price>28.7400</price>
+        </transaction>
+    </date>
+    <date day="08" month="08" year="2007">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>348.9257157373022</shares>
+            <price>30.0000</price>
+        </transaction>
+    </date>
+    <date day="23" month="08" year="2007">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-86.66265515198731</shares>
+            <price>48.0000</price>
+        </transaction>
+    </date>
+    <date day="19" month="02" year="2008">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>30.933842954801634</shares>
+            <price>21.9400</price>
+        </transaction>
+    </date>
+    <date day="21" month="02" year="2008">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-312.6635820783161</shares>
+            <price>21.2900</price>
+        </transaction>
+    </date>
+    <date day="13" month="03" year="2008">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-7.981407141273715</shares>
+            <price>127.9400</price>
+        </transaction>
+    </date>
+    <date day="25" month="04" year="2008">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>17.276032950860163</shares>
+            <price>29.8300</price>
+        </transaction>
+    </date>
+    <date day="01" month="07" year="2008">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-97.24844564210629</shares>
+            <price>26.8700</price>
+        </transaction>
+    </date>
+    <date day="07" month="07" year="2008">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>114.54446079145465</shares>
+            <price>26.0300</price>
+        </transaction>
+    </date>
+    <date day="02" month="10" year="2008">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>330.02213763601634</shares>
+            <price>67.3600</price>
+        </transaction>
+    </date>
+    <date day="22" month="10" year="2008">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-324.28046383091976</shares>
+            <price>49.9900</price>
+        </transaction>
+    </date>
+    <date day="21" month="11" year="2008">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>228.96516360643858</shares>
+            <price>82.5800</price>
+        </transaction>
+    </date>
+    <date day="08" month="12" year="2008">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-114.12175107286964</shares>
+            <price>7.1200</price>
+        </transaction>
+    </date>
+    <date day="23" month="12" year="2008">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>42.209893088916246</shares>
+            <price>19.2800</price>
+        </transaction>
+    </date>
+    <date day="31" month="12" year="2008">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-281.46631386057277</shares>
+            <price>19.4400</price>
+        </transaction>
+    </date>
+    <date day="20" month="01" year="2009">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>70.46383272193218</shares>
+            <price>7.2100</price>
+        </transaction>
+    </date>
+    <date day="30" month="01" year="2009">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>126.5192752576633</shares>
+            <price>90.1300</price>
+        </transaction>
+    </date>
+    <date day="10" month="02" year="2009">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>183.966245778293</shares>
+            <price>9.3200</price>
+        </transaction>
+    </date>
+    <date day="10" month="02" year="2009">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-6.177047530127779</shares>
+            <price>9.3200</price>
+        </transaction>
+    </date>
+    <date day="03" month="03" year="2009">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-193.7710747179334</shares>
+            <price>15.8800</price>
+        </transaction>
+    </date>
+    <date day="06" month="03" year="2009">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>248.54755479768244</shares>
+            <price>61.6900</price>
+        </transaction>
+    </date>
+    <date day="29" month="04" year="2009">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>53.433199029604744</shares>
+            <price>79.7900</price>
+        </transaction>
+    </date>
+    <date day="23" month="06" year="2009">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-140.12453466987725</shares>
+            <price>77.6800</price>
+        </transaction>
+    </date>
+    <date day="10" month="08" year="2009">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>235.47019409578857</shares>
+            <price>23.4200</price>
+        </transaction>
+    </date>
+    <date day="04" month="09" year="2009">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-58.23137204181099</shares>
+            <price>170.3100</price>
+        </transaction>
+    </date>
+    <date day="16" month="09" year="2009">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-13.308464773458468</shares>
+            <price>90.7000</price>
+        </transaction>
+    </date>
+    <date day="02" month="02" year="2010">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-152.08403646933306</shares>
+            <price>16.7400</price>
+        </transaction>
+    </date>
+    <date day="03" month="02" year="2010">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>178.43055426726877</shares>
+            <price>199.2300</price>
+        </transaction>
+    </date>
+    <date day="03" month="03" year="2010">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>37.66661136860727</shares>
+            <price>16.6300</price>
+        </transaction>
+    </date>
+    <date day="14" month="05" year="2010">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-122.62764127105355</shares>
+            <price>253.8200</price>
+        </transaction>
+    </date>
+    <date day="01" month="06" year="2010">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-4.8457336227917445</shares>
+            <price>123.2400</price>
+        </transaction>
+    </date>
+    <date day="15" month="06" year="2010">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>73.41642261060046</shares>
+            <price>26.5825</price>
+        </transaction>
+    </date>
+    <date day="21" month="07" year="2010">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>19.447936913233807</shares>
+            <price>10.3700</price>
+        </transaction>
+    </date>
+    <date day="10" month="08" year="2010">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-225.1112453395789</shares>
+            <price>9.2425</price>
+        </transaction>
+    </date>
+    <date day="11" month="08" year="2010">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-5.752036707009304</shares>
+            <price>8.8825</price>
+        </transaction>
+    </date>
+    <date day="22" month="09" year="2010">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>100.7759332127969</shares>
+            <price>287.7500</price>
+        </transaction>
+    </date>
+    <date day="27" month="09" year="2010">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>50.114950490203526</shares>
+            <price>291.1640</price>
+        </transaction>
+    </date>
+    <date day="01" month="10" year="2010">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>65.39838392153936</shares>
+            <price>153.7100</price>
+        </transaction>
+    </date>
+    <date day="05" month="11" year="2010">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-38.19853916703186</shares>
+            <price>26.8500</price>
+        </transaction>
+    </date>
+    <date day="23" month="11" year="2010">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>125.94471612548655</shares>
+            <price>25.1200</price>
+        </transaction>
+    </date>
+    <date day="23" month="11" year="2010">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>113.92394011805285</shares>
+            <price>308.7300</price>
+        </transaction>
+    </date>
+    <date day="14" month="01" year="2011">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>121.48336260849588</shares>
+            <price>25.7500</price>
+        </transaction>
+    </date>
+    <date day="02" month="02" year="2011">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>76.9478110593869</shares>
+            <price>23.9400</price>
+        </transaction>
+    </date>
+    <date day="13" month="04" year="2011">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>194.3643297740069</shares>
+            <price>182.2900</price>
+        </transaction>
+    </date>
+    <date day="06" month="05" year="2011">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>227.10991575637283</shares>
+            <price>346.6600</price>
+        </transaction>
+    </date>
+    <date day="09" month="05" year="2011">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-27.211743550127593</shares>
+            <price>27.9100</price>
+        </transaction>
+    </date>
+    <date day="01" month="07" year="2011">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>144.74751534522102</shares>
+            <price>343.2600</price>
+        </transaction>
+    </date>
+    <date day="07" month="07" year="2011">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-15.280775120880579</shares>
+            <price>29.7300</price>
+        </transaction>
+    </date>
+    <date day="16" month="08" year="2011">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>70.09787745249025</shares>
+            <price>26.1000</price>
+        </transaction>
+    </date>
+    <date day="26" month="09" year="2011">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>3.1091243284317107</shares>
+            <price>25.5200</price>
+        </transaction>
+    </date>
+    <date day="12" month="10" year="2011">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>108.64397866778907</shares>
+            <price>27.8000</price>
+        </transaction>
+    </date>
+    <date day="17" month="11" year="2011">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>143.83431812757243</shares>
+            <price>33.6800</price>
+        </transaction>
+    </date>
+    <date day="09" month="12" year="2011">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>93.70633423546647</shares>
+            <price>25.7000</price>
+        </transaction>
+    </date>
+    <date day="13" month="01" year="2012">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-38.98000085500099</shares>
+            <price>28.2500</price>
+        </transaction>
+    </date>
+    <date day="03" month="02" year="2012">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-126.12720390161688</shares>
+            <price>31.1500</price>
+        </transaction>
+    </date>
+    <date day="23" month="03" year="2012">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>283.09846784099193</shares>
+            <price>14.5450</price>
+        </transaction>
+    </date>
+    <date day="30" month="03" year="2012">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-3.2019191271243024</shares>
+            <price>15.3950</price>
+        </transaction>
+    </date>
+    <date day="27" month="04" year="2012">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>1.5946237570196438</shares>
+            <price>603.0000</price>
+        </transaction>
+    </date>
+    <date day="27" month="04" year="2012">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-18.767979433483898</shares>
+            <price>226.8500</price>
+        </transaction>
+    </date>
+    <date day="02" month="05" year="2012">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-175.03127174688635</shares>
+            <price>33.9400</price>
+        </transaction>
+    </date>
+    <date day="19" month="07" year="2012">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-23.916062090194778</shares>
+            <price>226.1700</price>
+        </transaction>
+    </date>
+    <date day="23" month="07" year="2012">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-46.322346420228996</shares>
+            <price>29.2800</price>
+        </transaction>
+    </date>
+    <date day="07" month="09" year="2012">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-80.97329310411926</shares>
+            <price>680.4400</price>
+        </transaction>
+    </date>
+    <date day="16" month="10" year="2012">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-40.943280323397495</shares>
+            <price>28.0600</price>
+        </transaction>
+    </date>
+    <date day="21" month="11" year="2012">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-15.268371837310646</shares>
+            <price>26.9500</price>
+        </transaction>
+    </date>
+    <date day="11" month="12" year="2012">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-99.81580216151141</shares>
+            <price>35.2800</price>
+        </transaction>
+    </date>
+    <date day="08" month="01" year="2013">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>100.11894263618323</shares>
+            <price>12.4915</price>
+        </transaction>
+    </date>
+    <date day="15" month="01" year="2013">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-5.315979019274211</shares>
+            <price>11.9800</price>
+        </transaction>
+    </date>
+    <date day="21" month="02" year="2013">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-11.3106936611267</shares>
+            <price>446.0600</price>
+        </transaction>
+    </date>
+    <date day="18" month="03" year="2013">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-5.505345880505908</shares>
+            <price>28.1000</price>
+        </transaction>
+    </date>
+    <date day="22" month="03" year="2013">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>154.5133287205005</shares>
+            <price>28.2500</price>
+        </transaction>
+    </date>
+    <date day="28" month="03" year="2013">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>19.966483053130474</shares>
+            <price>37.8900</price>
+        </transaction>
+    </date>
+    <date day="14" month="05" year="2013">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>104.76984237608703</shares>
+            <price>83.2400</price>
+        </transaction>
+    </date>
+    <date day="10" month="07" year="2013">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>377.20762414702597</shares>
+            <price>420.7300</price>
+        </transaction>
+    </date>
+    <date day="12" month="07" year="2013">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-72.6696925724056</shares>
+            <price>307.5500</price>
+        </transaction>
+    </date>
+    <date day="29" month="08" year="2013">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-28.02503146748944</shares>
+            <price>166.0600</price>
+        </transaction>
+    </date>
+    <date day="24" month="09" year="2013">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>34.642644181815356</shares>
+            <price>489.1000</price>
+        </transaction>
+    </date>
+    <date day="01" month="10" year="2013">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-36.37859888712698</shares>
+            <price>320.9500</price>
+        </transaction>
+    </date>
+    <date day="07" month="10" year="2013">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-2.2265181516421406</shares>
+            <price>183.0700</price>
+        </transaction>
+    </date>
+    <date day="23" month="10" year="2013">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>183.2656420295225</shares>
+            <price>524.9600</price>
+        </transaction>
+    </date>
+    <date day="06" month="11" year="2013">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-108.54387681738478</shares>
+            <price>38.1800</price>
+        </transaction>
+    </date>
+    <date day="22" month="11" year="2013">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>35.90665638378899</shares>
+            <price>121.3800</price>
+        </transaction>
+    </date>
+    <date day="05" month="12" year="2013">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>318.587322163517</shares>
+            <price>140.4800</price>
+        </transaction>
+    </date>
+    <date day="12" month="12" year="2013">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-15.04686894885214</shares>
+            <price>147.4700</price>
+        </transaction>
+    </date>
+    <date day="16" month="12" year="2013">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-30.80793654282022</shares>
+            <price>557.5000</price>
+        </transaction>
+    </date>
+    <date day="18" month="12" year="2013">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-165.7807859910565</shares>
+            <price>147.9800</price>
+        </transaction>
+    </date>
+    <date day="21" month="02" year="2014">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-9.654877642028925</shares>
+            <price>525.2500</price>
+        </transaction>
+    </date>
+    <date day="22" month="04" year="2014">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>0.8324290401612676</shares>
+            <price>218.6400</price>
+        </transaction>
+    </date>
+    <date day="12" month="05" year="2014">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-36.7225143332067</shares>
+            <price>18.5800</price>
+        </transaction>
+    </date>
+    <date day="11" month="06" year="2014">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>0.0</shares>
+            <price>19.4000</price>
+        </transaction>
+    </date>
+    <date day="26" month="06" year="2014">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-1.6401030289144205</shares>
+            <price>18.3600</price>
+        </transaction>
+    </date>
+    <date day="08" month="07" year="2014">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>75.56136604714251</shares>
+            <price>219.0700</price>
+        </transaction>
+    </date>
+    <date day="30" month="07" year="2014">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>419.61336993905024</shares>
+            <price>98.1500</price>
+        </transaction>
+    </date>
+    <date day="04" month="09" year="2014">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>153.8608977617096</shares>
+            <price>45.2600</price>
+        </transaction>
+    </date>
+    <date day="22" month="10" year="2014">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>99.31488245459933</shares>
+            <price>44.3800</price>
+        </transaction>
+    </date>
+    <date day="30" month="10" year="2014">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-232.64371577081096</shares>
+            <price>106.9800</price>
+        </transaction>
+    </date>
+    <date day="25" month="11" year="2014">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>31.732567628289114</shares>
+            <price>248.0900</price>
+        </transaction>
+    </date>
+    <date day="18" month="12" year="2014">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>78.87954744007295</shares>
+            <price>511.1000</price>
+        </transaction>
+    </date>
+    <date day="23" month="12" year="2014">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>226.8592122174842</shares>
+            <price>48.4500</price>
+        </transaction>
+    </date>
+    <date day="26" month="02" year="2015">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>267.1819465188343</shares>
+            <price>555.4800</price>
+        </transaction>
+    </date>
+    <date day="03" month="03" year="2015">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>333.3724457265883</shares>
+            <price>22.1800</price>
+        </transaction>
+    </date>
+    <date day="11" month="03" year="2015">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-118.79876062547997</shares>
+            <price>193.7400</price>
+        </transaction>
+    </date>
+    <date day="13" month="03" year="2015">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>181.69359421897607</shares>
+            <price>22.7000</price>
+        </transaction>
+    </date>
+    <date day="24" month="04" year="2015">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-77.40723241673963</shares>
+            <price>22.0300</price>
+        </transaction>
+    </date>
+    <date day="04" month="05" year="2015">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-201.31232866695396</shares>
+            <price>48.2400</price>
+        </transaction>
+    </date>
+    <date day="07" month="05" year="2015">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-56.55976248126011</shares>
+            <price>22.4900</price>
+        </transaction>
+    </date>
+    <date day="22" month="06" year="2015">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>119.7148873332036</shares>
+            <price>436.2900</price>
+        </transaction>
+    </date>
+    <date day="26" month="06" year="2015">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-92.94962682068454</shares>
+            <price>438.1000</price>
+        </transaction>
+    </date>
+    <date day="04" month="08" year="2015">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-47.74505262707823</shares>
+            <price>629.2500</price>
+        </transaction>
+    </date>
+    <date day="05" month="08" year="2015">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-10.433786434130216</shares>
+            <price>115.4000</price>
+        </transaction>
+    </date>
+    <date day="06" month="08" year="2015">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-311.8888458134753</shares>
+            <price>46.6200</price>
+        </transaction>
+    </date>
+    <date day="19" month="08" year="2015">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-78.24249154189474</shares>
+            <price>115.0100</price>
+        </transaction>
+    </date>
+    <date day="06" month="10" year="2015">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>39.57364321806931</shares>
+            <price>46.7500</price>
+        </transaction>
+    </date>
+    <date day="09" month="10" year="2015">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>47.63358076220482</shares>
+            <price>643.6100</price>
+        </transaction>
+    </date>
+    <date day="22" month="10" year="2015">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>264.4732464979132</shares>
+            <price>651.7900</price>
+        </transaction>
+    </date>
+    <date day="06" month="11" year="2015">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-199.3495000792804</shares>
+            <price>121.0600</price>
+        </transaction>
+    </date>
+    <date day="23" month="11" year="2015">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>158.99823687405276</shares>
+            <price>54.1900</price>
+        </transaction>
+    </date>
+    <date day="27" month="11" year="2015">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>11.02758008939917</shares>
+            <price>750.2600</price>
+        </transaction>
+    </date>
+    <date day="27" month="11" year="2015">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-101.19847635124947</shares>
+            <price>750.2600</price>
+        </transaction>
+    </date>
+    <date day="13" month="01" year="2016">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-141.58063894469709</shares>
+            <price>51.6400</price>
+        </transaction>
+    </date>
+    <date day="19" month="01" year="2016">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>30.443554335012237</shares>
+            <price>204.7200</price>
+        </transaction>
+    </date>
+    <date day="09" month="02" year="2016">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>23.50063543368482</shares>
+            <price>482.0700</price>
+        </transaction>
+    </date>
+    <date day="01" month="03" year="2016">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>43.46655703440241</shares>
+            <price>579.0400</price>
+        </transaction>
+    </date>
+    <date day="18" month="03" year="2016">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>473.6196925009994</shares>
+            <price>737.6000</price>
+        </transaction>
+    </date>
+    <date day="14" month="04" year="2016">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-260.96199536299054</shares>
+            <price>112.1000</price>
+        </transaction>
+    </date>
+    <date day="03" month="06" year="2016">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-2.0124933440875097</shares>
+            <price>46.4800</price>
+        </transaction>
+    </date>
+    <date day="10" month="06" year="2016">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-281.4371883313662</shares>
+            <price>98.8300</price>
+        </transaction>
+    </date>
+    <date day="14" month="06" year="2016">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>136.71469969194112</shares>
+            <price>718.2700</price>
+        </transaction>
+    </date>
+    <date day="21" month="06" year="2016">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>16.55669171917473</shares>
+            <price>715.8200</price>
+        </transaction>
+    </date>
+    <date day="29" month="06" year="2016">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-101.8628383970098</shares>
+            <price>46.6500</price>
+        </transaction>
+    </date>
+    <date day="18" month="07" year="2016">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-88.1686578739623</shares>
+            <price>733.7800</price>
+        </transaction>
+    </date>
+    <date day="05" month="08" year="2016">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-127.21180109236832</shares>
+            <price>230.0300</price>
+        </transaction>
+    </date>
+    <date day="15" month="09" year="2016">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-57.20886450745178</shares>
+            <price>115.5700</price>
+        </transaction>
+    </date>
+    <date day="22" month="09" year="2016">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-3.294802914601583</shares>
+            <price>787.2100</price>
+        </transaction>
+    </date>
+    <date day="05" month="10" year="2016">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>4.667369786252628</shares>
+            <price>57.6400</price>
+        </transaction>
+    </date>
+    <date day="25" month="10" year="2016">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-325.4604648086337</shares>
+            <price>118.2500</price>
+        </transaction>
+    </date>
+    <date day="06" month="01" year="2017">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>297.32178218233065</shares>
+            <price>62.8400</price>
+        </transaction>
+    </date>
+    <date day="06" month="01" year="2017">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-172.0405526874977</shares>
+            <price>229.0100</price>
+        </transaction>
+    </date>
+    <date day="27" month="01" year="2017">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-27.239112905496043</shares>
+            <price>835.7700</price>
+        </transaction>
+    </date>
+    <date day="02" month="02" year="2017">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>2.6774232798867814</shares>
+            <price>251.5500</price>
+        </transaction>
+    </date>
+    <date day="03" month="02" year="2017">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-144.1808140076171</shares>
+            <price>810.2000</price>
+        </transaction>
+    </date>
+    <date day="13" month="02" year="2017">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>169.47062690633612</shares>
+            <price>280.6000</price>
+        </transaction>
+    </date>
+    <date day="05" month="04" year="2017">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-17.609728213471634</shares>
+            <price>100.0300</price>
+        </transaction>
+    </date>
+    <date day="12" month="04" year="2017">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>17.03872105590242</shares>
+            <price>296.8400</price>
+        </transaction>
+    </date>
+    <date day="27" month="04" year="2017">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>281.44745072864583</shares>
+            <price>105.6400</price>
+        </transaction>
+    </date>
+    <date day="04" month="05" year="2017">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-302.19587206108446</shares>
+            <price>931.6600</price>
+        </transaction>
+    </date>
+    <date day="22" month="05" year="2017">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>115.66026334536834</shares>
+            <price>138.9000</price>
+        </transaction>
+    </date>
+    <date day="07" month="06" year="2017">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>23.47349092626685</shares>
+            <price>359.6500</price>
+        </transaction>
+    </date>
+    <date day="15" month="06" year="2017">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-338.2739938747025</shares>
+            <price>942.3100</price>
+        </transaction>
+    </date>
+    <date day="29" month="06" year="2017">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-414.9434185107521</shares>
+            <price>360.7500</price>
+        </transaction>
+    </date>
+    <date day="07" month="07" year="2017">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-275.84444538358355</shares>
+            <price>69.4600</price>
+        </transaction>
+    </date>
+    <date day="14" month="07" year="2017">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>292.34226833924856</shares>
+            <price>72.7800</price>
+        </transaction>
+    </date>
+    <date day="10" month="08" year="2017">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>126.76466342759478</shares>
+            <price>956.9200</price>
+        </transaction>
+    </date>
+    <date day="16" month="08" year="2017">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>47.25767312172881</shares>
+            <price>362.9100</price>
+        </transaction>
+    </date>
+    <date day="17" month="08" year="2017">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-1.048314090254184</shares>
+            <price>910.9800</price>
+        </transaction>
+    </date>
+    <date day="22" month="08" year="2017">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-7.645860126733393</shares>
+            <price>341.3500</price>
+        </transaction>
+    </date>
+    <date day="01" month="09" year="2017">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-42.19071545179509</shares>
+            <price>978.2500</price>
+        </transaction>
+    </date>
+    <date day="31" month="08" year="2017">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-35.44922840766643</shares>
+            <price>355.9000</price>
+        </transaction>
+    </date>
+    <date day="28" month="09" year="2017">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-157.0150785436146</shares>
+            <price>949.5000</price>
+        </transaction>
+    </date>
+    <date day="30" month="11" year="2017">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>204.39339430494348</shares>
+            <price>200.7100</price>
+        </transaction>
+    </date>
+    <date day="06" month="12" year="2017">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>9.308701183520316</shares>
+            <price>313.2600</price>
+        </transaction>
+    </date>
+    <date day="14" month="12" year="2017">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>58.14420190257764</shares>
+            <price>337.8900</price>
+        </transaction>
+    </date>
+    <date day="18" month="12" year="2017">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>1.6087342999223626</shares>
+            <price>86.3800</price>
+        </transaction>
+    </date>
+    <date day="19" month="12" year="2017">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>115.58448222633372</shares>
+            <price>196.1100</price>
+        </transaction>
+    </date>
+    <date day="09" month="01" year="2018">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-188.1270976029997</shares>
+            <price>1106.2600</price>
+        </transaction>
+    </date>
+    <date day="12" month="01" year="2018">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>7.561970200691358</shares>
+            <price>177.0900</price>
+        </transaction>
+    </date>
+    <date day="13" month="02" year="2018">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-260.29277210171523</shares>
+            <price>1052.1000</price>
+        </transaction>
+    </date>
+    <date day="16" month="03" year="2018">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-354.32542038419643</shares>
+            <price>1135.7300</price>
+        </transaction>
+    </date>
+    <date day="20" month="03" year="2018">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>23.207015121789507</shares>
+            <price>93.1300</price>
+        </transaction>
+    </date>
+    <date day="02" month="04" year="2018">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-0.3149912313069869</shares>
+            <price>252.4800</price>
+        </transaction>
+    </date>
+    <date day="05" month="04" year="2018">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>58.516070031131406</shares>
+            <price>92.3800</price>
+        </transaction>
+    </date>
+    <date day="27" month="06" year="2018">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>48.585797339635036</shares>
+            <price>1660.5100</price>
+        </transaction>
+    </date>
+    <date day="16" month="07" year="2018">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>105.33582811042902</shares>
+            <price>310.1000</price>
+        </transaction>
+    </date>
+    <date day="19" month="07" year="2018">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>46.77621438082218</shares>
+            <price>1186.9600</price>
+        </transaction>
+    </date>
+    <date day="24" month="07" year="2018">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>114.49662689505114</shares>
+            <price>1829.2400</price>
+        </transaction>
+    </date>
+    <date day="17" month="08" year="2018">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>59.5966871939108</shares>
+            <price>305.5000</price>
+        </transaction>
+    </date>
+    <date day="12" month="11" year="2018">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>140.45583462311794</shares>
+            <price>1038.6300</price>
+        </transaction>
+    </date>
+    <date day="29" month="11" year="2018">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-128.2668681556347</shares>
+            <price>157.3600</price>
+        </transaction>
+    </date>
+    <date day="11" month="12" year="2018">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>217.8821116972258</shares>
+            <price>148.1900</price>
+        </transaction>
+    </date>
+    <date day="18" month="12" year="2018">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-395.02261555897564</shares>
+            <price>166.0700</price>
+        </transaction>
+    </date>
+    <date day="06" month="02" year="2019">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>202.91014073926613</shares>
+            <price>106.0300</price>
+        </transaction>
+    </date>
+    <date day="12" month="02" year="2019">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>188.8906698550166</shares>
+            <price>311.8100</price>
+        </transaction>
+    </date>
+    <date day="21" month="02" year="2019">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>65.69438150188422</shares>
+            <price>171.0600</price>
+        </transaction>
+    </date>
+    <date day="06" month="03" year="2019">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>106.49826469465859</shares>
+            <price>1157.8600</price>
+        </transaction>
+    </date>
+    <date day="05" month="04" year="2019">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-65.61325461845755</shares>
+            <price>274.9600</price>
+        </transaction>
+    </date>
+    <date day="02" month="05" year="2019">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>168.8451728625297</shares>
+            <price>244.1000</price>
+        </transaction>
+    </date>
+    <date day="10" month="05" year="2019">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>267.65094948076137</shares>
+            <price>239.5200</price>
+        </transaction>
+    </date>
+    <date day="15" month="05" year="2019">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>26.841660922644557</shares>
+            <price>231.9500</price>
+        </transaction>
+    </date>
+    <date day="07" month="06" year="2019">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>15.981938498013605</shares>
+            <price>204.5000</price>
+        </transaction>
+    </date>
+    <date day="03" month="07" year="2019">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-26.52507478050191</shares>
+            <price>234.9000</price>
+        </transaction>
+    </date>
+    <date day="24" month="07" year="2019">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-453.9077240300049</shares>
+            <price>264.8800</price>
+        </transaction>
+    </date>
+    <date day="09" month="08" year="2019">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>26.148308237107276</shares>
+            <price>200.9900</price>
+        </transaction>
+    </date>
+    <date day="21" month="08" year="2019">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-38.95996680275568</shares>
+            <price>171.2300</price>
+        </transaction>
+    </date>
+    <date day="23" month="08" year="2019">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-156.2770475662664</shares>
+            <price>211.4000</price>
+        </transaction>
+    </date>
+    <date day="15" month="10" year="2019">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-49.65163537056594</shares>
+            <price>235.3200</price>
+        </transaction>
+    </date>
+    <date day="06" month="12" year="2019">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>114.40097111587427</shares>
+            <price>1340.6200</price>
+        </transaction>
+    </date>
+    <date day="12" month="12" year="2019">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-0.47334878310692496</shares>
+            <price>153.2400</price>
+        </transaction>
+    </date>
+    <date day="24" month="12" year="2019">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>29.17757064480185</shares>
+            <price>1343.5600</price>
+        </transaction>
+    </date>
+    <date day="21" month="01" year="2020">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-294.6250034091277</shares>
+            <price>547.2000</price>
+        </transaction>
+    </date>
+    <date day="10" month="03" year="2020">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>60.53934007850527</shares>
+            <price>261.0800</price>
+        </transaction>
+    </date>
+    <date day="24" month="04" year="2020">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>1.3560171470816726</shares>
+            <price>2410.2200</price>
+        </transaction>
+    </date>
+    <date day="04" month="05" year="2020">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-285.474524430273</shares>
+            <price>291.2900</price>
+        </transaction>
+    </date>
+    <date day="19" month="05" year="2020">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-183.2382147052674</shares>
+            <price>352.2200</price>
+        </transaction>
+    </date>
+    <date day="26" month="05" year="2020">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>88.67570187673006</shares>
+            <price>1417.0200</price>
+        </transaction>
+    </date>
+    <date day="09" month="06" year="2020">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-101.21869558974973</shares>
+            <price>343.9900</price>
+        </transaction>
+    </date>
+    <date day="10" month="06" year="2020">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>190.23346899955834</shares>
+            <price>374.6700</price>
+        </transaction>
+    </date>
+    <date day="16" month="06" year="2020">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>1.5604565730497866</shares>
+            <price>352.0800</price>
+        </transaction>
+    </date>
+    <date day="12" month="08" year="2020">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-14.62144479505982</shares>
+            <price>457.6100</price>
+        </transaction>
+    </date>
+    <date day="21" month="08" year="2020">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-30.25467394403414</shares>
+            <price>497.4800</price>
+        </transaction>
+    </date>
+    <date day="25" month="08" year="2020">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-3.8928431235461094</shares>
+            <price>216.4700</price>
+        </transaction>
+    </date>
+    <date day="31" month="08" year="2020">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-241.3466628564417</shares>
+            <price>225.5300</price>
+        </transaction>
+    </date>
+    <date day="03" month="09" year="2020">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>74.31571663872373</shares>
+            <price>407.0000</price>
+        </transaction>
+    </date>
+    <date day="21" month="09" year="2020">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-21.892482094256657</shares>
+            <price>110.0800</price>
+        </transaction>
+    </date>
+    <date day="30" month="10" year="2020">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>102.05132202109428</shares>
+            <price>1621.0100</price>
+        </transaction>
+    </date>
+    <date day="03" month="11" year="2020">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>115.56550575534854</shares>
+            <price>1650.2100</price>
+        </transaction>
+    </date>
+    <date day="10" month="11" year="2020">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>107.21897261355008</shares>
+            <price>510.8000</price>
+        </transaction>
+    </date>
+    <date day="10" month="12" year="2020">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>156.00624692038045</shares>
+            <price>1775.3300</price>
+        </transaction>
+    </date>
+    <date day="08" month="01" year="2021">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>84.14182793950845</shares>
+            <price>132.0500</price>
+        </transaction>
+    </date>
+    <date day="14" month="01" year="2021">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-330.4635592148778</shares>
+            <price>1740.1800</price>
+        </transaction>
+    </date>
+    <date day="25" month="01" year="2021">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>146.51578100324522</shares>
+            <price>142.9200</price>
+        </transaction>
+    </date>
+    <date day="11" month="02" year="2021">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>208.6392998444101</shares>
+            <price>2095.8900</price>
+        </transaction>
+    </date>
+    <date day="02" month="03" year="2021">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>40.74177330867385</shares>
+            <price>2075.8400</price>
+        </transaction>
+    </date>
+    <date day="15" month="03" year="2021">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>205.01863544824567</shares>
+            <price>2066.4900</price>
+        </transaction>
+    </date>
+    <date day="22" month="04" year="2021">
+        <transaction type="sell">
+            <stock>TSLA</stock>
+            <shares>-431.2430115492091</shares>
+            <price>719.6900</price>
+        </transaction>
+    </date>
+    <date day="21" month="05" year="2021">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>19.252280744223068</shares>
+            <price>2345.1000</price>
+        </transaction>
+    </date>
+    <date day="21" month="05" year="2021">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-23.701494668735933</shares>
+            <price>125.4300</price>
+        </transaction>
+    </date>
+    <date day="01" month="06" year="2021">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>379.7607368930194</shares>
+            <price>247.4000</price>
+        </transaction>
+    </date>
+    <date day="08" month="06" year="2021">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>222.12658181619344</shares>
+            <price>252.5700</price>
+        </transaction>
+    </date>
+    <date day="01" month="07" year="2021">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-22.349639008919766</shares>
+            <price>3432.9700</price>
+        </transaction>
+    </date>
+    <date day="06" month="07" year="2021">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>313.59079586497444</shares>
+            <price>277.6600</price>
+        </transaction>
+    </date>
+    <date day="19" month="07" year="2021">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-208.37255479883078</shares>
+            <price>751.1900</price>
+        </transaction>
+    </date>
+    <date day="11" month="08" year="2021">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>203.07561714904764</shares>
+            <price>286.9500</price>
+        </transaction>
+    </date>
+    <date day="15" month="09" year="2021">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>100.97141597669045</shares>
+            <price>2904.1200</price>
+        </transaction>
+    </date>
+    <date day="22" month="09" year="2021">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>155.92952651699832</shares>
+            <price>751.9400</price>
+        </transaction>
+    </date>
+    <date day="04" month="10" year="2021">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-140.49597322689746</shares>
+            <price>3189.7800</price>
+        </transaction>
+    </date>
+    <date day="12" month="11" year="2021">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>6.77422987517868</shares>
+            <price>149.9900</price>
+        </transaction>
+    </date>
+    <date day="13" month="12" year="2021">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>364.34148411857734</shares>
+            <price>281.6100</price>
+        </transaction>
+    </date>
+    <date day="10" month="01" year="2022">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>137.47837650628682</shares>
+            <price>3229.7200</price>
+        </transaction>
+    </date>
+    <date day="04" month="02" year="2022">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>117.50681070435115</shares>
+            <price>305.9400</price>
+        </transaction>
+    </date>
+    <date day="23" month="02" year="2022">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-284.94344765806204</shares>
+            <price>223.8700</price>
+        </transaction>
+    </date>
+    <date day="14" month="04" year="2022">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>200.64096063296338</shares>
+            <price>279.8300</price>
+        </transaction>
+    </date>
+    <date day="24" month="05" year="2022">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>17.038007891128984</shares>
+            <price>2118.5200</price>
+        </transaction>
+    </date>
+    <date day="08" month="06" year="2022">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>30.646617841618575</shares>
+            <price>2344.7600</price>
+        </transaction>
+    </date>
+    <date day="05" month="07" year="2022">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-15.393732920921085</shares>
+            <price>113.5000</price>
+        </transaction>
+    </date>
+    <date day="22" month="07" year="2022">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>186.97613916174933</shares>
+            <price>122.4200</price>
+        </transaction>
+    </date>
+    <date day="26" month="07" year="2022">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>86.02632188430873</shares>
+            <price>105.4400</price>
+        </transaction>
+    </date>
+    <date day="08" month="08" year="2022">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-24.269002640339153</shares>
+            <price>118.1400</price>
+        </transaction>
+    </date>
+    <date day="11" month="08" year="2022">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>4.929832949611516</shares>
+            <price>119.8200</price>
+        </transaction>
+    </date>
+    <date day="24" month="08" year="2022">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-174.62443529004932</shares>
+            <price>172.2200</price>
+        </transaction>
+    </date>
+    <date day="05" month="10" year="2022">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-130.70578066954863</shares>
+            <price>146.4000</price>
+        </transaction>
+    </date>
+    <date day="26" month="10" year="2022">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-340.26707414220454</shares>
+            <price>128.9600</price>
+        </transaction>
+    </date>
+    <date day="31" month="10" year="2022">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-294.7435301409951</shares>
+            <price>134.9700</price>
+        </transaction>
+    </date>
+    <date day="02" month="11" year="2022">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>28.971169496915422</shares>
+            <price>214.9800</price>
+        </transaction>
+    </date>
+    <date day="09" month="11" year="2022">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-356.3481800714542</shares>
+            <price>224.5100</price>
+        </transaction>
+    </date>
+    <date day="23" month="11" year="2022">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-143.39230101233852</shares>
+            <price>165.1900</price>
+        </transaction>
+    </date>
+    <date day="05" month="12" year="2022">
+        <transaction type="buy">
+            <stock>MSFT</stock>
+            <shares>290.94998916070045</shares>
+            <price>250.2000</price>
+        </transaction>
+    </date>
+    <date day="05" month="12" year="2022">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-56.41049879981794</shares>
+            <price>91.0100</price>
+        </transaction>
+    </date>
+    <date day="23" month="12" year="2022">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>25.91140085434549</shares>
+            <price>85.2500</price>
+        </transaction>
+    </date>
+    <date day="25" month="01" year="2023">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-103.6725507216334</shares>
+            <price>240.6100</price>
+        </transaction>
+    </date>
+    <date day="14" month="04" year="2023">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>49.283605023796135</shares>
+            <price>185.0000</price>
+        </transaction>
+    </date>
+    <date day="18" month="04" year="2023">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-106.76609265417358</shares>
+            <price>288.3700</price>
+        </transaction>
+    </date>
+    <date day="28" month="04" year="2023">
+        <transaction type="sell">
+            <stock>NVDA</stock>
+            <shares>-214.39820162044452</shares>
+            <price>277.4900</price>
+        </transaction>
+    </date>
+    <date day="03" month="05" year="2023">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>59.35236203975233</shares>
+            <price>103.6500</price>
+        </transaction>
+    </date>
+    <date day="09" month="05" year="2023">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>6.898414233772613</shares>
+            <price>171.7700</price>
+        </transaction>
+    </date>
+    <date day="27" month="06" year="2023">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>154.69639411868638</shares>
+            <price>188.0600</price>
+        </transaction>
+    </date>
+    <date day="12" month="07" year="2023">
+        <transaction type="buy">
+            <stock>AMZN</stock>
+            <shares>5.008098763751252</shares>
+            <price>130.8000</price>
+        </transaction>
+    </date>
+    <date day="25" month="07" year="2023">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>57.57734483837471</shares>
+            <price>456.7900</price>
+        </transaction>
+    </date>
+    <date day="08" month="08" year="2023">
+        <transaction type="sell">
+            <stock>AMZN</stock>
+            <shares>-9.681279909198684</shares>
+            <price>139.9400</price>
+        </transaction>
+    </date>
+    <date day="22" month="08" year="2023">
+        <transaction type="buy">
+            <stock>NVDA</stock>
+            <shares>73.14140547492171</shares>
+            <price>456.6800</price>
+        </transaction>
+    </date>
+    <date day="25" month="10" year="2023">
+        <transaction type="sell">
+            <stock>AAPL</stock>
+            <shares>-183.75433539094294</shares>
+            <price>171.1000</price>
+        </transaction>
+    </date>
+    <date day="14" month="11" year="2023">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>195.0163228673785</shares>
+            <price>135.4300</price>
+        </transaction>
+    </date>
+    <date day="28" month="11" year="2023">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>175.83585604132526</shares>
+            <price>138.6200</price>
+        </transaction>
+    </date>
+    <date day="07" month="12" year="2023">
+        <transaction type="sell">
+            <stock>GOOG</stock>
+            <shares>-69.86282945083765</shares>
+            <price>138.4500</price>
+        </transaction>
+    </date>
+    <date day="07" month="12" year="2023">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>14.393996536628766</shares>
+            <price>242.6400</price>
+        </transaction>
+    </date>
+    <date day="08" month="01" year="2024">
+        <transaction type="buy">
+            <stock>TSLA</stock>
+            <shares>32.10882775261349</shares>
+            <price>240.4500</price>
+        </transaction>
+    </date>
+    <date day="06" month="02" year="2024">
+        <transaction type="buy">
+            <stock>GOOG</stock>
+            <shares>97.98851481968151</shares>
+            <price>145.4100</price>
+        </transaction>
+    </date>
+    <date day="22" month="03" year="2024">
+        <transaction type="sell">
+            <stock>MSFT</stock>
+            <shares>-44.81642171131272</shares>
+            <price>428.7400</price>
+        </transaction>
+    </date>
+    <date day="30" month="05" year="2024">
+        <transaction type="buy">
+            <stock>AAPL</stock>
+            <shares>84.33672435454845</shares>
+            <price>191.2900</price>
+        </transaction>
+    </date>
+</testing>
