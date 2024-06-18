@@ -149,7 +149,8 @@ public class StocksModelImpl implements StocksModel {
   private int retrievePortfolioIndex(String name) {
     int pIndex = -1;
     for (int p = 0; p < portfolios.size(); p++) {
-      if (portfolios.get(p).getName().equals(name)) {
+      if (portfolios.get(p).getName().equals(name)
+      || portfolios.get(p).getName().equals(name + ".xml")) {
         pIndex = p;
       }
     }
