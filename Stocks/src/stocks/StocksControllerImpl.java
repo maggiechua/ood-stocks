@@ -54,7 +54,7 @@ public class StocksControllerImpl implements StocksController {
     String thisStock;
 
     output.welcomeMessage();
-    stock.loadPortfolios();
+    stock = stock.loadPortfolios();
 
     while (!quit) {
       output.typeInstruct();
@@ -85,7 +85,7 @@ public class StocksControllerImpl implements StocksController {
         case "check-portfolio" :
           try {
             portfolioName = sc.next();
-            date = dateProcess(sc, true);
+            date = dateProcess(sc, false);
             output.formattedReturn(stock.portfolioValue(portfolioName, date));
           }
           catch (Exception e) {

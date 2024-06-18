@@ -144,7 +144,8 @@ public class StocksModelImpl implements StocksModel {
   private int retrievePortfolioIndex(String name) {
     int pIndex = -1;
     for (int p = 0; p < portfolios.size(); p++) {
-      if (portfolios.get(p).getName().equals(name)) {
+      if (portfolios.get(p).getName().equals(name)
+      || portfolios.get(p).getName().equals(name + ".xml")) {
         pIndex = p;
       }
     }
@@ -327,10 +328,10 @@ public class StocksModelImpl implements StocksModel {
       if (portfolios.contains(name)) {
         int pIndex = this.retrievePortfolioIndex(name);
         Portfolio portfolio = portfolios.get(pIndex);
-        valueGet = portfolio.calculateLastValue("year", year);
+        valueGet = 0.0;
       }
       else {
-        valueGet = Double.parseDouble(fp.getLastWorkingDay(name, "year", year));
+        valueGet = Double.parseDouble(fp.getLastWorkingDay(name, 0, year));
       }
     }
     else {

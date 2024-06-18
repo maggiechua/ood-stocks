@@ -37,7 +37,7 @@ public class FileParser {
   // This is an error to do with file path and the location of directories- we have not been able to
   // find a reason for this discrepancy, nor a solution for it.
   public String getOSType() {
-    return "mac";
+    return "windows";
   }
 
   /**
@@ -51,7 +51,13 @@ public class FileParser {
   public Path retrievePath(String os, String name, String dir, String fileType) {
     String userDirectory = System.getProperty("user.dir");
     String directoryPath = "";
-    String fileName = name + fileType;
+    String [] nameSplit = new String[]{};
+    String fName = name;
+    if (name.contains(".xml")) {
+      nameSplit = name.split(".xml");
+      fName = nameSplit[0];
+    }
+    String fileName = fName + fileType;
     if (os.equals("windows")) {
       directoryPath = userDirectory + "/Stocks/res/" + dir;
     }
@@ -68,7 +74,7 @@ public class FileParser {
    * @param date the given date expressed as YYYY-MM-DD
    * @return the given date's closing stock price as a String
    */
-  protected String getStockPrice(String stockSymbol, String date) {
+  public String getStockPrice(String stockSymbol, String date) {
     Path path = this.retrievePath(this.getOSType(), stockSymbol, "data/", ".csv");
     File file = path.toFile();
 
