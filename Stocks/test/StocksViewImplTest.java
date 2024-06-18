@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import stocks.Portfolio;
+import stocks.PortfolioImpl;
 import stocks.StocksController;
 import stocks.StocksModel;
 import stocks.StocksModelImpl;
 import stocks.StocksView;
 import stocks.StocksViewImpl;
+import stocks.Transaction;
 
 import static org.junit.Assert.assertEquals;
 
@@ -34,6 +36,7 @@ public class StocksViewImplTest {
     ap = new StringBuilder();
     model = new StocksModelMock(ap);
     view = new StocksViewImpl(ap);
+    p = new PortfolioImpl("a", new HashMap<String, Double>(), new ArrayList<Transaction>());
   }
 
   @Test

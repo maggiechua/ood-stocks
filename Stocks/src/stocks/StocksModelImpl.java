@@ -40,54 +40,6 @@ public class StocksModelImpl implements StocksModel {
     this.fp = new FileParser();
   }
 
-  /**
-   * the getAPIKey method stores and returns the API key used for the program.
-   */
-  private String getAPIKey() {
-    return "HI5ADT0RWWANGUID";
-  }
-
-  /**
-   * the createPortfolio method determines whether a given date is an x-day crossover for the stock
-   * saved in the class.
-   * @param stockSymbol the stock symbol
-   * @param numOfDays the number of days in the range to search for
-   * @param date the date to find the data of
-   * @return a List of data in Double format
-   */
-  protected List<Double> getStockInfo(String stockSymbol, Integer numOfDays, String date) {
-    Path path = fp.retrievePath(fp.getOSType(), stockSymbol, "data/", ".csv");
-    File file = path.toFile();
-
-    List<Double> output = new ArrayList<>();
-    if (!file.exists()) {
-      fc.createStockCSVFile(stock, this.getAPIKey());
-    }
-    try {
-      Scanner sc = new Scanner(file);
-      int counter = 0;
-      while (sc.hasNextLine()) {
-        String line = sc.nextLine();
-        String[] lineInfo = line.split(",");
-        if (lineInfo[0].equals(date)) {
-          output.add(Double.parseDouble(lineInfo[4]));
-          counter++;
-        }
-        else if (counter - 1 == numOfDays) {
-          break;
-        }
-        else if (counter > 0) {
-          output.add(Double.parseDouble(lineInfo[4]));
-          counter++;
-        }
-      }
-    }
-    catch (IOException e) {
-      System.out.println("The stock did not exist on the date given.");
-    }
-    return output;
-  }
-
   @Override
   public StocksModel loadPortfolios() {
     Set<Path> files = fp.retrieveFilesInDirectory();
@@ -121,7 +73,7 @@ public class StocksModelImpl implements StocksModel {
   public Double gainLoss(Integer numOfDays, String date) {
     Double lastDate = 0.0;
     Double startDate = 0.0;
-    List<Double> priceData = this.getStockInfo(this.stock, numOfDays, date);
+    List<Double> priceData = fc.getStockInfo(this.stock, numOfDays, date);
     try {
       lastDate = priceData.get(priceData.size() - 1);
       startDate = priceData.get(0);
@@ -136,7 +88,7 @@ public class StocksModelImpl implements StocksModel {
   @Override
   public Double movingAvg(Integer numOfDays, String date) {
     Double sum = 0.0;
-    List<Double> priceData = this.getStockInfo(this.stock, numOfDays, date);
+    List<Double> priceData = fc.getStockInfo(this.stock, numOfDays, date);
     try {
       priceData.remove(priceData.size() - 1);
       for (Double price : priceData) {
@@ -154,7 +106,7 @@ public class StocksModelImpl implements StocksModel {
   public String crossovers(Integer numOfDays, String date) {
     String message = "";
     Double movingAvg =  this.movingAvg(numOfDays, date);
-    List<Double> priceData = this.getStockInfo(this.stock, 1, date);
+    List<Double> priceData = fc.getStockInfo(this.stock, 1, date);
     try {
       if (priceData.get(0) > movingAvg) {
         message = "Yes, this date is a " + numOfDays + "-day crossover.";
@@ -456,24 +408,24 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl balance(String portfolioName, String date, HashMap<String,
+  public StocksModelImpl balance(String portfolioName, String date, Map<String,
           Double> weights) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio p = pfs.remove(pIndex);
     double max = portfolioValue(portfolioName, date);
     for (String a : weights.keySet()) {
-      Double shareCount = pfs.get(pIndex).getPortfolioContents().get(a);
+      Double shareCount = p.getPortfolioContents().get(a);
       Double perc = weights.get(a);
-      List<Double> stockValue = this.getStockInfo(a, 1, date);
+      List<Double> stockValue = fc.getStockInfo(a, 1, date);
       Double newVal = (perc / 100) * max;
       newVal = newVal / stockValue.get(0);
       shareCount = shareCount - newVal;
       if (shareCount < 0) {
-        p.addToPortfolio(stock, date, Math.abs(shareCount));
+        p.addToPortfolio(a, date, Math.abs(shareCount));
       }
       else if (shareCount > 0) {
-        p.removeFromPortfolio(stock, date, shareCount);
+        p.removeFromPortfolio(a, date, shareCount);
       }
       pfs.add(p);
       pfs.get(pIndex).getPortfolioContents().put(a, newVal);

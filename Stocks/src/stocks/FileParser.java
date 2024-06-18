@@ -31,7 +31,6 @@ public class FileParser {
     this.cp = new CompareDate();
   }
 
-
   // This method returns OS type. If the user OS type does not match the return, PLEASE change it.
   // "mac" for mac.
   // "windows" for windows.
