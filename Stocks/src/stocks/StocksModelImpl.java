@@ -365,7 +365,6 @@ public class StocksModelImpl implements StocksModel {
 
     HashMap<String, Double> barValues = new HashMap<>();
     Double valueGet;
-    String [] date = one.toString().split("-");
     String dateOut;
     valueGet = addingDates(one, time, setValue, isPortfolio , name);
     boolean initial = true;
