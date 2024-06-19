@@ -53,4 +53,9 @@ public class SearchPanel extends JPanel implements PanelItems {
   public void addCommandListener(ActionListener actionEvent) {
     selectionComboBox.addActionListener(actionEvent);
   }
+
+  @Override
+  public String getCommand() {
+    return "";
+  }
 }

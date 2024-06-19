@@ -39,9 +39,14 @@ public class StocksGUIController implements StocksController, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()) {
+    String command = output.retrieveCommand();
+
+    switch (command) {
       case "Stock-Portfolio Selected":
         System.out.println("we made it ig");
+        break;
+      case "hi":
+        System.out.println("it works");
         break;
       default:
         break;

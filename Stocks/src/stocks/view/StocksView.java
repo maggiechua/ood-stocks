@@ -129,4 +129,6 @@ public interface StocksView {
   public void rebalanced(String portfolioName);
 
   public void setCommandListener(ActionListener e);
+
+  public String retrieveCommand();
 }

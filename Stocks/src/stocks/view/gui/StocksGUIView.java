@@ -58,6 +58,11 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   @Override
+  public String retrieveCommand() {
+    return pi.getCommand();
+  }
+
+  @Override
   public void welcomeMessage() {
 
   }
