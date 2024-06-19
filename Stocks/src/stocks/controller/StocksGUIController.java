@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import javax.swing.*;
+
 import stocks.view.StocksView;
 import stocks.model.StocksModel;
 import stocks.view.gui.StocksGUIView;
@@ -39,7 +41,7 @@ public class StocksGUIController implements StocksController, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    String command = output.retrieveCommand();
+    String command = e.getActionCommand();
 
     switch (command) {
       case "Stock-Portfolio Selected":
