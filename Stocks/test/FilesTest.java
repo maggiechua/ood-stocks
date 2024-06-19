@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import stocks.CompareTransaction;
-import stocks.FileCreator;
-import stocks.FileParser;
-import stocks.Portfolio;
-import stocks.StocksModel;
-import stocks.StocksModelImpl;
-import stocks.Transaction;
+import stocks.model.CompareTransaction;
+import stocks.model.FileCreator;
+import stocks.model.FileParser;
+import stocks.model.Portfolio;
+import stocks.model.StocksModel;
+import stocks.model.StocksModelImpl;
+import stocks.model.Transaction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

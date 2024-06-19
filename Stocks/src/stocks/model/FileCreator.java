@@ -1,4 +1,4 @@
-package stocks;
+package stocks.model;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;

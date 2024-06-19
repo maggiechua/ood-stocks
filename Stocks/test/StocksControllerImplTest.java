@@ -5,10 +5,10 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import stocks.StocksController;
-import stocks.StocksControllerImpl;
-import stocks.StocksModel;
-import stocks.StocksView;
+import stocks.controller.StocksController;
+import stocks.controller.StocksControllerImpl;
+import stocks.model.StocksModel;
+import stocks.view.StocksView;
 
 import static org.junit.Assert.assertEquals;
 

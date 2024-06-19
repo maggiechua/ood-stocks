@@ -1,20 +1,19 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import stocks.Portfolio;
-import stocks.PortfolioImpl;
-import stocks.StocksController;
-import stocks.StocksModel;
-import stocks.StocksModelImpl;
-import stocks.StocksView;
-import stocks.Transaction;
+import stocks.model.Portfolio;
+import stocks.model.PortfolioImpl;
+import stocks.controller.StocksController;
+import stocks.model.StocksModel;
+import stocks.model.StocksModelImpl;
+import stocks.view.StocksView;
+import stocks.model.Transaction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

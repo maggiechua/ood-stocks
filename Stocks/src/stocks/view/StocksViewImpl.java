@@ -1,12 +1,10 @@
-package stocks;
+package stocks.view;
 
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 //TODO: PERFORMANCE OVER TIME
 // barchart must show the following:
@@ -202,5 +200,10 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void rebalanced(String portfolioName) {
     writeMessage("PortfolioImpl " + portfolioName + " rebalanced. \n");
+  }
+
+  @Override
+  public void setCommandListener(ActionListener e) {
+
   }
 }

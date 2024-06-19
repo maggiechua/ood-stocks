@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import stocks.StocksView;
+import stocks.view.StocksView;
 
 /**
  * The StocksViewMock is a class that represents an imitation of our view for

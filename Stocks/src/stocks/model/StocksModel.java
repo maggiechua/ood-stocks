@@ -1,4 +1,4 @@
-package stocks;
+package stocks.model;
 
 import java.text.ParseException;
 import java.util.ArrayList;

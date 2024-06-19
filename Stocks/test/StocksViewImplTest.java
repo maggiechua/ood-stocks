@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import stocks.Portfolio;
-import stocks.PortfolioImpl;
-import stocks.StocksController;
-import stocks.StocksModel;
-import stocks.StocksModelImpl;
-import stocks.StocksView;
-import stocks.StocksViewImpl;
-import stocks.Transaction;
+import stocks.model.Portfolio;
+import stocks.model.PortfolioImpl;
+import stocks.controller.StocksController;
+import stocks.model.StocksModel;
+import stocks.model.StocksModelImpl;
+import stocks.view.StocksView;
+import stocks.view.StocksViewImpl;
+import stocks.model.Transaction;
 
 import static org.junit.Assert.assertEquals;
 
