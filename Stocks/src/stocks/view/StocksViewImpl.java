@@ -206,4 +206,9 @@ public class StocksViewImpl implements StocksView {
   public void setCommandListener(ActionListener e) {
 
   }
+
+  @Override
+  public String retrieveCommand() {
+    return "";
+  }
 }

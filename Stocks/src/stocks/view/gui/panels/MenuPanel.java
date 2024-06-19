@@ -38,36 +38,6 @@ public class MenuPanel extends JPanel implements PanelItems {
 //    combobox.addActionListener(this);
     methodsPanel.add(methodsCombobox);
 
-    List<String> years = new ArrayList<String>();
-    for (int y = 2000; y < 2025; y++) {
-      years.add((String.valueOf(y)));
-    }
-    String[] yearOptions = new String[years.size()];
-    yearOptions = years.toArray(yearOptions);
-    JComboBox<String> yearsCombobox = this.createComboBox(yearOptions);
-    methodsPanel.add(yearsCombobox);
-
-    // entering the number of days/shares
-    valueLabel = new JLabel("Enter the number of: ");
-    enterVal = new JTextField(6);
-    methodsPanel.add(valueLabel);
-    methodsPanel.add(enterVal);
-
-    // entering date
-    yearLabel = new JLabel("Enter Year: ");
-    enterYear = new JTextField(4);
-    monthLabel = new JLabel("Enter Month: ");
-    enterMonth = new JTextField(2);
-    dayLabel = new JLabel("Enter Day: ");
-    enterDay = new JTextField(2);
-
-    methodsPanel.add(yearLabel);
-    methodsPanel.add(enterYear);
-    methodsPanel.add(monthLabel);
-    methodsPanel.add(enterMonth);
-    methodsPanel.add(dayLabel);
-    methodsPanel.add(enterDay);
-
     // search a stock
     searchPanel = new JPanel();
     searchPanel.setBackground(Color.WHITE);
@@ -93,5 +63,10 @@ public class MenuPanel extends JPanel implements PanelItems {
   @Override
   public void addCommandListener(ActionListener actionEvent) {
 
+  }
+
+  @Override
+  public String getCommand() {
+    return "";
   }
 }
