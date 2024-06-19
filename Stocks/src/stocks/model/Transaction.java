@@ -1,4 +1,4 @@
-package stocks;
+package stocks.model;
 
 /**
  * The following class represents a Transaction (buying/selling) of a portfolio's stocks.

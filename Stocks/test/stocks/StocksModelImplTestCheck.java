@@ -7,6 +7,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import stocks.model.FileParser;
+import stocks.model.Portfolio;
+import stocks.model.StocksModel;
+import stocks.model.StocksModelImpl;
+
 import static org.junit.Assert.assertEquals;
 
 /**

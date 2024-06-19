@@ -1,7 +1,13 @@
-package stocks;
+package stocks.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import stocks.view.StocksView;
+import stocks.model.StocksModel;
+import stocks.view.gui.StocksGUIView;
 
 /**
  * This class represents the controller of the stocks program.
@@ -10,10 +16,10 @@ import java.util.Scanner;
  * This controller works with any Readable to read its inputs.
  * Dates are taken in YYYY-MM-DD format.
  */
-public class StocksControllerImpl implements StocksController {
+public class StocksGUIController implements StocksController, ActionListener {
   private Readable rd;
   private StocksModel stock;
-  private StocksView output;
+  private StocksGUIView output;
 
   /**
    * This makes a new StockControllerImpl.
@@ -21,7 +27,7 @@ public class StocksControllerImpl implements StocksController {
    * @param rd something to read
    * @param output the StocksView connection (connects to methods to append words)
    */
-  public StocksControllerImpl(StocksModel stock, Readable rd, StocksView output)
+  public StocksGUIController(StocksModel stock, Readable rd, StocksGUIView output)
           throws IllegalArgumentException {
     if ((stock == null) || (rd == null)) {
       throw new IllegalArgumentException("Stock or Readable is null");
@@ -29,6 +35,17 @@ public class StocksControllerImpl implements StocksController {
     this.stock = stock;
     this.rd = rd;
     this.output = output;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    switch (e.getActionCommand()) {
+      case "Stock-Portfolio Selected":
+        System.out.println("we made it ig");
+        break;
+      default:
+        break;
+    }
   }
 
   /**
@@ -40,6 +57,9 @@ public class StocksControllerImpl implements StocksController {
    */
   @Override
   public void execute() {
+    this.output.setCommandListener(this);
+
+
     Scanner sc = new Scanner(rd);
     boolean quit = false;
     boolean miniquit;

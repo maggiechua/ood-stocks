@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import stocks.Portfolio;
-import stocks.StocksModel;
-import stocks.StocksModelImpl;
+import stocks.model.Portfolio;
+import stocks.model.StocksModel;
+import stocks.model.StocksModelImpl;
 
 /**
  * The StocksModelMock is a class that represents an imitation of our model for

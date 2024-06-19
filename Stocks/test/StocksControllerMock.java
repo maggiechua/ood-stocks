@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import stocks.StocksController;
-import stocks.StocksModel;
-import stocks.StocksModelImpl;
-import stocks.StocksView;
+import stocks.controller.StocksController;
+import stocks.model.StocksModel;
+import stocks.model.StocksModelImpl;
+import stocks.view.StocksView;
 
 /**
  * The StocksControllerMock is a class that represents an imitation of our controller for
