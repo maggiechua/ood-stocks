@@ -10,33 +10,43 @@ import java.util.List;
 import javax.swing.*;
 
 public class MenuPanel extends JPanel implements PanelItems {
-  JPanel searchPanel, methodsPanel;
-  JTextField stockSearch, enterVal, enterYear, enterMonth, enterDay;
-  JList<String> yearOptions, monthOptions, dayOptions;
+  JPanel searchPanel, stockActionsPanel;
+  JTextField stockSearch;
   JButton search;
-  JLabel searchLabel, valueLabel, yearLabel, monthLabel, dayLabel;
+  JLabel searchLabel;
 
   public MenuPanel() {
     super();
     this.setBackground(Color.WHITE);
-    this.setPreferredSize(new Dimension(500, 400));
-    this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+    this.setPreferredSize(new Dimension(400, 500));
+    this.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
 
-    // stock methods
-    methodsPanel = new JPanel();
-    methodsPanel.setBackground(Color.WHITE);
-    methodsPanel.setLayout(new BoxLayout(methodsPanel, BoxLayout.PAGE_AXIS));
-    methodsPanel.setBorder(BorderFactory.createTitledBorder("Select a stock method from the " +
-            "following list:"));
-    this.add(methodsPanel);
+    //
+    stockActionsPanel = new JPanel();
+    stockActionsPanel.setBackground(Color.WHITE);
+    stockActionsPanel.setBorder(BorderFactory.createTitledBorder("Stock Actions:"));
+    stockActionsPanel.setBounds(0, 100, 400, 400);
+    stockActionsPanel.setLayout(new BoxLayout(stockActionsPanel, BoxLayout.PAGE_AXIS));
 
-    String[] methodOptions = {"", "check gain-loss", "moving average", "crossover",
-            "buy stock", "sell stock"};
-    //the event listener when an option is selected
-    JComboBox<String> methodsCombobox = this.createComboBox(methodOptions);
-    methodsCombobox.setActionCommand("Size options");
-//    combobox.addActionListener(this);
-    methodsPanel.add(methodsCombobox);
+    JRadioButton[] radioButtons = new JRadioButton[4];
+
+    //buttons groups are used to combine radio buttons. Only one radio
+    // button in each group can be selected.
+    ButtonGroup rGroup1 = new ButtonGroup();
+
+    List<String> stockMethodOptions = new ArrayList<>(Arrays.asList(
+            "portfolio value", "portfolio composition",
+            "buy stock", "sell stock"));
+    for (int i = 0; i < radioButtons.length; i++) {
+      radioButtons[i] = new JRadioButton(stockMethodOptions.get(i));
+      radioButtons[i].setSelected(false);
+
+      radioButtons[i].setActionCommand("Stock Method Selected" + radioButtons[i].getText());
+//      radioButtons[i].addActionListener(this);
+      rGroup1.add(radioButtons[i]);
+      stockActionsPanel.add(radioButtons[i]);
+    }
+    this.add(stockActionsPanel);
 
     // search a stock
     searchPanel = new JPanel();
