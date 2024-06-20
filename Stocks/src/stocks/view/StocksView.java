@@ -6,12 +6,10 @@ import java.util.Map;
 
 import javax.swing.*;
 
-import stocks.view.gui.panels.PanelItems;
-
 /**
  * This interface represents the methods for the view section of the program.
  */
-public interface StocksView extends PanelItems {
+public interface StocksView {
   /**
    * the welcomeMessage method adds the welcome message to the appendable in the class.
    */

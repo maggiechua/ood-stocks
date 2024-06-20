@@ -42,15 +42,18 @@ public class StocksGUIController implements StocksController, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
+    ArrayList<ActionEvent> l = output.getListeners();
+    String command = "";
+    for (ActionEvent ae : l) {
+      command = ae.getActionCommand();
+    }
     switch (command) {
       case "Stock-Portfolio Selected":
         System.out.println("we made it ig");
         break;
-      case "Search":
-        System.out.println("search");
+      case "hi":
+        System.out.println("it works");
         break;
-      case "":
-        System.out.println("test");
       default:
         break;
     }
@@ -65,7 +68,6 @@ public class StocksGUIController implements StocksController, ActionListener {
    */
   @Override
   public void execute() {
-    this.output.addCommandListener(this);
 
     Scanner sc = new Scanner(rd);
     boolean quit = false;

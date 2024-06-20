@@ -14,9 +14,8 @@ import stocks.view.gui.StocksGUIView;
 
 public class MenuPanel extends JPanel implements PanelItems, ActionListener {
   JPanel searchPanel, stockActionsPanel;
-  JRadioButton[] radioButtons;
   JTextField stockSearch;
-  JButton searchButton;
+  JButton search;
   JLabel searchLabel;
   StocksGUIView frame;
 
@@ -34,7 +33,7 @@ public class MenuPanel extends JPanel implements PanelItems, ActionListener {
     stockActionsPanel.setBounds(0, 100, 400, 400);
     stockActionsPanel.setLayout(new BoxLayout(stockActionsPanel, BoxLayout.PAGE_AXIS));
 
-    radioButtons = new JRadioButton[4];
+    JRadioButton[] radioButtons = new JRadioButton[4];
 
     //buttons groups are used to combine radio buttons. Only one radio
     // button in each group can be selected.
@@ -59,15 +58,13 @@ public class MenuPanel extends JPanel implements PanelItems, ActionListener {
     searchPanel.setBackground(Color.WHITE);
     searchLabel = new JLabel("Search a Stock:");
     stockSearch = new JTextField(15);
-    
     search = new JButton("search");
     search.addActionListener(this);
     search.setActionCommand("search");
     search.setPreferredSize(new Dimension(80, 20));
-
     searchPanel.add(searchLabel);
     searchPanel.add(stockSearch);
-    searchPanel.add(searchButton);
+    searchPanel.add(search);
     this.add(searchPanel);
   }
 
@@ -80,19 +77,7 @@ public class MenuPanel extends JPanel implements PanelItems, ActionListener {
   }
 
   @Override
-  public void addCommandListener(ActionListener actionEvent) {
-    for (JRadioButton r : radioButtons) {
-      r.addActionListener(actionEvent);
-    }
-    searchButton.addActionListener(actionEvent);
-  }
-
-  @Override
-  public String getCommand() {
-    return "";
-
   public void actionPerformed(ActionEvent e) {
     frame.actionPerformed(e);
-
   }
 }

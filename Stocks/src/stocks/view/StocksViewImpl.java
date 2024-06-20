@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.*;
+//TODO: PERFORMANCE OVER TIME
+// barchart must show the following:
+// - specified name of stock/portfolio and time range
+// - time stamps MUST all align (i.e. Jan 2010:, Feb 2010:, etc.)
+// - scale of the *
 
 /**
  * This class represents the view of the stock program. It updates the appendable for what the user
@@ -196,20 +200,5 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void rebalanced(String portfolioName) {
     writeMessage("PortfolioImpl " + portfolioName + " rebalanced. \n");
-  }
-
-  @Override
-  public JComboBox<String> createComboBox(String[] options) {
-    return null;
-  }
-
-  @Override
-  public void addCommandListener(ActionListener actionEvent) {
-
-  }
-
-  @Override
-  public String getCommand() {
-    return "";
   }
 }
