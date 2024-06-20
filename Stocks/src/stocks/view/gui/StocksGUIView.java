@@ -1,7 +1,11 @@
 package stocks.view.gui;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +17,11 @@ import stocks.view.gui.panels.DataPanel;
 import stocks.view.gui.panels.MenuPanel;
 import stocks.view.gui.panels.SearchPanel;
 
-public class StocksGUIView extends JFrame implements StocksView {
+public class StocksGUIView extends JFrame implements StocksView, ActionListener {
   private JPanel mainPanel;
   private JPanel searchPanel, menuPanel, dataPanel;
+  private PanelItems pi;
+  private List<ActionEvent> listeners = new ArrayList<>();
 
   public StocksGUIView() {
     super();
@@ -31,15 +37,15 @@ public class StocksGUIView extends JFrame implements StocksView {
     this.add(mainPanel);
 
     // panels
-    searchPanel = new SearchPanel();
+    searchPanel = new SearchPanel(this);
     searchPanel.setPreferredSize(new Dimension(800, 100));
     searchPanel.setBounds(0, 0, 800, 100);
 
-    menuPanel = new MenuPanel();
+    menuPanel = new MenuPanel(this);
     menuPanel.setPreferredSize(new Dimension(400, 500));
     menuPanel.setBounds(0,100,400, 600);
 
-    dataPanel = new DataPanel();
+    dataPanel = new DataPanel(this);
     dataPanel.setPreferredSize(new Dimension(400, 500));
     dataPanel.setBounds(400, 100, 800, 600);
 
@@ -63,6 +69,9 @@ public class StocksGUIView extends JFrame implements StocksView {
   @Override
   public String getCommand() {
     return "";
+
+  public ArrayList<ActionEvent> getListeners() {
+    return (ArrayList<ActionEvent>) listeners;
   }
 
   @Override
@@ -72,7 +81,6 @@ public class StocksGUIView extends JFrame implements StocksView {
 
   @Override
   public void typeInstruct() {
-
   }
 
   @Override
@@ -158,5 +166,10 @@ public class StocksGUIView extends JFrame implements StocksView {
   @Override
   public void rebalanced(String portfolioName) {
 
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    listeners.add(e);
   }
 }

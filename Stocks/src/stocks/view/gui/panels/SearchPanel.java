@@ -6,17 +6,20 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import stocks.view.StocksView;
 import stocks.view.gui.StocksGUIView;
 
-public class SearchPanel extends JPanel implements PanelItems {
+public class SearchPanel extends JPanel implements PanelItems, ActionListener {
   private JLabel instructionsLabel, searchLabel;
   private JTextField enterStock;
   private JButton helpButton, loadButton;
   JComboBox<String> selectionComboBox;
   private JList<String> portfolios;
+  StocksGUIView frame;
 
-  public SearchPanel() {
+  public SearchPanel(StocksGUIView view) {
     super();
+    this.frame = view;
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(800, 50));
 
@@ -26,7 +29,11 @@ public class SearchPanel extends JPanel implements PanelItems {
     this.add(instructionsLabel);
 
     helpButton = new JButton("?");
+    helpButton.addActionListener(this);
+    helpButton.setActionCommand("help-me");
     loadButton = new JButton("Load File");
+    loadButton.addActionListener(this);
+    loadButton.setActionCommand("load");
     this.add(helpButton);
     this.add(loadButton);
 
@@ -50,12 +57,7 @@ public class SearchPanel extends JPanel implements PanelItems {
   }
 
   @Override
-  public void addCommandListener(ActionListener actionEvent) {
-    selectionComboBox.addActionListener(actionEvent);
-  }
-
-  @Override
-  public String getCommand() {
-    return "";
+  public void actionPerformed(ActionEvent e) {
+    frame.actionPerformed(e);
   }
 }
