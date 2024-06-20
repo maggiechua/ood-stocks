@@ -1,5 +1,7 @@
 package stocks.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -13,7 +15,7 @@ import stocks.model.StocksModel;
  * This controller works with any Readable to read its inputs.
  * Dates are taken in YYYY-MM-DD format.
  */
-public class StocksControllerImpl implements StocksController {
+public class StocksControllerImpl implements StocksController, ActionListener {
   private Readable rd;
   private StocksModel stock;
   private StocksView output;
@@ -34,6 +36,23 @@ public class StocksControllerImpl implements StocksController {
     this.output = output;
   }
 
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    String command = e.getActionCommand();
+    switch (command) {
+      case "Stock-Portfolio Selected":
+        System.out.println("we made it ig");
+        break;
+      case "Search":
+        System.out.println("it works");
+        break;
+      case "load":
+        System.out.println("load");
+      default:
+        break;
+    }
+  }
+
   /**
    * There are minor changes in this method as compared to the previous submission, for the sake of
    * separation into the stockActions method, but also in the way dates are taken in, and to ensure
@@ -43,6 +62,7 @@ public class StocksControllerImpl implements StocksController {
    */
   @Override
   public void execute() {
+    output.setUpListeners(this);
     Scanner sc = new Scanner(rd);
     boolean quit = false;
     boolean miniquit;

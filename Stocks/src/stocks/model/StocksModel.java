@@ -3,10 +3,14 @@ package stocks.model;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * This interface represents the methods for the model section of the program.
+ * This interface represents the model section of the StocksProgram, allowing for
+ * performing functions such as determining the gain-loss, moving-average, crossovers for a stock;
+ * the portfolio value, composition, and distribution; and displaying the value of a
+ * stock/portfolio over a specified date range.
  */
 public interface StocksModel extends ReadOnlyModel {
   /**
@@ -14,7 +18,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param stock a string representing the stock symbol
    * @return a new StocksModelImpl with the stock saved
    */
-  public StocksModelImpl stockSelect(String stock);
+  public StocksModel stockSelect(String stock);
 
   /**
    * the gainLoss method calculates the gain or loss of the stock saved in the class.
@@ -58,16 +62,16 @@ public interface StocksModel extends ReadOnlyModel {
    * @param name the name for the portfolio
    * @return a StocksModelImpl with the new portfolio saved
    */
-  public StocksModelImpl createPortfolio(String name);
+  public StocksModel createPortfolio(String name);
 
   /**
    * the buy method determines whether a given date is an x-day crossover for the stock
    * saved in the class.
    * @param shares the number of shares the user intends ot buy
    * @param portfolioName the name of the portfolio which is storing this data
-   * @return a StocksModelImpl with the changed portfolio data
+   * @return a StocksModel with the changed portfolio data
    */
-  public StocksModelImpl buy(double shares, String date, String portfolioName);
+  public StocksModel buy(double shares, String date, String portfolioName);
 
   /**
    * the buy method determines whether a given date is an x-day crossover for the stock
@@ -75,9 +79,9 @@ public interface StocksModel extends ReadOnlyModel {
    * @param stock the symbol of the stock
    * @param shares the number of shares the user intends ot buy
    * @param portfolioName the name of the portfolio which is storing this data
-   * @return a StocksModelImpl with the changed portfolio data
+   * @return a StocksModel with the changed portfolio data
    */
-  public StocksModelImpl sell(String stock, Integer shares, String date, String portfolioName);
+  public StocksModel sell(String stock, Integer shares, String date, String portfolioName);
 
 
   /**
@@ -124,7 +128,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param weights the weights of each stock
    * @return a new StocksModelImpl with the changed portfolio data
    */
-  public StocksModelImpl balance(String portfolioName, String date, Map<String,
+  public StocksModel balance(String portfolioName, String date, Map<String,
           Double> weights);
 
   /**
@@ -132,7 +136,7 @@ public interface StocksModel extends ReadOnlyModel {
    * @param portfolioName the name of the portfolio
    * @return an ArrayList of the stocks in a portfolio
    */
-  public ArrayList<String> stockCount(String portfolioName);
+  public List<String> stockCount(String portfolioName);
 
   /**
    * the makeScale method calculates a scale for the bar chart based on its data.
@@ -160,5 +164,5 @@ public interface StocksModel extends ReadOnlyModel {
    * @param input the hashmap of bar data
    * @return an arraylist of the dates in order
    */
-  public ArrayList<String> reorder(Map<String, Double> input) throws ParseException;
+  public List<String> reorder(Map<String, Double> input) throws ParseException;
 }

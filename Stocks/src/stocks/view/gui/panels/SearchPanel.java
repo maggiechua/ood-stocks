@@ -9,7 +9,7 @@ import javax.swing.*;
 import stocks.view.StocksView;
 import stocks.view.gui.StocksGUIView;
 
-public class SearchPanel extends JPanel implements PanelItems, ActionListener {
+public class SearchPanel extends JPanel {
   private JLabel instructionsLabel, searchLabel;
   private JTextField enterStock;
   private JButton helpButton, loadButton;
@@ -29,10 +29,10 @@ public class SearchPanel extends JPanel implements PanelItems, ActionListener {
     this.add(instructionsLabel);
 
     helpButton = new JButton("?");
-    helpButton.addActionListener(this);
+//    helpButton.addActionListener(this);
     helpButton.setActionCommand("help-me");
     loadButton = new JButton("Load File");
-    loadButton.addActionListener(this);
+//    loadButton.addActionListener(this);
     loadButton.setActionCommand("load");
     this.add(helpButton);
     this.add(loadButton);
@@ -47,7 +47,6 @@ public class SearchPanel extends JPanel implements PanelItems, ActionListener {
     this.add(selectionComboBox);
   }
 
-  @Override
   public JComboBox<String> createComboBox(String[] options) {
     JComboBox<String> comboBox = new JComboBox<String>();
     for (int i = 0; i < options.length; i++) {
@@ -56,8 +55,8 @@ public class SearchPanel extends JPanel implements PanelItems, ActionListener {
     return comboBox;
   }
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    frame.actionPerformed(e);
-  }
+//  @Override
+//  public void actionPerformed(ActionEvent e) {
+//    frame.actionPerformed(e);
+//  }
 }
