@@ -1,21 +1,26 @@
 package stocks.view.gui.panels;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 
-public class DataPanel extends JPanel implements PanelItems {
+import stocks.view.gui.StocksGUIView;
+
+public class DataPanel extends JPanel implements PanelItems, ActionListener {
   private JPanel valPanel, yearPanel, monthPanel, dayPanel;
   private JTextField enterValue;
   private JLabel enterValLabel, enterYearLabel, enterMonthLabel, enterDayLabel;
   private JButton searchButton;
   JComboBox<String> yearsCombobox, monthsCombobox, daysCombobox;
+  StocksGUIView frame;
 
-  public DataPanel() {
+  public DataPanel(StocksGUIView view) {
     super();
+    this.frame = view;
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(400, 500));
     this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
@@ -55,6 +60,8 @@ public class DataPanel extends JPanel implements PanelItems {
     String[] yearOptions = new String[years.size()];
     yearOptions = years.toArray(yearOptions);
     yearsCombobox = this.createComboBox(yearOptions);
+    yearsCombobox.addActionListener(this);
+    yearsCombobox.setActionCommand("year-select");
     enterYearLabel.add(yearsCombobox);
     yearPanel.add(yearsCombobox);
 
@@ -67,6 +74,8 @@ public class DataPanel extends JPanel implements PanelItems {
     String[] monthOptions = new String[months.size()];
     monthOptions = months.toArray(monthOptions);
     monthsCombobox = this.createComboBox(monthOptions);
+    monthsCombobox.addActionListener(this);
+    monthsCombobox.setActionCommand("month-select");
     enterMonthLabel.add(monthsCombobox);
     monthPanel.add(monthsCombobox);
 
@@ -79,6 +88,8 @@ public class DataPanel extends JPanel implements PanelItems {
     String[] dayOptions = new String[days.size()];
     dayOptions = days.toArray(dayOptions);
     daysCombobox = this.createComboBox(dayOptions);
+    daysCombobox.addActionListener(this);
+    daysCombobox.setActionCommand("day-select");
     enterDayLabel.add(daysCombobox);
     dayPanel.add(daysCombobox);
   }
@@ -93,14 +104,7 @@ public class DataPanel extends JPanel implements PanelItems {
   }
 
   @Override
-  public void addCommandListener(ActionListener actionEvent) {
-    enterValue.addActionListener(actionEvent);
-  }
-
-  @Override
-  public String getCommand() {
-    String command = this.enterValue.getText();
-    this.enterValue.setText("");
-    return command;
+  public void actionPerformed(ActionEvent e) {
+    frame.actionPerformed(e);
   }
 }

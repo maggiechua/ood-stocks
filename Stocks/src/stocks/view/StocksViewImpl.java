@@ -201,14 +201,4 @@ public class StocksViewImpl implements StocksView {
   public void rebalanced(String portfolioName) {
     writeMessage("PortfolioImpl " + portfolioName + " rebalanced. \n");
   }
-
-  @Override
-  public void setCommandListener(ActionListener e) {
-
-  }
-
-  @Override
-  public String retrieveCommand() {
-    return "";
-  }
 }
