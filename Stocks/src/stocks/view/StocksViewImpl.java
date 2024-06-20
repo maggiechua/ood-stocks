@@ -4,7 +4,10 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import stocks.controller.StocksControllerImpl;
 
 //TODO: PERFORMANCE OVER TIME
 // barchart must show the following:
@@ -163,7 +166,7 @@ public class StocksViewImpl implements StocksView {
 
   @Override
   public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
-                       Integer scale, ArrayList<String> order) {
+                       Integer scale, List<String> order) {
     int asterisk = 0;
     writeMessage("Performance of " + name + " from " + date1 + " to " + date2 + "\n \n");
     for (String s : order) {
@@ -200,5 +203,10 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void rebalanced(String portfolioName) {
     writeMessage("PortfolioImpl " + portfolioName + " rebalanced. \n");
+  }
+
+  @Override
+  public void setUpListeners(ActionListener listener) {
+
   }
 }

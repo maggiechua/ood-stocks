@@ -1,13 +1,18 @@
 package stocks.view;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
 
+import stocks.controller.StocksControllerImpl;
+
 /**
- * This interface represents the methods for the view section of the program.
+ * This interface represents the View for a text-based interface of the Stocks Program where
+ * the methods print out messages into the console according to user input.
  */
 public interface StocksView {
   /**
@@ -101,7 +106,7 @@ public interface StocksView {
    * @param order the chronological order of the dates
    */
   public void barWrite(String name, String date1, String date2, HashMap<String, Double> input,
-                       Integer scale, ArrayList<String> order);
+                       Integer scale, List<String> order);
 
   /**
    * the invalidDate method adds an error message for an invalid date to the appendable.
@@ -125,4 +130,6 @@ public interface StocksView {
    * @param portfolioName the name of the portfolio being rebalanced
    */
   public void rebalanced(String portfolioName);
+
+  void setUpListeners(ActionListener listener);
 }

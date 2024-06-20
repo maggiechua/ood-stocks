@@ -64,7 +64,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl stockSelect(String s) {
+  public StocksModel stockSelect(String s) {
     return new StocksModelImpl(s, this.portfolios);
   }
 
@@ -122,7 +122,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl createPortfolio(String name) {
+  public StocksModel createPortfolio(String name) {
     List<Portfolio> pfs;
     if (this.portfolios == null) {
       pfs = new ArrayList<Portfolio>();
@@ -163,9 +163,9 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public ArrayList<String> reorder(Map<String, Double> input) throws ParseException {
-    ArrayList<LocalDate> dates = new ArrayList<>();
-    ArrayList<String> orderDates = new ArrayList<>();
+  public List<String> reorder(Map<String, Double> input) throws ParseException {
+    List<LocalDate> dates = new ArrayList<>();
+    List<String> orderDates = new ArrayList<>();
     SimpleDateFormat dateFormatter;
     Date dateObject;
     String[] tempDate;
@@ -210,7 +210,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl buy(double shares, String date, String portfolioName) {
+  public StocksModel buy(double shares, String date, String portfolioName) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio currentPortfolio = pfs.remove(pIndex);
@@ -234,7 +234,7 @@ public class StocksModelImpl implements StocksModel {
    * The sell method now intakes a date, for the new features.
    */
   @Override
-  public StocksModelImpl sell(String stock, Integer shares, String date, String portfolioName) {
+  public StocksModel sell(String stock, Integer shares, String date, String portfolioName) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
     Portfolio currentPortfolio = pfs.remove(pIndex);
@@ -276,9 +276,9 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public HashMap<String, Double> bar(String name, String date1, String date2)
+  public Map<String, Double> bar(String name, String date1, String date2)
           throws ParseException {
-    HashMap<String, Double> barValues = new HashMap<>();
+    Map<String, Double> barValues = new HashMap<>();
     LocalDate dateOne = LocalDate.parse(date1);
     LocalDate dateTwo = LocalDate.parse(date2).plusDays(1);
     long diffDays = ChronoUnit.DAYS.between(dateOne, dateTwo);
@@ -351,7 +351,7 @@ public class StocksModelImpl implements StocksModel {
    * @param setValue the interval between checks
    * @return a Map of data to make the bar chart
    */
-  private HashMap<String, Double> orgBarData(LocalDate one, LocalDate two, String name,
+  private Map<String, Double> orgBarData(LocalDate one, LocalDate two, String name,
                                              int time, long setValue) {
     boolean isPortfolio = true;
     if (retrievePortfolioIndex(name) == -1) {
@@ -453,7 +453,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public StocksModelImpl balance(String portfolioName, String date, Map<String,
+  public StocksModel balance(String portfolioName, String date, Map<String,
           Double> weights) {
     List<Portfolio> pfs = this.portfolios;
     int pIndex = this.retrievePortfolioIndex(portfolioName);
@@ -479,7 +479,7 @@ public class StocksModelImpl implements StocksModel {
   }
 
   @Override
-  public ArrayList<String> stockCount(String portfolioName) {
+  public List<String> stockCount(String portfolioName) {
     Portfolio pf = this.portfolios.get(this.retrievePortfolioIndex(portfolioName));
     ArrayList<String> stockList = new ArrayList<>();
     for (Map.Entry<String, Double> stock: pf.getPortfolioContents().entrySet()) {

@@ -1,18 +1,15 @@
 package stocks.view.gui.panels;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.*;
 
-import stocks.controller.StocksGUIController;
 import stocks.view.gui.StocksGUIView;
 
-public class MenuPanel extends JPanel implements PanelItems, ActionListener {
+public class MenuPanel extends JPanel {
   JPanel searchPanel, stockActionsPanel;
   JTextField stockSearch;
   JButton search;
@@ -47,7 +44,7 @@ public class MenuPanel extends JPanel implements PanelItems, ActionListener {
       radioButtons[i].setSelected(false);
 
       radioButtons[i].setActionCommand("Stock Method Selected" + radioButtons[i].getText());
-      radioButtons[i].addActionListener(this);
+//      radioButtons[i].addActionListener(this);
       rGroup1.add(radioButtons[i]);
       stockActionsPanel.add(radioButtons[i]);
     }
@@ -59,8 +56,8 @@ public class MenuPanel extends JPanel implements PanelItems, ActionListener {
     searchLabel = new JLabel("Search a Stock:");
     stockSearch = new JTextField(15);
     search = new JButton("search");
-    search.addActionListener(this);
-    search.setActionCommand("search");
+//    search.addActionListener(this);
+    search.setActionCommand("Search");
     search.setPreferredSize(new Dimension(80, 20));
     searchPanel.add(searchLabel);
     searchPanel.add(stockSearch);
@@ -76,8 +73,8 @@ public class MenuPanel extends JPanel implements PanelItems, ActionListener {
     return comboBox;
   }
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    frame.actionPerformed(e);
-  }
+//  @Override
+//  public void actionPerformed(ActionEvent e) {
+//    frame.actionPerformed(e);
+//  }
 }

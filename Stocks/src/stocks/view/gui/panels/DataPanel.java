@@ -10,7 +10,7 @@ import javax.swing.*;
 
 import stocks.view.gui.StocksGUIView;
 
-public class DataPanel extends JPanel implements PanelItems, ActionListener {
+public class DataPanel extends JPanel {
   private JPanel valPanel, yearPanel, monthPanel, dayPanel;
   private JTextField enterValue;
   private JLabel enterValLabel, enterYearLabel, enterMonthLabel, enterDayLabel;
@@ -60,7 +60,7 @@ public class DataPanel extends JPanel implements PanelItems, ActionListener {
     String[] yearOptions = new String[years.size()];
     yearOptions = years.toArray(yearOptions);
     yearsCombobox = this.createComboBox(yearOptions);
-    yearsCombobox.addActionListener(this);
+//    yearsCombobox.addActionListener(this);
     yearsCombobox.setActionCommand("year-select");
     enterYearLabel.add(yearsCombobox);
     yearPanel.add(yearsCombobox);
@@ -74,7 +74,7 @@ public class DataPanel extends JPanel implements PanelItems, ActionListener {
     String[] monthOptions = new String[months.size()];
     monthOptions = months.toArray(monthOptions);
     monthsCombobox = this.createComboBox(monthOptions);
-    monthsCombobox.addActionListener(this);
+//    monthsCombobox.addActionListener(this);
     monthsCombobox.setActionCommand("month-select");
     enterMonthLabel.add(monthsCombobox);
     monthPanel.add(monthsCombobox);
@@ -88,13 +88,12 @@ public class DataPanel extends JPanel implements PanelItems, ActionListener {
     String[] dayOptions = new String[days.size()];
     dayOptions = days.toArray(dayOptions);
     daysCombobox = this.createComboBox(dayOptions);
-    daysCombobox.addActionListener(this);
+//    daysCombobox.addActionListener(this);
     daysCombobox.setActionCommand("day-select");
     enterDayLabel.add(daysCombobox);
     dayPanel.add(daysCombobox);
   }
 
-  @Override
   public JComboBox<String> createComboBox(String[] options) {
     JComboBox<String> comboBox = new JComboBox<String>();
     for (int i = 0; i < options.length; i++) {
@@ -103,8 +102,8 @@ public class DataPanel extends JPanel implements PanelItems, ActionListener {
     return comboBox;
   }
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    frame.actionPerformed(e);
-  }
+//  @Override
+//  public void actionPerformed(ActionEvent e) {
+//    frame.actionPerformed(e);
+//  }
 }
