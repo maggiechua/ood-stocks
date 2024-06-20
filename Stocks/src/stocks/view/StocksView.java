@@ -8,10 +8,12 @@ import java.util.Map;
 
 import javax.swing.*;
 
+import stocks.view.gui.panels.PanelItems;
+
 /**
  * This interface represents the methods for the view section of the program.
  */
-public interface StocksView {
+public interface StocksView extends PanelItems {
   /**
    * the welcomeMessage method adds the welcome message to the appendable in the class.
    */
@@ -127,8 +129,4 @@ public interface StocksView {
    * @param portfolioName the name of the portfolio being rebalanced
    */
   public void rebalanced(String portfolioName);
-
-  public void setCommandListener(ActionListener e);
-
-  public String retrieveCommand();
 }

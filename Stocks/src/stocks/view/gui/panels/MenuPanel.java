@@ -9,10 +9,12 @@ import java.util.List;
 
 import javax.swing.*;
 
+
 public class MenuPanel extends JPanel implements PanelItems {
   JPanel searchPanel, stockActionsPanel;
+  JRadioButton[] radioButtons;
   JTextField stockSearch;
-  JButton search;
+  JButton searchButton;
   JLabel searchLabel;
 
   public MenuPanel() {
@@ -28,7 +30,7 @@ public class MenuPanel extends JPanel implements PanelItems {
     stockActionsPanel.setBounds(0, 100, 400, 400);
     stockActionsPanel.setLayout(new BoxLayout(stockActionsPanel, BoxLayout.PAGE_AXIS));
 
-    JRadioButton[] radioButtons = new JRadioButton[4];
+    radioButtons = new JRadioButton[4];
 
     //buttons groups are used to combine radio buttons. Only one radio
     // button in each group can be selected.
@@ -42,7 +44,6 @@ public class MenuPanel extends JPanel implements PanelItems {
       radioButtons[i].setSelected(false);
 
       radioButtons[i].setActionCommand("Stock Method Selected" + radioButtons[i].getText());
-//      radioButtons[i].addActionListener(this);
       rGroup1.add(radioButtons[i]);
       stockActionsPanel.add(radioButtons[i]);
     }
@@ -53,12 +54,12 @@ public class MenuPanel extends JPanel implements PanelItems {
     searchPanel.setBackground(Color.WHITE);
     searchLabel = new JLabel("Search a Stock:");
     stockSearch = new JTextField(15);
-    search = new JButton();
-    search.setText("search");
-    search.setPreferredSize(new Dimension(80, 20));
+    searchButton = new JButton();
+    searchButton.setText("search");
+    searchButton.setPreferredSize(new Dimension(80, 20));
     searchPanel.add(searchLabel);
     searchPanel.add(stockSearch);
-    searchPanel.add(search);
+    searchPanel.add(searchButton);
     this.add(searchPanel);
   }
 
@@ -72,7 +73,10 @@ public class MenuPanel extends JPanel implements PanelItems {
 
   @Override
   public void addCommandListener(ActionListener actionEvent) {
-
+    for (JRadioButton r : radioButtons) {
+      r.addActionListener(actionEvent);
+    }
+    searchButton.addActionListener(actionEvent);
   }
 
   @Override
