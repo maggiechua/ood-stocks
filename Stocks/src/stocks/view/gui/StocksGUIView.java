@@ -15,7 +15,6 @@ import javax.swing.*;
 import stocks.view.StocksView;
 import stocks.view.gui.panels.DataPanel;
 import stocks.view.gui.panels.MenuPanel;
-import stocks.view.gui.panels.PanelItems;
 import stocks.view.gui.panels.SearchPanel;
 
 public class StocksGUIView extends JFrame implements StocksView, ActionListener {
@@ -56,6 +55,20 @@ public class StocksGUIView extends JFrame implements StocksView, ActionListener 
 
     this.pack();
   }
+
+  @Override
+  public JComboBox<String> createComboBox(String[] options) {
+    return null;
+  }
+
+  @Override
+  public void addCommandListener(ActionListener actionEvent) {
+
+  }
+
+  @Override
+  public String getCommand() {
+    return "";
 
   public ArrayList<ActionEvent> getListeners() {
     return (ArrayList<ActionEvent>) listeners;
