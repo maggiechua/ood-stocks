@@ -37,17 +37,16 @@ public class StocksGUIController implements StocksController, ActionListener {
     }
     this.stock = stock;
     this.rd = rd;
+    output.setListener(this);
     this.output = output;
+
+    this.setListeners();
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    ArrayList<ActionEvent> l = output.getListeners();
-    String command = "";
-    for (ActionEvent ae : l) {
-      command = ae.getActionCommand();
-    }
-    switch (command) {
+
+    switch (e.getActionCommand()) {
       case "Stock-Portfolio Selected":
         System.out.println("we made it ig");
         break;
@@ -59,6 +58,14 @@ public class StocksGUIController implements StocksController, ActionListener {
     }
   }
 
+  public void setListeners() {
+    output.setListeners(e -> pleaseWork());
+  }
+
+  public void pleaseWork() {
+    System.out.println("PLEASE PLEAS PLEA");
+  }
+
   /**
    * There are minor changes in this method as compared to the previous submission, for the sake of
    * separation into the stockActions method, but also in the way dates are taken in, and to ensure
@@ -68,7 +75,6 @@ public class StocksGUIController implements StocksController, ActionListener {
    */
   @Override
   public void execute() {
-
     Scanner sc = new Scanner(rd);
     boolean quit = false;
     boolean miniquit;

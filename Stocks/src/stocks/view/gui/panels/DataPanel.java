@@ -17,10 +17,12 @@ public class DataPanel extends JPanel implements PanelItems, ActionListener {
   private JButton searchButton;
   JComboBox<String> yearsCombobox, monthsCombobox, daysCombobox;
   StocksGUIView frame;
+  ActionListener listen;
 
-  public DataPanel(StocksGUIView view) {
+  public DataPanel(StocksGUIView view, ActionListener listen) {
     super();
     this.frame = view;
+    this.listen = listen;
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(400, 500));
     this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
@@ -60,7 +62,7 @@ public class DataPanel extends JPanel implements PanelItems, ActionListener {
     String[] yearOptions = new String[years.size()];
     yearOptions = years.toArray(yearOptions);
     yearsCombobox = this.createComboBox(yearOptions);
-    yearsCombobox.addActionListener(this);
+    yearsCombobox.addActionListener(listen);
     yearsCombobox.setActionCommand("year-select");
     enterYearLabel.add(yearsCombobox);
     yearPanel.add(yearsCombobox);
@@ -74,7 +76,7 @@ public class DataPanel extends JPanel implements PanelItems, ActionListener {
     String[] monthOptions = new String[months.size()];
     monthOptions = months.toArray(monthOptions);
     monthsCombobox = this.createComboBox(monthOptions);
-    monthsCombobox.addActionListener(this);
+    monthsCombobox.addActionListener(listen);
     monthsCombobox.setActionCommand("month-select");
     enterMonthLabel.add(monthsCombobox);
     monthPanel.add(monthsCombobox);
@@ -88,7 +90,7 @@ public class DataPanel extends JPanel implements PanelItems, ActionListener {
     String[] dayOptions = new String[days.size()];
     dayOptions = days.toArray(dayOptions);
     daysCombobox = this.createComboBox(dayOptions);
-    daysCombobox.addActionListener(this);
+    daysCombobox.addActionListener(listen);
     daysCombobox.setActionCommand("day-select");
     enterDayLabel.add(daysCombobox);
     dayPanel.add(daysCombobox);
@@ -105,6 +107,6 @@ public class DataPanel extends JPanel implements PanelItems, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    frame.actionPerformed(e);
+    listen.actionPerformed(e);
   }
 }

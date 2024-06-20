@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import stocks.controller.StocksController;
 import stocks.controller.StocksControllerImpl;
+import stocks.controller.StocksGUIController;
 import stocks.view.gui.StocksGUIView;
 import stocks.model.Portfolio;
 import stocks.model.StocksModel;
@@ -33,8 +34,7 @@ public class StockProgram {
     List<Portfolio> p = new ArrayList<>();
     StocksModel model = new StocksModelImpl(init, p);
     Readable rd = new InputStreamReader(System.in);
-    StocksView ap = new StocksGUIView();
-    StocksController controller = new StocksControllerImpl(model, rd, ap);
+    StocksController controller = new StocksGUIController(model, rd, gui);
     controller.execute();
   }
 }

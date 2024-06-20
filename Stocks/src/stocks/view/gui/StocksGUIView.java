@@ -3,26 +3,27 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
 
+import stocks.controller.StocksGUIController;
 import stocks.view.StocksView;
 import stocks.view.gui.panels.DataPanel;
-import stocks.view.gui.panels.MenuPanel;
-import stocks.view.gui.panels.PanelItems;
-import stocks.view.gui.panels.SearchPanel;
 
-public class StocksGUIView extends JFrame implements StocksView, ActionListener {
+public class StocksGUIView extends JFrame implements StocksView {
   private JPanel mainPanel;
   private JPanel searchPanel, menuPanel, dataPanel;
-  private PanelItems pi;
-  private List<ActionEvent> listeners = new ArrayList<>();
+  private ActionListener listener;
+  private JLabel instructionsLabel, searchLabel;
+  private JButton helpButton, loadButton;
+  private JComboBox<String> selectionComboBox;
+  private JRadioButton[] radioButtons;
 
   public StocksGUIView() {
     super();
@@ -38,17 +39,11 @@ public class StocksGUIView extends JFrame implements StocksView, ActionListener 
     this.add(mainPanel);
 
     // panels
-    searchPanel = new SearchPanel(this);
-    searchPanel.setPreferredSize(new Dimension(800, 100));
-    searchPanel.setBounds(0, 0, 800, 100);
+    searchPanel = this.makeSearchPanel();
 
-    menuPanel = new MenuPanel(this);
-    menuPanel.setPreferredSize(new Dimension(400, 500));
-    menuPanel.setBounds(0,100,400, 600);
+    menuPanel = this.makeMenuPanel();
 
-    dataPanel = new DataPanel(this);
-    dataPanel.setPreferredSize(new Dimension(400, 500));
-    dataPanel.setBounds(400, 100, 800, 600);
+    dataPanel = new DataPanel(this, listener);
 
     mainPanel.add(searchPanel);
     mainPanel.add(menuPanel);
@@ -57,8 +52,105 @@ public class StocksGUIView extends JFrame implements StocksView, ActionListener 
     this.pack();
   }
 
-  public ArrayList<ActionEvent> getListeners() {
-    return (ArrayList<ActionEvent>) listeners;
+  private JPanel makeSearchPanel() {
+    JPanel sp = new JPanel();
+    sp.setPreferredSize(new Dimension(800, 100));
+    sp.setBounds(0, 0, 800, 100);
+    sp.setBackground(Color.WHITE);
+    sp.setPreferredSize(new Dimension(800, 50));
+
+    instructionsLabel = new JLabel("Welcome to the Stocks Program! To begin, please " +
+            "select what you would like to search (stock/portfolio).", SwingConstants.CENTER);
+    instructionsLabel.setPreferredSize(new Dimension(800, 50));
+    sp.add(instructionsLabel);
+
+    helpButton = new JButton("?");
+    helpButton.setActionCommand("help-me");
+    loadButton = new JButton("Load File");
+    loadButton.addActionListener(listener);
+    loadButton.setActionCommand("load");
+    sp.add(helpButton);
+    sp.add(loadButton);
+
+    searchLabel = new JLabel("Search a: ");
+    sp.add(searchLabel);
+    String[] selectionOptions = {"", "stock", "portfolio"};
+    //the event listener when an option is selected
+    selectionComboBox = this.createComboBox(selectionOptions);
+    selectionComboBox.setActionCommand("Stock-Portfolio Selected");
+    searchLabel.add(selectionComboBox);
+    sp.add(selectionComboBox);
+    return sp;
+  }
+
+  private JPanel makeMenuPanel() {
+    JPanel mp = new JPanel();
+    mp.setPreferredSize(new Dimension(400, 500));
+    mp.setBounds(0,100,400, 600);
+    mp.setBackground(Color.WHITE);
+    mp.setPreferredSize(new Dimension(400, 500));
+    mp.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
+    JPanel stockActionsPanel = new JPanel();
+    stockActionsPanel.setBackground(Color.WHITE);
+    stockActionsPanel.setBorder(BorderFactory.createTitledBorder("Stock Actions:"));
+    stockActionsPanel.setBounds(0, 100, 400, 400);
+    stockActionsPanel.setLayout(new BoxLayout(stockActionsPanel, BoxLayout.PAGE_AXIS));
+    radioButtons = new JRadioButton[4];
+    ButtonGroup rGroup1 = new ButtonGroup();
+    List<String> stockMethodOptions = new ArrayList<>(Arrays.asList(
+            "portfolio value", "portfolio composition",
+            "buy stock", "sell stock"));
+    for (int i = 0; i < radioButtons.length; i++) {
+      radioButtons[i] = new JRadioButton(stockMethodOptions.get(i));
+      radioButtons[i].setSelected(false);
+      radioButtons[i].setActionCommand("Stock Method Selected" + radioButtons[i].getText());
+      radioButtons[i].addActionListener(listener);
+      rGroup1.add(radioButtons[i]);
+      stockActionsPanel.add(radioButtons[i]);
+    }
+    mp.add(stockActionsPanel);
+    JPanel search = new JPanel();
+    search.setBackground(Color.WHITE);
+    JLabel searchL = new JLabel("Search a Stock:");
+    JTextField stockS = new JTextField(15);
+    JButton searchb = new JButton("search");
+    searchb.addActionListener(listener);
+    searchb.setActionCommand("search");
+    search.setPreferredSize(new Dimension(80, 20));
+    search.add(searchL);
+    search.add(stockS);
+    search.add(searchb);
+    mp.add(search);
+    return mp;
+  }
+
+  public void setListeners(ActionListener listen) {
+    helpButton.addActionListener(listen);
+    for (JRadioButton radioButton : radioButtons) {
+      radioButton.addActionListener(listen);
+    }
+  }
+
+  public JPanel makeDataPanel() {
+    JPanel dp = new JPanel();
+
+    dp.setPreferredSize(new Dimension(400, 500));
+    dp.setBounds(400, 100, 800, 600);
+
+    return dp;
+  }
+
+  public JComboBox<String> createComboBox(String[] options) {
+    JComboBox<String> comboBox = new JComboBox<String>();
+    for (int i = 0; i < options.length; i++) {
+      comboBox.addItem(options[i]);
+    }
+    return comboBox;
+  }
+
+
+  public void setListener(StocksGUIController listener) {
+    this.listener = listener;
   }
 
   @Override
@@ -153,10 +245,5 @@ public class StocksGUIView extends JFrame implements StocksView, ActionListener 
   @Override
   public void rebalanced(String portfolioName) {
 
-  }
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    listeners.add(e);
   }
 }
