@@ -9,14 +9,19 @@ import java.util.List;
 
 import javax.swing.*;
 
-public class MenuPanel extends JPanel implements PanelItems {
+import stocks.controller.StocksGUIController;
+import stocks.view.gui.StocksGUIView;
+
+public class MenuPanel extends JPanel implements PanelItems, ActionListener {
   JPanel searchPanel, stockActionsPanel;
   JTextField stockSearch;
   JButton search;
   JLabel searchLabel;
+  StocksGUIView frame;
 
-  public MenuPanel() {
+  public MenuPanel(StocksGUIView view) {
     super();
+    this.frame = view;
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(400, 500));
     this.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
@@ -42,7 +47,7 @@ public class MenuPanel extends JPanel implements PanelItems {
       radioButtons[i].setSelected(false);
 
       radioButtons[i].setActionCommand("Stock Method Selected" + radioButtons[i].getText());
-//      radioButtons[i].addActionListener(this);
+      radioButtons[i].addActionListener(this);
       rGroup1.add(radioButtons[i]);
       stockActionsPanel.add(radioButtons[i]);
     }
@@ -53,8 +58,9 @@ public class MenuPanel extends JPanel implements PanelItems {
     searchPanel.setBackground(Color.WHITE);
     searchLabel = new JLabel("Search a Stock:");
     stockSearch = new JTextField(15);
-    search = new JButton();
-    search.setText("search");
+    search = new JButton("search");
+    search.addActionListener(this);
+    search.setActionCommand("search");
     search.setPreferredSize(new Dimension(80, 20));
     searchPanel.add(searchLabel);
     searchPanel.add(stockSearch);
@@ -71,12 +77,7 @@ public class MenuPanel extends JPanel implements PanelItems {
   }
 
   @Override
-  public void addCommandListener(ActionListener actionEvent) {
-
-  }
-
-  @Override
-  public String getCommand() {
-    return "";
+  public void actionPerformed(ActionEvent e) {
+    frame.actionPerformed(e);
   }
 }

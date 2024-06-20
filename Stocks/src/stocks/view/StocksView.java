@@ -1,7 +1,5 @@
 package stocks.view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -127,8 +125,4 @@ public interface StocksView {
    * @param portfolioName the name of the portfolio being rebalanced
    */
   public void rebalanced(String portfolioName);
-
-  public void setCommandListener(ActionListener e);
-
-  public String retrieveCommand();
 }

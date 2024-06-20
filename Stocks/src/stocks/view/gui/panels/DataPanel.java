@@ -1,21 +1,26 @@
 package stocks.view.gui.panels;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 
-public class DataPanel extends JPanel implements PanelItems {
-  private JPanel valPanel, datePanel;
+import stocks.view.gui.StocksGUIView;
+
+public class DataPanel extends JPanel implements PanelItems, ActionListener {
+  private JPanel valPanel, yearPanel, monthPanel, dayPanel;
   private JTextField enterValue;
   private JLabel enterValLabel, enterYearLabel, enterMonthLabel, enterDayLabel;
   private JButton searchButton;
   JComboBox<String> yearsCombobox, monthsCombobox, daysCombobox;
+  StocksGUIView frame;
 
-  public DataPanel() {
+  public DataPanel(StocksGUIView view) {
     super();
+    this.frame = view;
     this.setBackground(Color.WHITE);
     this.setPreferredSize(new Dimension(400, 500));
     this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
@@ -23,7 +28,7 @@ public class DataPanel extends JPanel implements PanelItems {
     valPanel = new JPanel();
     valPanel.setBackground(Color.WHITE);
     this.add(valPanel);
-    valPanel.setBounds(400, 100, 800, 200);
+    valPanel.setBounds(400, 100, 800, 400);
     enterValLabel = new JLabel("Enter value:");
     enterValue = new JTextField(10);
     enterValLabel.add(enterValue);
@@ -31,13 +36,23 @@ public class DataPanel extends JPanel implements PanelItems {
     valPanel.add(enterValue);
 
     // entering date fields
-    datePanel = new JPanel();
-    datePanel.setBackground(Color.WHITE);
-    this.add(datePanel);
-    datePanel.setBounds(400, 200, 800, 400);
+    yearPanel = new JPanel();
+    yearPanel.setBackground(Color.WHITE);
+    yearPanel.setBorder(BorderFactory.createEmptyBorder(-10, 50, -10, 50));
+    this.add(yearPanel);
+
+    monthPanel = new JPanel();
+    monthPanel.setBackground(Color.WHITE);
+    monthPanel.setBorder(BorderFactory.createEmptyBorder(-10, 50, -10, 50));
+    this.add(monthPanel);
+
+    dayPanel = new JPanel();
+    dayPanel.setBackground(Color.WHITE);
+    dayPanel.setBorder(BorderFactory.createEmptyBorder(-10, 50, -10, 50));
+    this.add(dayPanel);
 
     enterYearLabel = new JLabel("Enter year:");
-    datePanel.add(enterYearLabel);
+    yearPanel.add(enterYearLabel);
     List<String> years = new ArrayList<String>();
     for (int y = 2000; y < 2025; y++) {
       years.add((String.valueOf(y)));
@@ -45,11 +60,13 @@ public class DataPanel extends JPanel implements PanelItems {
     String[] yearOptions = new String[years.size()];
     yearOptions = years.toArray(yearOptions);
     yearsCombobox = this.createComboBox(yearOptions);
+    yearsCombobox.addActionListener(this);
+    yearsCombobox.setActionCommand("year-select");
     enterYearLabel.add(yearsCombobox);
-    datePanel.add(yearsCombobox);
+    yearPanel.add(yearsCombobox);
 
     enterMonthLabel = new JLabel("Enter month:");
-    datePanel.add(enterMonthLabel);
+    monthPanel.add(enterMonthLabel);
     List<String> months = new ArrayList<String>();
     for (int y = 1; y < 13; y++) {
       months.add((String.valueOf(y)));
@@ -57,11 +74,13 @@ public class DataPanel extends JPanel implements PanelItems {
     String[] monthOptions = new String[months.size()];
     monthOptions = months.toArray(monthOptions);
     monthsCombobox = this.createComboBox(monthOptions);
+    monthsCombobox.addActionListener(this);
+    monthsCombobox.setActionCommand("month-select");
     enterMonthLabel.add(monthsCombobox);
-    datePanel.add(monthsCombobox);
+    monthPanel.add(monthsCombobox);
 
     enterDayLabel = new JLabel("Enter day:");
-    datePanel.add(enterDayLabel);
+    dayPanel.add(enterDayLabel);
     List<String> days = new ArrayList<String>();
     for (int y = 1; y < 32; y++) {
       days.add((String.valueOf(y)));
@@ -69,13 +88,10 @@ public class DataPanel extends JPanel implements PanelItems {
     String[] dayOptions = new String[days.size()];
     dayOptions = days.toArray(dayOptions);
     daysCombobox = this.createComboBox(dayOptions);
+    daysCombobox.addActionListener(this);
+    daysCombobox.setActionCommand("day-select");
     enterDayLabel.add(daysCombobox);
-    datePanel.add(daysCombobox);
-
-    // search button
-    searchButton = new JButton();
-    searchButton.setText("search");
-    this.add(searchButton);
+    dayPanel.add(daysCombobox);
   }
 
   @Override
@@ -88,14 +104,7 @@ public class DataPanel extends JPanel implements PanelItems {
   }
 
   @Override
-  public void addCommandListener(ActionListener actionEvent) {
-    enterValue.addActionListener(actionEvent);
-  }
-
-  @Override
-  public String getCommand() {
-    String command = this.enterValue.getText();
-    this.enterValue.setText("");
-    return command;
+  public void actionPerformed(ActionEvent e) {
+    frame.actionPerformed(e);
   }
 }
