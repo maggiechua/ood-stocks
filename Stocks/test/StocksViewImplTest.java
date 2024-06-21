@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import stocks.model.Portfolio;
 import stocks.model.PortfolioImpl;
@@ -243,7 +244,7 @@ public class StocksViewImplTest {
                     "2024-05-24: ************ \n" +
                     "Scale: * = 3000";
 
-    HashMap<String, Double> testBarChart =
+    Map<String, Double> testBarChart =
             new StocksModelImpl("", portfolios).bar("a", "2024-05-20",
                     "2024-05-24");
     assertEquals(expectedBarChart, testBarChart.toString());

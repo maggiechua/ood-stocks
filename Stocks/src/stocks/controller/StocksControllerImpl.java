@@ -1,7 +1,5 @@
 package stocks.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -22,9 +20,8 @@ public class StocksControllerImpl implements StocksController {
 
   /**
    * This makes a new StockControllerImpl.
-   *
-   * @param stock  the StocksModel connection (connects to methods to enact based on user inputs)
-   * @param rd     something to read
+   * @param stock the StocksModel connection (connects to methods to enact based on user inputs)
+   * @param rd something to read
    * @param output the StocksView connection (connects to methods to append words)
    */
   public StocksControllerImpl(StocksModel stock, Readable rd, StocksView output)
