@@ -52,7 +52,7 @@ public class StocksGUIView extends JFrame implements StocksView {
     this.add(mainPanel);
 
     // panels
-    searchPanel = this.createSearchPanel(rm.getPortfolios());
+    searchPanel = this.createSearchPanel();
     stocksPanel = this.createStocksPanel();
     portfoliosPanel = this.createPortfoliosPanel();
 
@@ -148,6 +148,11 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   // SETTERS
+  @Override
+  public void setUpPortfolioOptions(List<Portfolio> portfolios) {
+//    p = portfolios;
+  }
+
   public void setFieldBlank(String place) {
     if (place.equals("stock")) {
 //      stockSearch.setText("");
@@ -212,7 +217,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   // PANEL HELPERS
-  public JPanel createSearchPanel(List<Portfolio> portfolios) {
+  public JPanel createSearchPanel() {
     searchPanel = new JPanel();
     searchPanel.setPreferredSize(new Dimension(800, 100));
     searchPanel.setBounds(0, 0, 800, 100);
@@ -234,8 +239,9 @@ public class StocksGUIView extends JFrame implements StocksView {
     searchPanel.add(createPortfolioButton);
 
     List<String> options = new ArrayList<>();
-    for (Portfolio p : portfolios) {
-      options.add(p.getName());
+    for (Portfolio portfolio : rm.getPortfolios()) {
+      String[] names = portfolio.getName().split(".xml");
+      options.add(names[0]);
     }
     String[] selectionOptions = new String[options.size()];
     selectionOptions = options.toArray(selectionOptions);

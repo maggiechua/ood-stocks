@@ -37,7 +37,7 @@ public class FileParser {
   // This is an error to do with file path and the location of directories- we have not been able to
   // find a reason for this discrepancy, nor a solution for it.
   public String getOSType() {
-    return "mac";
+    return "windows";
   }
 
   /**
