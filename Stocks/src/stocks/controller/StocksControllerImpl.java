@@ -46,7 +46,8 @@ public class StocksControllerImpl implements StocksController {
     this.stockAction = command;
   }
 
-  private void setStockPortfolio() {
+  private void setCreatePortfolio() {
+//    stock.createPortfolio("");
     output.setStockOrPortfolio();
   }
 
@@ -113,9 +114,9 @@ public class StocksControllerImpl implements StocksController {
    */
   @Override
   public void execute() {
-    output.setHelpListener(e -> showHelp());
+    output.setHelpListener(e -> output.createHelpWindow());
     output.setStockActionListener(e -> setStockAction(e.getActionCommand()));
-    output.setStockPortfolioListener(e -> setStockPortfolio());
+    output.setCreatePortfolioListener(e -> setCreatePortfolio());
     output.setLoadListener(e -> setLoad());
     output.setStockSearchListener(e -> searchStock());
     output.setEnterValueListener(e -> valueEntered());

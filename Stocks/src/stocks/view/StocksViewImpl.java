@@ -220,7 +220,7 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void setStockPortfolioListener(ActionListener listen) {
+  public void setCreatePortfolioListener(ActionListener listen) {
 
   }
 
