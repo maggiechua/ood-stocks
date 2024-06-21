@@ -1,5 +1,6 @@
 package stocks.controller;
 
+import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -40,8 +41,9 @@ public class StocksControllerImpl implements StocksController {
     System.out.println("PLEASE PLEAS PLEA");
   }
 
-  private void setStockAction() {
-
+  private void setStockAction(String command) {
+    this.stockAction = command;
+    System.out.println(stockAction);
   }
 
   private void setStockPortfolio() {
@@ -73,13 +75,13 @@ public class StocksControllerImpl implements StocksController {
 
   private void search() {
     switch (stockAction) {
-      case "portfolio-value":
+      case "portfolio value":
         break;
-      case "portfolio-date":
+      case "portfolio composition":
         break;
-      case "buy":
+      case "buy stock":
         break;
-      case "sell":
+      case "sell stock":
         break;
     }
   }
@@ -94,7 +96,7 @@ public class StocksControllerImpl implements StocksController {
   @Override
   public void execute() {
     output.setHelpListener(e -> showHelp());
-    output.setStockActionListener(e -> setStockAction());
+    output.setStockActionListener(e -> setStockAction(e.getActionCommand()));
     output.setStockPortfolioListener(e -> setStockPortfolio());
     output.setLoadListener(e -> setLoad());
     output.setStockSearchListener(e -> searchStock());

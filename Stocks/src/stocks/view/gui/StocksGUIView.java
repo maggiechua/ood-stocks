@@ -219,6 +219,12 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   public String getStockAction() {
+    for (JRadioButton b : radioButtons) {
+      String a = b.getActionCommand();
+      if (a != null) {
+        return a.toString();
+      }
+    }
     return "";
   }
 
