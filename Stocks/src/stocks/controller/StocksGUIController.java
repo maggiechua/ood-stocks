@@ -57,19 +57,23 @@ public class StocksGUIController implements StocksController {
     String date = date();
     double value = valueEntered();
     int valueInt = (int) value;
+    String answer;
     switch (stockAction) {
       case "portfolio value":
-        model.portfolioValue(portfolioName, date);
+        answer = model.portfolioValue(portfolioName, date).toString();
+        view.returnResult(stockAction + ":" + answer);
         break;
       case "portfolio composition":
-        model.composition(portfolioName, date);
+        view.listWrite(model.composition(portfolioName, date), stockAction);
         break;
       case "buy stock":
         model.stockSelect(stockName);
-        model.buy(value, date, portfolioName);
+        answer = model.buy(value, date, portfolioName).toString();
+        view.returnResult(stockAction + ":" + answer  + ":" + portfolioName);
         break;
       case "sell stock":
-        model.sell(stockName, valueInt, date, portfolioName);
+        answer = model.sell(stockName, valueInt, date, portfolioName).toString();
+        view.returnResult(stockAction + ":" + answer  + ":" + portfolioName);
         break;
       default:
         break;
@@ -108,14 +112,12 @@ public class StocksGUIController implements StocksController {
   }
 
   private double valueEntered() {
-    Double value;
+    double value;
     try {
       value = Double.parseDouble(view.getValue());
     }
     catch (NumberFormatException e) {
-      value = null;
-      view.setFieldBlank("value");
-      System.out.println("Please enter a number???");
+      value = 0;
     }
     return value;
   }

@@ -29,7 +29,7 @@ public class StockProgram {
    */
   public static void main(String[] args) {
     StocksView view = null;
-    StocksController controller;
+    StocksController controller = null;
     String init = "";
     List<Portfolio> p = new ArrayList<>();
     StocksModel model = new StocksModelImpl(init, p);
