@@ -14,6 +14,10 @@ import java.util.Map;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * The following class creates a GUI view for the Stocks Program that allows the user to buy/sell
+ * stocks, create portfolios, load portfolios, and get a portfolio's value/composition.
+ */
 public class StocksGUIView extends JFrame implements StocksView {
   private JPanel mainPanel;
   private JPanel searchPanel, stocksPanel, portfoliosPanel, stockActionsPanel, portfolioActionsPanel,
@@ -231,7 +235,9 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   /**
-   *
+   * The following method creates the date fields (year, month, day)
+   * and places them on the given panel.
+   * @param panel a given JPanel
    */
   public void createDateFields(JPanel panel) {
     yearPanel = new JPanel();
