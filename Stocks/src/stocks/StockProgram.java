@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.text.View;
 
 import stocks.controller.StocksController;
 import stocks.controller.StocksControllerImpl;
 import stocks.controller.StocksGUIController;
+import stocks.model.ReadOnlyModel;
+import stocks.model.ViewModel;
 import stocks.view.StocksGUIView;
 import stocks.view.StocksView;
 import stocks.view.StocksViewImpl;
@@ -31,10 +34,11 @@ public class StockProgram {
     List<Portfolio> p = new ArrayList<>();
     StocksModel model = new StocksModelImpl(init, p);
     model = model.loadPortfolios();
+    ReadOnlyModel rm = new ViewModel(model);
     Readable rd = new InputStreamReader(System.in);
 
     StocksGUIView.setDefaultLookAndFeelDecorated(false);
-    StocksGUIView gui = new StocksGUIView(model);
+    StocksGUIView gui = new StocksGUIView(rm);
 
     gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     gui.setVisible(true);
