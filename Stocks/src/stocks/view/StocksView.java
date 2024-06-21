@@ -136,7 +136,7 @@ public interface StocksView {
 
   public void setStockActionListener(ActionListener listen);
 
-  public void setStockPortfolioListener(ActionListener listen);
+  public void setCreatePortfolioListener(ActionListener listen);
 
   public void setStockOrPortfolio();
 

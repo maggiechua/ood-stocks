@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import stocks.controller.StocksController;
 import stocks.controller.StocksControllerImpl;
-import stocks.view.gui.StocksGUIView;
+import stocks.view.StocksGUIView;
 import stocks.model.Portfolio;
 import stocks.model.StocksModel;
 import stocks.model.StocksModelImpl;
@@ -22,6 +22,7 @@ public class StockProgram {
    * This is the main method to run the program.
    */
   public static void main(String[] args) {
+    // ask user to decide if they want text vs. gui and then use that to initialize the view
     StocksGUIView.setDefaultLookAndFeelDecorated(false);
     StocksGUIView gui = new StocksGUIView();
 
