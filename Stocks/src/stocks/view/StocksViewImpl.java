@@ -12,6 +12,7 @@ import javax.swing.*;
 import stocks.controller.StocksController;
 
 import stocks.controller.StocksControllerImpl;
+import stocks.model.Portfolio;
 
 //TODO: PERFORMANCE OVER TIME
 // barchart must show the following:
@@ -298,10 +299,21 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void loadFileWindow() {
+  public String loadFileWindow() {
+    return "";
   }
 
   public String getStockAction() {
     return "";
+  }
+
+  @Override
+  public void namePortfolioWindow() {
+
+  }
+
+  @Override
+  public void setUpPortfolioOptions(List<Portfolio> p) {
+
   }
 }

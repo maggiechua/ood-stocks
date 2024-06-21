@@ -1,5 +1,7 @@
 package stocks.controller;
 
+import java.nio.file.Path;
+
 import stocks.model.StocksModel;
 import stocks.view.StocksView;
 
@@ -32,6 +34,8 @@ public class StocksGUIController implements StocksController {
 
   @Override
   public void execute() {
+    model = model.loadPortfolios();
+    view.setUpPortfolioOptions(model.getPortfolios());
     this.setUpListeners();
   }
 
@@ -94,12 +98,13 @@ public class StocksGUIController implements StocksController {
   }
 
   private void setCreatePortfolio() {
-//    stock.createPortfolio("");
-    view.setStockOrPortfolio();
+
+    model.createPortfolio("");
   }
 
   private void setLoad() {
-    view.loadFileWindow();
+    Path filePath = Path.of(view.loadFileWindow());
+    // model.loadPortfolios();
     System.out.println("PLEASE PLEAS PLEA");
   }
 

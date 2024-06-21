@@ -30,11 +30,21 @@ public class StockProgram {
     String init = "";
     List<Portfolio> p = new ArrayList<>();
     StocksModel model = new StocksModelImpl(init, p);
+    model = model.loadPortfolios();
     Readable rd = new InputStreamReader(System.in);
+
+    StocksGUIView.setDefaultLookAndFeelDecorated(false);
+    StocksGUIView gui = new StocksGUIView(model);
+
+    gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    gui.setVisible(true);
+    view = gui;
+    controller = new StocksGUIController(model, rd, view);
+
 
     if (args.length == 0) {
       StocksGUIView.setDefaultLookAndFeelDecorated(false);
-      StocksGUIView gui = new StocksGUIView();
+      gui = new StocksGUIView(model);
 
       gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       gui.setVisible(true);
