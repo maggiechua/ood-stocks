@@ -136,7 +136,7 @@ public interface StocksView {
 
   public void setStockActionListener(ActionListener listen);
 
-  public void setStockPortfolioListener(ActionListener listen);
+  public void setCreatePortfolioListener(ActionListener listen);
 
   public void setStockOrPortfolio();
 
@@ -165,6 +165,10 @@ public interface StocksView {
   public String getValue();
 
   public void setFieldBlank(String place);
+
+  public void createHelpWindow();
+
+  public void loadFileWindow();
 
   public String getStockAction();
 }

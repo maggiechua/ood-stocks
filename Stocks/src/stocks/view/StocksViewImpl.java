@@ -220,7 +220,7 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void setStockPortfolioListener(ActionListener listen) {
+  public void setCreatePortfolioListener(ActionListener listen) {
 
   }
 
@@ -293,7 +293,14 @@ public class StocksViewImpl implements StocksView {
   public void setFieldBlank(String place) {
   }
 
+  public void createHelpWindow() {
+
+  }
+
   @Override
+  public void loadFileWindow() {
+  }
+
   public String getStockAction() {
     return "";
   }
