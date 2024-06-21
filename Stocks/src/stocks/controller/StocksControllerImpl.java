@@ -1,5 +1,6 @@
 package stocks.controller;
 
+import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -41,8 +42,8 @@ public class StocksControllerImpl implements StocksController {
     System.out.println("PLEASE PLEAS PLEA");
   }
 
-  private void setStockAction() {
-
+  private void setStockAction(String command) {
+    this.stockAction = command;
   }
 
   private void setStockPortfolio() {
@@ -54,35 +55,51 @@ public class StocksControllerImpl implements StocksController {
     System.out.println("PLEASE PLEAS PLEA");
   }
 
-  private void searchStock() {
-    output.getStock();
+  private String searchStock() {
+    return output.getStock();
   }
 
-  private void valueEntered() {
+  private double valueEntered() {
+    Double value;
     try {
-      Integer value = Integer.parseInt(output.getValue());
+      value = Double.parseDouble(output.getValue());
     }
     catch (NumberFormatException e) {
+      value = null;
       output.setFieldBlank("value");
       System.out.println("Please enter a number???");
     }
+    return value;
   }
 
-  private void date() {
+  private String date() {
     String year = output.getYear();
     String month = output.getMonth();
     String day = output.getDay();
+    return year + "-" + month + "-" + day;
   }
 
   private void search() {
+    String stockName = searchStock();
+    String portfolioName = "";
+    String date = date();
+    double value = valueEntered();
+    int valueInt = (int) value;
     switch (stockAction) {
-      case "portfolio-value":
+      case "portfolio value":
+        stock.portfolioValue(portfolioName, date);
         break;
-      case "portfolio-date":
+      case "portfolio composition":
+        stock.composition(portfolioName, date);
         break;
-      case "buy":
+      case "buy stock":
+        stock.stockSelect(stockName);
+        stock.buy(value, date, portfolioName);
         break;
-      case "sell":
+      case "sell stock":
+        stock.sell(stockName, valueInt, date, portfolioName);
+        break;
+      default:
         break;
     }
   }
@@ -97,7 +114,7 @@ public class StocksControllerImpl implements StocksController {
   @Override
   public void execute() {
     output.setHelpListener(e -> showHelp());
-    output.setStockActionListener(e -> setStockAction());
+    output.setStockActionListener(e -> setStockAction(e.getActionCommand()));
     output.setStockPortfolioListener(e -> setStockPortfolio());
     output.setLoadListener(e -> setLoad());
     output.setStockSearchListener(e -> searchStock());

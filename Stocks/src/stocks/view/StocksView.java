@@ -169,4 +169,6 @@ public interface StocksView {
   public void createHelpWindow();
 
   public void loadFileWindow();
+
+  public String getStockAction();
 }

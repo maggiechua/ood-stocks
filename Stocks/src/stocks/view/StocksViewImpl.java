@@ -293,13 +293,15 @@ public class StocksViewImpl implements StocksView {
   public void setFieldBlank(String place) {
   }
 
-  @Override
   public void createHelpWindow() {
 
   }
 
   @Override
   public void loadFileWindow() {
+  }
 
+  public String getStockAction() {
+    return "";
   }
 }
