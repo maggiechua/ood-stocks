@@ -35,7 +35,6 @@ public class StocksGUIController implements StocksController {
   @Override
   public void execute() {
     model = model.loadPortfolios();
-    view.setUpPortfolioOptions(model.getPortfolios());
     this.setUpListeners();
   }
 

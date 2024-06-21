@@ -213,7 +213,6 @@ public class StocksGUIView extends JFrame implements StocksView {
 
   public void setSearchListener(ActionListener listen) {
     searchSButton.addActionListener(listen);
-//    searchSButton.addActionListener(listen);
   }
 
   // PANEL HELPERS
