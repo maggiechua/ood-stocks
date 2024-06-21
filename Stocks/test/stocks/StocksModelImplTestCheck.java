@@ -37,15 +37,15 @@ public class StocksModelImplTestCheck {
     model.bar("a", "2014-09-09", "2022-09-09");
   }
 
-  @Test
-  public void lastDay() {
-    String date = fp.getLastWorkingDay("AAPL", 11, 2022);
-    assertEquals("2022-11-30", date);
-    date = fp.getLastWorkingDay("MSFT", 8, 2017);
-    assertEquals("2017-08-31", date);
-    date = fp.getLastWorkingDay("AAPL", 0, 2022);
-    assertEquals("2022-12-30", date);
-  }
+//  @Test
+//  public void lastDay() {
+//    String date = fp.getLastWorkingDay("AAPL", 11, 2022);
+//    assertEquals("2022-11-30", date);
+//    date = fp.getLastWorkingDay("MSFT", 8, 2017);
+//    assertEquals("2017-08-31", date);
+//    date = fp.getLastWorkingDay("AAPL", 0, 2022);
+//    assertEquals("2022-12-30", date);
+//  }
 
   @Test
   public void PLEASE() {

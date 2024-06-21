@@ -8,6 +8,8 @@ import javax.swing.*;
 
 import stocks.controller.StocksController;
 import stocks.controller.StocksControllerImpl;
+import stocks.view.StocksView;
+import stocks.view.StocksViewImpl;
 import stocks.view.gui.StocksGUIView;
 import stocks.model.Portfolio;
 import stocks.model.StocksModel;
@@ -22,17 +24,30 @@ public class StockProgram {
    * This is the main method to run the program.
    */
   public static void main(String[] args) {
-    StocksGUIView.setDefaultLookAndFeelDecorated(false);
-    StocksGUIView gui = new StocksGUIView();
+    StocksView view = null;
 
-    gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    gui.setVisible(true);
 
+    if (args.length == 0) {
+      StocksGUIView.setDefaultLookAndFeelDecorated(false);
+      StocksGUIView gui = new StocksGUIView();
+
+      gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      gui.setVisible(true);
+      view = gui;
+    }
+    else if (args[0].equals("-text")) {
+      view = new StocksViewImpl(System.out);
+    }
+    else {
+      System.out.println("Inputted text is not an option for stock program. Please input no command" 
+              + "line arguments for a graphical user interface, or enter '-text' for a text based"
+              + " interface.");
+    }
     String init = "";
     List<Portfolio> p = new ArrayList<>();
     StocksModel model = new StocksModelImpl(init, p);
     Readable rd = new InputStreamReader(System.in);
-    StocksController controller = new StocksControllerImpl(model, rd, gui);
+    StocksController controller = new StocksControllerImpl(model, rd, view);
     controller.execute();
   }
 }

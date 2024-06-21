@@ -1,3 +1,4 @@
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,5 +131,95 @@ public class StocksViewMock implements StocksView {
   @Override
   public void rebalanced(String portfolioName) {
     this.appendResult("Rebalanced printed in view. \n");
+  }
+
+  @Override
+  public void setHelpListener(ActionListener listen) {
+    
+  }
+
+  @Override
+  public void setStockActionListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setStockPortfolioListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setStockOrPortfolio() {
+
+  }
+
+  @Override
+  public void setLoadListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setStockSearchListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setEnterValueListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setYearsListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setMonthsListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setDaysListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setSearchListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public String getYear() {
+    return "";
+  }
+
+  @Override
+  public String getMonth() {
+    return "";
+  }
+
+  @Override
+  public String getDay() {
+    return "";
+  }
+
+  @Override
+  public String getStock() {
+    return "";
+  }
+
+  @Override
+  public String getValue() {
+    return "";
+  }
+
+  @Override
+  public void setFieldBlank(String place) {
+
+  }
+
+  @Override
+  public String getStockAction() {
+    return "";
   }
 }
