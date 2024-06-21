@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.*;
+
 import stocks.controller.StocksController;
 
 import stocks.controller.StocksControllerImpl;
@@ -262,6 +264,32 @@ public class StocksViewImpl implements StocksView {
 
   }
 
-  public void stockOrPortfolio() {
+  @Override
+  public String getYear() {
+    return "";
+  }
+
+  @Override
+  public String getMonth() {
+    return "";
+  }
+
+  @Override
+  public String getDay() {
+    return "";
+  }
+
+  @Override
+  public String getStock() {
+    return "";
+  }
+
+  @Override
+  public String getValue() {
+    return "";
+  }
+
+  @Override
+  public void setFieldBlank(String place) {
   }
 }
