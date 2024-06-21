@@ -286,6 +286,11 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
+  public String getPortfolio() {
+    return "";
+  }
+
+  @Override
   public void setFieldBlank(String place) {
   }
 

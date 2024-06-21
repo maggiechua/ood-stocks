@@ -52,24 +52,31 @@ public class StocksGUIController implements StocksController {
   }
 
   private void search() {
-    String stockName = searchStock();
-    String portfolioName = "";
+    String stockName = view.getStock();
+    String portfolioName = view.getPortfolio();
     String date = date();
     double value = valueEntered();
     int valueInt = (int) value;
+    String answer;
     switch (stockAction) {
       case "portfolio value":
-        model.portfolioValue(portfolioName, date);
+        answer = Double.toString(model.portfolioValue(portfolioName, date));
+        view.returnResult(stockAction + ":" + answer);
         break;
       case "portfolio composition":
-        model.composition(portfolioName, date);
+        view.listWrite(model.composition(portfolioName, date), stockAction);
         break;
       case "buy stock":
-        model.stockSelect(stockName);
+        model = model.stockSelect(stockName);
         model.buy(value, date, portfolioName);
+        answer = Double.toString(value);
+        view.returnResult(stockAction + ":" + answer + ":" + portfolioName);
         break;
       case "sell stock":
+        model = model.stockSelect(stockName);
         model.sell(stockName, valueInt, date, portfolioName);
+        answer = Double.toString(-value);
+        view.returnResult(stockAction + ":" + answer + ":" + portfolioName);
         break;
       default:
         break;
@@ -99,7 +106,6 @@ public class StocksGUIController implements StocksController {
 
   private void setLoad() {
     Path filePath = Path.of(view.loadFileWindow());
-    // model.loadPortfolios();
     System.out.println("PLEASE PLEAS PLEA");
   }
 

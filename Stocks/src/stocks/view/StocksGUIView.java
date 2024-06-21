@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.rmi.activation.ActivationInstantiator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -69,7 +70,7 @@ public class StocksGUIView extends JFrame implements StocksView {
     String[] results = input.split(":");
     String action = results[0];
     if (action.equals("buy stock")) {
-      this.resultString = "User has bought " + results[1] + "stocks to portfolio " + results[2];
+      this.resultString = "User has bought " + results[1] + " stocks to portfolio " + results[2];
     }
     else if (action.equals("sell stock")) {
       this.resultString = "User has sold " + results[1] + " stocks from portfolio " + results[2];
@@ -90,7 +91,8 @@ public class StocksGUIView extends JFrame implements StocksView {
     JPanel resultPanel = new JPanel(new BorderLayout());
     resultPanel.setPreferredSize(new Dimension(250, 200));
     resultWindow.add(resultPanel);
-    JLabel helpLabel = new JLabel(action);
+    JLabel helpLabel = new JLabel("<html>Results for " + action + " method!" + result
+    + "</html>");
     resultPanel.add(helpLabel);
     resultWindow.pack();;
     resultWindow.setVisible(true);
@@ -112,20 +114,20 @@ public class StocksGUIView extends JFrame implements StocksView {
 
   @Override
   public void namePortfolioWindow() {
-    JFrame namePortfolioWindow = new JFrame("Create Portfolio");
-    namePortfolioWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    JPanel portfolioPanel = new JPanel(new BorderLayout());
-    portfolioPanel.setPreferredSize(new Dimension(250, 200));
-    namePortfolioWindow.add(portfolioPanel);
+    JFrame createPWindow = new JFrame("Create Portfolio");
+    createPWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    JPanel namePanel = new JPanel(new BorderLayout());
+    namePanel .setPreferredSize(new Dimension(250, 200));
+    createPWindow.add(namePanel );
     JLabel enterName = new JLabel("Enter name: ");
     JTextField input = new JTextField(15);
     JButton createButton = new JButton("create");
-    enterName.add(input);
-    portfolioPanel.add(enterName);
-    portfolioPanel.add(input);
-    portfolioPanel.add(createButton);
-    namePortfolioWindow.pack();
-    namePortfolioWindow.setVisible(true);
+    namePanel.add(enterName);
+    namePanel.add(input);
+    namePanel.add(createButton);
+    createPWindow.add(namePanel);
+    createPWindow.pack();;
+    createPWindow.setVisible(true);
   }
 
   @Override
@@ -151,16 +153,10 @@ public class StocksGUIView extends JFrame implements StocksView {
   public void createHelpWindow() {
     JFrame helpWindow = new JFrame("Help");
     helpWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    JPanel helpPanel = new JPanel(new BorderLayout());
+    JPanel helpPanel = new JPanel();
+    helpPanel.setLayout(new BoxLayout(helpPanel, BoxLayout.PAGE_AXIS));
     helpPanel.setPreferredSize(new Dimension(250, 200));
     helpWindow.add(helpPanel);
-    JLabel helpLabel = new JLabel(
-            "Welcome to the Stocks Program! This program allows you to create portfolios, " +
-                    " buy/sell stocks, and examine the value/composition of your portfolio" +
-                    " on a specified date. Additionally, you can load in files containing " +
-                    " portfolio transactions as long as it is in XML format. "
-    );
-    helpPanel.add(helpLabel);
     helpWindow.pack();;
     helpWindow.setVisible(true);
   }
@@ -179,12 +175,15 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   public String getStock() {
-//    return stockSearch.getText();
-    return "";
+    return enterStock.getText();
   }
 
   public String getValue() {
     return enterShares.getText();
+  }
+
+  public String getPortfolio() {
+    return (String) selectionComboBox.getSelectedItem();
   }
 
   public String getStockAction() {
@@ -200,7 +199,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   // SETTERS
   public void setFieldBlank(String place) {
     if (place.equals("stock")) {
-//      stockSearch.setText("");
+      enterStock.setText("");
     }
     else if (place.equals("value")) {
       enterShares.setText("");
@@ -220,6 +219,10 @@ public class StocksGUIView extends JFrame implements StocksView {
     createPortfolioButton.addActionListener(listen);
   }
 
+  public void setPortfolioSelectionListener(ActionListener listen) {
+    selectionComboBox.addActionListener(listen);
+  }
+
   public void setStockActionListener(ActionListener listen) {
     for (JRadioButton radioButton : radioButtons) {
       radioButton.addActionListener(listen);
@@ -227,7 +230,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   public void setStockSearchListener(ActionListener listen) {
-//    stockSearch.addActionListener(listen);
+    enterStock.addActionListener(listen);
   }
 
   public void setEnterValueListener(ActionListener listen) {

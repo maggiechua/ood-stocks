@@ -163,6 +163,8 @@ public interface StocksView {
 
   public String getValue();
 
+  public String getPortfolio();
+
   public void setFieldBlank(String place);
 
   public void createHelpWindow();
