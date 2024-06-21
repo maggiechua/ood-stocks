@@ -12,7 +12,6 @@ import stocks.controller.StocksGUIController;
 import stocks.view.StocksGUIView;
 import stocks.view.StocksView;
 import stocks.view.StocksViewImpl;
-import stocks.view.gui.StocksGUIView;
 import stocks.model.Portfolio;
 import stocks.model.StocksModel;
 import stocks.model.StocksModelImpl;
@@ -27,7 +26,7 @@ public class StockProgram {
    */
   public static void main(String[] args) {
     StocksView view = null;
-    StocksController controller;
+    StocksController controller = null;
     String init = "";
     List<Portfolio> p = new ArrayList<>();
     StocksModel model = new StocksModelImpl(init, p);
@@ -40,7 +39,7 @@ public class StockProgram {
       gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       gui.setVisible(true);
       view = gui;
-      controller = new StocksGUIControlerr(model, rd, view);
+      controller = new StocksGUIController(model, rd, view);
     }
     else if (args[0].equals("-text")) {
       view = new StocksViewImpl(System.out);
