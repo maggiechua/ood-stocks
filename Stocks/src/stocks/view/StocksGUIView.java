@@ -36,6 +36,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   private ButtonGroup radioButtonGroup, portfolioRadioButtonGroup;
   private boolean stock;
   private ReadOnlyModel rm;
+  private String resultString;
 
   public StocksGUIView(ReadOnlyModel rm) {
     super();
@@ -64,14 +65,63 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   @Override
+  public void returnResult(String input) {
+    String[] results = input.split(":");
+    String action = results[0];
+    if (action.equals("buy stock")) {
+      this.resultString = "User has bought " + results[1] + "stocks to portfolio " + results[2];
+    }
+    else if (action.equals("sell stock")) {
+      this.resultString = "User has sold " + results[1] + " stocks from portfolio " + results[2];
+    }
+    else if (action.equals("portfolio value")) {
+      this.formattedReturn(Double.parseDouble(results[1]));
+      this.resultString = "The value of portfolio " + results[2] + " is " + this.resultString;
+    }
+    else {
+      this.resultString = "error.";
+    }
+    makeResultWindow(action, this.resultString);
+  }
+
+  private void makeResultWindow(String action, String result) {
+    JFrame resultWindow = new JFrame("Results for " + action + " method!" + result);
+    resultWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    JPanel resultPanel = new JPanel(new BorderLayout());
+    resultPanel.setPreferredSize(new Dimension(250, 200));
+    resultWindow.add(resultPanel);
+    JLabel helpLabel = new JLabel(action);
+    resultPanel.add(helpLabel);
+    resultWindow.pack();;
+    resultWindow.setVisible(true);
+  }
+
+  @Override
+  public void formattedReturn(Double inp) {
+    this.resultString = "$" + String.format("%,.2f", inp) + " \n";
+  }
+
+  @Override
+  public void listWrite(Map<String, Double> input, String type) {
+    for (Map.Entry<String, Double> entry : input.entrySet()) {
+      this.resultString += entry.getKey() + ": " + String.format("%.2f", entry.getValue()) + "\n";
+    }
+    makeResultWindow(type, this.resultString);
+  }
+
+
+  @Override
   public void namePortfolioWindow() {
     JFrame namePortfolioWindow = new JFrame("Create Portfolio");
-    namePortfolioWindow .setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    namePortfolioWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     JPanel portfolioPanel = new JPanel(new BorderLayout());
     portfolioPanel.setPreferredSize(new Dimension(250, 200));
-    namePortfolioWindow .add(portfolioPanel);
+    namePortfolioWindow.add(portfolioPanel);
+    JLabel enterName = new JLabel("Enter name: ");
     JTextField input = new JTextField(15);
     JButton createButton = new JButton("create");
+    enterName.add(input);
+    portfolioPanel.add(enterName);
     portfolioPanel.add(input);
     portfolioPanel.add(createButton);
     namePortfolioWindow.pack();
@@ -134,7 +184,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   public String getValue() {
-    return enterValue.getText();
+    return enterShares.getText();
   }
 
   public String getStockAction() {
@@ -148,27 +198,12 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   // SETTERS
-  @Override
-  public void setUpPortfolioOptions(List<Portfolio> portfolios) {
-//    p = portfolios;
-  }
-
   public void setFieldBlank(String place) {
     if (place.equals("stock")) {
 //      stockSearch.setText("");
     }
     else if (place.equals("value")) {
-      enterValue.setText("");
-    }
-  }
-
-  public void setStockOrPortfolio() {
-    stock = !stock;
-    if (stock) {
-//      searchALabel.setText("Search a Stock:");
-    }
-    else {
-//      searchALabel.setText("Search a Portfolio:");
+      enterShares.setText("");
     }
   }
 
@@ -196,7 +231,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   public void setEnterValueListener(ActionListener listen) {
-    enterValue.addActionListener(listen);
+    enterShares.addActionListener(listen);
   }
 
   public void setYearsListener(ActionListener listen) {
@@ -212,7 +247,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   public void setSearchListener(ActionListener listen) {
-    searchSButton.addActionListener(listen);
+    searchPButton.addActionListener(listen);
   }
 
   // PANEL HELPERS
@@ -451,17 +486,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   @Override
-  public void returnResult(String input) {
-
-  }
-
-  @Override
   public void portfolioException(boolean buy) {
-
-  }
-
-  @Override
-  public void formattedReturn(Double inp) {
 
   }
 
@@ -482,11 +507,6 @@ public class StocksGUIView extends JFrame implements StocksView {
 
   @Override
   public void balanceInstruction() {
-
-  }
-
-  @Override
-  public void listWrite(Map<String, Double> input, String type) {
 
   }
 

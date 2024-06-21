@@ -48,7 +48,6 @@ public class StocksControllerImpl implements StocksController {
 
   private void setCreatePortfolio() {
 //    stock.createPortfolio("");
-    output.setStockOrPortfolio();
   }
 
   private void setLoad() {

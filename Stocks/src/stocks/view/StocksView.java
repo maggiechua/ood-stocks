@@ -139,8 +139,6 @@ public interface StocksView {
 
   public void setCreatePortfolioListener(ActionListener listen);
 
-  public void setStockOrPortfolio();
-
   public void setLoadListener(ActionListener listen);
 
   public void setStockSearchListener(ActionListener listen);
@@ -171,9 +169,6 @@ public interface StocksView {
 
   public String loadFileWindow();
 
-  public String getStockAction();
-
   public void namePortfolioWindow();
 
-  public void setUpPortfolioOptions(List<Portfolio> p);
 }

@@ -93,7 +93,7 @@ public class StocksGUIController implements StocksController {
   }
 
   private void setCreatePortfolio() {
-
+    view.namePortfolioWindow();
     model.createPortfolio("");
   }
 
@@ -108,12 +108,11 @@ public class StocksGUIController implements StocksController {
   }
 
   private double valueEntered() {
-    Double value;
+    Double value = 0.0;
     try {
       value = Double.parseDouble(view.getValue());
     }
     catch (NumberFormatException e) {
-      value = null;
       view.setFieldBlank("value");
       System.out.println("Please enter a number???");
     }
