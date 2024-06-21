@@ -3,35 +3,29 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
 
-import stocks.controller.StocksControllerImpl;
 import stocks.view.StocksView;
-import stocks.view.gui.panels.DataPanel;
-import stocks.view.gui.panels.MenuPanel;
-import stocks.view.gui.panels.SearchPanel;
 
 public class StocksGUIView extends JFrame implements StocksView {
   private JPanel mainPanel;
   private JPanel searchPanel, menuPanel, dataPanel, stockActionsPanel, searchStockPanel;
-  private List<ActionEvent> listeners = new ArrayList<>();
-  private JLabel instructionsLabel, searchLabel;
-  private JTextField enterStock, stockSearch;
-  private JButton helpButton, loadButton, searchButton;
-  JComboBox<String> selectionComboBox;
-  private JList<String> portfolios;
   private JPanel valPanel, yearPanel, monthPanel, dayPanel;
-  private JTextField enterValue;
+  private JLabel instructionsLabel, searchLabel, searchALabel;
+  private JTextField stockSearch, enterValue;
+  private JButton helpButton, loadButton, searchButton;
   private JLabel enterValLabel, enterYearLabel, enterMonthLabel, enterDayLabel;
-  JComboBox<String> yearsCombobox, monthsCombobox, daysCombobox;
+  private JComboBox<String> selectionComboBox, yearsCombobox, monthsCombobox, daysCombobox;
+  private JRadioButton[] radioButtons;
+  private ButtonGroup radioButtonGroup;
+  private boolean stock;
 
   public StocksGUIView() {
     super();
@@ -44,35 +38,18 @@ public class StocksGUIView extends JFrame implements StocksView {
     mainPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
     mainPanel.setPreferredSize(new Dimension(800, 600));
     this.setResizable(false);
+    this.add(mainPanel);
 
     // panels
-    mainPanel.add(this.createSearchPanel());
-    mainPanel.add(this.createMenuPanel());
-    mainPanel.add(this.createDataPanel());
+    searchPanel = this.createSearchPanel();
+    menuPanel = this.createMenuPanel();
+    dataPanel = this.createDataPanel();
 
-    this.add(mainPanel);
+    mainPanel.add(searchPanel);
+    mainPanel.add(menuPanel);
+    mainPanel.add(dataPanel);
+
     this.pack();
-  }
-
-  @Override
-  public void setUpListeners(ActionListener listener) {
-    // search panel components
-    helpButton.addActionListener(listener);
-    loadButton.addActionListener(listener);
-    loadButton.setActionCommand("load");
-
-    // menu panel components
-
-
-    // data panel components
-    yearsCombobox.addActionListener(listener);
-    monthsCombobox.addActionListener(listener);
-    daysCombobox.addActionListener(listener);
-    searchButton.addActionListener(listener);
-  }
-
-  public ArrayList<ActionEvent> getListeners() {
-    return (ArrayList<ActionEvent>) listeners;
   }
 
   public JPanel createSearchPanel() {
@@ -91,10 +68,9 @@ public class StocksGUIView extends JFrame implements StocksView {
     loadButton = new JButton("Load File");
     searchPanel.add(helpButton);
     searchPanel.add(loadButton);
-
     searchLabel = new JLabel("Search a: ");
     searchPanel.add(searchLabel);
-    String[] selectionOptions = {"", "stock", "portfolio"};
+    String[] selectionOptions = {"stock", "portfolio"};
     selectionComboBox = this.createComboBox(selectionOptions);
     selectionComboBox.setActionCommand("Stock-Portfolio Selected");
     searchLabel.add(selectionComboBox);
@@ -114,11 +90,8 @@ public class StocksGUIView extends JFrame implements StocksView {
     stockActionsPanel.setBounds(0, 100, 400, 400);
     stockActionsPanel.setLayout(new BoxLayout(stockActionsPanel, BoxLayout.PAGE_AXIS));
 
-    JRadioButton[] radioButtons = new JRadioButton[4];
-
-    //buttons groups are used to combine radio buttons. Only one radio
-    // button in each group can be selected.
-    ButtonGroup rGroup1 = new ButtonGroup();
+    radioButtons = new JRadioButton[4];
+    radioButtonGroup = new ButtonGroup();
 
     List<String> stockMethodOptions = new ArrayList<>(Arrays.asList(
             "portfolio value", "portfolio composition",
@@ -129,8 +102,7 @@ public class StocksGUIView extends JFrame implements StocksView {
       radioButtons[i].setSelected(false);
 
       radioButtons[i].setActionCommand("Stock Method Selected" + radioButtons[i].getText());
-//      radioButtons[i].addActionListener(this);
-      rGroup1.add(radioButtons[i]);
+      radioButtonGroup.add(radioButtons[i]);
       stockActionsPanel.add(radioButtons[i]);
     }
     menuPanel.add(stockActionsPanel);
@@ -138,12 +110,14 @@ public class StocksGUIView extends JFrame implements StocksView {
     // search a stock
     searchStockPanel = new JPanel();
     searchStockPanel.setBackground(Color.WHITE);
-    searchLabel = new JLabel("Search a Stock:");
+    stock = false;
+    searchALabel = new JLabel();
+    this.setStockOrPortfolio();
     stockSearch = new JTextField(15);
     searchButton = new JButton("search");
     searchButton.setActionCommand("Search");
     searchButton.setPreferredSize(new Dimension(80, 20));
-    searchStockPanel.add(searchLabel);
+    searchStockPanel.add(searchALabel);
     searchStockPanel.add(stockSearch);
     searchStockPanel.add(searchButton);
     menuPanel.add(searchStockPanel);
@@ -170,17 +144,17 @@ public class StocksGUIView extends JFrame implements StocksView {
     // entering date fields
     yearPanel = new JPanel();
     yearPanel.setBackground(Color.WHITE);
-    yearPanel.setBorder(BorderFactory.createEmptyBorder(-10, 50, -10, 50));
+    yearPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
     dataPanel.add(yearPanel);
 
     monthPanel = new JPanel();
     monthPanel.setBackground(Color.WHITE);
-    monthPanel.setBorder(BorderFactory.createEmptyBorder(-10, 50, -10, 50));
+    monthPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
     dataPanel.add(monthPanel);
 
     dayPanel = new JPanel();
     dayPanel.setBackground(Color.WHITE);
-    dayPanel.setBorder(BorderFactory.createEmptyBorder(-10, 50, -10, 50));
+    dayPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
     dataPanel.add(dayPanel);
 
     enterYearLabel = new JLabel("Enter year:");
@@ -224,10 +198,52 @@ public class StocksGUIView extends JFrame implements StocksView {
     return dataPanel;
   }
 
+  public void setHelpListener(ActionListener listen) {
+    helpButton.addActionListener(listen);
+  }
+
+  public void setLoadListener(ActionListener listen) {
+    loadButton.addActionListener(listen);
+  }
+
+  public void setStockPortfolioListener(ActionListener listen) {
+    selectionComboBox.addActionListener(listen);
+  }
+
+  public void setStockActionListener(ActionListener listen) {
+    for (JRadioButton radioButton : radioButtons) {
+      radioButton.addActionListener(listen);
+    }
+  }
+
+  public void setStockSearchListener(ActionListener listen) {
+    stockSearch.addActionListener(listen);
+  }
+
+  public void setEnterValueListener(ActionListener listen) {
+    enterValue.addActionListener(listen);
+  }
+
+  public void setYearsListener(ActionListener listen) {
+    yearsCombobox.addActionListener(listen);
+  }
+
+  public void setMonthsListener(ActionListener listen) {
+    monthsCombobox.addActionListener(listen);
+  }
+
+  public void setDaysListener(ActionListener listen) {
+    daysCombobox.addActionListener(listen);
+  }
+
+  public void setSearchListener(ActionListener listen) {
+    searchButton.addActionListener(listen);
+  }
+
   /**
-   *
-   * @param options
-   * @return
+   * The following method creates a combobox based on the given options.
+   * @param options is a list of Strings representing the different options for the combo box
+   * @return a combobox of strings
    */
   public JComboBox<String> createComboBox(String[] options) {
     JComboBox<String> comboBox = new JComboBox<String>();
@@ -235,6 +251,16 @@ public class StocksGUIView extends JFrame implements StocksView {
       comboBox.addItem(options[i]);
     }
     return comboBox;
+  }
+
+  public void setStockOrPortfolio() {
+    stock = !stock;
+    if (stock) {
+      searchALabel.setText("Search a Stock:");
+    }
+    else {
+      searchALabel.setText("Search a Portfolio:");
+    }
   }
 
   @Override
@@ -307,7 +333,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   @Override
-  public void barWrite(String name, String date1, String date2, HashMap<String, Double> input, Integer scale, List<String> order) {
+  public void barWrite(String name, String date1, String date2, HashMap<String, Double> input, Integer scale, ArrayList<String> order) {
 
   }
 
@@ -330,9 +356,4 @@ public class StocksGUIView extends JFrame implements StocksView {
   public void rebalanced(String portfolioName) {
 
   }
-
-//  @Override
-//  public void actionPerformed(ActionEvent e) {
-//    listeners.add(e);
-//  }
 }

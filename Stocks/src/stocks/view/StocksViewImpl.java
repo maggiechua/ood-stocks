@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import stocks.controller.StocksController;
+
 import stocks.controller.StocksControllerImpl;
 
 //TODO: PERFORMANCE OVER TIME
@@ -206,7 +208,60 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void setUpListeners(ActionListener listener) {
+  public void setHelpListener(ActionListener listen) {
 
+  }
+
+  @Override
+  public void setStockActionListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setStockPortfolioListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setStockOrPortfolio() {
+
+  }
+
+  @Override
+  public void setLoadListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setStockSearchListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setEnterValueListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setYearsListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setMonthsListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setDaysListener(ActionListener listen) {
+
+  }
+
+  @Override
+  public void setSearchListener(ActionListener listen) {
+
+  }
+
+  public void stockOrPortfolio() {
   }
 }

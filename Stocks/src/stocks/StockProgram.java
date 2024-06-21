@@ -12,7 +12,6 @@ import stocks.view.gui.StocksGUIView;
 import stocks.model.Portfolio;
 import stocks.model.StocksModel;
 import stocks.model.StocksModelImpl;
-import stocks.view.StocksView;
 
 /**
  * This class represents the Stock Program.
@@ -33,8 +32,7 @@ public class StockProgram {
     List<Portfolio> p = new ArrayList<>();
     StocksModel model = new StocksModelImpl(init, p);
     Readable rd = new InputStreamReader(System.in);
-    StocksView ap = new StocksGUIView();
-    StocksController controller = new StocksControllerImpl(model, rd, ap);
+    StocksController controller = new StocksControllerImpl(model, rd, gui);
     controller.execute();
   }
 }

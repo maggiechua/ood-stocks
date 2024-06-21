@@ -1,7 +1,5 @@
 package stocks.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -15,7 +13,7 @@ import stocks.model.StocksModel;
  * This controller works with any Readable to read its inputs.
  * Dates are taken in YYYY-MM-DD format.
  */
-public class StocksControllerImpl implements StocksController, ActionListener {
+public class StocksControllerImpl implements StocksController {
   private Readable rd;
   private StocksModel stock;
   private StocksView output;
@@ -36,21 +34,40 @@ public class StocksControllerImpl implements StocksController, ActionListener {
     this.output = output;
   }
 
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    String command = e.getActionCommand();
-    switch (command) {
-      case "Stock-Portfolio Selected":
-        System.out.println("we made it ig");
-        break;
-      case "Search":
-        System.out.println("it works");
-        break;
-      case "load":
-        System.out.println("load");
-      default:
-        break;
-    }
+  private void showHelp() {
+    System.out.println("PLEASE PLEAS PLEA");
+  }
+
+  private void setStockAction() {
+  }
+
+  private void setStockPortfolio() {
+    output.setStockOrPortfolio();
+  }
+
+  private void setLoad() {
+  }
+
+  private void searchStock() {
+  }
+
+  private void valueEntered() {
+  }
+
+  private void date() {
+  }
+
+  private void year() {
+  }
+
+  private void month() {
+  }
+
+  private void day() {
+  }
+
+  private void search() {
+
   }
 
   /**
@@ -62,7 +79,17 @@ public class StocksControllerImpl implements StocksController, ActionListener {
    */
   @Override
   public void execute() {
-    output.setUpListeners(this);
+    output.setHelpListener(e -> showHelp());
+    output.setStockActionListener(e -> setStockAction());
+    output.setStockPortfolioListener(e -> setStockPortfolio());
+    output.setLoadListener(e -> setLoad());
+    output.setStockSearchListener(e -> searchStock());
+    output.setEnterValueListener(e -> valueEntered());
+    output.setYearsListener(e -> year());
+    output.setMonthsListener(e -> month());
+    output.setDaysListener(e -> day());
+    output.setSearchListener(e -> search());
+
     Scanner sc = new Scanner(rd);
     boolean quit = false;
     boolean miniquit;

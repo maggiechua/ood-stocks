@@ -8,7 +8,7 @@ import java.util.Map;
 
 import javax.swing.*;
 
-import stocks.controller.StocksControllerImpl;
+import stocks.controller.StocksController;
 
 /**
  * This interface represents the View for a text-based interface of the Stocks Program where
@@ -131,5 +131,26 @@ public interface StocksView {
    */
   public void rebalanced(String portfolioName);
 
-  void setUpListeners(ActionListener listener);
+
+  public void setHelpListener(ActionListener listen);
+
+  public void setStockActionListener(ActionListener listen);
+
+  public void setStockPortfolioListener(ActionListener listen);
+
+  public void setStockOrPortfolio();
+
+  public void setLoadListener(ActionListener listen);
+
+  public void setStockSearchListener(ActionListener listen);
+
+  public void setEnterValueListener(ActionListener listen);
+
+  public void setYearsListener(ActionListener listen);
+
+  public void setMonthsListener(ActionListener listen);
+
+  public void setDaysListener(ActionListener listen);
+
+  public void setSearchListener(ActionListener listen);
 }
