@@ -38,6 +38,7 @@ public class StocksControllerImpl implements StocksController {
   }
 
   private void showHelp() {
+    output.createHelpWindow();
     System.out.println("PLEASE PLEAS PLEA");
   }
 
@@ -50,6 +51,8 @@ public class StocksControllerImpl implements StocksController {
   }
 
   private void setLoad() {
+    output.loadFileWindow();
+    System.out.println("PLEASE PLEAS PLEA");
   }
 
   private String searchStock() {

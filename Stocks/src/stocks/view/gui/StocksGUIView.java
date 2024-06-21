@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,8 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import stocks.controller.StocksControllerImpl;
 import stocks.view.StocksView;
+import swingdemo.SwingFeaturesFrame;
 
 public class StocksGUIView extends JFrame implements StocksView {
   private JPanel mainPanel;
@@ -52,6 +56,42 @@ public class StocksGUIView extends JFrame implements StocksView {
     this.pack();
   }
 
+  @Override
+  public void loadFileWindow() {
+    JFrame fileWindow = new JFrame("Load File");
+    fileWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    JPanel fileOpenPanel = new JPanel(new BorderLayout());
+    fileOpenPanel.setPreferredSize(new Dimension(200, 200));
+    final JFileChooser fchooser = new JFileChooser(".");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+            "Portfolio files", "xml");
+    fchooser.setFileFilter(filter);
+    JLabel fileOpenDisplay = new JLabel("File path will appear here");
+    int retvalue = fchooser.showOpenDialog(fileWindow);
+    if (retvalue == JFileChooser.APPROVE_OPTION) {
+      File f = fchooser.getSelectedFile();
+      fileOpenDisplay.setText(f.getAbsolutePath());
+    }
+  }
+
+  @Override
+  public void createHelpWindow() {
+    JFrame helpWindow = new JFrame("Help");
+    helpWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    JPanel helpPanel = new JPanel(new BorderLayout());
+    helpPanel.setPreferredSize(new Dimension(250, 200));
+    helpWindow.add(helpPanel);
+    JLabel helpLabel = new JLabel(
+            "Welcome to the Stocks Program! This program allows you to create portfolios, " +
+                    " buy/sell stocks, and examine the value/composition of your portfolio" +
+                    " on a specified date. Additionally, you can load in files containing " +
+                    " portfolio transactions as long as it is in XML format. "
+    );
+    helpPanel.add(helpLabel);
+    helpWindow.pack();;
+    helpWindow.setVisible(true);
+  }
+
   public JPanel createSearchPanel() {
     searchPanel = new JPanel();
     searchPanel.setPreferredSize(new Dimension(800, 100));
@@ -78,6 +118,11 @@ public class StocksGUIView extends JFrame implements StocksView {
     return searchPanel;
   }
 
+  /**
+   * The following method creates the menu panel on the Stocks Program GUI containing
+   * options for the user to choose what stock actions (buy/sell) they want to perform.
+   * @return a Menu JPanel
+   */
   public JPanel createMenuPanel() {
     menuPanel = new JPanel();
     menuPanel.setPreferredSize(new Dimension(400, 500));
@@ -124,6 +169,11 @@ public class StocksGUIView extends JFrame implements StocksView {
     return menuPanel;
   }
 
+  /**
+   * The following method creates the data panel on the Stocks Program GUI containing
+   * options for the user to specify what date they want to search the stock/portfolio.
+   * @return a Data JPanel
+   */
   public JPanel createDataPanel() {
     dataPanel = new JPanel();
     dataPanel.setPreferredSize(new Dimension(400, 500));
