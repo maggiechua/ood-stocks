@@ -226,11 +226,6 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void setStockOrPortfolio() {
-
-  }
-
-  @Override
   public void setLoadListener(ActionListener listen) {
 
   }
@@ -291,9 +286,15 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
+  public String getPortfolio() {
+    return "";
+  }
+
+  @Override
   public void setFieldBlank(String place) {
   }
 
+  @Override
   public void createHelpWindow() {
 
   }
@@ -303,17 +304,8 @@ public class StocksViewImpl implements StocksView {
     return "";
   }
 
-  public String getStockAction() {
-    return "";
-  }
-
   @Override
   public void namePortfolioWindow() {
-
-  }
-
-  @Override
-  public void setUpPortfolioOptions(List<Portfolio> p) {
 
   }
 }

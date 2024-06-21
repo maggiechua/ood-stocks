@@ -35,7 +35,6 @@ public class StocksGUIController implements StocksController {
   @Override
   public void execute() {
     model = model.loadPortfolios();
-    view.setUpPortfolioOptions(model.getPortfolios());
     this.setUpListeners();
   }
 
@@ -53,28 +52,31 @@ public class StocksGUIController implements StocksController {
   }
 
   private void search() {
-    String stockName = searchStock();
-    String portfolioName = "";
+    String stockName = view.getStock();
+    String portfolioName = view.getPortfolio();
     String date = date();
     double value = valueEntered();
     int valueInt = (int) value;
     String answer;
     switch (stockAction) {
       case "portfolio value":
-        answer = model.portfolioValue(portfolioName, date).toString();
+        answer = Double.toString(model.portfolioValue(portfolioName, date));
         view.returnResult(stockAction + ":" + answer);
         break;
       case "portfolio composition":
         view.listWrite(model.composition(portfolioName, date), stockAction);
         break;
       case "buy stock":
-        model.stockSelect(stockName);
-        answer = model.buy(value, date, portfolioName).toString();
-        view.returnResult(stockAction + ":" + answer  + ":" + portfolioName);
+        model = model.stockSelect(stockName);
+        model.buy(value, date, portfolioName);
+        answer = Double.toString(value);
+        view.returnResult(stockAction + ":" + answer + ":" + portfolioName);
         break;
       case "sell stock":
-        answer = model.sell(stockName, valueInt, date, portfolioName).toString();
-        view.returnResult(stockAction + ":" + answer  + ":" + portfolioName);
+        model = model.stockSelect(stockName);
+        model.sell(stockName, valueInt, date, portfolioName);
+        answer = Double.toString(-value);
+        view.returnResult(stockAction + ":" + answer + ":" + portfolioName);
         break;
       default:
         break;
@@ -98,13 +100,12 @@ public class StocksGUIController implements StocksController {
   }
 
   private void setCreatePortfolio() {
-
+    view.namePortfolioWindow();
     model.createPortfolio("");
   }
 
   private void setLoad() {
     Path filePath = Path.of(view.loadFileWindow());
-    // model.loadPortfolios();
     System.out.println("PLEASE PLEAS PLEA");
   }
 
@@ -113,12 +114,13 @@ public class StocksGUIController implements StocksController {
   }
 
   private double valueEntered() {
-    double value;
+    Double value = 0.0;
     try {
       value = Double.parseDouble(view.getValue());
     }
     catch (NumberFormatException e) {
-      value = 0;
+      view.setFieldBlank("value");
+      System.out.println("Please enter a number???");
     }
     return value;
   }

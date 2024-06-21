@@ -37,6 +37,73 @@ public class StocksControllerImpl implements StocksController {
     this.stockAction = "";
   }
 
+  private void showHelp() {
+    output.createHelpWindow();
+    System.out.println("PLEASE PLEAS PLEA");
+  }
+
+  private void setStockAction(String command) {
+    this.stockAction = command;
+  }
+
+  private void setCreatePortfolio() {
+//    stock.createPortfolio("");
+  }
+
+  private void setLoad() {
+    output.loadFileWindow();
+    System.out.println("PLEASE PLEAS PLEA");
+  }
+
+  private String searchStock() {
+    return output.getStock();
+  }
+
+  private double valueEntered() {
+    Double value;
+    try {
+      value = Double.parseDouble(output.getValue());
+    }
+    catch (NumberFormatException e) {
+      value = null;
+      output.setFieldBlank("value");
+      System.out.println("Please enter a number???");
+    }
+    return value;
+  }
+
+  private String date() {
+    String year = output.getYear();
+    String month = output.getMonth();
+    String day = output.getDay();
+    return year + "-" + month + "-" + day;
+  }
+
+  private void search() {
+    String stockName = searchStock();
+    String portfolioName = "";
+    String date = date();
+    double value = valueEntered();
+    int valueInt = (int) value;
+    switch (stockAction) {
+      case "portfolio value":
+        stock.portfolioValue(portfolioName, date);
+        break;
+      case "portfolio composition":
+        stock.composition(portfolioName, date);
+        break;
+      case "buy stock":
+        stock.stockSelect(stockName);
+        stock.buy(value, date, portfolioName);
+        break;
+      case "sell stock":
+        stock.sell(stockName, valueInt, date, portfolioName);
+        break;
+      default:
+        break;
+    }
+  }
+
   /**
    * There are minor changes in this method as compared to the previous submission, for the sake of
    * separation into the stockActions method, but also in the way dates are taken in, and to ensure
