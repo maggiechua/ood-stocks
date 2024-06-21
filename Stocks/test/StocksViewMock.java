@@ -135,7 +135,6 @@ public class StocksViewMock implements StocksView {
 
   @Override
   public void setHelpListener(ActionListener listen) {
-
   }
 
   @Override
@@ -220,6 +219,10 @@ public class StocksViewMock implements StocksView {
 
   @Override
   public void createHelpWindow() {
-
+  }
+  
+  @Override
+  public String getStockAction() {
+    return "";
   }
 }
