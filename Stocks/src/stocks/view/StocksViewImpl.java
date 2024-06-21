@@ -292,4 +292,9 @@ public class StocksViewImpl implements StocksView {
   @Override
   public void setFieldBlank(String place) {
   }
+
+  @Override
+  public String getStockAction() {
+    return "";
+  }
 }

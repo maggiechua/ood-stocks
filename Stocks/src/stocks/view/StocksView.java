@@ -165,4 +165,6 @@ public interface StocksView {
   public String getValue();
 
   public void setFieldBlank(String place);
+
+  public String getStockAction();
 }
