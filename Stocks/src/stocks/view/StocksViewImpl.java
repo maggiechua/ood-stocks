@@ -298,10 +298,16 @@ public class StocksViewImpl implements StocksView {
   }
 
   @Override
-  public void loadFileWindow() {
+  public String loadFileWindow() {
+    return "";
   }
 
   public String getStockAction() {
     return "";
+  }
+
+  @Override
+  public void namePortfolioWindow() {
+
   }
 }

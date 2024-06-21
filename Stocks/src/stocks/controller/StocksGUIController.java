@@ -1,5 +1,7 @@
 package stocks.controller;
 
+import java.nio.file.Path;
+
 import stocks.model.StocksModel;
 import stocks.view.StocksView;
 
@@ -24,7 +26,7 @@ public class StocksGUIController implements StocksController {
     if ((model == null) || (rd == null)) {
       throw new IllegalArgumentException("Stock or Readable is null");
     }
-    this.model = model;
+    this.model = model.loadPortfolios();
     this.rd = rd;
     this.view = view;
     this.stockAction = "";
@@ -90,12 +92,13 @@ public class StocksGUIController implements StocksController {
   }
 
   private void setCreatePortfolio() {
-//    stock.createPortfolio("");
-    view.setStockOrPortfolio();
+
+    model.createPortfolio("");
   }
 
   private void setLoad() {
-    view.loadFileWindow();
+    Path filePath = Path.of(view.loadFileWindow());
+    // model.loadPortfolios();
     System.out.println("PLEASE PLEAS PLEA");
   }
 

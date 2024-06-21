@@ -9,6 +9,8 @@ import javax.swing.*;
 import stocks.controller.StocksController;
 import stocks.controller.StocksControllerImpl;
 import stocks.controller.StocksGUIController;
+import stocks.model.ReadOnlyModel;
+import stocks.model.ViewModel;
 import stocks.view.StocksGUIView;
 import stocks.view.StocksView;
 import stocks.view.StocksViewImpl;

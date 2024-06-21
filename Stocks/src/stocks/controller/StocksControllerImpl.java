@@ -114,17 +114,6 @@ public class StocksControllerImpl implements StocksController {
    */
   @Override
   public void execute() {
-    output.setHelpListener(e -> output.createHelpWindow());
-    output.setStockActionListener(e -> setStockAction(e.getActionCommand()));
-    output.setCreatePortfolioListener(e -> setCreatePortfolio());
-    output.setLoadListener(e -> setLoad());
-    output.setStockSearchListener(e -> searchStock());
-    output.setEnterValueListener(e -> valueEntered());
-    output.setYearsListener(e -> date());
-    output.setMonthsListener(e -> date());
-    output.setDaysListener(e -> date());
-    output.setSearchListener(e -> search());
-
     Scanner sc = new Scanner(rd);
     boolean quit = false;
     boolean miniquit;

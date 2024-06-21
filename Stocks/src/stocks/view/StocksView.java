@@ -168,7 +168,9 @@ public interface StocksView {
 
   public void createHelpWindow();
 
-  public void loadFileWindow();
+  public String loadFileWindow();
 
   public String getStockAction();
+
+  public void namePortfolioWindow();
 }
