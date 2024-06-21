@@ -1,10 +1,13 @@
 package stocks.view;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.*;
+
+import stocks.controller.StocksController;
 
 /**
  * This interface represents the methods for the view section of the program.
@@ -125,4 +128,27 @@ public interface StocksView {
    * @param portfolioName the name of the portfolio being rebalanced
    */
   public void rebalanced(String portfolioName);
+
+
+  public void setHelpListener(ActionListener listen);
+
+  public void setStockActionListener(ActionListener listen);
+
+  public void setStockPortfolioListener(ActionListener listen);
+
+  public void setStockOrPortfolio();
+
+  public void setLoadListener(ActionListener listen);
+
+  public void setStockSearchListener(ActionListener listen);
+
+  public void setEnterValueListener(ActionListener listen);
+
+  public void setYearsListener(ActionListener listen);
+
+  public void setMonthsListener(ActionListener listen);
+
+  public void setDaysListener(ActionListener listen);
+
+  public void setSearchListener(ActionListener listen);
 }
