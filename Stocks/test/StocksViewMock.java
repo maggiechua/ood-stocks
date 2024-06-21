@@ -144,7 +144,7 @@ public class StocksViewMock implements StocksView {
   }
 
   @Override
-  public void setStockPortfolioListener(ActionListener listen) {
+  public void setCreatePortfolioListener(ActionListener listen) {
 
   }
 
@@ -220,6 +220,21 @@ public class StocksViewMock implements StocksView {
 
   @Override
   public void createHelpWindow() {
+
+  }
+
+  @Override
+  public String loadFileWindow() {
+    return "";
+  }
+
+  @Override
+  public String getStockAction() {
+    return "";
+  }
+
+  @Override
+  public void namePortfolioWindow() {
 
   }
 }
