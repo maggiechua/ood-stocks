@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.swing.*;
 
 import stocks.controller.StocksController;
+import stocks.model.Portfolio;
 
 /**
  * This interface represents the View for a text-based interface of the Stocks Program where
@@ -173,4 +174,6 @@ public interface StocksView {
   public String getStockAction();
 
   public void namePortfolioWindow();
+
+  public void setUpPortfolioOptions(List<Portfolio> p);
 }

@@ -26,7 +26,7 @@ public class StocksGUIController implements StocksController {
     if ((model == null) || (rd == null)) {
       throw new IllegalArgumentException("Stock or Readable is null");
     }
-    this.model = model.loadPortfolios();
+    this.model = model;
     this.rd = rd;
     this.view = view;
     this.stockAction = "";
@@ -34,6 +34,8 @@ public class StocksGUIController implements StocksController {
 
   @Override
   public void execute() {
+    model = model.loadPortfolios();
+    view.setUpPortfolioOptions(model.getPortfolios());
     this.setUpListeners();
   }
 
