@@ -153,4 +153,16 @@ public interface StocksView {
   public void setDaysListener(ActionListener listen);
 
   public void setSearchListener(ActionListener listen);
+
+  public String getYear();
+
+  public String getMonth();
+
+  public String getDay();
+
+  public String getStock();
+
+  public String getValue();
+
+  public void setFieldBlank(String place);
 }

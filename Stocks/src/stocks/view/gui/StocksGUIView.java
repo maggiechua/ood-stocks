@@ -101,7 +101,7 @@ public class StocksGUIView extends JFrame implements StocksView {
       radioButtons[i].setBackground(Color.WHITE);
       radioButtons[i].setSelected(false);
 
-      radioButtons[i].setActionCommand("Stock Method Selected" + radioButtons[i].getText());
+      radioButtons[i].setActionCommand(radioButtons[i].getText());
       radioButtonGroup.add(radioButtons[i]);
       stockActionsPanel.add(radioButtons[i]);
     }
@@ -198,6 +198,39 @@ public class StocksGUIView extends JFrame implements StocksView {
     return dataPanel;
   }
 
+  public String getYear() {
+    return (String) yearsCombobox.getSelectedItem();
+  }
+
+  public String getMonth() {
+    return (String) monthsCombobox.getSelectedItem();
+  }
+
+  public String getDay() {
+    return (String) daysCombobox.getSelectedItem();
+  }
+
+  public String getStock() {
+    return stockSearch.getText();
+  }
+
+  public String getValue() {
+    return enterValue.getText();
+  }
+
+  public String getStockAction() {
+    return "";
+  }
+
+  public void setFieldBlank(String place) {
+    if (place.equals("stock")) {
+      stockSearch.setText("");
+    }
+    else if (place.equals("value")) {
+      enterValue.setText("");
+    }
+  }
+
   public void setHelpListener(ActionListener listen) {
     helpButton.addActionListener(listen);
   }
@@ -265,7 +298,6 @@ public class StocksGUIView extends JFrame implements StocksView {
 
   @Override
   public void welcomeMessage() {
-
   }
 
   @Override
@@ -333,7 +365,7 @@ public class StocksGUIView extends JFrame implements StocksView {
   }
 
   @Override
-  public void barWrite(String name, String date1, String date2, HashMap<String, Double> input, Integer scale, ArrayList<String> order) {
+  public void barWrite(String name, String date1, String date2, HashMap<String, Double> input, Integer scale, List<String> order) {
 
   }
 

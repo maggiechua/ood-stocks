@@ -17,6 +17,7 @@ public class StocksControllerImpl implements StocksController {
   private Readable rd;
   private StocksModel stock;
   private StocksView output;
+  private String stockAction;
 
   /**
    * This makes a new StockControllerImpl.
@@ -32,6 +33,7 @@ public class StocksControllerImpl implements StocksController {
     this.stock = stock;
     this.rd = rd;
     this.output = output;
+    this.stockAction = "";
   }
 
   private void showHelp() {
@@ -39,6 +41,7 @@ public class StocksControllerImpl implements StocksController {
   }
 
   private void setStockAction() {
+
   }
 
   private void setStockPortfolio() {
@@ -49,25 +52,36 @@ public class StocksControllerImpl implements StocksController {
   }
 
   private void searchStock() {
+    output.getStock();
   }
 
   private void valueEntered() {
+    try {
+      Integer value = Integer.parseInt(output.getValue());
+    }
+    catch (NumberFormatException e) {
+      output.setFieldBlank("value");
+      System.out.println("Please enter a number???");
+    }
   }
 
   private void date() {
-  }
-
-  private void year() {
-  }
-
-  private void month() {
-  }
-
-  private void day() {
+    String year = output.getYear();
+    String month = output.getMonth();
+    String day = output.getDay();
   }
 
   private void search() {
-
+    switch (stockAction) {
+      case "portfolio-value":
+        break;
+      case "portfolio-date":
+        break;
+      case "buy":
+        break;
+      case "sell":
+        break;
+    }
   }
 
   /**
@@ -85,9 +99,9 @@ public class StocksControllerImpl implements StocksController {
     output.setLoadListener(e -> setLoad());
     output.setStockSearchListener(e -> searchStock());
     output.setEnterValueListener(e -> valueEntered());
-    output.setYearsListener(e -> year());
-    output.setMonthsListener(e -> month());
-    output.setDaysListener(e -> day());
+    output.setYearsListener(e -> date());
+    output.setMonthsListener(e -> date());
+    output.setDaysListener(e -> date());
     output.setSearchListener(e -> search());
 
     Scanner sc = new Scanner(rd);
